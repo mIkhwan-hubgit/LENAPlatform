@@ -99,8 +99,30 @@ export default async function handler(req, res) {
     const status = e && e.status;
     if (status === 429) return bad(res, 429, 'rate-limited');
     if (status === 401 || status === 403) return bad(res, 502, 'The API key was rejected. Check LENA_API_KEY in your hosting settings.');
-    return bad(res, 502, 'The model could not be reached.');
+    return res.status(502).json({
+      error: 'The model could not be reached.',
+      upstreamStatus: status || null,
+      model: MODEL,
+      detail: (e && e.detail ? String(e.detail).slice(0, 400) : null)
+    });
   }
+}
+
+// Reads the provider's error body and writes it to the server log, so a
+// failed call says WHY in Vercel's Logs tab instead of just "502". The key
+// is redacted defensively; it travels in a header, not the URL, but a log
+// is the last place it should ever appear.
+async function upstreamError(provider, r, where) {
+  let body = '';
+  try { body = (await r.text()).slice(0, 900); } catch {}
+  if (API_KEY) body = body.split(API_KEY).join('[REDACTED]');
+  console.error(
+    `[LENA] ${provider} refused: HTTP ${r.status} | model=${MODEL} | ${where}\n${body}`
+  );
+  const err = new Error(provider);
+  err.status = r.status;
+  err.detail = body;
+  return err;
 }
 
 // ── Google Gemini ───────────────────────────────────
@@ -129,7 +151,7 @@ async function callGemini(history, message) {
     })
   });
 
-  if (!r.ok) { const err = new Error('gemini'); err.status = r.status; throw err; }
+  if (!r.ok) { throw await upstreamError('gemini', r, url); }
   const j = await r.json();
   const parts = j && j.candidates && j.candidates[0] && j.candidates[0].content && j.candidates[0].content.parts;
   return (parts || []).map(p => p.text || '').join('').trim();
@@ -147,7 +169,7 @@ async function callOpenAICompatible(history, message) {
     body: JSON.stringify({ model: MODEL, messages, temperature: 0.8, max_tokens: 400 })
   });
 
-  if (!r.ok) { const err = new Error('openai'); err.status = r.status; throw err; }
+  if (!r.ok) { throw await upstreamError('openai', r, BASE_URL); }
   const j = await r.json();
   return ((j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content) || '').trim();
 }
