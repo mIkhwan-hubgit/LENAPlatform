@@ -2873,11 +2873,12 @@ function pushHistory(role,text){
 // rather than inventing a reply, and still offers the things that work
 // without a network: the guided tools and the crisis numbers.
 function failureMessage(kind){
-  const tail='<br><br>The guided tools and the crisis numbers all work without a connection.';
-  if(kind==='rate')  return 'I am getting more messages than I can answer right now, so I need a moment. Please try again shortly.'+tail;
-  if(kind==='offline')return 'I cannot reach the internet at the moment, so I am not able to reply properly. Your connection may have dropped.'+tail;
-  if(kind==='key')   return 'Something is misconfigured on my side and I cannot reply right now. This is not your fault.'+tail;
-  return 'Something went wrong on my side and I could not reply. Please try again in a moment.'+tail;
+  const tail='<br><br>The guided tools and the crisis numbers still work while this is down.';
+  if(kind==='rate')  return 'Give me a minute, I have got a queue backed up and I do not want to half answer you. Try me again shortly.'+tail;
+  if(kind==='busy')  return 'I am a bit overloaded this second. Send that again and it should go through.'+tail;
+  if(kind==='offline')return 'I have lost connection, so nothing you send is reaching me right now. Worth checking your wifi or data.'+tail;
+  if(kind==='key')   return 'Something is broken on my end and it is not anything you did. I cannot reply properly until it is fixed.'+tail;
+  return 'That did not go through on my end. Try sending it again.'+tail;
 }
 
 async function askLena(message){
@@ -2897,9 +2898,10 @@ async function askLena(message){
 
   if(r.status===429) return {t:failureMessage('rate'),fail:true};
   if(!r.ok){
-    let msg='';
-    try{ msg=(await r.json()).error||''; }catch(e){}
-    return {t:failureMessage(/key/i.test(msg)?'key':'error'),fail:true};
+    let msg='',up=null;
+    try{ const j=await r.json(); msg=j.error||''; up=j.upstreamStatus||null; }catch(e){}
+    const kind=/key/i.test(msg)?'key':([500,502,503,504].includes(up)?'busy':'error');
+    return {t:failureMessage(kind),fail:true};
   }
   let j;
   try{ j=await r.json(); }catch(e){ return {t:failureMessage('error'),fail:true}; }
