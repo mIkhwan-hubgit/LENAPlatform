@@ -69,6 +69,16 @@ If asked, be honest: you are an AI support companion, not a human and not a clin
 const MAX_TURNS = 12;        // how much history to send
 const MAX_CHARS = 1200;      // per message, generous for a chat
 
+// Gemini 3 models reason internally before answering, and those thinking
+// tokens are counted against maxOutputTokens. A budget sized for the visible
+// reply alone gets spent on thinking and the answer arrives truncated
+// mid-sentence, so this is set well above what the reply itself needs.
+const MAX_TOKENS = Number(process.env.MAX_TOKENS) || 2048;
+
+// Optional. Set THINKING_LEVEL to "minimal" or "low" to make replies faster
+// and cheaper. Left unset, nothing is sent and the model uses its default.
+const THINKING_LEVEL = process.env.THINKING_LEVEL || '';
+
 function bad(res, code, message) {
   res.status(code).json({ error: message });
 }
@@ -138,7 +148,10 @@ async function callGemini(history, message) {
     body: JSON.stringify({
       contents,
       systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
-      generationConfig: { temperature: 0.8, maxOutputTokens: 400 },
+      generationConfig: Object.assign(
+        { temperature: 0.8, maxOutputTokens: MAX_TOKENS },
+        THINKING_LEVEL ? { thinkingConfig: { thinkingLevel: THINKING_LEVEL } } : {}
+      ),
       // Let the model discuss distress. Without this, ordinary messages
       // about feeling low can be blocked, which is the opposite of useful
       // in a mental health app. Crisis language never reaches here anyway.
@@ -153,8 +166,16 @@ async function callGemini(history, message) {
 
   if (!r.ok) { throw await upstreamError('gemini', r, url); }
   const j = await r.json();
-  const parts = j && j.candidates && j.candidates[0] && j.candidates[0].content && j.candidates[0].content.parts;
-  return (parts || []).map(p => p.text || '').join('').trim();
+  const cand = j && j.candidates && j.candidates[0];
+  const parts = cand && cand.content && cand.content.parts;
+  const text = (parts || []).map(p => p.text || '').join('').trim();
+  if (cand && cand.finishReason && cand.finishReason !== 'STOP') {
+    console.error(
+      `[LENA] reply ended early: finishReason=${cand.finishReason} | ` +
+      `maxOutputTokens=${MAX_TOKENS} | usage=${JSON.stringify(j.usageMetadata || {})}`
+    );
+  }
+  return text;
 }
 
 // ── OpenAI, Groq, OpenRouter, anything /chat/completions ──
@@ -166,7 +187,7 @@ async function callOpenAICompatible(history, message) {
   const r = await fetch(`${BASE_URL.replace(/\/$/, '')}/chat/completions`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${API_KEY}` },
-    body: JSON.stringify({ model: MODEL, messages, temperature: 0.8, max_tokens: 400 })
+    body: JSON.stringify({ model: MODEL, messages, temperature: 0.8, max_tokens: MAX_TOKENS })
   });
 
   if (!r.ok) { throw await upstreamError('openai', r, BASE_URL); }
