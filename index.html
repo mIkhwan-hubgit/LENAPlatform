@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<title>LENA – Comprehensive Desktop Prototype</title>
+<title>LENA: Comprehensive Desktop Prototype</title>
 <meta content="LENA mental wellbeing platform prototype with crisis support and LENA team information" name="description"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <style>
@@ -127,7 +127,7 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 .spbar span:nth-child(1){height:5px}.spbar span:nth-child(2){height:11px;animation-delay:.15s}.spbar span:nth-child(3){height:7px;animation-delay:.3s}.spbar span:nth-child(4){height:9px;animation-delay:.45s}
 @keyframes eq{0%{transform:scaleY(.4)}100%{transform:scaleY(1)}}
 
-/* ══ PLAYER BAR (desktop — top of main) ══════════════════════════════ */
+/* ══ PLAYER BAR (desktop, top of main) ══════════════════════════════ */
 .player-bar{display:none;align-items:center;gap:14px;background:linear-gradient(135deg,var(--primary),var(--primary2));padding:10px 24px;border-bottom:1px solid rgba(255,255,255,.15);flex-shrink:0;z-index:9}
 .player-bar.vis{display:flex}
 .ptit{font-size:13px;font-weight:700;color:#fff}
@@ -316,6 +316,15 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 .team-card2{opacity:1!important;visibility:visible!important;}
 .team-card2 img{display:block!important;opacity:1!important;}
 .team-card2 h3,.team-card2 p{opacity:1!important;visibility:visible!important;}
+
+@media print{
+  body.printing-result *{visibility:hidden!important}
+  body.printing-result #assess-res,body.printing-result #assess-res *{visibility:visible!important}
+  body.printing-result #assess-res{position:absolute!important;left:0;top:0;width:100%;max-width:none!important}
+  body.printing-result #assess-res button{display:none!important}
+  body.printing-result #res-print-note{visibility:visible!important;display:block!important}
+}
+#res-print-note{display:none}
 </style>
 </head>
 <body>
@@ -345,10 +354,10 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 <div style="margin-bottom:6px"><label class="inp-label">Date of Birth</label><input class="inp-field" type="date" value="2002-03-15"/></div>
 </div>
 <button class="btn-p" id="auth-btn" onclick="doLogin()" style="width:100%;padding:14px;margin-top:16px;font-size:14px">Sign In →</button>
-<div style="text-align:center;margin-top:14px;font-size:12px;color:var(--muted)">— or —</div>
+<div style="text-align:center;margin-top:14px;font-size:12px;color:var(--muted)">or</div>
 <button class="btn-g" onclick="currentAuthTab='si';doLogin()" style="width:100%;padding:12px;margin-top:10px;justify-content:center">🔗 Continue with Google</button>
 <div onclick="currentAuthTab='si';document.getElementById('auth-email').value='guest@lena.app';document.getElementById('auth-pw').value='guest';doLogin()" style="text-align:center;margin-top:12px;font-size:12px;color:var(--primary);cursor:pointer;font-weight:600">Continue as Guest</div>
-<div style="text-align:center;margin-top:18px;font-size:11px;color:var(--muted)">Protected by PDPA 2010 · All data encrypted end-to-end</div>
+<div style="text-align:center;margin-top:18px;font-size:11px;color:var(--muted)">Protected by PDPA 2010 · Mood and screening data stay on your device. Chat messages are sent to an AI service.</div>
 </div>
 </div>
 <!-- ══ LOADING SCREEN (Islamic quote) ═════════════════════════════ -->
@@ -382,7 +391,7 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 <div class="sline"><div class="slico">💙</div><div style="flex:1"><div class="slname">MOH Mental Health Helpline</div><div class="slnum">1800-82-0066</div><div class="slhrs">Toll-free · 24/7</div></div><button class="scall" onclick="toast('Calling helpline...')">Call</button></div>
 <div class="sline"><div class="slico">🌙</div><div style="flex:1"><div class="slname">Talian Kasih</div><div class="slnum">15999</div><div class="slhrs">Ministry of Women · 24/7</div></div><button class="scall" onclick="toast('Calling Talian Kasih...')">Call</button></div>
 <div class="sline"><div class="slico">💬</div><div style="flex:1"><div class="slname">Talk to LENA AI</div><div class="slnum">Available now</div></div><button class="scall" onclick="closeSOS();go('chat')">Open</button></div>
-<div style="margin-top:14px;padding:12px 14px;background:rgba(224,92,110,.08);border-radius:var(--r);font-size:12px;color:#c62828;line-height:1.7">If you are in immediate danger, call 999 or go to your nearest hospital emergency department immediately.</div>
+<div style="margin-top:16px;padding-top:13px;border-top:1px solid var(--border)"><div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px">Partner clinic</div><div style="font-size:11px;color:var(--muted);margin-bottom:10px">NH Edu-Health Centre. Appointment-based care, not a 24-hour line.</div><div class="sline"><div class="slico">🩺</div><div style="flex:1"><div class="slname">NH Edu-Health Centre</div><div class="slnum">03-4266 6806</div><div class="slhrs">Setiawangsa · psychiatrist &amp; clinical psychologist</div></div><button class="scall" onclick="toast('Calling clinic...')">Call</button></div></div><div style="margin-top:14px;padding:12px 14px;background:rgba(224,92,110,.08);border-radius:var(--r);font-size:12px;color:#c62828;line-height:1.7">If you are in immediate danger, call 999 or go to your nearest hospital emergency department immediately.</div>
 </div>
 </div>
 <!-- ══ MOOD MODAL ═══════════════════════════════════════════════════ -->
@@ -392,13 +401,13 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 <div style="font-family:var(--ff-d);font-size:22px;color:var(--text);margin-bottom:4px">How are you feeling?</div>
 <div style="font-size:13px;color:var(--muted);margin-bottom:22px">Your check-in helps LENA personalise your day 🌿</div>
 <div id="modal-faces" style="display:flex;justify-content:space-around;margin-bottom:22px">
-<div onclick="pickModalMood(this)" style="display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer"><div class="mf" style="width:52px;height:52px;font-size:26px">😞</div><span style="font-size:11px;color:var(--muted);font-weight:700">Struggling</span></div>
-<div onclick="pickModalMood(this)" style="display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer"><div class="mf" style="width:52px;height:52px;font-size:26px">😔</div><span style="font-size:11px;color:var(--muted);font-weight:700">Low</span></div>
-<div onclick="pickModalMood(this)" style="display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer"><div class="mf" style="width:52px;height:52px;font-size:26px">😐</div><span style="font-size:11px;color:var(--muted);font-weight:700">Okay</span></div>
-<div onclick="pickModalMood(this)" style="display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer"><div class="mf" style="width:52px;height:52px;font-size:26px">🙂</div><span style="font-size:11px;color:var(--muted);font-weight:700">Good</span></div>
-<div onclick="pickModalMood(this)" style="display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer"><div class="mf" style="width:52px;height:52px;font-size:26px">😊</div><span style="font-size:11px;color:var(--muted);font-weight:700">Great</span></div>
+<div data-v="1" onclick="pickModalMood(this,1)" style="display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer"><div class="mf" style="width:52px;height:52px;font-size:26px">😞</div><span style="font-size:11px;color:var(--muted);font-weight:700">Struggling</span></div>
+<div data-v="2" onclick="pickModalMood(this,2)" style="display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer"><div class="mf" style="width:52px;height:52px;font-size:26px">😔</div><span style="font-size:11px;color:var(--muted);font-weight:700">Low</span></div>
+<div data-v="3" onclick="pickModalMood(this,3)" style="display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer"><div class="mf" style="width:52px;height:52px;font-size:26px">😐</div><span style="font-size:11px;color:var(--muted);font-weight:700">Okay</span></div>
+<div data-v="4" onclick="pickModalMood(this,4)" style="display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer"><div class="mf" style="width:52px;height:52px;font-size:26px">🙂</div><span style="font-size:11px;color:var(--muted);font-weight:700">Good</span></div>
+<div data-v="5" onclick="pickModalMood(this,5)" style="display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer"><div class="mf" style="width:52px;height:52px;font-size:26px">😊</div><span style="font-size:11px;color:var(--muted);font-weight:700">Great</span></div>
 </div>
-<textarea onblur="this.style.borderColor='var(--border)'" onfocus="this.style.borderColor='var(--primary)'" placeholder="Add a note about your day (optional)…" rows="2" style="width:100%;background:var(--bg3);border:1.5px solid var(--border);border-radius:14px;padding:12px 14px;font-family:var(--ff-b);font-size:13px;color:var(--text);outline:none;resize:none;margin-bottom:16px"></textarea>
+<textarea id="mm-note" onblur="this.style.borderColor='var(--border)'" onfocus="this.style.borderColor='var(--primary)'" placeholder="Add a note about your day (optional)…" rows="2" style="width:100%;background:var(--bg3);border:1.5px solid var(--border);border-radius:14px;padding:12px 14px;font-family:var(--ff-b);font-size:13px;color:var(--text);outline:none;resize:none;margin-bottom:16px"></textarea>
 <button class="btn-p" onclick="saveMoodModal()" style="width:100%;padding:14px">Save Check-In ✓</button>
 </div>
 </div>
@@ -594,12 +603,11 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 <div class="nav-link" id="nl-sleep" onclick="go('sleep')"><span class="ni">🌙</span> Sleep Tracker</div>
 <div class="nav-link" id="nl-chat" onclick="go('chat')"><span class="ni">💬</span> LENA AI Chat</div>
 <div class="nav-section">Tools</div>
-<div class="nav-link" id="nl-assess" onclick="go('assess')"><span class="ni">📋</span> Assessments</div>
-<div class="nav-link" id="nl-cbt" onclick="go('cbt')"><span class="ni">💭</span> CBT Tools</div>
+<div class="nav-link" id="nl-assess" onclick="go('assess')"><span class="ni">📋</span> Screening Test</div>
+<div class="nav-link" id="nl-cbt" onclick="go('cbt')"><span class="ni">💭</span> Guided Tools</div>
 <div class="nav-link" id="nl-breathe" onclick="go('breathe')"><span class="ni">🫁</span> Breathe</div>
 <div class="nav-link" id="nl-journal" onclick="go('journal')"><span class="ni">📓</span> Journal</div>
 <div class="nav-section">Wellness</div>
-<div class="nav-link" id="nl-islamic" onclick="go('islamic')"><span class="ni">🕌</span> Islamic Vibes</div>
 <div class="nav-link" id="nl-discover" onclick="go('discover')"><span class="ni">🎵</span> Soundscapes</div>
 <div class="nav-link" id="nl-edu" onclick="go('edu')"><span class="ni">📚</span> Resources</div>
 <div class="nav-link" id="nl-crisis" onclick="go('crisis')"><span class="ni">🆘</span> Crisis Help</div>
@@ -645,11 +653,11 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 <div style="font-family:var(--ff-d);font-size:26px;color:var(--text);margin-bottom:14px">Adibah 🌿</div>
 <div style="font-size:11px;font-weight:700;color:var(--primary);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px">✦ Daily Check-In</div>
 <div style="display:flex;gap:10px;align-items:center">
-<div class="mf" onclick="quickMood(event,this,'😞')">😞</div>
-<div class="mf" onclick="quickMood(event,this,'😔')">😔</div>
-<div class="mf" onclick="quickMood(event,this,'😐')">😐</div>
-<div class="mf" onclick="quickMood(event,this,'🙂')">🙂</div>
-<div class="mf sel" onclick="quickMood(event,this,'😊')">😊</div>
+<div class="mf" onclick="quickMood(event,this,'😞',1)">😞</div>
+<div class="mf" onclick="quickMood(event,this,'😔',2)">😔</div>
+<div class="mf" onclick="quickMood(event,this,'😐',3)">😐</div>
+<div class="mf" onclick="quickMood(event,this,'🙂',4)">🙂</div>
+<div class="mf sel" onclick="quickMood(event,this,'😊',5)">😊</div>
 <div id="mood-disp" style="font-size:12px;color:var(--muted);margin-left:8px">Feeling great ✓</div>
 <span onclick="openMoodModal()" style="font-size:11px;color:var(--primary);cursor:pointer;margin-left:6px;font-weight:600" title="Edit check-in">✏️</span>
 </div>
@@ -682,21 +690,21 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 <!-- Tools grid -->
 <div class="shd fu fu3" style="margin-top:22px"><h2>Your Tools</h2></div>
 <div class="grid4 fu fu3" style="margin-bottom:22px">
-<div class="feat-card fc-teal" onclick="go('assess')"><div class="fc-emoji">📋</div><div class="fc-title">Assessments</div><div class="fc-sub">PHQ-9 · GAD-7 · more</div></div>
+<div class="feat-card fc-teal" onclick="go('assess')"><div class="fc-emoji">📋</div><div class="fc-title">Screening Test</div><div class="fc-sub">PHQ-9 · DASS-21</div></div>
 <div class="feat-card fc-lav" onclick="go('mood')"><div class="fc-emoji">📊</div><div class="fc-title">Mood Tracker</div><div class="fc-sub">Daily check-ins</div></div>
 <div class="feat-card fc-blue" onclick="go('sleep')"><div class="fc-emoji">🌙</div><div class="fc-title">Sleep Tracker</div><div class="fc-sub">Sleep quality &amp; goals</div></div>
-<div class="feat-card fc-gold" onclick="go('cbt')"><div class="fc-emoji">💭</div><div class="fc-title">CBT Tools</div><div class="fc-sub">Thought records</div></div>
+<div class="feat-card fc-gold" onclick="go('cbt')"><div class="fc-emoji">💭</div><div class="fc-title">Guided Tools</div><div class="fc-sub">Grounding · movement · calm</div></div>
 <div class="feat-card fc-grn" onclick="go('edu')"><div class="fc-emoji">📚</div><div class="fc-title">Resources</div><div class="fc-sub">Psychoeducation</div></div>
 <div class="feat-card fc-red" onclick="go('breathe')"><div class="fc-emoji">🫁</div><div class="fc-title">Breathe</div><div class="fc-sub">4-7-8 · Box · More</div></div>
 <div class="feat-card fc-gold" onclick="go('journal')"><div class="fc-emoji">📓</div><div class="fc-title">Journal</div><div class="fc-sub">Reflect &amp; record</div></div>
-<div class="feat-card fc-teal" onclick="go('islamic')"><div class="fc-emoji">🕌</div><div class="fc-title">Islamic Vibes</div><div class="fc-sub">Faith-based support</div></div>
+<div class="feat-card fc-teal" onclick="go('islamic')"><div class="fc-emoji">🕌</div><div class="fc-title">Islamic Reflections</div><div class="fc-sub">Faith-based support</div></div>
 </div>
 <!-- Islamic + Daily Discovery -->
 <div class="grid2 fu fu4">
 <div class="icard">
 <div class="atxt">﴿ وَلَا تَيْأَسُوا مِن رَّوْحِ اللَّهِ ﴾</div>
 <div class="atrans">"And despair not of relief from Allah."</div>
-<div class="aref">— Surah Yusuf (12:87)</div>
+<div class="aref">Surah Yusuf (12:87)</div>
 <div style="display:flex;gap:10px;margin-top:16px">
 <button class="btn-p" onclick="openResModal('Quranic Reflection','Surah Yusuf 12:87 · 5 min','📖','Islamic')" style="padding:9px 18px;font-size:12px">🎧 Listen</button>
 <button class="btn-g" onclick="go('islamic')" style="padding:9px 18px;font-size:12px">📖 Read</button>
@@ -710,7 +718,7 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 </div>
 <div class="res-card" onclick="go('chat')">
 <div class="res-ico" style="background:rgba(244,164,56,.12)">🤖</div>
-<div><div class="res-title">Talk to LENA AI</div><div class="res-sub">CBT-based · Available 24/7</div><div class="res-meta">Start a conversation ›</div></div>
+<div><div class="res-title">Talk to LENA AI</div><div class="res-sub">Supportive listening · 24/7</div><div class="res-meta">Start a conversation ›</div></div>
 </div>
 </div>
 </div>
@@ -718,57 +726,62 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 </div><!-- end home -->
 <!-- ══ MOOD ════════════════════════════════════════════════════ -->
 <div class="screen" id="sc-mood">
+<div id="mood-screen-card" style="margin-bottom:16px"></div>
 <div class="grid2" style="margin-bottom:20px">
 <!-- Log mood -->
 <div style="background:linear-gradient(135deg,rgba(43,184,154,.12),rgba(244,164,56,.07));border:1px solid var(--border2);border-radius:var(--r2);padding:22px">
-<div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:14px">How are you feeling right now?</div>
+<div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px">How are you feeling right now?</div>
+<div id="ml-date-note" style="font-size:11px;color:var(--muted);margin-bottom:14px"></div>
 <div style="display:flex;gap:14px;justify-content:space-around;margin-bottom:18px">
-<div onclick="pickBigMood(this)" style="display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer"><div class="mf" style="width:46px;height:46px;font-size:24px">😞</div><span style="font-size:10px;color:var(--muted);font-weight:600">Struggling</span></div>
-<div onclick="pickBigMood(this)" style="display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer"><div class="mf" style="width:46px;height:46px;font-size:24px">😔</div><span style="font-size:10px;color:var(--muted);font-weight:600">Low</span></div>
-<div onclick="pickBigMood(this)" style="display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer"><div class="mf" style="width:46px;height:46px;font-size:24px">😐</div><span style="font-size:10px;color:var(--muted);font-weight:600">Okay</span></div>
-<div onclick="pickBigMood(this)" style="display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer"><div class="mf sel" style="width:46px;height:46px;font-size:24px">🙂</div><span style="font-size:10px;color:var(--primary);font-weight:700">Good</span></div>
-<div onclick="pickBigMood(this)" style="display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer"><div class="mf" style="width:46px;height:46px;font-size:24px">😊</div><span style="font-size:10px;color:var(--muted);font-weight:600">Great</span></div>
+<div onclick="pickMood(this,1)" class="ml-face" data-v="1" style="display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer"><div class="mf" style="width:46px;height:46px;font-size:24px">&#128542;</div><span style="font-size:11px;color:var(--muted)">Struggling</span></div>
+<div onclick="pickMood(this,2)" class="ml-face" data-v="2" style="display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer"><div class="mf" style="width:46px;height:46px;font-size:24px">&#128532;</div><span style="font-size:11px;color:var(--muted)">Low</span></div>
+<div onclick="pickMood(this,3)" class="ml-face" data-v="3" style="display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer"><div class="mf" style="width:46px;height:46px;font-size:24px">&#128528;</div><span style="font-size:11px;color:var(--muted)">Okay</span></div>
+<div onclick="pickMood(this,4)" class="ml-face" data-v="4" style="display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer"><div class="mf" style="width:46px;height:46px;font-size:24px">&#128578;</div><span style="font-size:11px;color:var(--muted)">Good</span></div>
+<div onclick="pickMood(this,5)" class="ml-face" data-v="5" style="display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer"><div class="mf" style="width:46px;height:46px;font-size:24px">&#128522;</div><span style="font-size:11px;color:var(--muted)">Great</span></div>
+</div>
+<div style="margin-bottom:14px">
+<div style="font-size:12px;color:var(--muted);margin-bottom:8px">Intensity (1 to 10)</div>
+<input id="ml-intensity" max="10" min="1" oninput="updIntensity(this.value)" style="width:100%;accent-color:var(--primary)" type="range" value="4"/>
+<div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:3px"><span>Mild</span><strong id="ml-intensity-lbl" style="color:var(--primary)">4</strong><span>Severe</span></div>
 </div>
 <div style="margin-bottom:12px">
-<div style="font-size:12px;color:var(--muted);margin-bottom:8px">Intensity (1–10)</div>
-<input max="10" min="1" oninput="document.getElementById('int-val').textContent=this.value" style="width:100%;accent-color:var(--primary)" type="range" value="4"/>
-<div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:3px"><span>Mild</span><strong id="int-val" style="color:var(--primary)">4</strong><span>Severe</span></div>
+<div id="ml-prompt" style="font-size:12px;color:var(--muted);margin-bottom:7px">Anything you want to note? (optional)</div>
+<textarea id="ml-note" maxlength="500" oninput="updCount()" placeholder="A few words is enough..." style="width:100%;min-height:62px;resize:vertical;padding:10px 12px;border-radius:var(--r);border:1.5px solid var(--border);background:var(--card);color:var(--text);font-family:inherit;font-size:13px;line-height:1.5"></textarea>
+<div id="ml-count" style="text-align:right;font-size:10px;color:var(--muted);margin-top:3px"></div>
 </div>
-<button class="btn-p" onclick="toast('Mood logged ✓')" style="width:100%;padding:12px">Log Mood</button>
+<button class="btn-p" onclick="logMood()" style="width:100%;padding:12px">Log Mood</button>
 </div>
 <!-- Symptoms -->
 <div class="card">
-<div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:14px">How are you feeling?</div>
+<div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px">What's going on?</div>
+<div style="font-size:11px;color:var(--muted);margin-bottom:14px">Tap any that apply &mdash; helps spot patterns later</div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
-<div onclick="toggleSym(this)" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px;margin-bottom:4px">😰</div><div style="font-size:12px;font-weight:700;color:var(--text)">Anxious</div></div>
-<div onclick="toggleSym(this)" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px;margin-bottom:4px">😴</div><div style="font-size:12px;font-weight:700;color:var(--text)">Tired</div></div>
-<div onclick="toggleSym(this)" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px;margin-bottom:4px">😤</div><div style="font-size:12px;font-weight:700;color:var(--text)">Irritable</div></div>
-<div onclick="toggleSym(this)" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px;margin-bottom:4px">😊</div><div style="font-size:12px;font-weight:700;color:var(--text)">Grateful</div></div>
-<div onclick="toggleSym(this)" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px;margin-bottom:4px">🤯</div><div style="font-size:12px;font-weight:700;color:var(--text)">Overwhelmed</div></div>
-<div onclick="toggleSym(this)" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px;margin-bottom:4px">🌟</div><div style="font-size:12px;font-weight:700;color:var(--text)">Motivated</div></div>
+<div onclick="toggleTag(this)" class="ml-tag" data-t="Anxious" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px">&#128560;</div><div style="font-size:11px;color:var(--text2);margin-top:3px">Anxious</div></div>
+<div onclick="toggleTag(this)" class="ml-tag" data-t="Tired" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px">&#128564;</div><div style="font-size:11px;color:var(--text2);margin-top:3px">Tired</div></div>
+<div onclick="toggleTag(this)" class="ml-tag" data-t="Irritable" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px">&#128548;</div><div style="font-size:11px;color:var(--text2);margin-top:3px">Irritable</div></div>
+<div onclick="toggleTag(this)" class="ml-tag" data-t="Grateful" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px">&#128522;</div><div style="font-size:11px;color:var(--text2);margin-top:3px">Grateful</div></div>
+<div onclick="toggleTag(this)" class="ml-tag" data-t="Overwhelmed" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px">&#129327;</div><div style="font-size:11px;color:var(--text2);margin-top:3px">Overwhelmed</div></div>
+<div onclick="toggleTag(this)" class="ml-tag" data-t="Motivated" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px">&#127775;</div><div style="font-size:11px;color:var(--text2);margin-top:3px">Motivated</div></div>
+<div onclick="toggleTag(this)" class="ml-tag" data-t="Sleep" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px">&#127762;</div><div style="font-size:11px;color:var(--text2);margin-top:3px">Sleep</div></div>
+<div onclick="toggleTag(this)" class="ml-tag" data-t="Study" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px">&#128218;</div><div style="font-size:11px;color:var(--text2);margin-top:3px">Study / Work</div></div>
+<div onclick="toggleTag(this)" class="ml-tag" data-t="Family" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px">&#127968;</div><div style="font-size:11px;color:var(--text2);margin-top:3px">Family</div></div>
+<div onclick="toggleTag(this)" class="ml-tag" data-t="Friends" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px">&#128101;</div><div style="font-size:11px;color:var(--text2);margin-top:3px">Friends</div></div>
 </div>
 </div>
 </div>
-<!-- Week chart -->
+<!-- History -->
 <div class="grid2" style="margin-bottom:20px">
 <div class="card">
-<div class="shd" style="margin:0 0 14px"><h2>This Week</h2><span style="font-size:12px;color:var(--primary);font-weight:700">📈 +18%</span></div>
-<div style="display:flex;gap:8px">
-<div class="mcol"><div class="mbar-wrap"><div class="mbar" style="height:28%;background:linear-gradient(to top,#90CAF9,#BBDEFB);width:100%"></div></div><div class="mday">Mon</div></div>
-<div class="mcol"><div class="mbar-wrap"><div class="mbar" style="height:55%;background:linear-gradient(to top,var(--primary),var(--soft));width:100%"></div></div><div class="mday">Tue</div></div>
-<div class="mcol"><div class="mbar-wrap"><div class="mbar" style="height:40%;background:linear-gradient(to top,var(--primary),var(--soft));width:100%"></div></div><div class="mday">Wed</div></div>
-<div class="mcol"><div class="mbar-wrap"><div class="mbar" style="height:75%;background:linear-gradient(to top,var(--primary),var(--accent));width:100%"></div></div><div class="mday">Thu</div></div>
-<div class="mcol"><div class="mbar-wrap"><div class="mbar" style="height:68%;background:linear-gradient(to top,var(--primary),var(--accent));width:100%"></div></div><div class="mday">Fri</div></div>
-<div class="mcol"><div class="mbar-wrap"><div class="mbar" style="height:82%;background:linear-gradient(to top,var(--primary),var(--accent));width:100%"></div></div><div class="mday">Sat</div></div>
-<div class="mcol"><div class="mbar-wrap"><div class="mbar" style="height:60%;background:linear-gradient(to top,var(--primary),var(--soft));width:100%"></div></div><div class="mday mday-t">Today</div></div>
+<div class="shd" style="margin:0 0 4px"><h2>Last 14 Days</h2><span id="ml-trend-note" style="font-size:12px;color:var(--primary);font-weight:700"></span></div>
+<div id="ml-chart-empty" style="padding:22px 6px;text-align:center;color:var(--muted);font-size:13px;line-height:1.6"></div>
+<div id="ml-chart-wrap" style="display:none;margin-top:10px">
+<canvas id="ml-canvas" style="width:100%;height:150px;display:block"></canvas>
+<div id="ml-insight" style="margin-top:12px;font-size:12px;color:var(--text2);line-height:1.6"></div>
 </div>
 </div>
 <div class="card">
-<div class="shd" style="margin:0 0 14px"><h2>Assessment Scores</h2><a onclick="go('assess')">Retake ›</a></div>
-<div class="pbar-row"><div class="pbar-lbl"><span>PHQ-9 Depression</span><span style="color:var(--amber)">Mild — 8/27</span></div><div class="pbar-bg"><div class="pbar-fill" style="width:30%;background:var(--amber)"></div></div></div>
-<div class="pbar-row"><div class="pbar-lbl"><span>GAD-7 Anxiety</span><span style="color:var(--green)">Minimal — 3/21</span></div><div class="pbar-bg"><div class="pbar-fill" style="width:14%;background:var(--green)"></div></div></div>
-<div class="pbar-row"><div class="pbar-lbl"><span>WHO-5 Wellbeing</span><span style="color:var(--primary)">Good — 68/100</span></div><div class="pbar-bg"><div class="pbar-fill" style="width:68%;background:var(--primary)"></div></div></div>
-<button class="btn-p" onclick="go('assess')" style="margin-top:12px;width:100%;padding:12px">Take Full Assessment</button>
+<div class="shd" style="margin:0 0 14px"><h2>Recent Entries</h2></div>
+<div id="ml-entries" style="display:flex;flex-direction:column;gap:10px;max-height:330px;overflow-y:auto"></div>
 </div>
 </div>
 <div class="sp"></div>
@@ -850,13 +863,13 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 <div class="pstep"><div class="pdot" style="background:rgba(139,157,195,.15)">📱</div><div><div class="ptime">9:30 PM</div><div class="pdesc">Screen-free time</div><div class="psub2">Blue light suppresses melatonin production</div></div></div>
 <div class="pstep"><div class="pdot" style="background:rgba(43,184,154,.15)">🕌</div><div><div class="ptime">10:00 PM</div><div class="pdesc">Evening Dhikr &amp; Reflection</div><div class="psub2">Spiritual wind-down reduces anxiety for sleep</div></div></div>
 <div class="pstep"><div class="pdot" style="background:rgba(139,157,195,.15)">🫁</div><div><div class="ptime">10:30 PM</div><div class="pdesc">LENA Breathing Exercise</div><div class="psub2">4-7-8 breathing for nervous system calm</div></div></div>
-<div class="pstep" style="padding-bottom:0"><div class="pdot" style="background:rgba(139,157,195,.2)">💤</div><div><div class="ptime">11:00 PM</div><div class="pdesc">Lights out — target bedtime</div><div class="psub2">Aim for 7–8 hours of quality sleep</div></div></div>
+<div class="pstep" style="padding-bottom:0"><div class="pdot" style="background:rgba(139,157,195,.2)">💤</div><div><div class="ptime">11:00 PM</div><div class="pdesc">Lights out: target bedtime</div><div class="psub2">Aim for 7 to 8 hours of quality sleep</div></div></div>
 <button class="btn-p" onclick="toast('Reminders set ✓')" style="margin-top:16px;width:100%;padding:12px">🔔 Set Reminders for This Plan</button>
 </div>
 <div>
 <div class="card" style="margin-bottom:14px">
 <div style="font-size:16px;margin-bottom:8px">💡</div>
-<div style="font-size:12px;color:var(--muted);line-height:1.7"><strong style="color:var(--text)">Sleep Hygiene Tip:</strong> Keep your bedroom cool (18–21°C), dark, and quiet. Your bed should be associated only with sleep — not with screens or work.</div>
+<div style="font-size:12px;color:var(--muted);line-height:1.7"><strong style="color:var(--text)">Sleep Hygiene Tip:</strong> Keep your bedroom cool (18 to 21°C), dark, and quiet. Your bed should be associated only with sleep, not with screens or work.</div>
 </div>
 <div class="card" style="margin-bottom:14px">
 <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px">Customise Bedtime</div>
@@ -875,22 +888,22 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 <div class="screen" id="sc-assess">
 <div id="assess-sel">
 <div style="background:rgba(244,164,56,.07);border:1px solid rgba(244,164,56,.2);border-radius:var(--r);padding:14px 16px;margin-bottom:18px;font-size:13px;color:var(--muted);line-height:1.7">ℹ️ These are validated <strong style="color:var(--text)">screening instruments</strong>, not clinical diagnoses. Always consult a professional for a full evaluation.</div>
-<div class="grid2" style="margin-bottom:6px">
+<div style="max-width:640px;margin-bottom:6px">
 <div>
-<div class="shd"><h2>Clinical Assessments</h2></div>
-<div class="card card-hover" onclick="startAssess('phq9')" style="display:flex;gap:13px;align-items:center;margin-bottom:10px"><div style="font-size:26px">📋</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">PHQ-9 — Depression</div><div style="font-size:11px;color:var(--muted)">Patient Health Questionnaire · 9 Qs · ~3 min</div></div><span style="color:var(--primary)">›</span></div>
-<div class="card card-hover" onclick="startAssess('gad7')" style="display:flex;gap:13px;align-items:center;margin-bottom:10px"><div style="font-size:26px">🧠</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">GAD-7 — Anxiety</div><div style="font-size:11px;color:var(--muted)">Generalised Anxiety Disorder · 7 Qs · ~2 min</div></div><span style="color:var(--primary)">›</span></div>
-<div class="card card-hover" onclick="startAssess('who5')" style="display:flex;gap:13px;align-items:center;margin-bottom:10px"><div style="font-size:26px">🌿</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">WHO-5 — Wellbeing</div><div style="font-size:11px;color:var(--muted)">World Health Org Index · 5 Qs · ~1 min</div></div><span style="color:var(--primary)">›</span></div>
+<div class="shd"><h2>Clinical Screening Tests</h2></div>
+<div class="card card-hover" onclick="startAssess('phq9')" style="display:flex;gap:13px;align-items:center;margin-bottom:10px"><div style="font-size:26px">📋</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">PHQ-9: Depression</div><div style="font-size:11px;color:var(--muted)">Patient Health Questionnaire · 9 Qs · ~3 min</div></div><span style="color:var(--primary)">›</span></div>
 <div class="card card-hover" onclick="startAssess('dass21')" style="display:flex;gap:13px;align-items:center"><div style="font-size:26px">🔬</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">DASS-21</div><div style="font-size:11px;color:var(--muted)">Depression · Anxiety · Stress · 21 Qs · ~7 min</div></div><span style="color:var(--primary)">›</span></div>
 </div>
-<div>
-<div class="shd"><h2>Self-Discovery Modules</h2></div>
-<div class="card card-hover" onclick="startAssess('emotional')" style="display:flex;gap:13px;align-items:center;margin-bottom:10px"><div style="font-size:26px">❤️</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">Emotional Profile</div><div style="font-size:11px;color:var(--muted)">Anxiety · Stress · Sadness · Fear · 15 Qs</div></div><span style="color:var(--primary)">›</span></div>
-<div class="card card-hover" onclick="startAssess('lifestyle')" style="display:flex;gap:13px;align-items:center;margin-bottom:10px"><div style="font-size:26px">⚡</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">Lifestyle &amp; Skills</div><div style="font-size:11px;color:var(--muted)">Time Mgmt · Sleep · Exercise · 16 Qs</div></div><span style="color:var(--primary)">›</span></div>
-<div class="card card-hover" onclick="startAssess('social')" style="display:flex;gap:13px;align-items:center;margin-bottom:10px"><div style="font-size:26px">🤝</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">Social &amp; EQ</div><div style="font-size:11px;color:var(--muted)">Empathy · Communication · 14 Qs</div></div><span style="color:var(--primary)">›</span></div>
-<div class="card card-hover" onclick="startAssess('spiritual')" style="display:flex;gap:13px;align-items:center;margin-bottom:10px"><div style="font-size:26px">🕌</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">Spiritual Wellbeing</div><div style="font-size:11px;color:var(--muted)">Faith · Gratitude · Purpose · 10 Qs</div></div><span style="color:var(--primary)">›</span></div>
-<div class="card card-hover" onclick="startAssess('resilience')" style="display:flex;gap:13px;align-items:center;margin-bottom:10px"><div style="font-size:26px">💪</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">Resilience Meter</div><div style="font-size:11px;color:var(--muted)">Coping · Adaptability · 10 Qs</div></div><span style="color:var(--primary)">›</span></div>
-<div class="card card-hover" onclick="startAssess('burnout')" style="display:flex;gap:13px;align-items:center"><div style="font-size:26px">🔥</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">Burnout Check</div><div style="font-size:11px;color:var(--muted)">Exhaustion · Cynicism · 9 Qs</div></div><span style="color:var(--primary)">›</span></div>
+<div style="height:16px"></div>
+<div class="card">
+<div class="shd" style="margin:0 0 14px"><h2>Past Results</h2></div>
+<div id="trend-tabs" style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap"></div>
+<div id="trend-empty" style="padding:26px 14px;text-align:center;color:var(--muted);font-size:13px;line-height:1.6"></div>
+<div id="trend-wrap" style="display:none">
+<canvas id="trend-canvas" style="width:100%;height:190px;display:block"></canvas>
+<div id="trend-legend" style="display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:11px;color:var(--text2)"></div>
+<div id="trend-latest" style="margin-top:12px;font-size:12px;color:var(--text2);line-height:1.6"></div>
+</div>
 </div>
 </div>
 </div>
@@ -911,6 +924,20 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 </div>
 </div>
 </div>
+<!-- Re-test cooldown -->
+<div id="assess-cool" style="display:none;max-width:560px;margin:0 auto">
+<div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:26px 28px;text-align:center">
+<div style="font-size:34px;margin-bottom:10px">🕓</div>
+<div style="font-family:var(--ff-d);font-size:20px;color:var(--text);margin-bottom:10px" id="cool-title">You took this recently</div>
+<div style="font-size:13px;color:var(--text2);line-height:1.75;margin-bottom:8px" id="cool-last"></div>
+<div style="font-size:13px;color:var(--text2);line-height:1.75;margin-bottom:20px" id="cool-why"></div>
+<div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+<button class="btn-p" onclick="go('mood')" style="padding:12px 20px;font-size:13px">Track my mood instead →</button>
+<button class="btn-g" onclick="coolProceed()" style="padding:12px 20px;font-size:13px">Take it anyway</button>
+</div>
+<div onclick="showAssessSel()" style="margin-top:14px;font-size:12px;color:var(--primary);cursor:pointer;font-weight:600">← Back to screening tests</div>
+</div>
+</div>
 <!-- Result -->
 <div id="assess-res" style="display:none;max-width:680px;margin:0 auto">
 <div id="res-hero" style="border-radius:var(--r2);padding:28px;text-align:center;background:linear-gradient(145deg,rgba(52,191,138,.1),rgba(43,184,154,.06));border:1px solid rgba(52,191,138,.2);margin-bottom:16px">
@@ -918,6 +945,7 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 <div id="res-label" style="font-size:18px;font-weight:700;color:var(--text);margin:8px 0 4px">Mild Depression</div>
 <div id="res-sub" style="font-size:13px;color:var(--muted)">PHQ-9 · Assessed today</div>
 </div>
+<div id="res-referral" style="display:none;margin-bottom:16px"></div>
 <div class="grid2">
 <div>
 <div id="res-bars"></div>
@@ -931,9 +959,13 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 <div style="font-size:11px;color:var(--muted);line-height:1.7;background:var(--bg3);padding:12px 14px;border-radius:var(--r)">⚕️ <strong>Important:</strong> Not a clinical diagnosis. Crisis: <strong>Befrienders 03-7627 2929</strong></div>
 </div>
 </div>
+<div id="res-print-note" style="margin-top:16px;padding-top:12px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);line-height:1.6">
+Generated by LENA · <span id="res-print-date"></span><br>
+This is a screening result, not a diagnosis. Please discuss it with a qualified professional.
+</div>
 <div style="display:flex;gap:10px;margin-top:14px">
 <button class="btn-p" onclick="go('chat')" style="flex:1;padding:13px">💬 Talk to LENA AI</button>
-<button class="btn-g" onclick="toast('Report saved!')" style="flex:none;padding:13px 18px">📤 Share</button>
+<button class="btn-g" onclick="printResult()" style="flex:none;padding:13px 18px">🖨️ Print / Save PDF</button>
 <button class="btn-g" onclick="showAssessSel()" style="flex:none;padding:13px 18px">← Back</button>
 </div>
 </div>
@@ -943,45 +975,13 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 <div class="screen" id="sc-cbt">
 <div class="grid2">
 <div>
-<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
-<div class="cbt-cat act" onclick="setCbtCat(this)">All</div>
-<div class="cbt-cat" onclick="setCbtCat(this)">Thoughts</div>
-<div class="cbt-cat" onclick="setCbtCat(this)">Behaviour</div>
-<div class="cbt-cat" onclick="setCbtCat(this)">Relaxation</div>
-<div class="cbt-cat" onclick="setCbtCat(this)">Islamic CBT</div>
-</div>
-<div class="card" onclick="go('cbt-ex')" style="margin-bottom:12px;cursor:pointer">
-<div style="display:flex;align-items:center;gap:13px;margin-bottom:10px">
-<div style="width:44px;height:44px;border-radius:12px;background:rgba(43,184,154,.12);display:flex;align-items:center;justify-content:center;font-size:22px">📝</div>
-<div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">Thought Record</div><div style="font-size:11px;color:var(--muted)">Cognitive · 10 min · 📖 Read · 🎧 Audio</div></div>
-<button class="btn-p" onclick="event.stopPropagation();go('cbt-ex')" style="padding:8px 16px;font-size:12px">Start</button>
-</div>
-<div style="font-size:12px;color:var(--text2);line-height:1.6">Challenge negative automatic thoughts by examining evidence for and against them. One of the most effective CBT techniques.</div>
-</div>
-<div class="card" onclick="go('breathe')" style="margin-bottom:12px;cursor:pointer">
-<div style="display:flex;align-items:center;gap:13px;margin-bottom:10px">
-<div style="width:44px;height:44px;border-radius:12px;background:rgba(139,157,195,.12);display:flex;align-items:center;justify-content:center;font-size:22px">🫁</div>
-<div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">Deep Breathing</div><div style="font-size:11px;color:var(--muted)">Relaxation · 5 min · 🎧 Audio</div></div>
-<button class="btn-p" onclick="event.stopPropagation();go('breathe')" style="padding:8px 16px;font-size:12px">Start</button>
-</div>
-<div style="font-size:12px;color:var(--text2);line-height:1.6">4-7-8 technique activates the parasympathetic nervous system for immediate anxiety relief.</div>
-</div>
-<div class="card" onclick="toast('Behavioural Activation — coming soon')" style="margin-bottom:12px;cursor:pointer">
-<div style="display:flex;align-items:center;gap:13px;margin-bottom:10px">
-<div style="width:44px;height:44px;border-radius:12px;background:rgba(244,164,56,.12);display:flex;align-items:center;justify-content:center;font-size:22px">🎯</div>
-<div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">Behavioural Activation</div><div style="font-size:11px;color:var(--muted)">Behaviour · 15 min · 📖 Read · 🎧 Audio</div></div>
-<button class="btn-p" style="padding:8px 16px;font-size:12px">Start</button>
-</div>
-<div style="font-size:12px;color:var(--text2);line-height:1.6">Schedule activities that bring meaning and pleasure to break depression's withdrawal cycle.</div>
-</div>
-<div class="card" onclick="toast('Gratitude Journal — coming soon')" style="cursor:pointer">
-<div style="display:flex;align-items:center;gap:13px;margin-bottom:10px">
-<div style="width:44px;height:44px;border-radius:12px;background:rgba(52,191,138,.12);display:flex;align-items:center;justify-content:center;font-size:22px">🌿</div>
-<div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">Gratitude Journal</div><div style="font-size:11px;color:var(--muted)">Islamic CBT · 5 min · 📖 Read</div></div>
-<button class="btn-p" style="padding:8px 16px;font-size:12px">Start</button>
-</div>
-<div style="font-size:12px;color:var(--text2);line-height:1.6">Alhamdulillah practice combining Islamic shukr with gratitude journalling to rewire positive neural pathways.</div>
-</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px"><div class="cbt-cat act" data-cat="all" onclick="setCbtCat(this)">All</div><div class="cbt-cat" data-cat="grounding" onclick="setCbtCat(this)">Grounding</div><div class="cbt-cat" data-cat="movement" onclick="setCbtCat(this)">Movement</div><div class="cbt-cat" data-cat="relaxation" onclick="setCbtCat(this)">Relaxation</div><div class="cbt-cat" data-cat="islamic" onclick="setCbtCat(this)">Islamic</div></div>
+<div class="card gt-card" data-cat="grounding" onclick="startGT('ground')" style="margin-bottom:12px;cursor:pointer"><div style="display:flex;align-items:center;gap:13px;margin-bottom:10px"><div style="width:44px;height:44px;border-radius:12px;background:rgba(52,191,138,.12);display:flex;align-items:center;justify-content:center;font-size:22px">🌱</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">Grounding 5-4-3-2-1</div><div style="font-size:11px;color:var(--muted)">Grounding · 3 min</div></div><button class="btn-p" onclick="event.stopPropagation();startGT('ground')" style="padding:8px 16px;font-size:12px">Start</button></div><div style="font-size:12px;color:var(--text2);line-height:1.6">Come back to the present by moving through your five senses, one at a time. Useful when anxiety spikes or things start to feel unreal.</div></div>
+<div class="card gt-card" data-cat="movement" onclick="startGT('move')" style="margin-bottom:12px;cursor:pointer"><div style="display:flex;align-items:center;gap:13px;margin-bottom:10px"><div style="width:44px;height:44px;border-radius:12px;background:rgba(244,164,56,.12);display:flex;align-items:center;justify-content:center;font-size:22px">🚶</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">Movement Break</div><div style="font-size:11px;color:var(--muted)">Movement · 4 min</div></div><button class="btn-p" onclick="event.stopPropagation();startGT('move')" style="padding:8px 16px;font-size:12px">Start</button></div><div style="font-size:12px;color:var(--text2);line-height:1.6">A short guided sequence of stretches and gentle movement. Physical activity shifts mood faster than thinking about mood does.</div></div>
+<div class="card gt-card" data-cat="relaxation" onclick="startGT('breathe')" style="margin-bottom:12px;cursor:pointer"><div style="display:flex;align-items:center;gap:13px;margin-bottom:10px"><div style="width:44px;height:44px;border-radius:12px;background:rgba(139,157,195,.12);display:flex;align-items:center;justify-content:center;font-size:22px">🌬</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">Deep Breathing</div><div style="font-size:11px;color:var(--muted)">Relaxation · 5 min</div></div><button class="btn-p" onclick="event.stopPropagation();startGT('breathe')" style="padding:8px 16px;font-size:12px">Start</button></div><div style="font-size:12px;color:var(--text2);line-height:1.6">4-7-8 breathing activates the parasympathetic nervous system for immediate anxiety relief.</div></div>
+<div class="card gt-card" data-cat="relaxation" onclick="startGT('muscle')" style="margin-bottom:12px;cursor:pointer"><div style="display:flex;align-items:center;gap:13px;margin-bottom:10px"><div style="width:44px;height:44px;border-radius:12px;background:rgba(43,184,154,.12);display:flex;align-items:center;justify-content:center;font-size:22px">💪</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">Muscle Relaxation</div><div style="font-size:11px;color:var(--muted)">Relaxation · 3 min</div></div><button class="btn-p" onclick="event.stopPropagation();startGT('muscle')" style="padding:8px 16px;font-size:12px">Start</button></div><div style="font-size:12px;color:var(--text2);line-height:1.6">Tense and release each muscle group in turn. Teaches your body the difference between held tension and rest.</div></div>
+<div class="card gt-card" data-cat="movement" onclick="startGT('step')" style="margin-bottom:12px;cursor:pointer"><div style="display:flex;align-items:center;gap:13px;margin-bottom:10px"><div style="width:44px;height:44px;border-radius:12px;background:rgba(224,92,110,.12);display:flex;align-items:center;justify-content:center;font-size:22px">🎯</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">One Small Step</div><div style="font-size:11px;color:var(--muted)">Movement · 3 min</div></div><button class="btn-p" onclick="event.stopPropagation();startGT('step')" style="padding:8px 16px;font-size:12px">Start</button></div><div style="font-size:12px;color:var(--text2);line-height:1.6">When everything feels heavy, waiting to feel motivated keeps you stuck. This walks you down to one action you can take now.</div></div>
+<div class="card gt-card" data-cat="islamic" onclick="startGT('shukr')" style="cursor:pointer"><div style="display:flex;align-items:center;gap:13px;margin-bottom:10px"><div style="width:44px;height:44px;border-radius:12px;background:rgba(52,191,138,.12);display:flex;align-items:center;justify-content:center;font-size:22px">🤲</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">Alhamdulillah</div><div style="font-size:11px;color:var(--muted)">Islamic · 3 min</div></div><button class="btn-p" onclick="event.stopPropagation();startGT('shukr')" style="padding:8px 16px;font-size:12px">Start</button></div><div style="font-size:12px;color:var(--text2);line-height:1.6">A guided shukr practice. Noticing what went right today, however small, and naming it.</div></div>
 </div>
 <!-- CBT info panel -->
 <div class="card" style="align-self:start">
@@ -991,33 +991,45 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 <div style="font-size:12px;font-weight:700;color:var(--primary);margin-bottom:6px">The CBT Triangle</div>
 <div style="text-align:center;font-size:13px;color:var(--text2);line-height:2">Thoughts 💭<br/>↕<br/>Feelings 😊 ↔ Behaviour 🎯</div>
 </div>
-<div style="font-size:12px;color:var(--muted);line-height:1.7">LENA's CBT tools are adapted for Malaysian Muslim users, integrating Islamic values and culturally-congruent examples.</div>
+<div style="background:rgba(244,164,56,.07);border:1px solid rgba(244,164,56,.2);border-radius:var(--r);padding:13px 14px;margin-bottom:12px"><div style="font-size:12px;font-weight:700;color:var(--amber);margin-bottom:6px">Why there are no worksheets here</div><div style="font-size:12px;color:var(--text2);line-height:1.7">Structured CBT exercises such as thought records are built to be reviewed with a clinician, who reads what you wrote and works through it with you. Completed alone, they rarely go deep. LENA therefore offers guided tools you can finish by yourself and feel the benefit of straight away. If you want to work through a thought record properly, do it with a professional.</div><div style="font-size:12px;color:var(--primary);font-weight:600;margin-top:10px;cursor:pointer" onclick="go('crisis')">Find professional support ›</div></div><div style="font-size:12px;color:var(--muted);line-height:1.7">LENA's CBT tools are adapted for Malaysian Muslim users, integrating Islamic values and culturally-congruent examples.</div>
 </div>
 </div>
 <div class="sp"></div>
 </div><!-- end cbt -->
 <!-- ══ CBT EXERCISE ════════════════════════════════════════════ -->
 <div class="screen" id="sc-cbt-ex">
-<div style="max-width:680px;margin:0 auto">
+<div style="max-width:620px;margin:0 auto">
 <div style="display:flex;gap:10px;margin-bottom:20px;align-items:center">
-<button class="btn-g" onclick="go('cbt')" style="padding:9px 16px;flex:none">← Back</button>
-<div style="font-family:var(--ff-d);font-size:20px;color:var(--text)">Thought Record</div>
-<span class="tag tg-p" style="margin-left:auto">CBT</span>
+<button class="btn-g" onclick="gtExit()" style="padding:9px 16px;flex:none">&#8592; Back</button>
+<div style="font-family:var(--ff-d);font-size:20px;color:var(--text)" id="gt-title">Guided Tool</div>
+<span class="tag tg-p" id="gt-tag" style="margin-left:auto">Guided</span>
 </div>
-<div class="card" style="background:var(--bg3)">
-<div style="display:flex;flex-direction:column;gap:12px">
-<div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px"><div style="font-size:10px;color:var(--primary);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">SITUATION</div><textarea placeholder="What happened?" rows="2" style="width:100%;background:transparent;border:none;outline:none;font-family:var(--ff-b);font-size:13px;color:var(--text);resize:none">Had an argument with a friend. They seemed upset with me.</textarea></div>
-<div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px"><div style="font-size:10px;color:var(--red);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">AUTOMATIC THOUGHT</div><textarea placeholder="What went through your mind?" rows="2" style="width:100%;background:transparent;border:none;outline:none;font-family:var(--ff-b);font-size:13px;color:var(--text);resize:none">"They hate me now. I always ruin everything."</textarea></div>
-<div class="grid2" style="gap:12px">
-<div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px"><div style="font-size:10px;color:var(--green);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">EVIDENCE FOR</div><textarea placeholder="Facts that support this thought" rows="3" style="width:100%;background:transparent;border:none;outline:none;font-family:var(--ff-b);font-size:13px;color:var(--text);resize:none">They looked upset when I was speaking.</textarea></div>
-<div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px"><div style="font-size:10px;color:var(--lav);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">EVIDENCE AGAINST</div><textarea placeholder="Facts that don't support this" rows="3" style="width:100%;background:transparent;border:none;outline:none;font-family:var(--ff-b);font-size:13px;color:var(--text);resize:none">They texted me later wanting to talk. We've been friends 3 years.</textarea></div>
+<div class="card">
+<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:7px">
+<span id="gt-count">Step 1</span><span id="gt-timer" style="color:var(--primary);font-weight:700;display:none"></span>
 </div>
-<div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px"><div style="font-size:10px;color:var(--primary);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">BALANCED THOUGHT</div><textarea placeholder="A more realistic perspective" rows="2" style="width:100%;background:transparent;border:none;outline:none;font-family:var(--ff-b);font-size:13px;color:var(--text);resize:none">We had a disagreement — that doesn't mean they hate me. Good friendships can survive conflict.</textarea></div>
+<div style="height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;margin-bottom:22px">
+<div id="gt-prog" style="height:100%;border-radius:3px;background:var(--primary);transition:width .4s;width:0%"></div>
+</div>
+<div id="gt-body">
+<div id="gt-step" style="font-family:var(--ff-d);font-size:22px;color:var(--text);line-height:1.5;margin-bottom:12px"></div>
+<div id="gt-hint" style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:26px"></div>
+<div style="display:flex;gap:10px">
+<button class="btn-g" id="gt-back" onclick="gtPrev()" style="padding:12px 20px;display:none">&#8592; Back</button>
+<button class="btn-p" id="gt-next" onclick="gtNext()" style="flex:1;padding:12px">Next &#8594;</button>
 </div>
 </div>
-<button class="btn-p" onclick="toast('Thought record saved ✓')" style="margin-top:14px;width:100%;padding:14px">Save Record ✓</button>
+<div id="gt-done" style="display:none;text-align:center;padding:14px 4px">
+<div style="font-size:38px;margin-bottom:12px">&#127807;</div>
+<div id="gt-endtext" style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:24px"></div>
+<div style="display:flex;gap:10px">
+<button class="btn-g" onclick="startGT(gtKey)" style="flex:1;padding:12px;justify-content:center">Do it again</button>
+<button class="btn-p" onclick="gtExit()" style="flex:1;padding:12px">Done</button>
+</div>
+</div>
 </div>
 <div class="sp"></div>
+</div>
 </div><!-- end cbt-ex -->
 <!-- ══ BREATHE ══════════════════════════════════════════════════ -->
 <div class="screen" id="sc-breathe">
@@ -1093,15 +1105,15 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 <div class="icard">
 <div class="atxt">﴿ أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ ﴾</div>
 <div class="atrans">"Verily, in the remembrance of Allah do hearts find rest."</div>
-<div class="aref">— Surah Ar-Ra'd (13:28)</div>
+<div class="aref">Surah Ar-Ra'd (13:28)</div>
 <div style="display:flex;gap:10px;margin-top:16px">
 <button class="btn-p" onclick="openResModal('Quranic Reflection','Surah Ar-Ra\'d 13:28 · Tafsir · 5 min','📖','Islamic')" style="padding:10px 20px;font-size:13px">🎧 Listen</button>
-<button class="btn-g" onclick="openResModal('Quran &amp; Healing','How the Quran calms the mind — Islamic perspective','📖','Islamic Psychoeducation')" style="padding:10px 20px;font-size:13px">📖 Read</button>
+<button class="btn-g" onclick="openResModal('Quran &amp; Healing','How the Quran calms the mind, an Islamic perspective','📖','Islamic Psychoeducation')" style="padding:10px 20px;font-size:13px">📖 Read</button>
 </div>
 </div>
 <div class="card">
 <div style="font-family:var(--ff-d);font-size:17px;color:var(--text);margin-bottom:14px">Islamic Psychoeducation 📚</div>
-<div class="res-card" onclick="openResModal('Islam &amp; Mental Health','Mental illness is not a spiritual failing — Islamic perspective','🕌','Islamic Psychoeducation')" style="margin-bottom:10px">
+<div class="res-card" onclick="openResModal('Islam &amp; Mental Health','Mental illness is not a spiritual failing, an Islamic perspective','🕌','Islamic Psychoeducation')" style="margin-bottom:10px">
 <div class="res-ico" style="background:rgba(43,184,154,.12)">🕌</div><div><div class="res-title">Islam &amp; Mental Health</div><div class="res-sub">Mental illness is not a spiritual failing</div><div class="res-meta">📖 Read · 🎧 Audio · 7 min</div></div>
 </div>
 <div class="res-card" onclick="openResModal('Mindfulness in Islam','Muraqabah, tafakkur, and presence of heart','🌿','Islamic Psychoeducation')" style="margin-bottom:10px">
@@ -1122,6 +1134,11 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 </div><!-- end islamic -->
 <!-- ══ EDU / RESOURCES ═════════════════════════════════════════ -->
 <div class="screen" id="sc-edu">
+<div class="res-card" onclick="go('islamic')" style="margin-bottom:18px;background:linear-gradient(135deg,rgba(43,184,154,.10),rgba(244,164,56,.06))">
+<div class="res-ico" style="background:rgba(43,184,154,.14)">🕌</div>
+<div><div class="res-title">Islamic Reflections</div>
+<div class="res-sub">Quranic reflections, dhikr and spiritual support</div>
+<div class="res-meta">Open section ›</div></div></div>
 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px">
 <div class="cbt-cat act" onclick="setCbtCat(this)">All</div>
 <div class="cbt-cat" onclick="setCbtCat(this)">Depression</div>
@@ -1157,6 +1174,7 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 <div class="hlcard" onclick="toast('Calling helpline...')" style="margin-bottom:12px"><div class="hl-ico">💙</div><div style="flex:1"><div class="hl-name">MOH Mental Health</div><div class="hl-num">1800-82-0066</div><div class="hl-hrs">Toll-free · 24/7</div></div><button class="btn-p" onclick="event.stopPropagation();toast('Calling...')" style="padding:10px 18px">Call</button></div>
 <div class="hlcard" onclick="toast('Calling Talian Kasih...')" style="margin-bottom:12px"><div class="hl-ico">🌙</div><div style="flex:1"><div class="hl-name">Talian Kasih</div><div class="hl-num">15999</div><div class="hl-hrs">Ministry of Women · 24/7</div></div><button class="btn-p" onclick="event.stopPropagation();toast('Calling...')" style="padding:10px 18px">Call</button></div>
 <div class="hlcard" onclick="toast('Calling 999...')"><div class="hl-ico">🏥</div><div style="flex:1"><div class="hl-name">Emergency</div><div class="hl-num">999</div></div><button class="btn-p" onclick="event.stopPropagation();toast('Calling 999...')" style="padding:10px 18px;background:#E05C6E">Call</button></div>
+<div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border)"><div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px">Partner clinic: professional care</div><div style="font-size:11px;color:var(--muted);margin-bottom:12px">LENA's clinical partner. Appointment-based, not a 24-hour crisis line. If you need help right now, use the numbers above.</div><div class="hlcard" onclick="toast('Calling NH Edu-Health Centre...')"><div class="hl-ico">🩺</div><div style="flex:1"><div class="hl-name">NH Edu-Health Centre · Setiawangsa</div><div class="hl-num">03-4266 6806</div><div class="hl-hrs">Psychiatrist · Clinical psychologist: 03-4251 1588 · WhatsApp 018-299 1227</div></div><button class="btn-g" onclick="event.stopPropagation();toast('Calling clinic...')" style="padding:10px 18px">Call</button></div></div>
 </div>
 <div class="card">
 <div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:14px">📋 My Safety Plan</div>
@@ -1164,7 +1182,7 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 <div class="pstep"><div class="pdot" style="background:rgba(52,191,138,.15);color:var(--green);font-size:12px;font-weight:700">2</div><div><div class="pdesc">Use a coping strategy</div><div class="psub2">Deep breathing, go for a walk, make tea</div></div></div>
 <div class="pstep"><div class="pdot" style="background:rgba(52,191,138,.15);color:var(--green);font-size:12px;font-weight:700">3</div><div><div class="pdesc">Contact a trusted person</div><div class="psub2" style="color:var(--primary);cursor:pointer">+ Add a trusted contact</div></div></div>
 <div class="pstep"><div class="pdot" style="background:rgba(52,191,138,.15);color:var(--green);font-size:12px;font-weight:700">4</div><div><div class="pdesc">Call a helpline</div><div class="psub2">See numbers on the left</div></div></div>
-<div class="pstep" style="padding-bottom:0"><div class="pdot" style="background:rgba(52,191,138,.15);color:var(--green);font-size:12px;font-weight:700">5</div><div><div class="pdesc">Go to hospital emergency</div><div class="psub2">If in immediate danger — call 999</div></div></div>
+<div class="pstep" style="padding-bottom:0"><div class="pdot" style="background:rgba(52,191,138,.15);color:var(--green);font-size:12px;font-weight:700">5</div><div><div class="pdesc">Go to hospital emergency</div><div class="psub2">If in immediate danger, call 999</div></div></div>
 <button class="btn-p" onclick="toast('Safety plan saved')" style="width:100%;padding:12px;margin-top:16px">Edit My Safety Plan</button>
 <button class="btn-g" onclick="go('chat')" style="width:100%;padding:12px;margin-top:8px;justify-content:center">💬 Talk to LENA AI now</button>
 </div>
@@ -1176,12 +1194,12 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 <div class="chat-wrap">
 <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r2) var(--r2) 0 0;padding:14px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border)">
 <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:16px">🌿</div>
-<div><div style="font-size:14px;font-weight:700;color:var(--text)">LENA AI</div><div style="font-size:11px;color:var(--green);font-weight:600">● Online · CBT-based support</div></div>
-<div style="margin-left:auto;font-size:12px;color:var(--muted)">All conversations are private and encrypted</div>
+<div><div style="font-size:14px;font-weight:700;color:var(--text)">LENA AI</div><div style="font-size:11px;color:var(--green);font-weight:600">● Online · Supportive listening</div></div>
+<div style="margin-left:auto;font-size:11px;color:var(--muted);text-align:right;line-height:1.5;max-width:260px">LENA does not diagnose and is not a replacement for professional care.<br>Chat messages are sent to an AI service to generate replies.</div>
 </div>
 <div class="chat-area" id="chatarea" style="background:var(--bg);border-left:1px solid var(--border);border-right:1px solid var(--border)">
-<div style="max-width:60%;display:flex;gap:9px;align-self:flex-start"><div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">🌿</div><div style="padding:12px 16px;border-radius:4px 18px 18px 18px;background:var(--card);border:1px solid var(--border);font-size:13px;color:var(--text);line-height:1.6">Assalamualaikum! I'm LENA 🌿<br/><br/>I'm here to support you using evidence-based CBT techniques, with sensitivity to your values and beliefs. How are you feeling today?</div></div>
-<div style="max-width:60%;display:flex;gap:9px;align-self:flex-start"><div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">🌿</div><div style="padding:12px 16px;border-radius:4px 18px 18px 18px;background:var(--card);border:1px solid var(--border);font-size:13px;color:var(--text);line-height:1.6">You can ask me to:<br/>• Guide you through a CBT exercise<br/>• Help identify automatic thought patterns<br/>• Suggest a breathing technique<br/>• Recommend a Dhikr or du'a for your situation</div></div>
+<div style="max-width:60%;display:flex;gap:9px;align-self:flex-start"><div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">🌿</div><div style="padding:12px 16px;border-radius:4px 18px 18px 18px;background:var(--card);border:1px solid var(--border);font-size:13px;color:var(--text);line-height:1.6">Assalamualaikum! I'm LENA 🌿<br/><br/>I'm here to listen and to sit with you through a difficult moment.<br><br>I'm not a therapist or a doctor, and I won't tell you what's wrong with you, because that takes a real person who can talk with you properly. But I can stay with you while it's hard. How are you feeling today?</div></div>
+<div style="max-width:60%;display:flex;gap:9px;align-self:flex-start"><div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">🌿</div><div style="padding:12px 16px;border-radius:4px 18px 18px 18px;background:var(--card);border:1px solid var(--border);font-size:13px;color:var(--text);line-height:1.6">You can talk to me about:<br/>• Anything that's weighing on you<br/>• Exam or family pressure<br/>• Feeling anxious, low, angry or alone<br/><br/>Or I can walk you through a short calming exercise.<br/><br/>If things ever feel unsafe, tell me, and I'll put the right numbers in front of you straight away.</div></div>
 </div>
 <div style="display:flex;gap:10px;padding:14px 16px;background:var(--nav);border:1px solid var(--border);border-top:none;border-radius:0 0 var(--r2) var(--r2)">
 <input id="chatinp" onblur="this.style.borderColor='var(--border)'" onfocus="this.style.borderColor='var(--primary)'" onkeydown="if(event.key==='Enter')sendChat()" placeholder="Type your message…" style="flex:1;padding:12px 16px;border-radius:24px;border:1.5px solid var(--border);background:var(--bg3);font-family:var(--ff-b);font-size:14px;color:var(--text);outline:none;transition:border-color .2s"/>
@@ -1237,9 +1255,9 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 <div style="font-size:12px;color:var(--muted);line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Had an argument with my flatmate. I realise I was reacting from stress...</div>
 </div>
 <div class="card" onclick="toast('Opening entry...')" style="cursor:pointer">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px"><div style="font-size:11px;color:var(--muted);font-weight:600">3 days ago · 9:00 PM</div><div style="display:flex;gap:6px;align-items:center"><span style="font-size:16px">🙂</span><span class="tag tg-p">CBT Record</span></div></div>
-<div style="font-family:var(--ff-d);font-size:15px;color:var(--text);margin-bottom:5px">Thought record: presentation anxiety</div>
-<div style="font-size:12px;color:var(--muted);line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Identified the automatic thought "I'll embarrass myself"...</div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px"><div style="font-size:11px;color:var(--muted);font-weight:600">3 days ago · 9:00 PM</div><div style="display:flex;gap:6px;align-items:center"><span style="font-size:16px">🙂</span><span class="tag tg-p">Reflection</span></div></div>
+<div style="font-family:var(--ff-d);font-size:15px;color:var(--text);margin-bottom:5px">Before the presentation</div>
+<div style="font-size:12px;color:var(--muted);line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Nervous all morning, but it went better than I expected...</div>
 </div>
 </div>
 </div>
@@ -1258,7 +1276,7 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 </div>
 <div class="pi" onclick="toast('Notifications')"><span class="pi-ico">🔔</span><span class="pi-txt">Notification Preferences</span><div class="tsw on" onclick="event.stopPropagation();this.classList.toggle('on');this.classList.toggle('off')"><div class="tk"></div></div></div>
 <div class="pi" onclick="toast('Privacy Settings')"><span class="pi-ico">🔒</span><span class="pi-txt">Privacy &amp; Data</span><span class="pi-arr">›</span></div>
-<div class="pi" onclick="go('assess')"><span class="pi-ico">📋</span><span class="pi-txt">Assessment History</span><span class="pi-arr">›</span></div>
+<div class="pi" onclick="go('assess')"><span class="pi-ico">📋</span><span class="pi-txt">Screening History</span><span class="pi-arr">›</span></div>
 <div class="pi" onclick="toast('Data exported')"><span class="pi-ico">📊</span><span class="pi-txt">Export My Data</span><span class="pi-arr">›</span></div>
 <div class="pi" onclick="openFeedback()" style="border-color:rgba(43,184,154,.3)"><span class="pi-ico">💬</span><span class="pi-txt" style="color:var(--primary);font-weight:600">Share Feedback</span><span class="pi-arr" style="color:var(--primary)">›</span></div>
 <div class="pi" onclick="toast('Signed out');setTimeout(()=&gt;location.reload(),800)"><span class="pi-ico">🚪</span><span class="pi-txt">Sign Out</span><span class="pi-arr">›</span></div>
@@ -1424,7 +1442,7 @@ const QUOTES=[
   {ar:'﴿ إِنَّ مَعَ الْعُسْرِ يُسْرًا ﴾',tr:'"Indeed, with hardship comes ease."',src:'Surah Al-Inshirah (94:6)'},
   {ar:'﴿ أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ ﴾',tr:'"Verily, in the remembrance of Allah do hearts find rest."',src:'Surah Ar-Ra\'d (13:28)'},
   {ar:'﴿ فَإِنَّ مَعَ الْعُسْرِ يُسْرًا ﴾',tr:'"For indeed, with hardship will be ease."',src:'Surah Al-Inshirah (94:5)'},
-  {ar:'حديث: «عجبًا لأمر المؤمن، إن أمره كله له خير»',tr:'"Amazing is the affair of the believer — all of it is good for him."',src:'Prophet Muhammad ﷺ (Muslim)'},
+  {ar:'حديث: «عجبًا لأمر المؤمن، إن أمره كله له خير»',tr:'"Amazing is the affair of the believer, all of it is good for him."',src:'Prophet Muhammad ﷺ (Muslim)'},
   {ar:'﴿ وَهُوَ مَعَكُمْ أَيْنَ مَا كُنتُمْ ﴾',tr:'"And He is with you wherever you are."',src:'Surah Al-Hadid (57:4)'},
   {ar:'قال ابن القيم: الصبر نصف الإيمان والشكر نصفه الآخر',tr:'"Patience is half of faith, and gratitude is the other half."',src:'Ibn al-Qayyim al-Jawziyyah'},
   {ar:'﴿ فَاذْكُرُونِي أَذْكُرْكُمْ ﴾',tr:'"So remember Me; I will remember you."',src:'Surah Al-Baqarah (2:152)'},
@@ -1436,7 +1454,7 @@ function showLoadingQuote(){
   const q=QUOTES[Math.floor(Math.random()*QUOTES.length)];
   document.getElementById('islamic-quote-ar').textContent=q.ar;
   document.getElementById('islamic-quote-tr').textContent=q.tr;
-  document.getElementById('islamic-quote-src').textContent='— '+q.src;
+  document.getElementById('islamic-quote-src').textContent=q.src;
 }
 
 // ════════════════════════════════════════════════════
@@ -1456,14 +1474,14 @@ function switchAuthTab(t){
 }
 
 const NON_ISLAMIC_QUOTES=[
-  {ar:'"The mind is its own place, and in itself can make a heaven of hell, a hell of heaven."',tr:'',src:'— John Milton'},
-  {ar:'"You don\'t have to control your thoughts. You just have to stop letting them control you."',tr:'',src:'— Dan Millman'},
-  {ar:'"Mental health is not a destination, but a process. It\'s about how you drive, not where you\'re going."',tr:'',src:'— Noam Shpancer'},
-  {ar:'"You are not your illness. You have an individual story to tell."',tr:'',src:'— Julian Seifter'},
-  {ar:'"There is hope, even when your brain tells you there isn\'t."',tr:'',src:'— John Green'},
-  {ar:'"Self-care is not self-indulgence. Self-care is self-preservation."',tr:'',src:'— Audre Lorde'},
-  {ar:'"Out of suffering have emerged the strongest souls."',tr:'',src:'— Khalil Gibran'},
-  {ar:'"Happiness can be found even in the darkest of times, if one only remembers to turn on the light."',tr:'',src:'— Albus Dumbledore'}
+  {ar:'"The mind is its own place, and in itself can make a heaven of hell, a hell of heaven."',tr:'',src:'John Milton'},
+  {ar:'"You don\'t have to control your thoughts. You just have to stop letting them control you."',tr:'',src:'Dan Millman'},
+  {ar:'"Mental health is not a destination, but a process. It\'s about how you drive, not where you\'re going."',tr:'',src:'Noam Shpancer'},
+  {ar:'"You are not your illness. You have an individual story to tell."',tr:'',src:'Julian Seifter'},
+  {ar:'"There is hope, even when your brain tells you there isn\'t."',tr:'',src:'John Green'},
+  {ar:'"Self-care is not self-indulgence. Self-care is self-preservation."',tr:'',src:'Audre Lorde'},
+  {ar:'"Out of suffering have emerged the strongest souls."',tr:'',src:'Khalil Gibran'},
+  {ar:'"Happiness can be found even in the darkest of times, if one only remembers to turn on the light."',tr:'',src:'Albus Dumbledore'}
 ];
 
 let isMuslimUser=true; // default
@@ -1480,11 +1498,11 @@ function doLogin(){
   let savedPref=null;
   try{savedPref=localStorage.getItem('lena_muslim');}catch(e){}
   if(isRegister||savedPref===null){
-    // First-time or register — ask religion
+    // First-time or register, ask religion
     const relScreen=document.getElementById('religion-screen');
     relScreen.classList.remove('fc-hidden');
   } else {
-    // Returning user — restore preference and go to loading
+    // Returning user, restore preference and go to loading
     isMuslimUser=(savedPref==='1');
     showLoadingScreen();
   }
@@ -1535,8 +1553,8 @@ const SM={
 };
 const TITLES={
   home:'Home',mood:'Mood Tracker',sleep:'Sleep Tracker','sleep-plan':'Sleep Plan',
-  assess:'Assessments',cbt:'CBT Tools','cbt-ex':'Thought Record',breathe:'Breathing Exercise',
-  discover:'Soundscapes',islamic:'Islamic Vibes',edu:'Resources',crisis:'Crisis Help',team:"LENA's Team",
+  assess:'Screening Test',cbt:'Guided Tools','cbt-ex':'Guided Tool',breathe:'Breathing Exercise',
+  discover:'Soundscapes',islamic:'Islamic Reflections',edu:'Resources',crisis:'Crisis Help',team:"LENA's Team",
   chat:'LENA AI Chat',journal:'Journal',profile:'Profile & Settings'
 };
 
@@ -1550,7 +1568,10 @@ function go(id){
   }else{
     chatSc.style.display='none';
   }
+  if(id!=='cbt-ex'){try{gtClear();}catch(e){}}
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  if(id==='assess')setTimeout(()=>{try{renderTrend();}catch(e){}},30);
+  if(id==='mood')setTimeout(()=>{try{renderMood();}catch(e){}},30);
   const el=document.getElementById(sid);
   if(el){el.classList.add('active');}
   // If navigating to assessments, always show the selection screen
@@ -1558,13 +1579,17 @@ function go(id){
     const sel=document.getElementById('assess-sel');
     const quiz=document.getElementById('assess-quiz');
     const res=document.getElementById('assess-res');
+    const cool=document.getElementById('assess-cool');
     if(sel)sel.style.display='block';
     if(quiz)quiz.style.display='none';
     if(res)res.style.display='none';
+    if(cool)cool.style.display='none';
   }
   // Update sidebar
   document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('act'));
-  const nl=document.getElementById('nl-'+id);
+  // Islamic Reflections sits inside Resources now, so it lights that link.
+  const NAV_PARENT={islamic:'edu'};
+  const nl=document.getElementById('nl-'+(NAV_PARENT[id]||id));
   if(nl)nl.classList.add('act');
   // Update title
   document.getElementById('page-title').textContent=TITLES[id]||'LENA';
@@ -1616,18 +1641,47 @@ function toast(m){const t=document.getElementById('toast');t.textContent=m;t.cla
 // ════════════════════════════════════════════════════
 function openMoodModal(){document.getElementById('mood-modal').classList.add('open');}
 function closeMoodModal(){document.getElementById('mood-modal').classList.remove('open');}
-function pickModalMood(el){
+function pickModalMood(el,v){
   document.querySelectorAll('#mood-modal .mf').forEach(f=>f.classList.remove('sel'));
   el.querySelector('.mf').classList.add('sel');
+  mmMood=v||+el.dataset.v||null;
 }
-function saveMoodModal(){closeMoodModal();toast('Mood check-in saved 🌿');}
-function quickMood(e,el,emoji){
+// Clinical guidance (Dr Hamidah): users may track as often as they
+// like. Entries are therefore APPENDED. An earlier entry is never
+// replaced, because "I felt awful this morning, better tonight" is
+// two facts, not a correction.
+function addMood(mood,note,iv,tags){
+  const all=loadMoods();
+  all.push({t:Date.now(),m:mood,i:iv||4,tags:tags||[],note:(note||'').trim()});
+  all.sort((a,b)=>a.t-b.t);
+  while(all.length>800)all.shift();
+  saveMoods(all);
+  try{renderMood();}catch(e){}
+  return todayCount();
+}
+function todayCount(){
+  const t0=new Date(); t0.setHours(0,0,0,0); const t=t0.getTime();
+  return loadMoods().filter(m=>{const d=new Date(m.t);d.setHours(0,0,0,0);return d.getTime()===t;}).length;
+}
+function nth(n){return n===1?'':n===2?' \u00b7 2nd today':n===3?' \u00b7 3rd today':' \u00b7 '+n+'th today';}
+function saveMoodModal(){
+  if(!mmMood){toast('Pick how you\'re feeling first');return;}
+  const nEl=document.getElementById('mm-note');
+  const c=addMood(mmMood, nEl?nEl.value:'');
+  mmMood=null;
+  document.querySelectorAll('#mood-modal .mf').forEach(f=>f.classList.remove('sel'));
+  if(nEl)nEl.value='';
+  closeMoodModal();
+  toast('Mood check-in saved 🌿'+nth(c));
+}
+function quickMood(e,el,emoji,v){
   e.stopPropagation();
   document.querySelectorAll('#sc-home .mf').forEach(f=>f.classList.remove('sel'));
   el.classList.add('sel');
+  if(v)addMood(v,'');
   document.getElementById('mood-disp').textContent='Feeling '+emoji+' today ✓';
 }
-function pickBigMood(el){
+function pickBigMood(el){ /* legacy: superseded by pickMood */
   el.closest('div').querySelectorAll('[onclick*="pickBigMood"]').forEach(c=>{
     c.querySelector('.mf')?.classList.remove('sel');
     const sp=c.querySelector('span');if(sp){sp.style.color='var(--muted)';sp.style.fontWeight='600';}
@@ -1644,7 +1698,14 @@ function toggleSym(el){
   el.style.borderColor=el.classList.contains('act')?'var(--primary)':'var(--border)';
   el.style.background=el.classList.contains('act')?'rgba(43,184,154,.1)':'var(--card)';
 }
-function setCbtCat(el){el.parentElement.querySelectorAll('.cbt-cat').forEach(c=>c.classList.remove('act'));el.classList.add('act');}
+function setCbtCat(el){
+  el.parentElement.querySelectorAll('.cbt-cat').forEach(c=>c.classList.remove('act'));
+  el.classList.add('act');
+  const c=el.dataset.cat||'all';
+  document.querySelectorAll('.gt-card').forEach(card=>{
+    card.style.display=(c==='all'||card.dataset.cat===c)?'block':'none';
+  });
+}
 
 // ════════════════════════════════════════════════════
 // SLEEP TIME CALCULATOR
@@ -1662,11 +1723,11 @@ function calcSleep(){
   res.style.display='block';
   res.textContent=h+'h '+m+'m';
   res.style.color=h>=7?'var(--green)':h>=6?'var(--amber)':'var(--red)';
-  toast('Duration: '+h+'h '+m+'m '+(h>=7?'✓ Great!':h>=6?'— Almost there':'— Aim for 7h+'));
+  toast('Duration: '+h+'h '+m+'m '+(h>=7?'✓ Great!':h>=6?'Almost there':'Aim for 7h+'));
 }
 
 // ════════════════════════════════════════════════════
-// WEB AUDIO – SOUNDSCAPES
+// WEB AUDIO / SOUNDSCAPES
 // ════════════════════════════════════════════════════
 const Actx=new(window.AudioContext||window.webkitAudioContext)();
 const aSounds={};
@@ -1768,19 +1829,19 @@ const RESOURCE_PAGES={
     {h:'What is Depression?',p:'Depression is a common mental health condition characterised by persistent low mood, loss of interest, and a range of emotional and physical symptoms. It is not a sign of weakness, laziness, or lack of faith.'},
     {h:'Symptoms to Know',p:'Common symptoms include persistent sadness, loss of pleasure in activities, fatigue, changes in sleep and appetite, difficulty concentrating, and feelings of worthlessness. If you experience 5+ symptoms for 2+ weeks, speak to a professional.'},
     {h:'How CBT Helps',p:'Cognitive Behavioural Therapy works by identifying and challenging unhelpful thinking patterns. Research shows CBT is as effective as medication for mild to moderate depression, with longer-lasting effects.'},
-    {h:'What You Can Do Today',p:'Start small: log your mood daily in LENA, complete one CBT exercise, take a 10-minute walk, and reach out to one trusted person. Recovery is not linear — every small step counts.'}
+    {h:'What You Can Do Today',p:'Start small: log your mood daily in LENA, complete one CBT exercise, take a 10-minute walk, and reach out to one trusted person. Recovery is not linear, and every small step counts.'}
   ],
   'Managing Anxiety':[
     {h:'Understanding Anxiety',p:'Anxiety is your body\'s natural alarm system. It becomes a problem when it fires too often or too intensely. It is one of the most common and treatable mental health conditions in the world.'},
     {h:'The Anxiety Cycle',p:'A situation triggers a thought → the thought creates physical sensations → you avoid the situation → avoidance reinforces the anxiety. CBT breaks this cycle by changing how you interpret situations.'},
     {h:'Evidence-Based Strategies',p:'The 4-7-8 breathing technique, progressive muscle relaxation, grounding exercises (5-4-3-2-1), and thought challenging are all evidence-based tools for managing anxiety in the moment.'},
-    {h:'When to Seek Help',p:'If anxiety is significantly interfering with your daily life, work, or relationships, professional support is recommended. LENA\'s assessment tools can help you track severity over time.'}
+    {h:'When to Seek Help',p:'If anxiety is significantly interfering with your daily life, work, or relationships, professional support is recommended. LENA\'s screening tests can help you track severity over time.'}
   ],
   default:[
     {h:'Introduction',p:'This resource covers an important aspect of mental wellbeing. Read through each section at your own pace, or switch to audio mode to listen instead.'},
     {h:'Key Concepts',p:'Understanding the science behind mental health helps us approach it with the same seriousness as physical health. Mental illness is a medical condition, not a personal failing.'},
     {h:'Practical Strategies',p:'Small, consistent actions are more effective than large, irregular ones. LENA\'s tools are designed to make it easy to take these small steps every day.'},
-    {h:'Next Steps',p:'Consider taking one of LENA\'s assessments, logging your mood daily, or speaking with a mental health professional. You do not have to navigate this alone.'}
+    {h:'Next Steps',p:'Consider taking one of LENA\'s screening tests, logging your mood daily, or speaking with a mental health professional. You do not have to navigate this alone.'}
   ]
 };
 
@@ -1861,7 +1922,7 @@ function skipAudio(sec){
   document.getElementById('audio-dur').textContent=m+':'+String(s).padStart(2,'0')+' / '+tm+':'+String(ts).padStart(2,'0');
   toast((sec>0?'+':-'')+sec+'s');
 }
-document.getElementById('audio-dur').id='audio-dur'; // fix duplicate
+// [removed] null-deref on #audio-dur crashed the script; superseded by the guarded res-audio-dur fix below
 // Fix the element id reference
 const durEl=document.getElementById('res-audio-dur');
 if(durEl)durEl.id='audio-dur';
@@ -2038,18 +2099,17 @@ const SEARCH_INDEX=[
   {ico:'🏠',label:'Home',sub:'Dashboard & overview',screen:'home'},
   {ico:'📊',label:'Mood Tracker',sub:'Log your daily mood',screen:'mood'},
   {ico:'🌙',label:'Sleep Tracker',sub:'Track sleep quality & goals',screen:'sleep'},
-  {ico:'💬',label:'LENA AI Chat',sub:'CBT-based AI support',screen:'chat'},
-  {ico:'📋',label:'Assessments',sub:'PHQ-9, GAD-7, WHO-5 & more',screen:'assess'},
+  {ico:'💬',label:'LENA AI Chat',sub:'Supportive listening, not diagnosis',screen:'chat'},
+  {ico:'📋',label:'Screening Test',sub:'PHQ-9 & DASS-21',screen:'assess'},
   {ico:'📋',label:'PHQ-9 Depression',sub:'Clinical screening tool',screen:'assess',action:()=>startAssess('phq9')},
-  {ico:'🧠',label:'GAD-7 Anxiety',sub:'Clinical screening tool',screen:'assess',action:()=>startAssess('gad7')},
-  {ico:'🌿',label:'WHO-5 Wellbeing',sub:'Wellbeing assessment',screen:'assess',action:()=>startAssess('who5')},
-  {ico:'💭',label:'CBT Tools',sub:'Thought records & exercises',screen:'cbt'},
-  {ico:'📝',label:'Thought Record',sub:'CBT exercise',screen:'cbt-ex'},
+  {ico:'💭',label:'Guided Tools',sub:'Grounding, movement & relaxation',screen:'cbt'},
+  {ico:'🌱',label:'Grounding 5-4-3-2-1',sub:'Guided tool',screen:'cbt',action:()=>startGT('ground')},
+  {ico:'🚶',label:'Movement Break',sub:'Guided tool',screen:'cbt',action:()=>startGT('move')},
   {ico:'🫁',label:'Breathe',sub:'Breathing exercises',screen:'breathe'},
   {ico:'🫁',label:'4-7-8 Breathing',sub:'Anxiety relief technique',screen:'breathe'},
   {ico:'🫁',label:'Box Breathing',sub:'Focus & calm technique',screen:'breathe'},
   {ico:'📓',label:'Journal',sub:'Daily reflections',screen:'journal'},
-  {ico:'🕌',label:'Islamic Vibes',sub:'Quran, Dhikr & spiritual support',screen:'islamic'},
+  {ico:'🕌',label:'Islamic Reflections',sub:'In Resources \u00b7 Quran, dhikr & spiritual support',screen:'islamic'},
   {ico:'🎵',label:'Soundscapes',sub:'Ambient sounds for focus & sleep',screen:'discover'},
   {ico:'📚',label:'Resources',sub:'Psychoeducation articles & audio',screen:'edu'},
   {ico:'🆘',label:'Crisis Help',sub:'Emergency helplines & safety plan',screen:'crisis'},
@@ -2092,33 +2152,71 @@ function handleSearchClick(idx,e){
 // ASSESSMENTS
 // ════════════════════════════════════════════════════
 const AS={
-  phq9:{n:'PHQ-9',ins:'Over the last 2 weeks, how often have you been bothered by the following?',opts:['Not at all','Several days','More than half the days','Nearly every day'],qs:['Little interest or pleasure in doing things','Feeling down, depressed, or hopeless','Trouble falling or staying asleep, or sleeping too much','Feeling tired or having little energy','Poor appetite or overeating','Feeling bad about yourself or that you are a failure','Trouble concentrating on things','Moving or speaking unusually slowly or restlessly','Thoughts that you would be better off dead or hurting yourself'],score(s){const t=s.reduce((a,b)=>a+b,0);if(t<=4)return{l:'Minimal Depression',c:'var(--green)',sev:'minimal',r:'PHQ-9: '+t+'/27',rec:'Minimal depressive symptoms. Maintain healthy habits and keep checking in with LENA.'};if(t<=9)return{l:'Mild Depression',c:'var(--amber)',sev:'mild',r:'PHQ-9: '+t+'/27',rec:'CBT exercises, regular exercise, and social connection can help. Try LENA\'s thought record tool.'};if(t<=14)return{l:'Moderate Depression',c:'var(--amber)',sev:'moderate',r:'PHQ-9: '+t+'/27',rec:'Speaking with a healthcare professional is recommended. CBT and/or medication may be appropriate.'};return{l:'Severe Depression',c:'var(--red)',sev:'severe',r:'PHQ-9: '+t+'/27',rec:'Please seek professional help promptly. Contact a crisis line or hospital emergency if needed.'};}},
-  gad7:{n:'GAD-7',ins:'Over the last 2 weeks, how often have you been bothered by the following?',opts:['Not at all','Several days','More than half the days','Nearly every day'],qs:['Feeling nervous, anxious, or on edge','Not being able to stop or control worrying','Worrying too much about different things','Trouble relaxing','Being so restless it is hard to sit still','Becoming easily annoyed or irritable','Feeling afraid as if something awful might happen'],score(s){const t=s.reduce((a,b)=>a+b,0);if(t<=4)return{l:'Minimal Anxiety',c:'var(--green)',sev:'minimal',r:'GAD-7: '+t+'/21',rec:'Minimal anxiety. Keep practising stress management and mindfulness.'};if(t<=9)return{l:'Mild Anxiety',c:'var(--amber)',sev:'mild',r:'GAD-7: '+t+'/21',rec:'LENA\'s breathing exercises and CBT tools may help significantly.'};if(t<=14)return{l:'Moderate Anxiety',c:'var(--amber)',sev:'moderate',r:'GAD-7: '+t+'/21',rec:'Speaking with a professional is recommended. CBT has strong evidence for anxiety.'};return{l:'Severe Anxiety',c:'var(--red)',sev:'severe',r:'GAD-7: '+t+'/21',rec:'Please seek professional help. Severe anxiety is very treatable with proper support.'};}},
-  who5:{n:'WHO-5',ins:'How have you been feeling over the last two weeks?',opts:['All of the time','Most of the time','More than half the time','Less than half','Some of the time','At no time'],qs:['I have felt cheerful and in good spirits','I have felt calm and relaxed','I have felt active and vigorous','I woke up feeling fresh and rested','My daily life has been filled with things that interest me'],score(s){const t=s.reduce((a,b)=>a+b,0)*4;if(t>=52)return{l:'Good Wellbeing',c:'var(--green)',sev:'minimal',r:'WHO-5: '+t+'/100',rec:'Good wellbeing. Continue habits that support you.'};if(t>=28)return{l:'Moderate Wellbeing',c:'var(--amber)',sev:'mild',r:'WHO-5: '+t+'/100',rec:'Room to improve. Explore LENA\'s CBT exercises and Islamic wellbeing features.'};return{l:'Low Wellbeing',c:'var(--red)',sev:'moderate',r:'WHO-5: '+t+'/100',rec:'Possible depression indicated. Consider taking PHQ-9 and speaking with a professional.'};}},
-  dass21:{n:'DASS-21',ins:'Rate the extent each statement applied over the past week.',opts:['Did not apply at all','Applied to some degree','Applied considerably','Applied very much'],qs:['I found it hard to wind down','Dryness of my mouth','Couldn\'t seem to experience positive feeling','Breathing difficulty (without exertion)','Difficult to work up initiative','Tended to over-react to situations','Trembling in hands','Using a lot of nervous energy','Worried about panicking in social situations','Had nothing to look forward to','Getting agitated','Difficult to relax','Down-hearted and blue','Intolerant of anything keeping me from what I was doing','Close to panic','Unable to become enthusiastic about anything','Felt I wasn\'t worth much as a person','Rather touchy','Aware of heart action without exertion','Scared without good reason','Felt life was meaningless'],score(s){const d=[2,4,9,12,15,16,20].map(i=>s[i]||0).reduce((a,b)=>a+b,0)*2,a=[1,3,6,8,14,19].map(i=>s[i]||0).reduce((a,b)=>a+b,0)*2,st=[0,5,7,10,11,13,17].map(i=>s[i]||0).reduce((a,b)=>a+b,0)*2,mx=Math.max(d,a,st);return{l:'DASS-21 Complete',c:mx<=9?'var(--green)':mx<=13?'var(--amber)':'var(--red)',sev:mx<=9?'minimal':mx<=13?'mild':'moderate',r:'D:'+d+' A:'+a+' S:'+st,rec:'Depression:'+d+'/42 | Anxiety:'+a+'/42 | Stress:'+st+'/42',bars:[{l:'Depression',p:Math.round(d/42*100),c:'#F44336'},{l:'Anxiety',p:Math.round(a/42*100),c:'#FF9800'},{l:'Stress',p:Math.round(st/42*100),c:'#9C27B0'}]};}},
-  emotional:{n:'Emotional Profile',ins:'Over the past two weeks, to what degree have you experienced the following?',opts:['Not at all','A little','Moderately','Quite a bit','Extremely'],qs:['Feeling nervous, worried or on-edge','Feeling overwhelmed by responsibilities','Feeling sad, down or unhappy','Feeling irritable or easily angered','Feeling afraid of specific situations','Feeling lonely or disconnected','Feeling guilty or ashamed','Feeling numb or emotionally flat','Feeling hopeful about the future','Feeling grateful for things in your life','Feeling joy or pleasure in activities','Experiencing sudden waves of strong emotion','Difficulty managing emotional reactions','Feeling emotionally exhausted','Physical symptoms when emotionally stressed'],score(s){const anx=[0,4,6].map(i=>s[i]||0).reduce((a,b)=>a+b,0),str=[1,7,12,13].map(i=>s[i]||0).reduce((a,b)=>a+b,0),sad=[2,6,7].map(i=>s[i]||0).reduce((a,b)=>a+b,0),ang=[3,12].map(i=>s[i]||0).reduce((a,b)=>a+b,0),fear=[4,11].map(i=>s[i]||0).reduce((a,b)=>a+b,0),pos=[8,9,10].map(i=>(4-(s[i]||0))).reduce((a,b)=>a+b,0),tot=s.reduce((a,b)=>a+b,0);return{l:'Emotional Profile Complete',c:'var(--primary)',sev:'minimal',r:'Total: '+tot+'/60',rec:'Your emotional profile shows where you experience the most emotional activity.',bars:[{l:'Anxiety',p:Math.round(anx/12*100),c:'#FF9800'},{l:'Stress',p:Math.round(str/16*100),c:'#F44336'},{l:'Sadness',p:Math.round(sad/12*100),c:'#607D8B'},{l:'Anger',p:Math.round(ang/8*100),c:'#E91E63'},{l:'Fear',p:Math.round(fear/8*100),c:'#9C27B0'},{l:'Positivity',p:Math.round(pos/12*100),c:'#4CAF50'}]};}},
-  lifestyle:{n:'Lifestyle & Skills',ins:'How accurately does each statement describe your typical lifestyle?',opts:['Never','Rarely','Sometimes','Often','Always'],qs:['I plan my day with clear priorities','I get 7–9 hours of sleep most nights','I exercise at least 3 times a week','I eat regular nutritious meals','I avoid screens an hour before bed','I take regular breaks when working','I drink enough water daily','I feel in control of how I spend my time','I limit social media under 2 hours daily','I practise relaxation activities','I have a consistent sleep and wake time','I rarely skip meals due to busyness','I find time for physical activity in a busy week','I manage my energy throughout the day','I maintain work-rest boundaries','I track how I use my time'],score(s){const tm=[0,7,9,14,15].map(i=>s[i]||0).reduce((a,b)=>a+b,0),sl=[1,4,10].map(i=>s[i]||0).reduce((a,b)=>a+b,0),ex=[2,6,12].map(i=>s[i]||0).reduce((a,b)=>a+b,0),nu=[3,7,11].map(i=>s[i]||0).reduce((a,b)=>a+b,0),db=[8,5].map(i=>s[i]||0).reduce((a,b)=>a+b,0);return{l:'Lifestyle Profile Complete',c:'var(--primary)',sev:'minimal',r:'Self-discovery module',rec:'Your lifestyle profile reveals how well your daily habits support your wellbeing.',bars:[{l:'Time Management',p:Math.round(tm/20*100),c:'#9C27B0'},{l:'Sleep Quality',p:Math.round(sl/12*100),c:'#3F51B5'},{l:'Physical Activity',p:Math.round(ex/12*100),c:'#4CAF50'},{l:'Nutrition',p:Math.round(nu/12*100),c:'#FF9800'},{l:'Digital Balance',p:Math.round(db/8*100),c:'#2196F3'}]};}},
-  social:{n:'Social & EQ',ins:'How accurately does each statement describe your typical social behaviour?',opts:['Strongly Disagree','Disagree','Neutral','Agree','Strongly Agree'],qs:['I find it easy to understand how others feel','I express my feelings clearly to others','I set healthy boundaries in relationships','I listen actively without interrupting','I feel comfortable in social situations','I handle conflict without aggression','I can say no without feeling guilty','I build trust with people quickly','I am aware of my emotional triggers','I support others without neglecting myself','I read social cues well','I communicate assertively','I maintain healthy long-term friendships','I recover well from social misunderstandings'],score(s){const emp=[0,3,10].map(i=>s[i]||0).reduce((a,b)=>a+b,0),com=[1,5,11].map(i=>s[i]||0).reduce((a,b)=>a+b,0),bnd=[2,6,9].map(i=>s[i]||0).reduce((a,b)=>a+b,0),soc=[4,7,12].map(i=>s[i]||0).reduce((a,b)=>a+b,0),sa=[8,13].map(i=>s[i]||0).reduce((a,b)=>a+b,0);return{l:'Social & EQ Profile',c:'var(--primary)',sev:'minimal',r:'Self-discovery module',rec:'Social and emotional intelligence skills can all be developed with practice.',bars:[{l:'Empathy',p:Math.round(emp/12*100),c:'#E91E63'},{l:'Communication',p:Math.round(com/12*100),c:'#2196F3'},{l:'Boundaries',p:Math.round(bnd/12*100),c:'#4CAF50'},{l:'Social Confidence',p:Math.round(soc/12*100),c:'#FF9800'},{l:'Self-Awareness',p:Math.round(sa/8*100),c:'#9C27B0'}]};}},
-  spiritual:{n:'Spiritual Wellbeing',ins:'Rate how well each statement reflects your current spiritual state.',opts:['Strongly Disagree','Disagree','Neutral','Agree','Strongly Agree'],qs:['I feel connected to something greater than myself','I regularly express gratitude for what I have','I feel my life has clear purpose and meaning','I experience inner peace in my daily life','My faith provides comfort during difficult times','I set aside time for prayer or spiritual reflection','I feel hopeful about the future based on my beliefs','I find solace in Quranic verses or spiritual texts','I act in alignment with my values','I feel Allah is near and aware of me'],score(s){const f=[0,4,7,9].map(i=>s[i]||0).reduce((a,b)=>a+b,0),g=[1,5].map(i=>s[i]||0).reduce((a,b)=>a+b,0),p=[2,8].map(i=>s[i]||0).reduce((a,b)=>a+b,0),pe=[3,6].map(i=>s[i]||0).reduce((a,b)=>a+b,0);return{l:'Spiritual Profile Complete',c:'var(--primary)',sev:'minimal',r:'Self-discovery module',rec:'Research shows spiritual wellbeing significantly buffers against depression and anxiety.',bars:[{l:'Faith Connection',p:Math.round(f/16*100),c:'#2BB89A'},{l:'Gratitude Practice',p:Math.round(g/8*100),c:'#F4A438'},{l:'Sense of Purpose',p:Math.round(p/8*100),c:'#4CAF50'},{l:'Inner Peace',p:Math.round(pe/8*100),c:'#9C27B0'}]};}},
-  resilience:{n:'Resilience Meter',ins:'Rate how well each statement describes how you respond to difficulties.',opts:['Not at all','A little','Moderately','Quite a bit','Completely'],qs:['I bounce back quickly after difficult events','I tend to find meaning in hardship','I remain focused when things go wrong','I believe I can handle most challenges','I adapt well when circumstances change unexpectedly','I have strong social support I can rely on','I use healthy coping strategies when stressed','I maintain perspective during crises','I take action rather than becoming paralysed','I recover my emotional balance after setbacks'],score(s){const cop=[0,6,9].map(i=>s[i]||0).reduce((a,b)=>a+b,0),adp=[4,7,8].map(i=>s[i]||0).reduce((a,b)=>a+b,0),eff=[3,2].map(i=>s[i]||0).reduce((a,b)=>a+b,0),men=[1,5].map(i=>s[i]||0).reduce((a,b)=>a+b,0),tot=s.reduce((a,b)=>a+b,0);return{l:'Resilience Profile',c:tot>=24?'var(--green)':'var(--amber)',sev:tot<20?'moderate':'minimal',r:tot+'/40',rec:'Resilience is a skill you can build. Your profile shows current strengths and areas to develop.',bars:[{l:'Coping Ability',p:Math.round(cop/12*100),c:'#4CAF50'},{l:'Adaptability',p:Math.round(adp/12*100),c:'#2196F3'},{l:'Self-Efficacy',p:Math.round(eff/8*100),c:'#FF9800'},{l:'Finding Meaning',p:Math.round(men/8*100),c:'#9C27B0'},{l:'Overall Resilience',p:Math.round(tot/40*100),c:'#2BB89A'}]};}},
-  burnout:{n:'Burnout Check',ins:'Over the past month, how often have you experienced the following?',opts:['Never','Rarely','Sometimes','Often','Always'],qs:['I feel emotionally drained by my work or studies','I feel detached or cynical about what I do','I feel my efforts are not making a difference','I feel physically tired even after rest','I lack motivation to start tasks','I feel overwhelmed by the amount I need to do','I have been less productive than I want to be','I feel irritable with people around me','I struggle to find meaning in what I am doing'],score(s){const ex=[0,3,4].map(i=>s[i]||0).reduce((a,b)=>a+b,0),cy=[1,2,8].map(i=>s[i]||0).reduce((a,b)=>a+b,0),in2=[5,6,7].map(i=>s[i]||0).reduce((a,b)=>a+b,0),tot=s.reduce((a,b)=>a+b,0),sev=tot<12?'minimal':tot<22?'mild':'moderate';return{l:sev==='moderate'?'High Burnout Risk':sev==='mild'?'Moderate Burnout Risk':'Low Burnout Risk',c:sev==='moderate'?'var(--red)':sev==='mild'?'var(--amber)':'var(--green)',sev,r:tot+'/36',rec:'Burnout develops gradually. Your profile shows where you are most vulnerable.',bars:[{l:'Emotional Exhaustion',p:Math.round(ex/12*100),c:'#F44336'},{l:'Cynicism',p:Math.round(cy/12*100),c:'#FF9800'},{l:'Reduced Efficacy',p:Math.round(in2/12*100),c:'#9C27B0'},{l:'Overall Burnout Risk',p:Math.round(tot/36*100),c:'#607D8B'}]};}}
+  phq9:{n:'PHQ-9',ins:'Over the last 2 weeks, how often have you been bothered by any of the following problems?',insMs:'Sepanjang 2 minggu yang lalu, berapa kerapkah anda diganggu oleh mana-mana masalah berikut?',opts:['Not at all','Several days','More than half the days','Nearly everyday'],optsMs:['Tidak sama sekali','Beberapa hari','Lebih separuh hari','Hampir setiap hari'],qs:['Little interest or pleasure in doing things','Feeling down, depressed or hopeless','Trouble falling or staying asleep, or sleeping too much','Feeling tired or having little energy','Poor appetite or overeating','Feeling bad about yourself \u2013 or that you are a failure or have let yourself or your family down','Trouble concentrating on things, such as reading the newspaper or watching television','Moving or speaking so slowly that people could have noticed? Or the opposite \u2013 being so fidgety or restless that you have been moving around a lot more than usual','Thoughts that you would be better off dead or of hurting yourself in some way'],qsMs:['Kurang berminat atau keseronokan dalam melakukan sesuatu perkara','Rasa sedih, tidak gembira, atau putus asa','Masalah untuk tidur atau tidur nyenyak atau tidur berlebihan','Rasa letih atau mempunyai sedikit tenaga','Kurang selera atau makan berlebihan','Rasa buruk mengenai diri anda \u2013 atau anda seorang yang gagal atau anda telah menyebabkan diri anda atau keluarga anda kecewa','Masalah untuk menumpukan perhatian ke atas sesuatu perkara seperti membaca surat khabar atau menonton televisyen','Bergerak atau bercakap terlalu perlahan sehingga orang lain perasan? Atau sebaliknya \u2013 menjadi sangat resah atau gelisah sehinggakan anda telah bergerak banyak daripada biasa','Memikirkan adalah lebih baik saja jika anda mati atau mencederakan diri sendiri dalam beberapa cara'],score(s){const t=s.reduce((a,b)=>a+b,0);if(t<=4)return{l:'Minimal Depression',c:'var(--green)',sev:'minimal',r:'PHQ-9: '+t+'/27',rec:'Minimal depressive symptoms. Maintain healthy habits and keep checking in with LENA.'};if(t<=9)return{l:'Mild Depression',c:'var(--amber)',sev:'mild',r:'PHQ-9: '+t+'/27',rec:'Mild symptoms. Regular movement, sleep and staying connected to people all help. LENA\'s guided tools can support this day to day.'};if(t<=14)return{l:'Moderate Depression',c:'var(--amber)',sev:'moderate',r:'PHQ-9: '+t+'/27',rec:'Speaking with a healthcare professional is recommended. CBT and/or medication may be appropriate.'};if(t<=19)return{l:'Moderately Severe Depression',c:'var(--red)',sev:'severe',r:'PHQ-9: '+t+'/27',rec:'Active treatment with a healthcare professional is recommended. Please arrange an appointment soon.'};return{l:'Severe Depression',c:'var(--red)',sev:'severe',r:'PHQ-9: '+t+'/27',rec:'Please seek professional help promptly. Contact a crisis line or hospital emergency if needed.'};}},
+  dass21:{n:'DASS-21',ins:'Please read each statement and select a number 0, 1, 2 or 3 that indicates how much the statement applied to you over the past week. There are no right or wrong answers. Do not spend too much time on any statement.',insMs:'Sila baca setiap kenyataan di bawah dan pilih jawapan 0, 1, 2 atau 3 bagi menggambarkan keadaan anda sepanjang minggu yang lalu. Tiada jawapan yang betul atau salah. Jangan mengambil masa yang terlalu lama untuk mana-mana kenyataan.',opts:['Did not apply to me at all','Applied to me to some degree, or some of the time','Applied to me to a considerable degree, good part of time','Applied to me very much, or most of the time'],optsMs:['Tidak langsung menggambarkan keadaan saya','Sedikit atau jarang-jarang menggambarkan keadaan saya','Banyak atau kerapkali menggambarkan keadaan saya','Sangat banyak atau sangat kerap menggambarkan keadaan saya'],qs:['I found it hard to wind down','I was aware of dryness of my mouth','I couldn\'t seem to experience any positive feeling at all','I experienced breathing difficulty (e.g. excessively rapid breathing, breathlessness in the absence of physical exertion)','I found it difficult to work up the initiative to do things','I tended to over-react to situations','I experienced trembling (e.g. in the hands)','I felt that I was using a lot of nervous energy','I was worried about situations in which I might panic and make a fool of myself','I felt that I had nothing to look forward to','I found myself getting agitated','I found it difficult to relax','I felt down-hearted and blue','I was intolerant of anything that kept me from getting on with what I was doing','I felt I was close to panic','I was unable to become enthusiastic about anything','I felt I wasn\'t worth much as a person','I felt that I was rather touchy','I was aware of the action of my heart in the absence of physical exertion (e.g. sense of heart rate increase, heart missing a beat)','I felt scared without any good reason','I felt that life was meaningless'],qsMs:['Saya dapati diri saya sukar ditenteramkan.','Saya sedar mulut saya terasa kering.','Saya tidak dapat mengalami perasaan positif sama sekali.','Saya mengalami kesukaran bernafas (contohnya pernafasan yang laju, tercungap-cungap walaupun tidak melakukan senaman fizikal).','Saya sukar untuk mendapatkan semangat bagi melakukan sesuatu perkara.','Saya cenderung untuk bertindak keterlaluan dalam sesuatu keadaan.','Saya rasa menggeletar (contohnya pada tangan).','Saya rasa saya menggunakan banyak tenaga dalam keadaan cemas.','Saya bimbang keadaan di mana saya mungkin menjadi panik dan melakukan perkara yang membodohkan diri sendiri.','Saya rasa saya tidak mempunyai apa-apa untuk diharapkan.','Saya dapati diri saya semakin gelisah.','Saya rasa sukar untuk relaks.','Saya rasa sedih dan murung.','Saya tidak dapat menahan sabar dengan perkara yang menghalang saya meneruskan apa yang saya lakukan.','Saya rasa hampir-hampir menjadi panik/cemas.','Saya tidak bersemangat dengan apa jua yang saya lakukan.','Saya rasa tidak begitu berharga sebagai seorang individu.','Saya rasa saya mudah tersentuh.','Saya sedar tindakbalas jantung saya walaupun tidak melakukan aktiviti fizikal (contohnya kadar denyutan jantung bertambah, atau denyutan jantung berkurangan).','Saya berasa takut tanpa sebab yang munasabah.','Saya rasa hidup ini tidak bermakna.'],score(s){const g=ix=>ix.map(i=>s[i]||0).reduce((a,b)=>a+b,0);const d=g([2,4,9,12,15,16,20]),a=g([1,3,6,8,14,18,19]),st=g([0,5,7,10,11,13,17]);const L=['Normal','Mild','Moderate','Severe','Extremely Severe'];const band=(v,c)=>{let i=0;while(i<4&&v>c[i])i++;return L[i];};const CD=[5,7,10,14],CA=[4,5,7,10],CS=[7,9,13,17];const dB=band(d,CD),aB=band(a,CA),sB=band(st,CS);const rk=x=>L.indexOf(x);const worst=Math.max(rk(dB),rk(aB),rk(sB));const col=['var(--green)','var(--amber)','var(--amber)','var(--red)','var(--red)'][worst];const sv=['minimal','mild','moderate','severe','severe'][worst];return{l:'DASS-21 Complete',c:col,sev:sv,r:'S:'+st+' A:'+a+' D:'+d,rec:'Stress '+st+'/21 ('+sB+') | Anxiety '+a+'/21 ('+aB+') | Depression '+d+'/21 ('+dB+').',sub:{stress:st,anxiety:a,depression:d,sB:sB,aB:aB,dB:dB},bars:[{l:'Stress - '+sB,p:Math.round(st/21*100),c:'#9C27B0'},{l:'Anxiety - '+aB,p:Math.round(a/21*100),c:'#FF9800'},{l:'Depression - '+dB,p:Math.round(d/21*100),c:'#F44336'}]};}},
 };
 
-let curA=null,curQ=0,answers=[];
+let curA=null,curAK=null,curQ=0,answers=[];
 function showAssessSel(){
   const sel=document.getElementById('assess-sel');
   const quiz=document.getElementById('assess-quiz');
   const res=document.getElementById('assess-res');
+  const cool=document.getElementById('assess-cool');
   if(sel)sel.style.display='block';
   if(quiz)quiz.style.display='none';
   if(res)res.style.display='none';
+  if(cool)cool.style.display='none';
+}
+// ── Re-test cooldown ─────────────────────────────────
+// Clinical guidance (Dr Hamidah): the more often people screen
+// themselves, the more they start self-diagnosing. Both instruments
+// ask about the last two weeks, so repeating one within days mostly
+// registers today's mood as if it were change. This is a speed bump
+// with an alternative, never a lock. Refusing someone access to a
+// screening tool would be worse than the problem it solves.
+const COOL_DAYS=7;
+function lastOf(key){
+  const h=loadHistory().filter(e=>e.k===key);
+  return h.length?h[h.length-1]:null;
+}
+function daysSince(ts){return Math.floor((Date.now()-ts)/864e5);}
+function agoTxt(d){return d===0?'earlier today':d===1?'yesterday':d+' days ago';}
+function scoreTxt(e){
+  if(e.k==='phq9')return 'scored '+e.total+' out of 27 ('+e.band+')';
+  const w=[['Stress',e.stress,e.sB],['Anxiety',e.anxiety,e.aB],['Depression',e.depression,e.dB]];
+  return 'scored '+w.map(x=>x[0]+' '+x[1]+' ('+x[2]+')').join(', ');
 }
 function startAssess(k){
-  curA=AS[k];if(!curA){toast('Coming soon');return;}
+  const prev=lastOf(k);
+  if(prev&&daysSince(prev.t)<COOL_DAYS&&!coolBypass){ showCooldown(k,prev); return; }
+  coolBypass=false;
+  beginAssess(k);
+}
+let coolBypass=false, coolKey=null;
+function showCooldown(k,prev){
+  coolKey=k;
+  if(!document.getElementById('sc-assess').classList.contains('active')) go('assess');
+  const nm=(AS[k]&&AS[k].n)||'this test';
+  const t=document.getElementById('cool-title');
+  const l=document.getElementById('cool-last');
+  const wy=document.getElementById('cool-why');
+  if(t)t.textContent='You took '+nm+' '+agoTxt(daysSince(prev.t));
+  if(l)l.innerHTML='Last time you '+scoreTxt(prev)+'.';
+  if(wy)wy.innerHTML='Both questionnaires ask how you have been over <b>the last two weeks</b>, so taking one again this soon usually reflects how today feels rather than a real change. Day-to-day ups and downs belong in the mood tracker, which is what it is for.';
+  ['assess-sel','assess-quiz','assess-res'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.display='none';});
+  const c=document.getElementById('assess-cool'); if(c)c.style.display='block';
+}
+function coolProceed(){
+  const c=document.getElementById('assess-cool'); if(c)c.style.display='none';
+  coolBypass=true; startAssess(coolKey);
+}
+function beginAssess(k){
+  curA=AS[k];curAK=k;if(!curA){toast('Coming soon');return;}
   // Navigate to assessment screen if not already there
   if(!document.getElementById('sc-assess').classList.contains('active')){
     go('assess');
   }
+  const c=document.getElementById('assess-cool'); if(c)c.style.display='none';
   curQ=0;answers=new Array(curA.qs.length).fill(null);
   document.getElementById('a-name').textContent=curA.n;
   document.getElementById('qinstr').textContent=curA.ins;
@@ -2135,11 +2233,15 @@ function renderQ(){
   document.getElementById('q-label').textContent='Question '+(curQ+1)+' of '+tot;
   document.getElementById('qcnt').textContent=(curQ+1)+' / '+tot;
   document.getElementById('qprog').style.width=(curQ/tot*100)+'%';
-  document.getElementById('qtxt').textContent=(curQ+1)+'. '+curA.qs[curQ];
+  const _ms=curA.qsMs&&curA.qsMs[curQ];
+  document.getElementById('qtxt').innerHTML=(curQ+1)+'. '+curA.qs[curQ]+(_ms?'<div style="font-size:.82em;font-weight:400;font-style:italic;color:var(--muted);margin-top:6px;line-height:1.45">'+_ms+'</div>':'');
+  const _qi=document.getElementById('qinstr');
+  if(_qi&&curA.insMs)_qi.innerHTML=curA.ins+'<div style="font-size:.85em;font-style:italic;opacity:.8;margin-top:4px">'+curA.insMs+'</div>';
   const op=document.getElementById('qopts');op.innerHTML='';
   curA.opts.forEach((o,i)=>{
     const d=document.createElement('div');d.className='aopt'+(answers[curQ]===i?' sel':'');
-    d.innerHTML='<div class="opt-dot"></div><div class="opt-text">'+o+'</div>';
+    const _om=curA.optsMs&&curA.optsMs[i];
+    d.innerHTML='<div class="opt-dot"></div><div class="opt-text">'+o+(_om?'<div style="font-size:.8em;font-style:italic;opacity:.65;margin-top:2px">'+_om+'</div>':'')+'</div>';
     d.onclick=()=>{document.querySelectorAll('.aopt').forEach(x=>x.classList.remove('sel'));d.classList.add('sel');answers[curQ]=i;};
     op.appendChild(d);
   });
@@ -2155,30 +2257,706 @@ function showResult(){
   document.getElementById('res-label').textContent=res.l;
   document.getElementById('res-sub').textContent=res.r+' · Assessed today';
   document.getElementById('res-recs').textContent=res.rec;
-  const rb=document.getElementById('res-bars');rb.innerHTML='';
-  if(!res.bars){
-    [{l:'Depression (PHQ-9)',p:30,c:'var(--amber)'},{l:'Anxiety (GAD-7)',p:14,c:'var(--green)'},{l:'Wellbeing (WHO-5)',p:68,c:'var(--primary)'}].forEach(b=>{rb.innerHTML+=`<div class="pbar-row"><div class="pbar-lbl"><span>${b.l}</span><span style="color:${b.c}">${b.p}%</span></div><div class="pbar-bg"><div class="pbar-fill" style="width:${b.p}%;background:${b.c}"></div></div></div>`;});
-  }
+  // Instruments without subscales (PHQ-9) get no breakdown bars.
+  // The previous build rendered hardcoded placeholder percentages here,
+  // which displayed numbers the user had not produced.
+  const rb=document.getElementById('res-bars');if(rb)rb.innerHTML='';
   const mb=document.getElementById('res-mbars'),mc=document.getElementById('res-mbars-c');
   if(res.bars){mb.style.display='block';mc.innerHTML='';res.bars.forEach(b=>{mc.innerHTML+=`<div class="pbar-row"><div class="pbar-lbl"><span>${b.l}</span><span style="color:${b.p<40?'#F44336':b.p<60?'#FF9800':'#4CAF50'};font-weight:700">${b.p}%</span></div><div class="pbar-bg"><div class="pbar-fill" style="width:${b.p}%;background:${b.c}"></div></div></div>`;});}else mb.style.display='none';
   document.getElementById('assess-quiz').style.display='none';
   document.getElementById('assess-res').style.display='block';
-  if(res.sev==='severe')setTimeout(()=>toast('⚠️ Please seek professional support'),800);
+  try{recordResult(curAK,res,num);}catch(e){}
+  try{renderTrend();}catch(e){}
+  try{renderReferral(res.sev);}catch(e){}
+  const pd=document.getElementById('res-print-date');
+  if(pd)pd.textContent=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
 }
+
+// ── Referral guidance ────────────────────────────────
+// Clinical guidance (Dr Hamidah): when a screening result is high,
+// the platform should not stop at "seek help". It should say where
+// to go. A score alone is not a diagnosis, so the wording points to
+// getting assessed rather than naming a condition.
+// Printing the result gives the user something to take to a counsellor
+// or klinik, which is what the referral card tells them to do. The old
+// button claimed to save a report and saved nothing.
+function printResult(){
+  document.body.classList.add('printing-result');
+  const done=()=>document.body.classList.remove('printing-result');
+  if(window.matchMedia){
+    const mm=window.matchMedia('print');
+    if(mm.addEventListener)mm.addEventListener('change',e=>{if(!e.matches)done();});
+  }
+  window.addEventListener('afterprint',done,{once:true});
+  setTimeout(()=>{try{window.print();}catch(e){done();toast('Printing is not available here');}},60);
+  setTimeout(done,4000); // belt and braces, in case afterprint never fires
+}
+
+function renderReferral(sev){
+  const el=document.getElementById('res-referral'); if(!el)return;
+  if(sev!=='severe'&&sev!=='moderate'){el.style.display='none';el.innerHTML='';return;}
+  const hi=sev==='severe';
+  const bd=hi?'#E05C6E':'var(--amber)';
+  const bg=hi?'rgba(224,92,110,.08)':'rgba(240,173,26,.09)';
+  const head=hi?'Please arrange to see someone this week'
+               :'It would be worth talking to someone';
+  const lead=hi
+   ? 'Your answers point to a level of distress that deserves a proper assessment, more than an app can give you. This is not a diagnosis, and it does not mean the worst. It means the next step should be a person, not a screen.'
+   : 'Your answers suggest you have been carrying a fair amount. Talking it through with someone qualified is a reasonable next step, and going early usually makes things easier rather than harder.';
+  el.innerHTML=
+   '<div style="background:'+bg+';border:1px solid '+bd+';border-radius:var(--r2);padding:20px 22px">'+
+   '<div style="font-family:var(--ff-d);font-size:18px;color:var(--text);margin-bottom:8px">'+
+     (hi?'⚠️ ':'')+head+'</div>'+
+   '<div style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:16px">'+lead+'</div>'+
+   '<div style="font-size:12px;font-weight:700;color:var(--text);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px">Where you can go</div>'+
+   '<div style="font-size:13px;color:var(--text2);line-height:1.9;margin-bottom:16px">'+
+     '<b>Your campus counselling unit</b>: free for students, and the easiest place to start.<br>'+
+     '<b>Any government klinik kesihatan</b>: ask for the mental health service (MOH runs these nationwide).<br>'+
+     '<b>NH Edu-Health Centre</b>: appointment-based care, LENA\'s partner centre.<br>'+
+     '<b>Befrienders</b> · 03-7627 2929: 24 hours, if you would rather talk tonight.'+
+   '</div>'+
+   '<div style="display:flex;gap:10px;flex-wrap:wrap">'+
+     '<button class="btn-p" onclick="go(\'crisis\')" style="padding:11px 20px;font-size:13px">See all support options →</button>'+
+     (hi?'<button class="btn-g" onclick="openSOS()" style="padding:11px 20px;font-size:13px">I need help right now</button>':'')+
+   '</div></div>';
+  el.style.display='block';
+}
+
+
+// ════════════════════════════════════════════════════
+// ASSESSMENT HISTORY + TREND CHART
+// ════════════════════════════════════════════════════
+const HKEY='lena_assess_history';
+const BANDS={
+  phq9:{max:27,cut:[4,9,14,19],lab:['Minimal','Mild','Moderate','Moderately Severe','Severe'],
+        series:[{k:'total',n:'PHQ-9 Total',c:'#F44336'}]},
+  dass21:{max:21,
+        series:[{k:'stress',n:'Stress',c:'#9C27B0',cut:[7,9,13,17]},
+                {k:'anxiety',n:'Anxiety',c:'#FF9800',cut:[4,5,7,10]},
+                {k:'depression',n:'Depression',c:'#F44336',cut:[5,7,10,14]}],
+        lab:['Normal','Mild','Moderate','Severe','Extremely Severe']}
+};
+const BANDCOL=['rgba(76,175,80,.13)','rgba(212,201,58,.15)','rgba(240,173,26,.15)','rgba(214,120,60,.16)','rgba(230,57,53,.16)'];
+let trendKey='phq9', trendSub='stress';
+
+function loadHistory(){
+  try{const r=localStorage.getItem(HKEY);return r?JSON.parse(r):[];}catch(e){return [];}
+}
+function saveHistoryEntry(entry){
+  try{
+    const h=loadHistory(); h.push(entry);
+    while(h.length>200)h.shift();
+    localStorage.setItem(HKEY,JSON.stringify(h));
+  }catch(e){/* private mode / storage disabled - results simply are not kept */}
+}
+function recordResult(key,res,num){
+  if(key!=='phq9'&&key!=='dass21')return;
+  const e={k:key,t:Date.now()};
+  if(key==='phq9'){e.total=num.reduce((a,b)=>a+b,0);e.band=res.l.replace(/ Depression$/,'');}
+  else{e.stress=res.sub.stress;e.anxiety=res.sub.anxiety;e.depression=res.sub.depression;
+       e.sB=res.sub.sB;e.aB=res.sub.aB;e.dB=res.sub.dB;}
+  saveHistoryEntry(e);
+}
+function fmtD(ts){const d=new Date(ts);return d.getDate()+' '+['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()];}
+
+function renderTrend(){
+  const tabs=document.getElementById('trend-tabs');
+  const empty=document.getElementById('trend-empty');
+  const wrap=document.getElementById('trend-wrap');
+  if(!tabs||!empty||!wrap)return;
+  const hist=loadHistory();
+  const nP=hist.filter(h=>h.k==='phq9').length, nD=hist.filter(h=>h.k==='dass21').length;
+
+  const mk=(id,lab,n,active)=>'<div onclick="setTrend(\''+id+'\')" style="cursor:pointer;padding:6px 12px;border-radius:999px;font-size:12px;font-weight:600;border:1px solid '+(active?'transparent':'var(--bd)')+';background:'+(active?'var(--primary)':'transparent')+';color:'+(active?'#fff':'var(--text2)')+'">'+lab+(n?' ('+n+')':'')+'</div>';
+  let html=mk('phq9','PHQ-9',nP,trendKey==='phq9')+mk('dass21','DASS-21',nD,trendKey==='dass21');
+  if(trendKey==='dass21'&&nD){
+    html+='<div style="width:100%;height:0"></div>';
+    BANDS.dass21.series.forEach(s=>{
+      html+='<div onclick="setTrendSub(\''+s.k+'\')" style="cursor:pointer;padding:5px 11px;border-radius:999px;font-size:11px;font-weight:600;border:1px solid '+(trendSub===s.k?s.c:'var(--bd)')+';color:'+(trendSub===s.k?s.c:'var(--muted)')+'">'+s.n+'</div>';
+    });
+  }
+  tabs.innerHTML=html;
+
+  const rows=hist.filter(h=>h.k===trendKey);
+  if(rows.length===0){
+    wrap.style.display='none'; empty.style.display='block';
+    empty.textContent='No '+(trendKey==='phq9'?'PHQ-9':'DASS-21')+' results yet. Complete the screening test to start tracking.';
+    return;
+  }
+  empty.style.display='none'; wrap.style.display='block';
+  drawTrend(rows);
+
+  const last=rows[rows.length-1], prev=rows.length>1?rows[rows.length-2]:null;
+  const lg=document.getElementById('trend-legend'), lt=document.getElementById('trend-latest');
+  if(trendKey==='phq9'){
+    lg.innerHTML=BANDS.phq9.lab.map((l,i)=>'<span><span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:'+BANDCOL[i].replace(/[\d.]+\)$/,'.55)')+';margin-right:5px"></span>'+l+'</span>').join('');
+    let msg='Latest: '+last.total+'/27 \u2014 '+last.band+' \u00b7 '+fmtD(last.t);
+    if(prev){const dl=last.total-prev.total;msg+=' ('+(dl===0?'unchanged':(dl>0?'up '+dl:'down '+Math.abs(dl)))+' since '+fmtD(prev.t)+').';}
+    else{msg+='. Take it again to see how your score changes over time.';}
+    lt.textContent=msg;
+  }else{
+    const S=BANDS.dass21.series.find(x=>x.k===trendSub);
+    lg.innerHTML=BANDS.dass21.lab.map((l,i)=>'<span><span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:'+BANDCOL[i].replace(/[\d.]+\)$/,'.55)')+';margin-right:5px"></span>'+l+'</span>').join('');
+    const bk={stress:'sB',anxiety:'aB',depression:'dB'}[trendSub];
+    let msg='Latest '+S.n.toLowerCase()+': '+last[trendSub]+'/21 \u2014 '+last[bk]+' \u00b7 '+fmtD(last.t);
+    if(prev){const dl=last[trendSub]-prev[trendSub];msg+=' ('+(dl===0?'unchanged':(dl>0?'up '+dl:'down '+Math.abs(dl)))+' since '+fmtD(prev.t)+').';}
+    else{msg+='. Take it again to see how your score changes over time.';}
+    lt.textContent=msg;
+  }
+}
+function setTrend(k){trendKey=k;renderTrend();}
+function setTrendSub(k){trendSub=k;renderTrend();}
+
+function drawTrend(rows){
+  const cv=document.getElementById('trend-canvas'); if(!cv)return;
+  const dpr=window.devicePixelRatio||1;
+  const w=cv.clientWidth||480, h=190;
+  cv.width=w*dpr; cv.height=h*dpr;
+  const x=cv.getContext('2d'); x.setTransform(dpr,0,0,dpr,0,0); x.clearRect(0,0,w,h);
+
+  const isP=trendKey==='phq9';
+  const S=isP?BANDS.phq9.series[0]:BANDS.dass21.series.find(s=>s.k===trendSub);
+  const max=isP?BANDS.phq9.max:BANDS.dass21.max;
+  const cut=isP?BANDS.phq9.cut:S.cut;
+  const key=isP?'total':trendSub;
+
+  const PL=34,PR=10,PT=10,PB=24;
+  const cw=w-PL-PR, ch=h-PT-PB;
+  const Y=v=>PT+ch-(v/max)*ch;
+  const X=i=>rows.length===1?PL+cw/2:PL+(i/(rows.length-1))*cw;
+
+  // severity bands
+  const edges=[0,...cut,max];
+  for(let i=0;i<edges.length-1;i++){
+    const y1=Y(edges[i+1]), y2=Y(edges[i]);
+    x.fillStyle=BANDCOL[i]; x.fillRect(PL,y1,cw,y2-y1);
+  }
+  // axis
+  x.strokeStyle='rgba(128,128,128,.35)'; x.lineWidth=1;
+  x.beginPath(); x.moveTo(PL,PT); x.lineTo(PL,PT+ch); x.lineTo(PL+cw,PT+ch); x.stroke();
+  x.fillStyle='rgba(128,128,128,.85)'; x.font='10px system-ui,sans-serif'; x.textAlign='right';
+  [0,max].concat(cut).forEach(v=>{x.fillText(v,PL-6,Y(v)+3);});
+
+  // line
+  x.strokeStyle=S.c; x.lineWidth=2; x.lineJoin='round'; x.beginPath();
+  rows.forEach((r,i)=>{const px=X(i),py=Y(r[key]); i?x.lineTo(px,py):x.moveTo(px,py);});
+  x.stroke();
+  // points
+  const single=rows.length===1;
+  rows.forEach((r,i)=>{
+    const px=X(i),py=Y(r[key]);
+    x.fillStyle=S.c; x.beginPath(); x.arc(px,py,single?6:3.5,0,7); x.fill();
+    x.fillStyle='#fff'; x.beginPath(); x.arc(px,py,single?2.5:1.5,0,7); x.fill();
+  });
+  if(single){
+    const px=X(0),py=Y(rows[0][key]);
+    x.fillStyle=S.c; x.font='600 12px system-ui,sans-serif'; x.textAlign='center';
+    x.fillText(rows[0][key]+'/'+max, px, py-12);
+  }
+  // date labels (first, last, and middle if room)
+  x.fillStyle='rgba(128,128,128,.85)'; x.font='10px system-ui,sans-serif';
+  const marks=rows.length<=4?rows.map((_,i)=>i):[0,Math.floor((rows.length-1)/2),rows.length-1];
+  marks.forEach(i=>{
+    x.textAlign=i===0?'left':(i===rows.length-1?'right':'center');
+    x.fillText(fmtD(rows[i].t),X(i),h-7);
+  });
+}
+
+
+// ════════════════════════════════════════════════════
+// MOOD LOG (persistent)
+// ════════════════════════════════════════════════════
+const MKEY='lena_mood_log';
+const INT_LBL=v=>v+'/10'+(v<=3?' \u00b7 mild':v>=8?' \u00b7 severe':'');
+const MOOD_LBL={1:'Struggling',2:'Low',3:'Okay',4:'Good',5:'Great'};
+const MOOD_FACE={1:'\uD83D\uDE1E',2:'\uD83D\uDE14',3:'\uD83D\uDE10',4:'\uD83D\uDE42',5:'\uD83D\uDE0A'};
+const MOOD_COL={1:'#E57373',2:'#FFB74D',3:'#FFD54F',4:'#81C784',5:'#4CAF50'};
+let mlMood=null, mmMood=null;
+
+function loadMoods(){try{const r=localStorage.getItem(MKEY);return r?JSON.parse(r):[];}catch(e){return [];}}
+function saveMoods(a){try{localStorage.setItem(MKEY,JSON.stringify(a));}catch(e){}}
+
+function pickMood(el,v){
+  mlMood=v;
+  document.querySelectorAll('.ml-face').forEach(c=>{
+    const on=+c.dataset.v===v;
+    const f=c.querySelector('.mf'); if(f)f.classList.toggle('sel',on);
+    const sp=c.querySelector('span'); if(sp){sp.style.color=on?'var(--primary)':'var(--muted)';sp.style.fontWeight=on?'700':'400';}
+  });
+  const p=document.getElementById('ml-prompt');
+  if(p)p.textContent = v<=2 ? 'What made today hard? (optional)'
+                     : v===3 ? 'Anything worth noting? (optional)'
+                     : 'What went well today? (optional)';
+}
+function updIntensity(v){const e=document.getElementById('ml-intensity-lbl');if(e)e.textContent=v;}
+function updCount(){
+  const t=document.getElementById('ml-note'),c=document.getElementById('ml-count');
+  if(t&&c)c.textContent=t.value.length?t.value.length+' / 500':'';
+}
+function toggleTag(el){
+  el.classList.toggle('act');
+  const on=el.classList.contains('act');
+  el.style.borderColor=on?'var(--primary)':'var(--border)';
+  el.style.background=on?'rgba(43,184,154,.1)':'var(--card)';
+}
+function logMood(){
+  if(!mlMood){toast('Pick how you\'re feeling first');return;}
+  const note=(document.getElementById('ml-note')||{}).value||'';
+  const iv=+((document.getElementById('ml-intensity')||{}).value||4);
+  const tags=[...document.querySelectorAll('.ml-tag.act')].map(t=>t.dataset.t);
+  const c=addMood(mlMood,note,iv,tags);
+  toast('Mood logged \u2713'+nth(c));
+  // reset composer
+  mlMood=null;
+  document.querySelectorAll('.ml-face').forEach(c=>{c.querySelector('.mf')?.classList.remove('sel');const sp=c.querySelector('span');if(sp){sp.style.color='var(--muted)';sp.style.fontWeight='400';}});
+  document.querySelectorAll('.ml-tag.act').forEach(t=>{t.classList.remove('act');t.style.borderColor='var(--border)';t.style.background='var(--card)';});
+  const n=document.getElementById('ml-note'); if(n)n.value='';
+  const iv2=document.getElementById('ml-intensity'); if(iv2){iv2.value=4;updIntensity(4);}
+  updCount();
+  const p=document.getElementById('ml-prompt'); if(p)p.textContent='Anything you want to note? (optional)';
+  renderMood();
+}
+function mTime(ts){const d=new Date(ts);return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');}
+// Several entries a day is now expected, so the chart plots one point
+// per DAY (the day's average) and draws a vertical range where that
+// day held more than one entry. The trend stays readable without
+// hiding within-day swings.
+function groupByDay(rows){
+  const by={};
+  rows.forEach(r=>{const d=new Date(r.t);d.setHours(0,0,0,0);const k=d.getTime();(by[k]=by[k]||[]).push(r);});
+  return Object.keys(by).map(Number).sort((a,b)=>a-b).map(k=>{
+    const g=by[k], ms=g.map(r=>r.m);
+    return {t:k,n:g.length,avg:ms.reduce((a,b)=>a+b,0)/ms.length,
+            min:Math.min(...ms),max:Math.max(...ms),note:g.some(r=>r.note)};
+  });
+}
+function mDay(ts){const d=new Date(ts);return d.getDate()+' '+['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()];}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+// ── Latest screening summary, shown on the mood screen ──
+// Clinical guidance (Dr Hamidah): screening data belongs next to the
+// mood data. The full history stays in the Screening Test section;
+// this is the one-line version, so a mood chart and a score can be
+// read as one picture instead of two.
+function renderMoodScreenCard(){
+  const el=document.getElementById('mood-screen-card'); if(!el)return;
+  let h=[]; try{h=loadHistory();}catch(e){h=[];}
+  if(!h.length){
+    el.innerHTML='<div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);'+
+      'padding:14px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">'+
+      '<span style="font-size:18px">\uD83D\uDCCB</span>'+
+      '<div style="flex:1;min-width:180px"><div style="font-size:13px;font-weight:700;color:var(--text)">No screening test yet</div>'+
+      '<div style="font-size:11px;color:var(--muted);margin-top:2px">A PHQ-9 or DASS-21 gives your mood log some context.</div></div>'+
+      '<button class="btn-g" onclick="go(\'assess\')" style="padding:8px 15px;font-size:12px">Take one \u2192</button></div>';
+    return;
+  }
+  const e=h[h.length-1], d=daysSince(e.t);
+  const nm=e.k==='phq9'?'PHQ-9':'DASS-21';
+  let val, band;
+  if(e.k==='phq9'){ val=e.total+'/27'; band=e.band; }
+  else{
+    const L=['Normal','Mild','Moderate','Severe','Extremely Severe'];
+    const rk=x=>L.indexOf(x);
+    const worst=[['Stress',e.sB],['Anxiety',e.aB],['Depression',e.dB]]
+      .reduce((a,b)=>rk(b[1])>rk(a[1])?b:a);
+    val='S'+e.stress+' A'+e.anxiety+' D'+e.depression; band=worst[0]+' '+worst[1];
+  }
+  const stale=d>=14;
+  el.innerHTML='<div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r2);'+
+    'padding:14px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">'+
+    '<span style="font-size:18px">\uD83D\uDCCB</span>'+
+    '<div style="flex:1;min-width:200px">'+
+      '<div style="font-size:13px;font-weight:700;color:var(--text)">Last screening \u00b7 '+nm+' '+val+'</div>'+
+      '<div style="font-size:11px;color:var(--muted);margin-top:2px">'+esc(band)+' \u00b7 '+agoTxt(d)+
+        (stale?' \u2014 due for another':'')+'</div>'+
+    '</div>'+
+    '<button class="btn-g" onclick="go(\'assess\')" style="padding:8px 15px;font-size:12px">'+
+      (stale?'Take again':'View history')+' \u2192</button></div>';
+}
+
+function renderMood(){
+  try{renderMoodScreenCard();}catch(e){}
+  const wrap=document.getElementById('ml-chart-wrap'), empty=document.getElementById('ml-chart-empty');
+  const list=document.getElementById('ml-entries'), note=document.getElementById('ml-date-note');
+  if(!wrap||!empty||!list)return;
+  const all=loadMoods();
+
+  if(note){
+    const t0=new Date();t0.setHours(0,0,0,0);const tt=t0.getTime();
+    const c=all.filter(m=>{const d=new Date(m.t);d.setHours(0,0,0,0);return d.getTime()===tt;}).length;
+    note.textContent=c===0?''
+      :c===1?'Logged once today. Log again any time your mood shifts \u2014 it will be kept separately.'
+      :'Logged '+c+' times today. Every entry is kept.';
+  }
+
+  const cut=Date.now()-14*864e5;
+  const recent=all.filter(m=>m.t>=cut);
+  if(recent.length===0){
+    wrap.style.display='none'; empty.style.display='block';
+    empty.textContent='No entries in the last 14 days. Log how you\'re feeling to start tracking.';
+  }else{
+    empty.style.display='none'; wrap.style.display='block';
+    const days=groupByDay(recent);
+    drawMood(days);
+    const tn=document.getElementById('ml-trend-note');
+    const ins=document.getElementById('ml-insight');
+    const avg=a=>a.reduce((x,y)=>x+y.m,0)/a.length;
+    if(days.length>=4){
+      const dv=days.map(d=>({m:d.avg})), h=Math.floor(dv.length/2);
+      const d=avg(dv.slice(h))-avg(dv.slice(0,h));
+      if(tn)tn.textContent=(d>.25?'\u2191 improving':d<-.25?'\u2193 dipping':'\u2192 steady');
+      if(tn)tn.style.color=d<-.25?'var(--amber)':'var(--primary)';
+    }else if(tn){tn.textContent='';}
+    // tag insight - only with enough data to mean anything
+    let msg='Average mood '+avg(recent).toFixed(1)+'/5 across '+recent.length+' '+(recent.length===1?'entry':'entries')
+      +(days.length!==recent.length?' on '+days.length+' '+(days.length===1?'day':'days'):'')+'.';
+    if(recent.length>=6){
+      const tally={};
+      recent.forEach(r=>(r.tags||[]).forEach(t=>{(tally[t]=tally[t]||[]).push(r.m);}));
+      let best=null;
+      Object.keys(tally).forEach(t=>{
+        if(tally[t].length<3)return;
+        const a=tally[t].reduce((x,y)=>x+y,0)/tally[t].length;
+        const rest=recent.filter(r=>!(r.tags||[]).includes(t));
+        if(rest.length<2)return;
+        const b=rest.reduce((x,y)=>x+y.m,0)/rest.length;
+        if(!best||Math.abs(a-b)>Math.abs(best.d))best={t:t,d:a-b,a:a,b:b};
+      });
+      if(best&&Math.abs(best.d)>=.6){
+        msg+=' Days tagged \u201c'+best.t+'\u201d average '+best.a.toFixed(1)+' versus '+best.b.toFixed(1)+' on other days.';
+      }
+    }else{
+      msg+=' Patterns need about a week of entries before they mean much.';
+    }
+    if(ins)ins.textContent=msg;
+  }
+
+  // recent entries
+  const show=all.slice(-20).reverse();
+  if(show.length===0){
+    list.innerHTML='<div style="color:var(--muted);font-size:13px;padding:16px 0;text-align:center">Nothing logged yet.</div>';
+    return;
+  }
+  list.innerHTML=show.map(m=>{
+    const tags=(m.tags||[]).map(t=>'<span style="background:var(--bg3);border-radius:999px;padding:2px 8px;font-size:10px;color:var(--text2)">'+esc(t)+'</span>').join(' ');
+    return '<div style="border-left:3px solid '+MOOD_COL[m.m]+';padding:9px 0 9px 11px">'
+      +'<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">'
+      +'<span style="font-size:16px">'+MOOD_FACE[m.m]+'</span>'
+      +'<strong style="font-size:12px;color:var(--text)">'+MOOD_LBL[m.m]+'</strong>'
+      +'<span style="font-size:11px;color:var(--muted)">'+(m.i?'intensity '+INT_LBL(m.i):(m.e?'energy '+m.e:''))+(m.i||m.e?' \u00b7 ':'')+mDay(m.t)+', '+mTime(m.t)+'</span></div>'
+      +(tags?'<div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:6px">'+tags+'</div>':'')
+      +(m.note?'<div style="font-size:12px;color:var(--text2);margin-top:6px;line-height:1.5">'+esc(m.note)+'</div>':'')
+      +'</div>';
+  }).join('');
+}
+
+function drawMood(days){
+  const cv=document.getElementById('ml-canvas'); if(!cv)return;
+  const dpr=window.devicePixelRatio||1, w=cv.clientWidth||460, h=150;
+  cv.width=w*dpr; cv.height=h*dpr;
+  const x=cv.getContext('2d'); x.setTransform(dpr,0,0,dpr,0,0); x.clearRect(0,0,w,h);
+  const PL=26,PR=8,PT=10,PB=22, cw=w-PL-PR, ch=h-PT-PB;
+  const Y=v=>PT+ch-((v-1)/4)*ch;
+  const X=i=>days.length===1?PL+cw/2:PL+(i/(days.length-1))*cw;
+  const COL=v=>MOOD_COL[Math.max(1,Math.min(5,Math.round(v)))];
+  // gridlines
+  x.strokeStyle='rgba(128,128,128,.18)'; x.lineWidth=1;
+  x.fillStyle='rgba(128,128,128,.8)'; x.font='10px system-ui,sans-serif'; x.textAlign='right';
+  [1,3,5].forEach(v=>{const y=Y(v);x.beginPath();x.moveTo(PL,y);x.lineTo(PL+cw,y);x.stroke();x.fillText(v,PL-5,y+3);});
+  // within-day range, where a day holds more than one entry
+  days.forEach((d,i)=>{
+    if(d.n<2||d.min===d.max)return;
+    const px=X(i);
+    x.strokeStyle=COL(d.avg); x.globalAlpha=.42; x.lineWidth=3; x.lineCap='round';
+    x.beginPath(); x.moveTo(px,Y(d.min)); x.lineTo(px,Y(d.max)); x.stroke();
+    x.globalAlpha=1; x.lineCap='butt';
+  });
+  // trend line across day averages
+  x.strokeStyle='#2BB89A'; x.lineWidth=2; x.lineJoin='round';
+  x.beginPath(); days.forEach((d,i)=>{const px=X(i),py=Y(d.avg);i?x.lineTo(px,py):x.moveTo(px,py);}); x.stroke();
+  // day points, ringed when any entry that day carried a note
+  days.forEach((d,i)=>{
+    const px=X(i),py=Y(d.avg);
+    if(d.note){x.strokeStyle=COL(d.avg);x.lineWidth=1.5;x.beginPath();x.arc(px,py,6.5,0,7);x.stroke();}
+    x.fillStyle=COL(d.avg); x.beginPath(); x.arc(px,py,days.length===1?6:4,0,7); x.fill();
+  });
+  // dates
+  x.fillStyle='rgba(128,128,128,.8)'; x.font='10px system-ui,sans-serif';
+  const marks=days.length<=3?days.map((_,i)=>i):[0,days.length-1];
+  marks.forEach(i=>{x.textAlign=i===0?'left':'right';x.fillText(mDay(days[i].t),X(i),h-6);});
+}
+
+
+// ════════════════════════════════════════════════════
+// GUIDED TOOLS
+// Every tool here is self-contained: the benefit lands during
+// the exercise. Nothing the user produces needs interpreting,
+// so none of it depends on a clinician reading it afterwards.
+// ════════════════════════════════════════════════════
+const GT={
+ ground:{n:'Grounding 5-4-3-2-1',tag:'Grounding',
+  steps:[
+   {t:'Name five things you can see.',h:'Look around slowly. Say each one in your head as you find it.'},
+   {t:'Name four things you can feel.',h:'Your feet on the floor. The chair holding you. Fabric on your skin. The air.'},
+   {t:'Name three things you can hear.',h:'Listen past the obvious ones: a fan, traffic outside, your own breathing.'},
+   {t:'Name two things you can smell.',h:'If you cannot find two, name two smells you like instead.'},
+   {t:'Name one thing you can taste.',h:'Or one thing you would like to taste right now.'}],
+  end:'You are here, in this room, right now. Whatever you were caught up in, you stepped out of it for a moment, and you can do that again whenever you need to.'},
+
+ move:{n:'Movement Break',tag:'Movement',
+  steps:[
+   {t:'Stand up and roll your shoulders backwards.',h:'Five or six slow rolls. Let them drop each time.',sec:30},
+   {t:'Reach both arms overhead and stretch tall.',h:'Breathe in as you reach up, out as you lower.',sec:30},
+   {t:'Slow neck rolls: ear towards one shoulder, then the other.',h:'Gently. Stop if anything pinches.',sec:30},
+   {t:'March on the spot.',h:'Lift your knees, swing your arms. Any pace you like.',sec:60},
+   {t:'Shake out your hands, then your arms, then your legs.',h:'Loose and floppy. It is meant to look silly.',sec:30},
+   {t:'Stand still. Notice your breathing and your heartbeat.',h:'They may be faster than before. That is the point.',sec:30}],
+  end:'Movement shifts mood faster than thinking about mood does. Even four minutes counts, and you can come back to this any time you feel stuck in your head.'},
+
+ muscle:{n:'Muscle Relaxation',tag:'Relaxation',
+  steps:[
+   {t:'Clench both fists tight.',h:'Tight, but never painful.',sec:10},
+   {t:'Let go. Notice the difference.',h:'That drop is what relaxation actually feels like.',sec:15},
+   {t:'Pull your shoulders up towards your ears.',h:'Hold them there.',sec:10},
+   {t:'Drop them. Let them fall.',h:'Most people carry tension here all day without noticing.',sec:15},
+   {t:'Scrunch your whole face.',h:'Eyes, jaw, forehead, all of it.',sec:10},
+   {t:'Release. Let your jaw hang loose.',h:'Teeth apart, tongue soft.',sec:15},
+   {t:'Tighten your stomach.',h:'As if bracing for a gentle push.',sec:10},
+   {t:'Release.',h:'Let your breathing move your belly again.',sec:15},
+   {t:'Point your toes and tense your legs.',h:'All the way down.',sec:10},
+   {t:'Release. Let your legs go heavy.',h:'Let the floor or the chair take their weight.',sec:15},
+   {t:'Whole body soft. Rest here.',h:'Nothing to do for these last few seconds.',sec:20}],
+  end:'Your body holds tension you stop noticing after a while. This is how you find it and put it down.'},
+
+ step:{n:'One Small Step',tag:'Movement',
+  steps:[
+   {t:'When everything feels heavy, waiting until you feel like it keeps you stuck.',h:'Action comes first. Motivation follows it, not the other way round.'},
+   {t:'Think of one thing you could do in the next hour.',h:'Not the whole list. One thing.'},
+   {t:'Now make it smaller.',h:'“Tidy my room” becomes “clear one surface”. “Go for a run” becomes “put my shoes on”.'},
+   {t:'Smaller again, if you need to.',h:'The size does not matter. Starting does.'},
+   {t:'Go and do it. Come back when you are done.',h:'It is completely fine if it takes two minutes.'}],
+  end:'That is how it works: one small thing, then the next one. You do not have to feel ready first.'},
+
+ shukr:{n:'Alhamdulillah',tag:'Islamic',
+  steps:[
+   {t:'Think of one thing that went right today.',h:'However small. A good cup of teh counts.'},
+   {t:'Think of one person you are grateful for.',h:'You do not have to tell them. Just hold them in mind for a moment.'},
+   {t:'Think of one thing your body did for you today.',h:'It carried you here. It kept breathing while you were not watching.'},
+   {t:'Say Alhamdulillah.',h:'Out loud, if you are somewhere you can.'}],
+  end:'Shukr is a practice rather than a feeling, and it still works on the days you have to look hard for something.'}
+};
+
+let gtKey=null,gtStep=0,gtTimer=null,gtLeft=0;
+
+function gtClear(){if(gtTimer){clearInterval(gtTimer);gtTimer=null;}}
+
+function startGT(k){
+  if(k==='breathe'){go('breathe');return;}
+  const t=GT[k]; if(!t){toast('Coming soon');return;}
+  gtClear(); gtKey=k; gtStep=0;
+  go('cbt-ex');
+  const ti=document.getElementById('gt-title'); if(ti)ti.textContent=t.n;
+  const tg=document.getElementById('gt-tag'); if(tg)tg.textContent=t.tag;
+  renderGT();
+}
+
+function renderGT(){
+  const t=GT[gtKey]; if(!t)return;
+  gtClear();
+  const tot=t.steps.length, fin=gtStep>=tot;
+  const body=document.getElementById('gt-body'), done=document.getElementById('gt-done');
+  if(body)body.style.display=fin?'none':'block';
+  if(done)done.style.display=fin?'block':'none';
+  const prog=document.getElementById('gt-prog'), cnt=document.getElementById('gt-count'),
+        tm=document.getElementById('gt-timer');
+  if(fin){
+    if(prog)prog.style.width='100%';
+    if(cnt)cnt.textContent='Complete';
+    if(tm)tm.style.display='none';
+    const et=document.getElementById('gt-endtext'); if(et)et.textContent=t.end;
+    return;
+  }
+  const st=t.steps[gtStep];
+  if(cnt)cnt.textContent='Step '+(gtStep+1)+' of '+tot;
+  if(prog)prog.style.width=(gtStep/tot*100)+'%';
+  const sx=document.getElementById('gt-step'); if(sx)sx.textContent=st.t;
+  const h=document.getElementById('gt-hint');
+  if(h){h.textContent=st.h||'';h.style.display=st.h?'block':'none';}
+  if(tm){
+    if(st.sec){
+      gtLeft=st.sec; tm.style.display='block'; tm.textContent=gtLeft+'s';
+      gtTimer=setInterval(()=>{
+        gtLeft--;
+        if(gtLeft<=0){gtClear();gtNext();return;}
+        tm.textContent=gtLeft+'s';
+      },1000);
+    }else{tm.style.display='none';}
+  }
+  const bk=document.getElementById('gt-back'); if(bk)bk.style.display=gtStep>0?'inline-flex':'none';
+  const nx=document.getElementById('gt-next'); if(nx)nx.textContent=gtStep===tot-1?'Finish':'Next →';
+}
+function gtNext(){const t=GT[gtKey];if(!t)return;if(gtStep<t.steps.length){gtStep++;renderGT();}}
+function gtPrev(){if(gtStep>0){gtStep--;renderGT();}}
+function gtExit(){gtClear();go('cbt');}
 
 // ════════════════════════════════════════════════════
 // CHAT AI
 // ════════════════════════════════════════════════════
-const AIR=['I hear you. It sounds like you\'re going through something difficult. Can you tell me more?','In CBT, we call these "automatic thoughts". They appear quickly and feel very real. What evidence do you have for and against this thought?','Remember, Allah says: "Indeed, with hardship comes ease." (Quran 94:6). How can we take one small step forward today?','Try the 5-4-3-2-1 grounding exercise — name 5 things you can see around you right now.','Would you like me to guide you through a short 4-7-8 breathing exercise to help calm your nervous system?','Seeking help is a sign of strength, not weakness. How long have you been feeling this way?','What would you say to a dear friend who told you the same thing? 🌿','Let\'s try a thought record together. What was the situation, and what thought came up immediately?','Your wellbeing matters. Have you tried the mood check-in today?'];
-let aiI=0;
-function sendChat(){
-  const inp=document.getElementById('chatinp');const msg=inp.value.trim();if(!msg)return;
+// ════════════════════════════════════════════════════
+// LENA CONVERSATIONAL AGENT  (rule-based, non-diagnostic)
+//
+// Design constraints, per clinical guidance (Dr Hamidah):
+//   1. Never names, suggests or confirms a mental health condition.
+//   2. Never interprets a PHQ-9 / DASS-21 score as a verdict about
+//      the person.
+//   3. Never asks symptom-duration or severity questions, which is
+//      diagnostic interviewing.
+//   4. Purpose is emotional stabilisation and signposting only.
+//
+// Architecture: a crisis gate runs BEFORE intent routing and before
+// any reply is selected. It is ordinary code, not an instruction to
+// a model, so no phrasing by the user can bypass it.
+// ════════════════════════════════════════════════════
+
+// ── Crisis gate ──────────────────────────────────────
+// Deliberately inclusive. A false positive shows someone the
+// helplines when they did not need them; a false negative misses
+// someone who did. The asymmetry is intentional and is reported
+// as a limitation.
+const CRISIS_TERMS=[
+ 'suicide','suicidal','kill myself','killing myself','end my life','end it all',
+ 'want to die','wanna die','want to disappear','better off dead','better off without me',
+ 'no point living','no reason to live','not worth living','cant go on','can\'t go on',
+ 'hurt myself','harm myself','harming myself','self harm','self-harm',
+ 'cut myself','cutting myself','overdose','take my life','take my own life',
+ 'bunuh diri','nak mati','ingin mati','mahu mati','nak bunuh diri','mati je',
+ 'tak nak hidup','tak mahu hidup','malas nak hidup','tak larat hidup',
+ 'cederakan diri','sakitkan diri','lukakan diri','tamatkan hidup','nak hilang terus',
+ 'baik aku mati','tiada guna hidup','tak guna hidup','putus asa dengan hidup'
+];
+function isCrisis(t){
+  const s=' '+t.toLowerCase().replace(/[^a-z' ]/g,' ').replace(/\s+/g,' ')+' ';
+  for(let i=0;i<CRISIS_TERMS.length;i++){ if(s.indexOf(CRISIS_TERMS[i])>-1) return true; }
+  return false;
+}
+const CRISIS_REPLY=
+ 'I\'m really glad you told me, and I want to stop here for a moment. What you\'ve said sounds '+
+ 'heavy, and it matters more than anything else we could talk about.<br><br>'+
+ 'I\'m not able to help with this on my own, but people are available right now who can:'+
+ '<br><br>'+
+ '<b>Befrienders Malaysia</b> · 03-7627 2929 · 24 hours<br>'+
+ '<b>Talian Kasih</b> · 15999 · 24 hours<br>'+
+ '<b>MOH Mental Health Line</b> · 1800-82-0066 · 24 hours<br>'+
+ '<b>Emergency</b> · 999<br><br>'+
+ 'Kalau lebih senang cakap dalam Bahasa Melayu, Talian Kasih (15999) ada 24 jam.<br><br>'+
+ 'If you are with someone you trust, please tell them too. You do not have to explain it well. '+
+ 'Just show them this screen.';
+
+// ── Model-backed replies ────────────────────────
+// The reply comes from a language model via /api/chat, which runs on
+// the server and holds the API key. The browser never sees the key.
+//
+// The crisis gate above is deliberately NOT part of this. It runs in
+// code, before any network call, so it works when the model is down,
+// rate-limited or unreachable, and no phrasing by the user can route
+// around it because the message never leaves the browser.
+const CHAT_ENDPOINT='/api/chat';
+let chatHistory=[];          // [{role:'user'|'assistant',text}]
+const CHAT_MAX_HISTORY=12;
+
+function pushHistory(role,text){
+  chatHistory.push({role:role,text:text});
+  if(chatHistory.length>CHAT_MAX_HISTORY)chatHistory=chatHistory.slice(-CHAT_MAX_HISTORY);
+}
+
+// Honest failure. When the model cannot be reached the app says so
+// rather than inventing a reply, and still offers the things that work
+// without a network: the guided tools and the crisis numbers.
+function failureMessage(kind){
+  const tail='<br><br>The guided tools and the crisis numbers all work without a connection.';
+  if(kind==='rate')  return 'I am getting more messages than I can answer right now, so I need a moment. Please try again shortly.'+tail;
+  if(kind==='offline')return 'I cannot reach the internet at the moment, so I am not able to reply properly. Your connection may have dropped.'+tail;
+  if(kind==='key')   return 'Something is misconfigured on my side and I cannot reply right now. This is not your fault.'+tail;
+  return 'Something went wrong on my side and I could not reply. Please try again in a moment.'+tail;
+}
+
+async function askLena(message){
+  if(!navigator.onLine) return {t:failureMessage('offline'),fail:true};
+  let r;
+  try{
+    const ctl=new AbortController();
+    const to=setTimeout(()=>ctl.abort(),25000);
+    r=await fetch(CHAT_ENDPOINT,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({message:message,history:chatHistory}),
+      signal:ctl.signal
+    });
+    clearTimeout(to);
+  }catch(e){ return {t:failureMessage('offline'),fail:true}; }
+
+  if(r.status===429) return {t:failureMessage('rate'),fail:true};
+  if(!r.ok){
+    let msg='';
+    try{ msg=(await r.json()).error||''; }catch(e){}
+    return {t:failureMessage(/key/i.test(msg)?'key':'error'),fail:true};
+  }
+  let j;
+  try{ j=await r.json(); }catch(e){ return {t:failureMessage('error'),fail:true}; }
+  const reply=(j&&j.reply||'').trim();
+  if(!reply) return {t:failureMessage('error'),fail:true};
+  return {t:esc(reply).replace(/\n{2,}/g,'<br><br>').replace(/\n/g,'<br>')};
+}
+
+// ── Rendering ────────────────────────────────────────
+function chatBubble(html,crisis,act){
   const area=document.getElementById('chatarea');
-  const um=document.createElement('div');um.style.cssText='max-width:60%;display:flex;gap:8px;align-self:flex-end;flex-direction:row-reverse';um.innerHTML='<div style="padding:12px 16px;border-radius:18px 4px 18px 18px;background:var(--primary);color:#fff;font-size:14px;line-height:1.6">'+msg+'</div>';
-  area.appendChild(um);inp.value='';area.scrollTop=area.scrollHeight;
-  const ty=document.createElement('div');ty.style.cssText='max-width:60%;display:flex;gap:9px;align-self:flex-start';ty.innerHTML='<div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">🌿</div><div style="padding:12px 16px;border-radius:4px 18px 18px 18px;background:var(--card);border:1px solid var(--border);font-size:14px;color:var(--muted)">LENA is typing…</div>';
-  area.appendChild(ty);area.scrollTop=area.scrollHeight;
-  setTimeout(()=>{area.removeChild(ty);const am=document.createElement('div');am.style.cssText='max-width:60%;display:flex;gap:9px;align-self:flex-start';am.innerHTML='<div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">🌿</div><div style="padding:12px 16px;border-radius:4px 18px 18px 18px;background:var(--card);border:1px solid var(--border);font-size:14px;color:var(--text);line-height:1.6">'+AIR[aiI%AIR.length]+'</div>';area.appendChild(am);area.scrollTop=area.scrollHeight;aiI++;},1300);
+  const w=document.createElement('div');
+  w.style.cssText='max-width:70%;display:flex;gap:9px;align-self:flex-start';
+  const bg=crisis?'rgba(224,92,110,.08)':'var(--card)';
+  const bd=crisis?'#E05C6E':'var(--border)';
+  let inner='<div style="padding:12px 16px;border-radius:4px 18px 18px 18px;background:'+bg+
+    ';border:1px solid '+bd+';font-size:14px;color:var(--text);line-height:1.65">'+html;
+  if(act) inner+='<div style="margin-top:12px"><button onclick="'+act.f+
+    '" style="padding:9px 16px;border-radius:20px;background:var(--primary);color:#fff;border:none;'+
+    'font-size:12px;font-weight:700;cursor:pointer;font-family:var(--ff-b)">'+act.l+' →</button></div>';
+  inner+='</div>';
+  w.innerHTML='<div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">🌿</div>'+inner;
+  area.appendChild(w); area.scrollTop=area.scrollHeight;
+}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+async function sendChat(){
+  const inp=document.getElementById('chatinp');
+  const msg=inp.value.trim(); if(!msg)return;
+  const btn=document.querySelector('#sc-chat .btn-p');
+  const area=document.getElementById('chatarea');
+
+  const um=document.createElement('div');
+  um.style.cssText='max-width:70%;display:flex;gap:8px;align-self:flex-end;flex-direction:row-reverse';
+  um.innerHTML='<div style="padding:12px 16px;border-radius:18px 4px 18px 18px;background:var(--primary);color:#fff;font-size:14px;line-height:1.6">'+esc(msg)+'</div>';
+  area.appendChild(um); inp.value=''; area.scrollTop=area.scrollHeight;
+
+  // Crisis is settled here, in the browser, before any network call.
+  if(isCrisis(msg)){
+    chatBubble(CRISIS_REPLY,true,{l:'Open crisis support',f:'openSOS()'});
+    return;
+  }
+
+  inp.disabled=true; if(btn)btn.disabled=true;
+  const ty=document.createElement('div');
+  ty.style.cssText='max-width:60%;display:flex;gap:9px;align-self:flex-start';
+  ty.innerHTML='<div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">\uD83C\uDF3F</div><div style="padding:12px 16px;border-radius:4px 18px 18px 18px;background:var(--card);border:1px solid var(--border);font-size:14px;color:var(--muted)">LENA is typing\u2026</div>';
+  area.appendChild(ty); area.scrollTop=area.scrollHeight;
+
+  let r;
+  try{ r=await askLena(msg); }
+  catch(e){ r={t:failureMessage('error'),fail:true}; }
+
+  if(ty.parentNode)ty.parentNode.removeChild(ty);
+  chatBubble(r.t,false,r.act);
+  if(!r.fail){ pushHistory('user',msg); pushHistory('assistant',r.t.replace(/<[^>]+>/g,' ')); }
+  inp.disabled=false; if(btn)btn.disabled=false; inp.focus();
 }
 
 // Chat screen fix - mount it properly
