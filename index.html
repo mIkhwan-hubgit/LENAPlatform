@@ -60,7 +60,7 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 .topbar-right{display:flex;align-items:center;gap:14px}
 .tb-clock{font-size:13px;color:var(--muted);font-weight:600}
 .tb-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;cursor:pointer;box-shadow:0 3px 12px var(--shadow)}
-.content-area{flex:1;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent;padding:28px 32px}
+.content-area{flex:1;position:relative;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent;padding:28px 32px}
 .content-area::-webkit-scrollbar{width:4px}
 .content-area::-webkit-scrollbar-track{background:transparent}
 .content-area::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
@@ -217,10 +217,14 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 .brng{border-radius:50%;border:2px solid rgba(43,184,154,.25);animation:breathe 8s ease-in-out infinite;animation-delay:.5s;animation-play-state:paused}
 
 /* ══ CHAT ═════════════════════════════════════════════════════════════ */
-.chat-area{flex:1;overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column;gap:12px;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.chat-area{flex:1;min-height:0;overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column;gap:12px;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
 .chat-area::-webkit-scrollbar{width:3px}
 .chat-area::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
-.chat-wrap{display:flex;flex-direction:column;height:calc(100vh - 122px)}
+/* Fills whatever space the absolutely positioned chat screen gives it.
+   The old calc(100vh - 122px) was a hand measured guess at the header
+   height, and 100vh is wrong on phones anyway, since it counts the strip
+   hidden behind the address bar. */
+.chat-wrap{display:flex;flex-direction:column;height:100%;min-height:0}
 
 /* ══ SOS ══════════════════════════════════════════════════════════════ */
 .sline{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--border)}
@@ -325,6 +329,11 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
   body.printing-result #res-print-note{visibility:visible!important;display:block!important}
 }
 #res-print-note{display:none}
+
+/* Call controls are real tel: links so they still dial if scripting fails,
+   which on a crisis screen is the one place that matters. */
+a.scall,a.btn-p,a.btn-g{text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+a.scall{padding:9px 16px}
 </style>
 </head>
 <body>
@@ -386,12 +395,12 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 <button class="mcls" onclick="closeSOS()">✕</button>
 <div style="font-family:var(--ff-d);font-size:22px;color:#E05C6E;margin-bottom:4px">🆘 Crisis Support</div>
 <div style="font-size:13px;color:var(--muted);margin-bottom:20px">You are not alone. Help is available right now.</div>
-<div class="sline"><div class="slico">📞</div><div style="flex:1"><div class="slname">Befrienders Malaysia</div><div class="slnum">03-7627 2929</div><div class="slhrs">Emotional support · 24/7</div></div><button class="scall" onclick="toast('Calling Befrienders...')">Call</button></div>
-<div class="sline"><div class="slico">🏥</div><div style="flex:1"><div class="slname">Emergency Services</div><div class="slnum">999</div></div><button class="scall" onclick="toast('Calling 999...')">Call</button></div>
-<div class="sline"><div class="slico">💙</div><div style="flex:1"><div class="slname">MOH Mental Health Helpline</div><div class="slnum">1800-82-0066</div><div class="slhrs">Toll-free · 24/7</div></div><button class="scall" onclick="toast('Calling helpline...')">Call</button></div>
-<div class="sline"><div class="slico">🌙</div><div style="flex:1"><div class="slname">Talian Kasih</div><div class="slnum">15999</div><div class="slhrs">Ministry of Women · 24/7</div></div><button class="scall" onclick="toast('Calling Talian Kasih...')">Call</button></div>
+<div class="sline"><div class="slico">📞</div><div style="flex:1"><div class="slname">Befrienders Malaysia</div><div class="slnum">03-7627 2929</div><div class="slhrs">Emotional support · 24/7</div></div><a class="scall" href="tel:+60376272929">Call</a></div>
+<div class="sline"><div class="slico">🏥</div><div style="flex:1"><div class="slname">Emergency Services</div><div class="slnum">999</div></div><a class="scall" href="tel:999">Call</a></div>
+<div class="sline"><div class="slico">💙</div><div style="flex:1"><div class="slname">MOH Mental Health Helpline</div><div class="slnum">1800-82-0066</div><div class="slhrs">Toll-free · 24/7</div></div><a class="scall" href="tel:1800820066">Call</a></div>
+<div class="sline"><div class="slico">🌙</div><div style="flex:1"><div class="slname">Talian Kasih</div><div class="slnum">15999</div><div class="slhrs">Ministry of Women · 24/7</div></div><a class="scall" href="tel:15999">Call</a></div>
 <div class="sline"><div class="slico">💬</div><div style="flex:1"><div class="slname">Talk to LENA AI</div><div class="slnum">Available now</div></div><button class="scall" onclick="closeSOS();go('chat')">Open</button></div>
-<div style="margin-top:16px;padding-top:13px;border-top:1px solid var(--border)"><div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px">Partner clinic</div><div style="font-size:11px;color:var(--muted);margin-bottom:10px">NH Edu-Health Centre. Appointment-based care, not a 24-hour line.</div><div class="sline"><div class="slico">🩺</div><div style="flex:1"><div class="slname">NH Edu-Health Centre</div><div class="slnum">03-4266 6806</div><div class="slhrs">Setiawangsa · psychiatrist &amp; clinical psychologist</div></div><button class="scall" onclick="toast('Calling clinic...')">Call</button></div></div><div style="margin-top:14px;padding:12px 14px;background:rgba(224,92,110,.08);border-radius:var(--r);font-size:12px;color:#c62828;line-height:1.7">If you are in immediate danger, call 999 or go to your nearest hospital emergency department immediately.</div>
+<div style="margin-top:16px;padding-top:13px;border-top:1px solid var(--border)"><div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px">Partner clinic</div><div style="font-size:11px;color:var(--muted);margin-bottom:10px">NH Edu-Health Centre. Appointment-based care, not a 24-hour line.</div><div class="sline"><div class="slico">🩺</div><div style="flex:1"><div class="slname">NH Edu-Health Centre</div><div class="slnum">03-4266 6806</div><div class="slhrs">Setiawangsa · psychiatrist &amp; clinical psychologist</div></div><a class="scall" href="tel:+60342666806">Call</a></div></div><div style="margin-top:14px;padding:12px 14px;background:rgba(224,92,110,.08);border-radius:var(--r);font-size:12px;color:#c62828;line-height:1.7">If you are in immediate danger, call 999 or go to your nearest hospital emergency department immediately.</div>
 </div>
 </div>
 <!-- ══ MOOD MODAL ═══════════════════════════════════════════════════ -->
@@ -1170,11 +1179,11 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <div style="font-family:var(--ff-d);font-size:20px;color:var(--text);margin-bottom:8px">You are not alone</div>
 <div style="font-size:13px;color:var(--muted);line-height:1.6">Help is available 24/7. The helplines below are completely confidential.</div>
 </div>
-<div class="hlcard" onclick="toast('Calling Befrienders...')" style="margin-bottom:12px"><div class="hl-ico">📞</div><div style="flex:1"><div class="hl-name">Befrienders KL</div><div class="hl-num">03-7627 2929</div><div class="hl-hrs">Emotional support · 24/7</div></div><button class="btn-p" onclick="event.stopPropagation();toast('Calling...')" style="padding:10px 18px">Call</button></div>
-<div class="hlcard" onclick="toast('Calling helpline...')" style="margin-bottom:12px"><div class="hl-ico">💙</div><div style="flex:1"><div class="hl-name">MOH Mental Health</div><div class="hl-num">1800-82-0066</div><div class="hl-hrs">Toll-free · 24/7</div></div><button class="btn-p" onclick="event.stopPropagation();toast('Calling...')" style="padding:10px 18px">Call</button></div>
-<div class="hlcard" onclick="toast('Calling Talian Kasih...')" style="margin-bottom:12px"><div class="hl-ico">🌙</div><div style="flex:1"><div class="hl-name">Talian Kasih</div><div class="hl-num">15999</div><div class="hl-hrs">Ministry of Women · 24/7</div></div><button class="btn-p" onclick="event.stopPropagation();toast('Calling...')" style="padding:10px 18px">Call</button></div>
-<div class="hlcard" onclick="toast('Calling 999...')"><div class="hl-ico">🏥</div><div style="flex:1"><div class="hl-name">Emergency</div><div class="hl-num">999</div></div><button class="btn-p" onclick="event.stopPropagation();toast('Calling 999...')" style="padding:10px 18px;background:#E05C6E">Call</button></div>
-<div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border)"><div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px">Partner clinic: professional care</div><div style="font-size:11px;color:var(--muted);margin-bottom:12px">LENA's clinical partner. Appointment-based, not a 24-hour crisis line. If you need help right now, use the numbers above.</div><div class="hlcard" onclick="toast('Calling NH Edu-Health Centre...')"><div class="hl-ico">🩺</div><div style="flex:1"><div class="hl-name">NH Edu-Health Centre · Setiawangsa</div><div class="hl-num">03-4266 6806</div><div class="hl-hrs">Psychiatrist · Clinical psychologist: 03-4251 1588 · WhatsApp 018-299 1227</div></div><button class="btn-g" onclick="event.stopPropagation();toast('Calling clinic...')" style="padding:10px 18px">Call</button></div></div>
+<div class="hlcard" onclick="dial('+60376272929')" style="margin-bottom:12px"><div class="hl-ico">📞</div><div style="flex:1"><div class="hl-name">Befrienders KL</div><div class="hl-num">03-7627 2929</div><div class="hl-hrs">Emotional support · 24/7</div></div><a class="btn-p" href="tel:+60376272929" onclick="event.stopPropagation()" style="padding:10px 18px">Call</a></div>
+<div class="hlcard" onclick="dial('1800820066')" style="margin-bottom:12px"><div class="hl-ico">💙</div><div style="flex:1"><div class="hl-name">MOH Mental Health</div><div class="hl-num">1800-82-0066</div><div class="hl-hrs">Toll-free · 24/7</div></div><a class="btn-p" href="tel:1800820066" onclick="event.stopPropagation()" style="padding:10px 18px">Call</a></div>
+<div class="hlcard" onclick="dial('15999')" style="margin-bottom:12px"><div class="hl-ico">🌙</div><div style="flex:1"><div class="hl-name">Talian Kasih</div><div class="hl-num">15999</div><div class="hl-hrs">Ministry of Women · 24/7</div></div><a class="btn-p" href="tel:15999" onclick="event.stopPropagation()" style="padding:10px 18px">Call</a></div>
+<div class="hlcard" onclick="dial('999')"><div class="hl-ico">🏥</div><div style="flex:1"><div class="hl-name">Emergency</div><div class="hl-num">999</div></div><a class="btn-p" href="tel:999" onclick="event.stopPropagation()" style="padding:10px 18px;background:#E05C6E">Call</a></div>
+<div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border)"><div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px">Partner clinic: professional care</div><div style="font-size:11px;color:var(--muted);margin-bottom:12px">LENA's clinical partner. Appointment-based, not a 24-hour crisis line. If you need help right now, use the numbers above.</div><div class="hlcard" onclick="dial('+60342666806')"><div class="hl-ico">🩺</div><div style="flex:1"><div class="hl-name">NH Edu-Health Centre · Setiawangsa</div><div class="hl-num">03-4266 6806</div><div class="hl-hrs">Psychiatrist · Clinical psychologist: 03-4251 1588 · WhatsApp 018-299 1227</div></div><a class="btn-g" href="tel:+60342666806" onclick="event.stopPropagation()" style="padding:10px 18px">Call</a></div></div>
 </div>
 <div class="card">
 <div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:14px">📋 My Safety Plan</div>
@@ -1190,18 +1199,18 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <div class="sp"></div>
 </div><!-- end crisis -->
 <!-- ══ CHAT ════════════════════════════════════════════════════ -->
-<div class="screen" id="sc-chat" style="height:calc(100vh - 122px);display:none">
+<div class="screen" id="sc-chat" style="display:none">
 <div class="chat-wrap">
-<div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r2) var(--r2) 0 0;padding:14px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border)">
+<div style="background:var(--card);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:12px;flex-shrink:0">
 <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:16px">🌿</div>
 <div><div style="font-size:14px;font-weight:700;color:var(--text)">LENA AI</div><div style="font-size:11px;color:var(--green);font-weight:600">● Online · Supportive listening</div></div>
 <div style="margin-left:auto;font-size:11px;color:var(--muted);text-align:right;line-height:1.5;max-width:260px">LENA does not diagnose and is not a replacement for professional care.<br>Chat messages are sent to an AI service to generate replies.</div>
 </div>
-<div class="chat-area" id="chatarea" style="background:var(--bg);border-left:1px solid var(--border);border-right:1px solid var(--border)">
+<div class="chat-area" id="chatarea" style="background:var(--bg)">
 <div style="max-width:60%;display:flex;gap:9px;align-self:flex-start"><div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">🌿</div><div style="padding:12px 16px;border-radius:4px 18px 18px 18px;background:var(--card);border:1px solid var(--border);font-size:13px;color:var(--text);line-height:1.6">Assalamualaikum! I'm LENA 🌿<br/><br/>I'm here to listen and to sit with you through a difficult moment.<br><br>I'm not a therapist or a doctor, and I won't tell you what's wrong with you, because that takes a real person who can talk with you properly. But I can stay with you while it's hard. How are you feeling today?</div></div>
 <div style="max-width:60%;display:flex;gap:9px;align-self:flex-start"><div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">🌿</div><div style="padding:12px 16px;border-radius:4px 18px 18px 18px;background:var(--card);border:1px solid var(--border);font-size:13px;color:var(--text);line-height:1.6">You can talk to me about:<br/>• Anything that's weighing on you<br/>• Exam or family pressure<br/>• Feeling anxious, low, angry or alone<br/><br/>Or I can walk you through a short calming exercise.<br/><br/>If things ever feel unsafe, tell me, and I'll put the right numbers in front of you straight away.</div></div>
 </div>
-<div style="display:flex;gap:10px;padding:14px 16px;background:var(--nav);border:1px solid var(--border);border-top:none;border-radius:0 0 var(--r2) var(--r2)">
+<div style="display:flex;gap:10px;padding:14px 16px;background:var(--nav);border-top:1px solid var(--border);flex-shrink:0">
 <input id="chatinp" onblur="this.style.borderColor='var(--border)'" onfocus="this.style.borderColor='var(--primary)'" onkeydown="if(event.key==='Enter')sendChat()" placeholder="Type your message…" style="flex:1;padding:12px 16px;border-radius:24px;border:1.5px solid var(--border);background:var(--bg3);font-family:var(--ff-b);font-size:14px;color:var(--text);outline:none;transition:border-color .2s"/>
 <button class="btn-p" onclick="sendChat()" style="padding:12px 24px;font-size:15px">↑ Send</button>
 </div>
@@ -1627,6 +1636,11 @@ function setTheme(n,dot){
 // ════════════════════════════════════════════════════
 // SOS
 // ════════════════════════════════════════════════════
+// Crisis cards dial directly. No confirmation step: someone reaching for
+// this is not in a state to be asked whether they meant it, and the number
+// is printed beside the button either way.
+function dial(num){ try{ window.location.href='tel:'+num; }catch(e){} }
+
 function openSOS(){document.getElementById('sos-modal').classList.add('open');}
 function closeSOS(){document.getElementById('sos-modal').classList.remove('open');}
 
