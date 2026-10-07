@@ -1204,7 +1204,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <div style="background:var(--card);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:12px;flex-shrink:0">
 <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:16px">🌿</div>
 <div><div style="font-size:14px;font-weight:700;color:var(--text)">LENA AI</div><div style="font-size:11px;color:var(--green);font-weight:600">● Online · Supportive listening</div></div>
-<div style="margin-left:auto;font-size:11px;color:var(--muted);text-align:right;line-height:1.5;max-width:260px">LENA does not diagnose and is not a replacement for professional care.<br>Chat messages are sent to an AI service to generate replies.</div>
+<button onclick="clearChat()" title="Clear this conversation" style="margin-left:auto;flex-shrink:0;padding:7px 14px;border-radius:18px;border:1px solid var(--border2);background:transparent;color:var(--text2);font-family:var(--ff-b);font-size:12px;font-weight:600;cursor:pointer">Clear chat</button><div style="font-size:11px;color:var(--muted);text-align:right;line-height:1.5;max-width:240px">LENA does not diagnose and is not a replacement for professional care.<br>Chat messages are sent to an AI service to generate replies.</div>
 </div>
 <div class="chat-area" id="chatarea" style="background:var(--bg)">
 <div style="max-width:60%;display:flex;gap:9px;align-self:flex-start"><div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">🌿</div><div style="padding:12px 16px;border-radius:4px 18px 18px 18px;background:var(--card);border:1px solid var(--border);font-size:13px;color:var(--text);line-height:1.6">Assalamualaikum! I'm LENA 🌿<br/><br/>I'm here to listen and to sit with you through a difficult moment.<br><br>I'm not a therapist or a doctor, and I won't tell you what's wrong with you, because that takes a real person who can talk with you properly. But I can stay with you while it's hard. How are you feeling today?</div></div>
@@ -2900,7 +2900,7 @@ async function askLena(message){
   let r;
   try{
     const ctl=new AbortController();
-    const to=setTimeout(()=>ctl.abort(),25000);
+    const to=setTimeout(()=>ctl.abort(),32000); // just past the server's own budget
     r=await fetch(CHAT_ENDPOINT,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
@@ -2912,9 +2912,17 @@ async function askLena(message){
 
   if(r.status===429) return {t:failureMessage('rate'),fail:true};
   if(!r.ok){
-    let msg='',up=null;
-    try{ const j=await r.json(); msg=j.error||''; up=j.upstreamStatus||null; }catch(e){}
-    const kind=/key/i.test(msg)?'key':([500,502,503,504].includes(up)?'busy':'error');
+    // Our own endpoint answers with JSON and reports the provider's status in
+    // upstreamStatus. If JSON is missing the failure happened above our code,
+    // at the platform, and the raw status is all there is to go on. The two
+    // cases must stay separate: our endpoint wraps every provider failure as
+    // 502, so reading its status alone would call a wrong model name
+    // "overloaded" and send you hunting for the wrong problem.
+    let msg='',up=null,parsed=false;
+    try{ const j=await r.json(); msg=j.error||''; up=j.upstreamStatus||null; parsed=true; }catch(e){}
+    const busy = parsed ? [500,502,503,504].includes(up)
+                        : [502,503,504].includes(r.status);
+    const kind=/key/i.test(msg)?'key':(busy?'busy':'error');
     return {t:failureMessage(kind),fail:true};
   }
   let j;
@@ -2939,6 +2947,7 @@ function chatBubble(html,crisis,act){
   inner+='</div>';
   w.innerHTML='<div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">🌿</div>'+inner;
   area.appendChild(w); area.scrollTop=area.scrollHeight;
+  try{saveChatSession();}catch(e){}
 }
 function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
@@ -2952,6 +2961,7 @@ async function sendChat(){
   um.style.cssText='max-width:70%;display:flex;gap:8px;align-self:flex-end;flex-direction:row-reverse';
   um.innerHTML='<div style="padding:12px 16px;border-radius:18px 4px 18px 18px;background:var(--primary);color:#fff;font-size:14px;line-height:1.6">'+esc(msg)+'</div>';
   area.appendChild(um); inp.value=''; area.scrollTop=area.scrollHeight;
+  try{saveChatSession();}catch(e){}
 
   // Crisis is settled here, in the browser, before any network call.
   if(isCrisis(msg)){
@@ -2975,6 +2985,49 @@ async function sendChat(){
   inp.disabled=false; if(btn)btn.disabled=false; inp.focus();
 }
 
+// ── Conversation persistence ─────────────────────────
+// sessionStorage, deliberately, not localStorage. The conversation survives
+// a refresh or a trip to the mood tracker and back, so an accidental F5 does
+// not wipe what someone just wrote. It dies by itself when the tab closes,
+// so nothing is left behind on a shared or family computer. A saved mental
+// health conversation sitting on a borrowed laptop is a real harm, and this
+// is the population most likely to be using one.
+const CHAT_SKEY='lena_chat_session';
+let CHAT_SEED='';
+
+function saveChatSession(){
+  try{
+    const area=document.getElementById('chatarea'); if(!area)return;
+    sessionStorage.setItem(CHAT_SKEY, JSON.stringify({
+      html: area.innerHTML,
+      history: chatHistory
+    }));
+  }catch(e){/* private mode or storage full: the chat simply is not kept */}
+}
+
+function restoreChatSession(){
+  try{
+    const raw=sessionStorage.getItem(CHAT_SKEY); if(!raw)return;
+    const d=JSON.parse(raw);
+    const area=document.getElementById('chatarea'); if(!area||!d||!d.html)return;
+    area.innerHTML=d.html;
+    chatHistory=Array.isArray(d.history)?d.history:[];
+    area.scrollTop=area.scrollHeight;
+  }catch(e){}
+}
+
+// No confirmation step. The point of this button is that someone can wipe the
+// screen quickly when another person walks in, and a dialog asking "are you
+// sure" defeats exactly that.
+function clearChat(){
+  const area=document.getElementById('chatarea');
+  if(area){ area.innerHTML=CHAT_SEED; area.scrollTop=0; }
+  chatHistory=[];
+  try{ sessionStorage.removeItem(CHAT_SKEY); }catch(e){}
+  try{ toast('Chat cleared'); }catch(e){}
+  const inp=document.getElementById('chatinp'); if(inp)inp.value='';
+}
+
 // Chat screen fix - mount it properly
 const chatScEl=document.getElementById('sc-chat');
 const mainPanel=document.getElementById('main-panel');
@@ -2982,6 +3035,14 @@ chatScEl.style.position='absolute';
 chatScEl.style.inset='0';
 chatScEl.style.zIndex='5';
 chatScEl.style.display='none';
+
+// Remember the welcome bubbles before anything is added, so Clear chat can
+// put the screen back to how it looked on arrival rather than leaving it bare.
+try{
+  const _a=document.getElementById('chatarea');
+  if(_a)CHAT_SEED=_a.innerHTML;
+  restoreChatSession();
+}catch(e){}
 
 </script>
 </body>
