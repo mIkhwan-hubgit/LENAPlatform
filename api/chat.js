@@ -86,6 +86,13 @@ FORMATTING
 Plain sentences. No bullet points, no headings, no bold. Do not use em dashes or en dashes, use commas and full stops.`;
 
 // Keep requests small and predictable.
+// Vercel stops the function at 30 seconds (see vercel.json). Neither fetch
+// below had a timeout, so one slow call from the provider, followed by the
+// retry, could run past that and the whole request died as a 504 with no
+// explanation. Worst case is now 11 + 1 + 11 = 23 seconds, comfortably inside
+// the limit, and a stall is treated as a transient failure like any other.
+const ATTEMPT_MS = Number(process.env.ATTEMPT_MS) || 11000;
+
 const MAX_TURNS = 12;        // how much history to send
 const MAX_CHARS = 1200;      // per message, generous for a chat
 
@@ -153,6 +160,26 @@ export default async function handler(req, res) {
   }
 }
 
+// Wraps a provider call so a stall becomes an ordinary failure with a status,
+// rather than hanging until the platform kills the whole function.
+async function withTimeout(fn) {
+  const ctl = new AbortController();
+  const timer = setTimeout(() => ctl.abort(), ATTEMPT_MS);
+  try {
+    return await fn(ctl.signal);
+  } catch (e) {
+    if (e && (e.name === 'AbortError' || ctl.signal.aborted)) {
+      console.error(`[LENA] provider did not answer within ${ATTEMPT_MS}ms`);
+      const err = new Error('timeout');
+      err.status = 504;
+      throw err;
+    }
+    throw e;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 // Reads the provider's error body and writes it to the server log, so a
 // failed call says WHY in Vercel's Logs tab instead of just "502". The key
 // is redacted defensively; it travels in a header, not the URL, but a log
@@ -177,7 +204,8 @@ async function callGemini(history, message) {
     .concat([{ role: 'user', parts: [{ text: message }] }]);
 
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(MODEL)}:generateContent`;
-  const r = await fetch(url, {
+  const r = await withTimeout(signal => fetch(url, {
+    signal,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'x-goog-api-key': API_KEY },
     body: JSON.stringify({
@@ -197,7 +225,7 @@ async function callGemini(history, message) {
         'HARM_CATEGORY_DANGEROUS_CONTENT'
       ].map(category => ({ category, threshold: 'BLOCK_ONLY_HIGH' }))
     })
-  });
+  }));
 
   if (!r.ok) { throw await upstreamError('gemini', r, url); }
   const j = await r.json();
@@ -219,11 +247,12 @@ async function callOpenAICompatible(history, message) {
     .concat(history.map(h => ({ role: h.role, content: h.text })))
     .concat([{ role: 'user', content: message }]);
 
-  const r = await fetch(`${BASE_URL.replace(/\/$/, '')}/chat/completions`, {
+  const r = await withTimeout(signal => fetch(`${BASE_URL.replace(/\/$/, '')}/chat/completions`, {
+    signal,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${API_KEY}` },
     body: JSON.stringify({ model: MODEL, messages, temperature: 0.8, max_tokens: MAX_TOKENS })
-  });
+  }));
 
   if (!r.ok) { throw await upstreamError('openai', r, BASE_URL); }
   const j = await r.json();
