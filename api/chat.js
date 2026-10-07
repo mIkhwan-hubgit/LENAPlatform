@@ -149,7 +149,16 @@ export default async function handler(req, res) {
     res.status(200).json({ reply });
   } catch (e) {
     const status = e && e.status;
-    if (status === 429) return bad(res, 429, 'rate-limited');
+    // Pass the provider's own words through on a rate limit too. Google names
+    // the exact quota and its value here, and "which limit" changes what you
+    // do about it: a daily cap means wait, a value of 0 means the model is not
+    // on your plan at all. Returning a bare "rate-limited" hid that.
+    if (status === 429) return res.status(429).json({
+      error: 'rate-limited',
+      upstreamStatus: 429,
+      model: MODEL,
+      detail: (e && e.detail ? String(e.detail).slice(0, 700) : null)
+    });
     if (status === 401 || status === 403) return bad(res, 502, 'The API key was rejected. Check LENA_API_KEY in your hosting settings.');
     return res.status(502).json({
       error: 'The model could not be reached.',
