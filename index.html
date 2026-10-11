@@ -4,7 +4,8 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<title>LENA: Comprehensive Desktop Prototype</title>
+<title>LENA: Live Emotional Needs Assistant</title>
+<meta name="description" content="LENA is a mental wellbeing companion for Malaysian youth: mood and sleep tracking, guided exercises, screening tools, Islamic reflections and Malaysian crisis helplines."/>
 <meta content="LENA mental wellbeing platform prototype with crisis support and LENA team information" name="description"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <style>
@@ -40,7 +41,7 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 .app{display:grid;grid-template-columns:240px 1fr;height:100vh;position:relative;z-index:1}
 
 /* ══ SIDEBAR ═════════════════════════════════════════════════════════ */
-.sidebar{display:flex;flex-direction:column;background:var(--nav);backdrop-filter:blur(24px);border-right:1px solid var(--border);padding:28px 0 20px;z-index:10;transition:background .4s}
+.sidebar{display:flex;flex-direction:column;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border2) transparent;background:var(--nav);backdrop-filter:blur(24px);border-right:1px solid var(--border);padding:28px 0 20px;z-index:10;transition:background .4s}
 .logo{padding:0 24px 28px;border-bottom:1px solid var(--border)}
 .logo-name{font-family:var(--ff-d);font-size:28px;color:var(--primary);letter-spacing:-0.5px}
 .logo-tagline{font-size:11px;color:var(--muted);margin-top:2px;font-weight:500}
@@ -334,6 +335,101 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
    which on a crisis screen is the one place that matters. */
 a.scall,a.btn-p,a.btn-g{text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
 a.scall{padding:9px 16px}
+
+/* ══ PHONES AND SMALL TABLETS ══════════════════════════════════════
+   Until now the only responsive rules in this file were two for the
+   team photo grid. The shell was a fixed 240px sidebar beside the
+   content, so at 390px the sidebar took most of the screen and the
+   content was clipped off the right edge. Most of the people this is
+   built for will open it on a phone.
+
+   Below 820px the sidebar becomes a scrolling bar along the bottom,
+   the multi-column grids stack, and the chat is lifted clear of the
+   bar so the input stays reachable. */
+@media (max-width:820px){
+  .app{grid-template-columns:1fr}
+
+  .sidebar{
+    position:fixed;left:0;right:0;bottom:0;top:auto;
+    flex-direction:row;align-items:stretch;
+    height:62px;padding:0;
+    border-right:none;border-top:1px solid var(--border);
+    overflow-x:auto;overflow-y:hidden;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    z-index:60;
+  }
+  .sidebar::-webkit-scrollbar{display:none}
+  .sidebar .logo,
+  .sidebar .nav-section,
+  .sidebar .search-bar,
+  .sidebar .search-results{display:none}
+
+  .nav-link{
+    flex:0 0 auto;flex-direction:column;justify-content:center;gap:3px;
+    margin:0;padding:7px 13px;border-radius:0;border:none;
+    min-width:70px;font-size:10px;line-height:1.2;
+    text-align:center;white-space:nowrap;
+  }
+  .nav-link .ni{font-size:19px;width:auto}
+  .nav-link.act{background:transparent;color:var(--primary);box-shadow:inset 0 -3px 0 var(--primary)}
+
+  .topbar{padding:12px 16px}
+  .tb-clock{display:none}
+  .content-area{padding:16px 14px 78px}
+
+  /* the bottom bar is fixed over everything, so the chat has to stop
+     above it or the input sits underneath and cannot be tapped */
+  #sc-chat{bottom:62px !important}
+  .chat-area{padding:16px 14px}
+
+  .grid2,.grid3{grid-template-columns:1fr}
+  .grid4{grid-template-columns:1fr 1fr}
+
+  .msheet{width:100%;max-width:calc(100vw - 24px);padding:22px 18px;max-height:88vh}
+  .msheet-wide{width:100%}
+  .player-bar{padding:10px 14px;gap:10px}
+
+  /* sign-in and the first-run screens are centred cards with fixed
+     widths set inline; max-width still wins over an inline width */
+  #auth-screen>div,#religion-screen>div,#daily-checkin-screen>div,#loading-screen>div{
+    max-width:calc(100vw - 28px)
+  }
+}
+
+@media (max-width:430px){
+  .grid4{grid-template-columns:1fr}
+  .nav-link{min-width:62px;padding:7px 9px}
+  .content-area{padding:14px 11px 78px}
+}
+
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+
+@media (max-width:820px){
+  /* inline grid-template-columns beats a class rule, so these need the
+     extra weight of an id-free but !important override */
+  .rgrid-side{grid-template-columns:1fr !important}
+  .rgrid-2{grid-template-columns:1fr !important}
+}
+@media (max-width:430px){
+  .rgrid-3{grid-template-columns:1fr 1fr !important}
+}
+
+@media (max-width:820px){
+  /* grid items default to min-width:auto, so one wide child can push a
+     whole column past the screen edge */
+  .grid2>*,.grid3>*,.grid4>*,.rgrid>*{min-width:0}
+  .mfrow{flex-wrap:wrap}
+}
+
+@media (max-width:820px){
+  /* the disclaimer squeezed the header into three cramped columns on a
+     phone; it reads better as a line under the name */
+  .chat-head{flex-wrap:wrap;padding:11px 14px;gap:9px}
+  .chat-note{order:3;flex:1 0 100%;max-width:100% !important;text-align:left !important;font-size:10.5px}
+  .chat-bubble-wrap{max-width:86% !important}
+}
 </style>
 </head>
 <body>
@@ -577,6 +673,7 @@ a.scall{padding:9px 16px}
 </div>
 </div>
 <div class="app" id="app-layout" style="display:none">
+<h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap">LENA, Live Emotional Needs Assistant</h1>
 <!-- SIDEBAR -->
 <aside class="sidebar">
 <div class="logo">
@@ -649,7 +746,7 @@ a.scall{padding:9px 16px}
 <div id="greet-sub" style="font-size:12px;color:var(--muted);font-weight:600;margin-bottom:3px">Good morning</div>
 <div id="greet-name" style="font-family:var(--ff-d);font-size:26px;color:var(--text);margin-bottom:14px">🌿</div>
 <div style="font-size:11px;font-weight:700;color:var(--primary);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px">✦ Daily Check-In</div>
-<div style="display:flex;gap:10px;align-items:center">
+<div class="mfrow" style="display:flex;gap:10px;align-items:center">
 <div class="mf" onclick="quickMood(event,this,'😞',1)">😞</div>
 <div class="mf" onclick="quickMood(event,this,'😔',2)">😔</div>
 <div class="mf" onclick="quickMood(event,this,'😐',3)">😐</div>
@@ -816,7 +913,7 @@ a.scall{padding:9px 16px}
 <div class="grid2">
 <div class="card">
 <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:14px">Contributing Factors</div>
-<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:9px">
+<div class="rgrid rgrid-3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:9px">
 <div class="sl-fac" data-sf="Caffeine" onclick="toggleSym(this)" style="padding:10px;border-radius:var(--r);border:1.5px solid var(--border);background:var(--card);text-align:center;font-size:11px;color:var(--text2);cursor:pointer;transition:all .18s"><span style="font-size:18px;display:block;margin-bottom:4px">☕</span>Caffeine</div>
 <div class="sl-fac" data-sf="Screen time" onclick="toggleSym(this)" style="padding:10px;border-radius:var(--r);border:1.5px solid var(--border);background:var(--card);text-align:center;font-size:11px;color:var(--text2);cursor:pointer;transition:all .18s"><span style="font-size:18px;display:block;margin-bottom:4px">📱</span>Screen time</div>
 <div class="sl-fac" data-sf="Exercise" onclick="toggleSym(this)" style="padding:10px;border-radius:var(--r);border:1.5px solid var(--border);background:var(--card);text-align:center;font-size:11px;color:var(--text2);cursor:pointer;transition:all .18s"><span style="font-size:18px;display:block;margin-bottom:4px">🏃</span>Exercise</div>
@@ -1018,7 +1115,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 </div><!-- end cbt-ex -->
 <!-- ══ BREATHE ══════════════════════════════════════════════════ -->
 <div class="screen" id="sc-breathe">
-<div style="display:grid;grid-template-columns:1fr 360px;gap:24px;align-items:start">
+<div class="rgrid rgrid-side" style="display:grid;grid-template-columns:1fr 360px;gap:24px;align-items:start">
 <div style="display:flex;flex-direction:column;align-items:center;gap:20px;padding:20px 0">
 <div onclick="toggleBreath()" style="position:relative;width:200px;height:200px;cursor:pointer">
 <div class="borb" id="borb" style="width:200px;height:200px"><div id="bphase" style="font-family:var(--ff-d);font-size:19px;color:#fff;text-align:center">Inhale</div></div>
@@ -1189,14 +1286,14 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <!-- ══ CHAT ════════════════════════════════════════════════════ -->
 <div class="screen" id="sc-chat" style="display:none">
 <div class="chat-wrap">
-<div style="background:var(--card);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:12px;flex-shrink:0">
+<div class="chat-head" style="background:var(--card);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:12px;flex-shrink:0">
 <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:16px">🌿</div>
 <div><div style="font-size:14px;font-weight:700;color:var(--text)">LENA AI</div><div style="font-size:11px;color:var(--green);font-weight:600">● Online · Supportive listening</div></div>
-<button onclick="clearChat()" title="Clear this conversation" style="margin-left:auto;flex-shrink:0;padding:7px 14px;border-radius:18px;border:1px solid var(--border2);background:transparent;color:var(--text2);font-family:var(--ff-b);font-size:12px;font-weight:600;cursor:pointer">Clear chat</button><div style="font-size:11px;color:var(--muted);text-align:right;line-height:1.5;max-width:240px">LENA does not diagnose and is not a replacement for professional care.<br>Chat messages are sent to an AI service to generate replies.</div>
+<button onclick="clearChat()" title="Clear this conversation" style="margin-left:auto;flex-shrink:0;padding:7px 14px;border-radius:18px;border:1px solid var(--border2);background:transparent;color:var(--text2);font-family:var(--ff-b);font-size:12px;font-weight:600;cursor:pointer">Clear chat</button><div class="chat-note" style="font-size:11px;color:var(--muted);text-align:right;line-height:1.5;max-width:240px">LENA does not diagnose and is not a replacement for professional care.<br>Chat messages are sent to an AI service to generate replies.</div>
 </div>
 <div class="chat-area" id="chatarea" style="background:var(--bg)">
-<div style="max-width:60%;display:flex;gap:9px;align-self:flex-start"><div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">🌿</div><div style="padding:12px 16px;border-radius:4px 18px 18px 18px;background:var(--card);border:1px solid var(--border);font-size:13px;color:var(--text);line-height:1.6">Assalamualaikum! I'm LENA 🌿<br/><br/>I'm here to listen and to sit with you through a difficult moment.<br><br>I'm not a therapist or a doctor, and I won't tell you what's wrong with you, because that takes a real person who can talk with you properly. But I can stay with you while it's hard. How are you feeling today?</div></div>
-<div style="max-width:60%;display:flex;gap:9px;align-self:flex-start"><div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">🌿</div><div style="padding:12px 16px;border-radius:4px 18px 18px 18px;background:var(--card);border:1px solid var(--border);font-size:13px;color:var(--text);line-height:1.6">You can talk to me about:<br/>• Anything that's weighing on you<br/>• Exam or family pressure<br/>• Feeling anxious, low, angry or alone<br/><br/>Or I can walk you through a short calming exercise.<br/><br/>If things ever feel unsafe, tell me, and I'll put the right numbers in front of you straight away.</div></div>
+<div class="chat-bubble-wrap" style="max-width:60%;display:flex;gap:9px;align-self:flex-start"><div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">🌿</div><div style="padding:12px 16px;border-radius:4px 18px 18px 18px;background:var(--card);border:1px solid var(--border);font-size:13px;color:var(--text);line-height:1.6">Assalamualaikum! I'm LENA 🌿<br/><br/>I'm here to listen and to sit with you through a difficult moment.<br><br>I'm not a therapist or a doctor, and I won't tell you what's wrong with you, because that takes a real person who can talk with you properly. But I can stay with you while it's hard. How are you feeling today?</div></div>
+<div class="chat-bubble-wrap" style="max-width:60%;display:flex;gap:9px;align-self:flex-start"><div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">🌿</div><div style="padding:12px 16px;border-radius:4px 18px 18px 18px;background:var(--card);border:1px solid var(--border);font-size:13px;color:var(--text);line-height:1.6">You can talk to me about:<br/>• Anything that's weighing on you<br/>• Exam or family pressure<br/>• Feeling anxious, low, angry or alone<br/><br/>Or I can walk you through a short calming exercise.<br/><br/>If things ever feel unsafe, tell me, and I'll put the right numbers in front of you straight away.</div></div>
 </div>
 <div style="display:flex;gap:10px;padding:14px 16px;background:var(--nav);border-top:1px solid var(--border);flex-shrink:0">
 <input id="chatinp" onblur="this.style.borderColor='var(--border)'" onfocus="this.style.borderColor='var(--primary)'" onkeydown="if(event.key==='Enter')sendChat()" placeholder="Type your message…" style="flex:1;padding:12px 16px;border-radius:24px;border:1.5px solid var(--border);background:var(--bg3);font-family:var(--ff-b);font-size:14px;color:var(--text);outline:none;transition:border-color .2s"/>
@@ -3626,22 +3723,149 @@ function gtExit(){gtClear();go('cbt');}
 // helplines when they did not need them; a false negative misses
 // someone who did. The asymmetry is intentional and is reported
 // as a limitation.
-const CRISIS_TERMS=[
- 'suicide','suicidal','kill myself','killing myself','end my life','end it all',
- 'want to die','wanna die','want to disappear','better off dead','better off without me',
- 'no point living','no reason to live','not worth living','cant go on','can\'t go on',
- 'hurt myself','harm myself','harming myself','self harm','self-harm',
- 'cut myself','cutting myself','overdose','take my life','take my own life',
- 'bunuh diri','nak mati','ingin mati','mahu mati','nak bunuh diri','mati je',
- 'tak nak hidup','tak mahu hidup','malas nak hidup','tak larat hidup',
- 'cederakan diri','sakitkan diri','lukakan diri','tamatkan hidup','nak hilang terus',
- 'baik aku mati','tiada guna hidup','tak guna hidup','putus asa dengan hidup'
+//
+// This used to be a list of substrings. Testing it against realistic
+// phrasings found it caught 8 of 28: it missed "i wish i was dead",
+// "i took too many pills", "nobody would miss me if i was gone" and
+// most of the Malay equivalents, and it fired on "penat gila rasa nak
+// mati letih", which is an ordinary complaint about being exhausted.
+//
+// It now works in three steps.
+//   1. Normalise: lowercase, keep letters and apostrophes, collapse
+//      spaces, so punctuation and spelling noise do not hide a match.
+//   2. Strike out idioms first. "This assignment is killing me" and
+//      "mati letih" are removed from the text before anything is
+//      matched, so they cannot trigger the gate. Removing them rather
+//      than returning early means a message containing both an idiom
+//      and a real statement is still caught.
+//   3. Match patterns on what is left.
+//
+// Everything here runs in the browser before any network request, so
+// it works offline, works when the model is rate-limited, and cannot
+// be argued around: the model never receives these messages.
+
+// Ordinary Malaysian and English idioms about dying that mean nothing
+// of the kind. Removed from the text before matching.
+const CRISIS_IGNORE = [
+  /\bkill(?:ing|s)?\s+me\b/g,
+  /\bkilled\s+(?:it|me)\b/g,
+  /\bkiller\b/g,
+  /\b(?:die|dies|died|dying|dyin)\s+(?:of|from)\s+(?:laughter|boredom|embarrassment|hunger|shame|cringe|thirst|heat)\b/g,
+  /\bdied\s+(?:laughing|of\s+laughter)\b/g,
+  /\bdying\s+to\s+(?:go|see|know|try|eat|sleep|meet|hear|watch|get)\b/g,
+  /\bdead\s+(?:tired|serious|easy|silly|end|line|weight)\b/g,
+  /\bto\s+death\b/g,
+  /\b(?:phone|battery|laptop|car|engine|plant|wifi|aircond|fan)\s+(?:is\s+|has\s+)?(?:died|dead|dying)\b/g,
+  /\bdrop\s+dead\s+gorgeous\b/g,
+  /\bover\s+my\s+dead\s+body\b/g,
+  /\bmati\s+(?:letih|penat|kebosanan|bosan|lapar|malu|kutu|lampu|enjin|akal|idea|hidup\s+lampu)\b/g,
+  /\bnak\s+mati\s+(?:letih|penat|lapar|bosan|malu|ketawa)\b/g,
+  /\bpenat\s+(?:gila\s+)?(?:sampai\s+)?nak\s+mati\b/g,
+  /\bketawa\s+(?:sampai\s+)?nak\s+mati\b/g,
+  /\bgelak\s+(?:sampai\s+)?nak\s+mati\b/g,
+  /\bmati\s+kan\b/g
 ];
+
+// Statements that stop the conversation and show the helplines.
+const CRISIS_PATTERNS = [
+  // explicit
+  /\bsuicid(?:e|al)\b/,
+  /\b(?:kill|killing|hurt|hurting|harm|harming|cut|cutting|injure|injuring|stab|burn|burning)\s+(?:my\s*self|myself)\b/,
+  /\bself[\s'-]?harm(?:ing|ed)?\b/,
+  /\bhang\s+my\s*self\b/,
+  /\bjump(?:ing)?\s+(?:off|from)\s+(?:a\s+|the\s+)?(?:bridge|building|roof|balcony|window|ledge)\b/,
+  /\boverdos(?:e|ing|ed)\b/,
+  /\b(?:take|taking|took|end|ending|ended|finish|finishing)\s+(?:my|his|her|their)\s+(?:own\s+)?life\b/,
+  /\bend\s+(?:it|this|things|everything)\s+(?:all|now|today|tonight|for\s+good|forever)\b/,
+  /\bend(?:ing)?\s+it\s+all\b/,
+  /\b(?:thinking|think|thought)\s+(?:about|of)\s+(?:ending|killing)\b/,
+  /\bplan(?:ning)?\s+to\s+(?:end|kill|die)\b/,
+  /\bhave\s+a\s+plan\s+to\s+end\b/,
+  /\bend\s+my\s+(?:suffering|pain)\b/,
+
+  // wanting to be dead
+  /\b(?:want|wants|wanna|wanted|going|gonna|need)\s+to\s+die\b/,
+  /\b(?:wanna|gonna)\s+die\b/,
+  /\bwish(?:ed)?\s+(?:that\s+)?(?:i|he|she)\s+(?:was|were|wasn't|am)\s+dead\b/,
+  /\bwish\s+(?:i|he|she)\s+(?:could|would|will|can)\s+(?:just\s+)?(?:die|disappear|not\s+wake)\b/,
+  /\bwish\s+i\s+was\s+never\s+born\b/,
+  /\bhope\s+i\s+(?:don'?t|never)\s+wake\s+up\b/,
+  /\b(?:don'?t|do\s+not|dont|never)\s+want(?:ed)?\s+to\s+(?:be\s+alive|live|exist|wake\s+up|be\s+here)\b/,
+  /\b(?:don'?t|dont)\s+(?:want|wanna)\s+to\s+be\s+here\s+(?:any\s*more|anymore)\b/,
+  /\bbetter\s+off\s+(?:dead|without\s+me|if\s+i\s+(?:was|were)\s+(?:dead|gone))\b/,
+  /\b(?:everyone|everybody|they|you|my\s+family|people)\s+(?:would|'d|will|are)\s+be?\s*(?:better\s+off)\b/,
+  /\bnobody\s+would\s+(?:miss|notice|care\s+if)\b/,
+  /\bno\s*one\s+would\s+(?:miss|notice|care\s+if)\b/,
+  /\bwant\s+to\s+disappear\b/,
+  /\bwant\s+it\s+(?:all\s+)?to\s+stop\s+(?:forever|for\s+good|permanently)\b/,
+  /\bwant\s+to\s+stop\s+existing\b/,
+
+  // hopelessness stated as finality
+  /\bno\s+(?:point|reason)\s+(?:in\s+)?(?:living|to\s+live|being\s+alive|going\s+on)\b/,
+  /\bnot\s+worth\s+living\b/,
+  /\bcan'?t\s+(?:go\s+on|do\s+this\s+any\s*more|keep\s+going)\b/,
+  /\bcannot\s+go\s+on\b/,
+  /\b(?:don'?t|dont)\s+see\s+a\s+future\b/,
+  /\bno\s+future\s+for\s+me\b/,
+  /\bgoodbye\s+(?:forever|everyone|world|all)\b/,
+  /\bthis\s+is\s+(?:my\s+)?goodbye\b/,
+  /\blast\s+message\s+(?:from\s+me|i'?ll\s+send)\b/,
+
+  // means already taken
+  /\b(?:took|taken|swallow|swallowed|drank)\s+(?:too\s+many|a\s+bunch\s+of|a\s+lot\s+of|all\s+(?:my|the|of))\s*(?:pills|tablets|panadol|paracetamol|meds|medicine|medication|bleach)\b/,
+  /\b(?:have\s+been|has\s+been|been|started|keep)\s+cutting\b/,
+  /\bcut\s+again\s+(?:last\s+night|tonight|today)\b/,
+
+  // Malay, explicit
+  /\b(?:mem)?bunuh\s+diri\b/,
+  /\bnak\s+bunuh\s+(?:diri|aku|saya)\b/,
+  /\b(?:cederakan|sakitkan|lukakan|menyakiti|mencederakan|melukakan)\s+(?:diri|diri\s+sendiri)\b/,
+  /\b(?:tamatkan|akhiri|habiskan|hentikan)\s+(?:hidup|nyawa|riwayat)\b/,
+  /\bnak\s+(?:tamatkan|akhiri|habiskan)\b/,
+  /\bgantung\s+diri\b/,
+  /\bterjun\s+(?:dari|bangunan|jambatan)\b/,
+
+  // Malay, wanting to be dead
+  /\b(?:nak|ingin|mahu|hendak|rasa\s+nak)\s+mati\b/,
+  /\bmati\s+(?:je|saja|sahaja)\b/,
+  /\b(?:tak|tidak|taknak|tak\s+nak)\s+(?:nak\s+)?(?:hidup|teruskan\s+hidup|sambung\s+hidup)\b/,
+  /\b(?:tak|tidak)\s+(?:mahu|ingin|hendak)\s+hidup\b/,
+  /\bmalas\s+nak\s+hidup\b/,
+  /\btak\s+larat\s+(?:nak\s+)?(?:hidup|teruskan|sambung|teruskan\s+hidup)\b/,
+  /\bnak\s+berhenti\s+hidup\b/,
+  /\bnak\s+hilang\s+(?:terus|dari\s+dunia|selamanya|macam\s+tu\s+je)\b/,
+  /\bnak\s+lenyap\s+(?:terus|dari\s+dunia)\b/,
+  /\b(?:lebih\s+)?baik\s+(?:aku|saya|i)\s+(?:mati|takde|tak\s+ada|tiada|hilang|pergi\s+terus)\b/,
+  /\b(?:tiada|tak\s+ada|takde|tak|tidak)\s+(?:guna|gunanya|makna|maknanya)\s+(?:aku\s+|saya\s+)?hidup\b/,
+  /\bhidup\s+(?:aku|saya)\s+(?:dah\s+)?(?:tak|tiada)\s+(?:guna|bermakna|ada\s+makna)\b/,
+  /\bputus\s+asa\s+dengan\s+hidup\b/,
+  /\b(?:semua\s+orang|orang\s+lain|family|keluarga|dorang|diorang|mak\s+ayah)(?:\s+(?:aku|saya|i))?\s+(?:akan\s+)?(?:lagi\s+|lebih\s+)?(?:senang|lega|baik|bahagia|happy|tenang|aman)\s+(?:kalau|bila|tanpa)\s+(?:aku|saya)?\s*(?:takde|tak\s+ada|tiada|mati|hilang|pergi)?\b/,
+  /\btakde\s+(?:sapa|siapa)\s+(?:pun\s+)?(?:akan\s+)?(?:rindu|kisah|peduli)\s+(?:kalau\s+)?(?:aku|saya)\s+(?:takde|mati|hilang)\b/,
+  /\bselamat\s+tinggal\s+(?:semua|selamanya)\b/
+];
+
+function normCrisis(t){
+  return ' ' + String(t == null ? '' : t)
+    .toLowerCase()
+    .replace(/[‘’ʼ`´]/g, "'")
+    .replace(/[^a-z'\s]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim() + ' ';
+}
+
 function isCrisis(t){
-  const s=' '+t.toLowerCase().replace(/[^a-z' ]/g,' ').replace(/\s+/g,' ')+' ';
-  for(let i=0;i<CRISIS_TERMS.length;i++){ if(s.indexOf(CRISIS_TERMS[i])>-1) return true; }
+  let s = normCrisis(t);
+  for (let i = 0; i < CRISIS_IGNORE.length; i++){
+    CRISIS_IGNORE[i].lastIndex = 0;
+    s = s.replace(CRISIS_IGNORE[i], ' ');
+  }
+  s = ' ' + s.replace(/\s+/g, ' ').trim() + ' ';
+  for (let i = 0; i < CRISIS_PATTERNS.length; i++){
+    if (CRISIS_PATTERNS[i].test(s)) return true;
+  }
   return false;
 }
+
 const CRISIS_REPLY=
  'I\'m really glad you told me, and I want to stop here for a moment. What you\'ve said sounds '+
  'heavy, and it matters more than anything else we could talk about.<br><br>'+
@@ -3725,6 +3949,7 @@ async function askLena(message){
 function chatBubble(html,crisis,act){
   const area=document.getElementById('chatarea');
   const w=document.createElement('div');
+  w.className='chat-bubble-wrap';
   w.style.cssText='max-width:70%;display:flex;gap:9px;align-self:flex-start';
   const bg=crisis?'rgba(224,92,110,.08)':'var(--card)';
   const bd=crisis?'#E05C6E':'var(--border)';
@@ -3747,6 +3972,7 @@ async function sendChat(){
   const area=document.getElementById('chatarea');
 
   const um=document.createElement('div');
+  um.className='chat-bubble-wrap';
   um.style.cssText='max-width:70%;display:flex;gap:8px;align-self:flex-end;flex-direction:row-reverse';
   um.innerHTML='<div style="padding:12px 16px;border-radius:18px 4px 18px 18px;background:var(--primary);color:#fff;font-size:14px;line-height:1.6">'+esc(msg)+'</div>';
   area.appendChild(um); inp.value=''; area.scrollTop=area.scrollHeight;
@@ -3760,6 +3986,7 @@ async function sendChat(){
 
   inp.disabled=true; if(btn)btn.disabled=true;
   const ty=document.createElement('div');
+  ty.className='chat-bubble-wrap';
   ty.style.cssText='max-width:60%;display:flex;gap:9px;align-self:flex-start';
   ty.innerHTML='<div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">\uD83C\uDF3F</div><div style="padding:12px 16px;border-radius:4px 18px 18px 18px;background:var(--card);border:1px solid var(--border);font-size:14px;color:var(--muted)">LENA is typing\u2026</div>';
   area.appendChild(ty); area.scrollTop=area.scrollHeight;
