@@ -5,8 +5,14 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <title>LENA: Live Emotional Needs Assistant</title>
-<meta name="description" content="LENA is a mental wellbeing companion for Malaysian youth: mood and sleep tracking, guided exercises, screening tools, Islamic reflections and Malaysian crisis helplines."/>
-<meta content="LENA mental wellbeing platform prototype with crisis support and LENA team information" name="description"/>
+<meta name="description" content="LENA is a mental wellbeing companion for Malaysian youth. Mood and sleep tracking, guided exercises, screening tools, Islamic reflections and Malaysian crisis helplines."/>
+<link rel="manifest" href="/manifest.json"/>
+<meta name="theme-color" content="#2BB89A"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-title" content="LENA"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <style>
 /* ══ THEMES ══════════════════════════════════════════════════════════ */
@@ -4067,6 +4073,49 @@ try{ renderPrefs(); }catch(e){}
 try{ renderProfile(); }catch(e){}
 try{ renderHomeStats(); }catch(e){}
 
+</script>
+<script>
+/* ══ OFFLINE SUPPORT ═════════════════════════════════════════════════
+   Registers the service worker so the app, including the crisis screen
+   and the user's saved safety plan, opens with no connection. The chat
+   screen still needs the network because it calls the API.
+
+   Everything here is wrapped. If service workers are unavailable, or the
+   browser refuses registration, the app carries on exactly as before.
+   ════════════════════════════════════════════════════════════════════ */
+(function(){
+  if (!('serviceWorker' in navigator)) return;
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('/sw.js').catch(function(){});
+  });
+})();
+
+/* Home-screen shortcuts open straight at a screen, e.g. /?go=crisis.
+
+   The app shows sign-in, then possibly a religion question, then the daily
+   check-in, before the main layout appears. A shortcut therefore cannot
+   simply call go() on load, because nothing is on screen yet. It waits for
+   the main layout to become visible and only then navigates, so the normal
+   entry flow is never bypassed. Gives up after 60 seconds. */
+(function(){
+  var want;
+  try {
+    want = new URLSearchParams(location.search).get('go');
+  } catch(e){ return; }
+  if (!want || !/^[a-z-]{1,20}$/.test(want)) return;
+
+  var tries = 0;
+  var timer = setInterval(function(){
+    tries++;
+    if (tries > 600) { clearInterval(timer); return; }
+    var app = document.getElementById('app-layout');
+    var target = document.getElementById('sc-' + want);
+    if (!app || !target) return;
+    if (getComputedStyle(app).display === 'none') return;
+    clearInterval(timer);
+    try { go(want); } catch(e){}
+  }, 100);
+})();
 </script>
 </body>
 </html>

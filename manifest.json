@@ -1,0 +1,50 @@
+{
+  "name": "LENA: Live Emotional Needs Assistant",
+  "short_name": "LENA",
+  "description": "A mental wellbeing companion for Malaysian youth. Mood and sleep tracking, guided exercises, screening tools, Islamic reflections, and Malaysian crisis helplines.",
+  "lang": "en",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#F0F9F6",
+  "theme_color": "#2BB89A",
+  "categories": ["health", "lifestyle", "medical"],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Crisis help",
+      "short_name": "Crisis",
+      "description": "Helplines and your safety plan",
+      "url": "/?go=crisis",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Log my mood",
+      "short_name": "Mood",
+      "description": "Add today's mood entry",
+      "url": "/?go=mood",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
