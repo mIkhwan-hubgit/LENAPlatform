@@ -695,7 +695,7 @@ a.scall{padding:9px 16px}
 <!-- Search Bar -->
 <div class="search-bar">
 <span style="font-size:13px;color:var(--muted)">🔍</span>
-<input id="sidebar-search" onblur="setTimeout(()=&gt;document.getElementById('search-results-panel').style.display='none',200)" onfocus="if(this.value.length&gt;0)document.getElementById('search-results-panel').style.display='block'" oninput="doSidebarSearch(this.value)" onkeydown="if(event.key==='Enter'){const panel=document.getElementById('search-results-panel');const r=panel._results&amp;&amp;panel._results[0];if(r){panel.style.display='none';this.value='';if(r.action)r.action();if(r.screen)go(r.screen);}}" placeholder="Search features…" type="text"/>
+<input id="sidebar-search" onblur="setTimeout(()=&gt;document.getElementById('search-results-panel').style.display='none',200)" onfocus="if(this.value.length&gt;0)document.getElementById('search-results-panel').style.display='block'" oninput="doSidebarSearch(this.value)" onkeydown="if(event.key==='Enter'){const panel=document.getElementById('search-results-panel');const r=panel._results&amp;&amp;panel._results[0];if(r){panel.style.display='none';this.value='';filterNav('');if(r.action)r.action();if(r.screen)go(r.screen);}}" placeholder="Search features…" type="text"/>
 </div>
 <div class="search-results" id="search-results-panel"></div>
 <div class="nav-link act" id="nl-home" onclick="go('home')"><span class="ni">🏠</span> Home</div>
@@ -1001,7 +1001,7 @@ a.scall{padding:9px 16px}
 <div style="height:6px;background:var(--bg3);border-radius:3px;overflow:hidden"><div id="qprog" style="height:100%;border-radius:3px;background:var(--primary);transition:width .4s"></div></div>
 </div>
 <div id="qtxt" style="font-family:var(--ff-d);font-size:22px;color:var(--text);margin-bottom:6px;line-height:1.4">Loading…</div>
-<div id="qinstr" style="font-size:13px;color:var(--muted);margin-bottom:18px">Over the last 2 weeks, how often?</div>
+<div id="qinstr" style="font-size:14px;color:var(--text2);margin-bottom:18px;line-height:1.55">Over the last 2 weeks, how often?</div>
 <div id="qopts"></div>
 <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px">
 <div id="qcnt" style="font-size:13px;color:var(--muted)">1 / 9</div>
@@ -1195,8 +1195,8 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <div class="atrans">"Verily, in the remembrance of Allah do hearts find rest."</div>
 <div class="aref">Surah Ar-Ra'd (13:28)</div>
 <div style="display:flex;gap:10px;margin-top:16px">
-<button class="btn-p" onclick="openResModal('Quranic Reflection','Surah Ar-Ra\'d 13:28 · Tafsir · 5 min','📖','Islamic')" style="padding:10px 20px;font-size:13px">📖 Read</button>
-<button class="btn-g" onclick="openResModal('Quran &amp; Healing','How the Quran calms the mind, an Islamic perspective','📖','Islamic Psychoeducation')" style="padding:10px 20px;font-size:13px">📖 Read</button>
+<button class="btn-p" onclick="openResModal('Quranic Reflection','Surah Ar-Ra\'d 13:28 · Tafsir · 5 min','📖','Islamic')" style="padding:10px 20px;font-size:13px">📖 Read tafsir</button>
+<button class="btn-g" onclick="openResModal('Quran &amp; Healing','How the Quran calms the mind, an Islamic perspective','📖','Islamic Psychoeducation')" style="padding:10px 20px;font-size:13px">📖 Quran &amp; Healing</button>
 </div>
 </div>
 <div class="card">
@@ -2545,7 +2545,9 @@ function renderReadPage(){
   }
   document.getElementById('page-indicator').textContent='Page '+(curPage+1)+' of '+curPages.length;
   document.getElementById('pg-prev-btn').disabled=curPage===0;
-  document.getElementById('pg-next-btn').disabled=curPage===curPages.length-1;
+  // Not disabled on the last page. The button changes job there, from
+  // Next to Done, and disabling it made Done impossible to click.
+  document.getElementById('pg-next-btn').disabled=false;
   document.getElementById('pg-next-btn').textContent=curPage===curPages.length-1?'Done ✓':'Next →';
   // dots
   const dots=document.getElementById('page-dots');
@@ -3096,14 +3098,53 @@ const SEARCH_INDEX=[
   {ico:'🌿',label:'Animated Background',sub:'Change background effects',screen:'profile'},
 ];
 
+/* Hide the nav links that do not match, and any section heading left
+   with nothing under it. Typing "Sleep" should leave Sleep Tracker on
+   screen and nothing else, which is what the search box looks like it
+   promises. Clearing the box puts everything back, including the
+   Kerohanian rule, which hides that link for non-Muslim users. */
+function filterNav(q){
+  const lq=String(q||'').trim().toLowerCase();
+  const links=document.querySelectorAll('.sidebar .nav-link');
+  const secs=document.querySelectorAll('.sidebar .nav-section');
+
+  if(!lq){
+    links.forEach(function(l){ l.style.display=''; });
+    secs.forEach(function(x){ x.style.display=''; });
+    try{ applyReligionPref(); }catch(e){}
+    return;
+  }
+
+  links.forEach(function(l){
+    var hit=(l.textContent||'').toLowerCase().indexOf(lq)>-1;
+    // A search must never reveal a link the religion preference hides.
+    if(hit&&l.classList.contains('isl-only')&&!isMuslimUser) hit=false;
+    l.style.display=hit?'':'none';
+  });
+
+  secs.forEach(function(x){
+    var any=false,n=x.nextElementSibling;
+    while(n&&!n.classList.contains('nav-section')){
+      if(n.classList.contains('nav-link')&&n.style.display!=='none') any=true;
+      n=n.nextElementSibling;
+    }
+    x.style.display=any?'':'none';
+  });
+}
+
 function doSidebarSearch(q){
   const panel=document.getElementById('search-results-panel');
+  filterNav(q);
   if(!q||q.length<1){panel.style.display='none';panel.innerHTML='';return;}
   const lq=q.toLowerCase();
+  /* The nav now covers anything that is a plain screen. The dropdown
+     is left for the deeper targets that have no link of their own,
+     such as a specific guided tool, so the two do not say the same
+     thing twice. */
   const results=SEARCH_INDEX.filter(item=>
-    item.label.toLowerCase().includes(lq)||item.sub.toLowerCase().includes(lq)
+    !!item.action&&(item.label.toLowerCase().includes(lq)||item.sub.toLowerCase().includes(lq))
   ).slice(0,6);
-  if(!results.length){panel.style.display='none';return;}
+  if(!results.length){panel.style.display='none';panel.innerHTML='';return;}
   panel.style.display='block';
   panel.innerHTML=results.map((r,i)=>`
     <div class="sr-item" onclick="handleSearchClick(${i},event)" data-idx="${i}">
@@ -3121,6 +3162,7 @@ function handleSearchClick(idx,e){
   if(!r)return;
   panel.style.display='none';
   document.getElementById('sidebar-search').value='';
+  filterNav('');
   if(r.action){r.action();}
   if(r.screen){go(r.screen);}
 }
@@ -3211,14 +3253,14 @@ function renderQ(){
   document.getElementById('qcnt').textContent=(curQ+1)+' / '+tot;
   document.getElementById('qprog').style.width=(curQ/tot*100)+'%';
   const _ms=curA.qsMs&&curA.qsMs[curQ];
-  document.getElementById('qtxt').innerHTML=(curQ+1)+'. '+curA.qs[curQ]+(_ms?'<div style="font-size:.82em;font-weight:400;font-style:italic;color:var(--muted);margin-top:6px;line-height:1.45">'+_ms+'</div>':'');
+  document.getElementById('qtxt').innerHTML=(curQ+1)+'. '+curA.qs[curQ]+(_ms?'<div style="font-size:.86em;font-weight:400;font-style:italic;color:var(--text2);margin-top:7px;line-height:1.5">'+_ms+'</div>':'');
   const _qi=document.getElementById('qinstr');
-  if(_qi&&curA.insMs)_qi.innerHTML=curA.ins+'<div style="font-size:.85em;font-style:italic;opacity:.8;margin-top:4px">'+curA.insMs+'</div>';
+  if(_qi&&curA.insMs)_qi.innerHTML=curA.ins+'<div style="font-size:.95em;font-style:italic;margin-top:5px;line-height:1.55">'+curA.insMs+'</div>';
   const op=document.getElementById('qopts');op.innerHTML='';
   curA.opts.forEach((o,i)=>{
     const d=document.createElement('div');d.className='aopt'+(answers[curQ]===i?' sel':'');
     const _om=curA.optsMs&&curA.optsMs[i];
-    d.innerHTML='<div class="opt-dot"></div><div class="opt-text">'+o+(_om?'<div style="font-size:.8em;font-style:italic;opacity:.65;margin-top:2px">'+_om+'</div>':'')+'</div>';
+    d.innerHTML='<div class="opt-dot"></div><div class="opt-text">'+o+(_om?'<div style="font-size:.9em;font-style:italic;opacity:.85;margin-top:3px">'+_om+'</div>':'')+'</div>';
     d.onclick=()=>{document.querySelectorAll('.aopt').forEach(x=>x.classList.remove('sel'));d.classList.add('sel');answers[curQ]=i;};
     op.appendChild(d);
   });
