@@ -460,13 +460,12 @@ a.scall{padding:9px 16px}
 </div>
 <div style="margin-bottom:14px"><label class="inp-label">Email Address</label><input class="inp-field" id="auth-email" placeholder="you@email.com" type="email"/></div>
 <div style="margin-bottom:6px"><label class="inp-label">Password</label><input class="inp-field" id="auth-pw" placeholder="••••••••" type="password"/></div>
+<div aria-live="polite" id="auth-err" role="alert" style="display:none;margin-top:8px;font-size:12px;color:#C2410C;line-height:1.4"></div>
 <div id="reg-fields" style="display:none;margin-top:12px">
 <div style="margin-bottom:14px"><label class="inp-label">Full Name</label><input class="inp-field" id="auth-name" placeholder="Your name"/></div>
-<div style="margin-bottom:6px"><label class="inp-label">Date of Birth</label><input class="inp-field" type="date" value="2002-03-15"/></div>
 </div>
 <button class="btn-p" id="auth-btn" onclick="doLogin()" style="width:100%;padding:14px;margin-top:16px;font-size:14px">Sign In →</button>
 <div style="text-align:center;margin-top:14px;font-size:12px;color:var(--muted)">or</div>
-<button class="btn-g" onclick="currentAuthTab='si';doLogin()" style="width:100%;padding:12px;margin-top:10px;justify-content:center">🔗 Continue with Google</button>
 <div onclick="currentAuthTab='si';document.getElementById('auth-email').value='guest@lena.app';document.getElementById('auth-pw').value='guest';doLogin()" style="text-align:center;margin-top:12px;font-size:12px;color:var(--primary);cursor:pointer;font-weight:600">Continue as Guest</div>
 <div style="text-align:center;margin-top:18px;font-size:11px;color:var(--muted)">Protected by PDPA 2010 · Mood and screening data stay on your device. Chat messages are sent to an AI service.</div>
 </div>
@@ -1293,13 +1292,13 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <div class="screen" id="sc-chat" style="display:none">
 <div class="chat-wrap">
 <div class="chat-head" style="background:var(--card);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:12px;flex-shrink:0">
-<div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:16px">🌿</div>
+<div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0"><img alt="" src="/icon-192.png" style="width:100%;height:100%;object-fit:cover;display:block"/></div>
 <div><div style="font-size:14px;font-weight:700;color:var(--text)">LENA AI</div><div style="font-size:11px;color:var(--green);font-weight:600">● Online · Supportive listening</div></div>
 <button onclick="clearChat()" title="Clear this conversation" style="margin-left:auto;flex-shrink:0;padding:7px 14px;border-radius:18px;border:1px solid var(--border2);background:transparent;color:var(--text2);font-family:var(--ff-b);font-size:12px;font-weight:600;cursor:pointer">Clear chat</button><div class="chat-note" style="font-size:11px;color:var(--muted);text-align:right;line-height:1.5;max-width:240px">LENA does not diagnose and is not a replacement for professional care.<br>Chat messages are sent to an AI service to generate replies.</div>
 </div>
 <div class="chat-area" id="chatarea" style="background:var(--bg)">
-<div class="chat-bubble-wrap" style="max-width:60%;display:flex;gap:9px;align-self:flex-start"><div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">🌿</div><div style="padding:12px 16px;border-radius:4px 18px 18px 18px;background:var(--card);border:1px solid var(--border);font-size:13px;color:var(--text);line-height:1.6">Assalamualaikum! I'm LENA 🌿<br/><br/>I'm here to listen and to sit with you through a difficult moment.<br><br>I'm not a therapist or a doctor, and I won't tell you what's wrong with you, because that takes a real person who can talk with you properly. But I can stay with you while it's hard. How are you feeling today?</div></div>
-<div class="chat-bubble-wrap" style="max-width:60%;display:flex;gap:9px;align-self:flex-start"><div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">🌿</div><div style="padding:12px 16px;border-radius:4px 18px 18px 18px;background:var(--card);border:1px solid var(--border);font-size:13px;color:var(--text);line-height:1.6">You can talk to me about:<br/>• Anything that's weighing on you<br/>• Exam or family pressure<br/>• Feeling anxious, low, angry or alone<br/><br/>Or I can walk you through a short calming exercise.<br/><br/>If things ever feel unsafe, tell me, and I'll put the right numbers in front of you straight away.</div></div>
+<div class="chat-bubble-wrap" style="max-width:60%;display:flex;gap:9px;align-self:flex-start"><div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0"><img alt="" src="/icon-192.png" style="width:100%;height:100%;object-fit:cover;display:block"/></div><div style="padding:12px 16px;border-radius:4px 18px 18px 18px;background:var(--card);border:1px solid var(--border);font-size:13px;color:var(--text);line-height:1.6">Assalamualaikum! I'm LENA 🌿<br/><br/>I'm here to listen and to sit with you through a difficult moment.<br><br>I'm not a therapist or a doctor, and I won't tell you what's wrong with you, because that takes a real person who can talk with you properly. But I can stay with you while it's hard. How are you feeling today?</div></div>
+<div class="chat-bubble-wrap" style="max-width:60%;display:flex;gap:9px;align-self:flex-start"><div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0"><img alt="" src="/icon-192.png" style="width:100%;height:100%;object-fit:cover;display:block"/></div><div style="padding:12px 16px;border-radius:4px 18px 18px 18px;background:var(--card);border:1px solid var(--border);font-size:13px;color:var(--text);line-height:1.6">You can talk to me about:<br/>• Anything that's weighing on you<br/>• Exam or family pressure<br/>• Feeling anxious, low, angry or alone<br/><br/>Or I can walk you through a short calming exercise.<br/><br/>If things ever feel unsafe, tell me, and I'll put the right numbers in front of you straight away.</div></div>
 </div>
 <div style="display:flex;gap:10px;padding:14px 16px;background:var(--nav);border-top:1px solid var(--border);flex-shrink:0">
 <input id="chatinp" onblur="this.style.borderColor='var(--border)'" onfocus="this.style.borderColor='var(--primary)'" onkeydown="if(event.key==='Enter')sendChat()" placeholder="Type your message…" style="flex:1;padding:12px 16px;border-radius:24px;border:1.5px solid var(--border);background:var(--bg3);font-family:var(--ff-b);font-size:14px;color:var(--text);outline:none;transition:border-color .2s"/>
@@ -1560,10 +1559,30 @@ const NON_ISLAMIC_QUOTES=[
 
 let isMuslimUser=true; // default
 
+/* Shows a message beside the form rather than only as a toast, so it is
+   still readable after the toast has gone and is announced by a screen
+   reader. Passing an empty string clears it. */
+function authError(msg){
+  const el=document.getElementById('auth-err');
+  if(el){el.textContent=msg||'';el.style.display=msg?'block':'none';}
+  if(msg){try{toast(msg);}catch(e){}}
+}
+
+function validEmail(v){
+  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+}
+
 function doLogin(){
   const email=document.getElementById('auth-email').value.trim();
   const pw=document.getElementById('auth-pw').value.trim();
-  if(!email||!pw){toast('Please enter your email and password');return;}
+  if(!email||!pw){authError('Please enter your email and password.');return;}
+  if(!validEmail(email)){
+    authError('That email address does not look right. Check for a typo.');
+    return;
+  }
+  authError('');
+  // A successful sign-in cancels any earlier sign-out.
+  try{localStorage.removeItem('lena_signed_out');}catch(e){}
   // Remember who this is, so the profile and the greeting stop
   // addressing everybody by the same invented name.
   const nameEl=document.getElementById('auth-name');
@@ -1587,6 +1606,38 @@ function doLogin(){
     isMuslimUser=(savedPref==='1');
     showLoadingScreen();
   }
+}
+
+/* A returning user should not have to meet the sign-in form again.
+
+   Nothing is sent to a server, so "session" here means a profile saved in
+   this browser on this device only. It does not follow the user to another
+   device and it is cleared with the browser's site data. Sign Out sets
+   lena_signed_out, which suppresses the resume until the next sign-in. */
+function resumeSession(){
+  let u=null,out=null;
+  try{
+    u=JSON.parse(localStorage.getItem('lena_user')||'null');
+    out=localStorage.getItem('lena_signed_out');
+  }catch(e){return false;}
+  if(out==='1')return false;
+  if(!u||!u.email)return false;
+
+  const authScreen=document.getElementById('auth-screen');
+  if(!authScreen)return false;
+  authScreen.classList.add('fc-hidden');
+  try{renderProfile();}catch(e){}
+
+  let savedPref=null;
+  try{savedPref=localStorage.getItem('lena_muslim');}catch(e){}
+  if(savedPref===null){
+    const relScreen=document.getElementById('religion-screen');
+    if(relScreen)relScreen.classList.remove('fc-hidden');
+  } else {
+    isMuslimUser=(savedPref==='1');
+    showLoadingScreen();
+  }
+  return true;
 }
 
 function setReligion(isMuslim){
@@ -2887,6 +2938,9 @@ function signOut(){
   // The chat lives in sessionStorage. On a shared laptop, leaving it
   // behind for the next person is the actual risk here.
   try{sessionStorage.removeItem(CHAT_SKEY);}catch(e){}
+  // The saved profile is kept, so mood, journal and screening history
+  // survive, but the resume is suppressed until the next sign-in.
+  try{localStorage.setItem('lena_signed_out','1');}catch(e){}
   toast('Signed out');
   setTimeout(()=>location.reload(),700);
 }
@@ -3965,7 +4019,7 @@ function chatBubble(html,crisis,act){
     '" style="padding:9px 16px;border-radius:20px;background:var(--primary);color:#fff;border:none;'+
     'font-size:12px;font-weight:700;cursor:pointer;font-family:var(--ff-b)">'+act.l+' →</button></div>';
   inner+='</div>';
-  w.innerHTML='<div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">🌿</div>'+inner;
+  w.innerHTML='<div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0"><img alt="" src="/icon-192.png" style="width:100%;height:100%;object-fit:cover;display:block"/></div>'+inner;
   area.appendChild(w); area.scrollTop=area.scrollHeight;
   try{saveChatSession();}catch(e){}
 }
@@ -4088,6 +4142,20 @@ try{ renderHomeStats(); }catch(e){}
   window.addEventListener('load', function(){
     navigator.serviceWorker.register('/sw.js').catch(function(){});
   });
+})();
+
+/* Resume a saved session straight away, so a returning user is not shown
+   a sign-in form that is about to disappear. Kept separate from the
+   service worker block above, which returns early on browsers without
+   service worker support. */
+(function(){
+  var done=false;
+  try{ done=resumeSession(); }catch(e){}
+  if(!done){
+    window.addEventListener('load', function(){
+      try{ resumeSession(); }catch(e){}
+    });
+  }
 })();
 
 /* Home-screen shortcuts open straight at a screen, e.g. /?go=crisis.
