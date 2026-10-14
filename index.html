@@ -1216,7 +1216,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <div class="grid3" style="margin-bottom:20px">
 <div class="card" onclick="audioPending('Morning Dhikr')" style="text-align:center;opacity:.72;cursor:pointer"><div style="font-size:32px;margin-bottom:8px">🤲</div><div style="font-size:14px;font-weight:700;color:var(--text)">Morning Dhikr</div><div style="font-size:11px;color:var(--muted);margin-top:3px">Recitation not added yet</div></div>
 <div class="card" onclick="audioPending('Evening Dhikr')" style="text-align:center;opacity:.72;cursor:pointer"><div style="font-size:32px;margin-bottom:8px">🌙</div><div style="font-size:14px;font-weight:700;color:var(--text)">Evening Dhikr</div><div style="font-size:11px;color:var(--muted);margin-top:3px">Recitation not added yet</div></div>
-<div class="card card-hover" onclick="openResModal('Quran &amp; Healing','How the Quran calms the mind and heart','📖','Islamic')" style="text-align:center"><div style="font-size:32px;margin-bottom:8px">📖</div><div style="font-size:14px;font-weight:700;color:var(--text)">Quran &amp; Healing</div><div style="font-size:11px;color:var(--muted);margin-top:3px">Read · Listen</div></div>
+<div class="card card-hover" onclick="openResModal('Quran &amp; Healing','How the Quran calms the mind and heart','📖','Islamic')" style="text-align:center"><div style="font-size:32px;margin-bottom:8px">📖</div><div style="font-size:14px;font-weight:700;color:var(--text)">Quran &amp; Healing</div><div style="font-size:11px;color:var(--muted);margin-top:3px">Read</div></div>
 </div>
 <div class="sp"></div>
 </div><!-- end islamic -->
@@ -1583,8 +1583,20 @@ function doLogin(){
   authError('');
   // A successful sign-in cancels any earlier sign-out.
   try{localStorage.removeItem('lena_signed_out');}catch(e){}
-  // Remember who this is, so the profile and the greeting stop
-  // addressing everybody by the same invented name.
+
+  // With a backend available the server decides whether these
+  // credentials are good. Without one, the old on-device behaviour
+  // stands, so the app still works with no network and no database.
+  if(window.LENA_BACKEND && LENA_BACKEND.available){
+    LENA_BACKEND.authenticate(email,pw,currentAuthTab==='re');
+    return;
+  }
+  proceedAfterAuth(email);
+}
+
+/* Everything that happens once the person is through the door,
+   whether that was decided locally or by the server. */
+function proceedAfterAuth(email){
   const nameEl=document.getElementById('auth-name');
   const typedName=(currentAuthTab==='re'&&nameEl)?(nameEl.value||'').trim():'';
   const prev=loadUser();
@@ -2941,6 +2953,11 @@ function signOut(){
   // The saved profile is kept, so mood, journal and screening history
   // survive, but the resume is suppressed until the next sign-in.
   try{localStorage.setItem('lena_signed_out','1');}catch(e){}
+  if(window.LENA_BACKEND && LENA_BACKEND.available){
+    // Fire and forget. A failure here must not keep the person
+    // apparently signed in on this device.
+    try{ LENA_BACKEND.logout(); }catch(e){}
+  }
   toast('Signed out');
   setTimeout(()=>location.reload(),700);
 }
@@ -3112,7 +3129,7 @@ function handleSearchClick(idx,e){
 // ASSESSMENTS
 // ════════════════════════════════════════════════════
 const AS={
-  phq9:{n:'PHQ-9',ins:'Over the last 2 weeks, how often have you been bothered by any of the following problems?',insMs:'Sepanjang 2 minggu yang lalu, berapa kerapkah anda diganggu oleh mana-mana masalah berikut?',opts:['Not at all','Several days','More than half the days','Nearly everyday'],optsMs:['Tidak sama sekali','Beberapa hari','Lebih separuh hari','Hampir setiap hari'],qs:['Little interest or pleasure in doing things','Feeling down, depressed or hopeless','Trouble falling or staying asleep, or sleeping too much','Feeling tired or having little energy','Poor appetite or overeating','Feeling bad about yourself \u2013 or that you are a failure or have let yourself or your family down','Trouble concentrating on things, such as reading the newspaper or watching television','Moving or speaking so slowly that people could have noticed? Or the opposite \u2013 being so fidgety or restless that you have been moving around a lot more than usual','Thoughts that you would be better off dead or of hurting yourself in some way'],qsMs:['Kurang berminat atau keseronokan dalam melakukan sesuatu perkara','Rasa sedih, tidak gembira, atau putus asa','Masalah untuk tidur atau tidur nyenyak atau tidur berlebihan','Rasa letih atau mempunyai sedikit tenaga','Kurang selera atau makan berlebihan','Rasa buruk mengenai diri anda \u2013 atau anda seorang yang gagal atau anda telah menyebabkan diri anda atau keluarga anda kecewa','Masalah untuk menumpukan perhatian ke atas sesuatu perkara seperti membaca surat khabar atau menonton televisyen','Bergerak atau bercakap terlalu perlahan sehingga orang lain perasan? Atau sebaliknya \u2013 menjadi sangat resah atau gelisah sehinggakan anda telah bergerak banyak daripada biasa','Memikirkan adalah lebih baik saja jika anda mati atau mencederakan diri sendiri dalam beberapa cara'],score(s){const t=s.reduce((a,b)=>a+b,0);if(t<=4)return{l:'Minimal Depression',c:'var(--green)',sev:'minimal',r:'PHQ-9: '+t+'/27',rec:'Minimal depressive symptoms. Maintain healthy habits and keep checking in with LENA.'};if(t<=9)return{l:'Mild Depression',c:'var(--amber)',sev:'mild',r:'PHQ-9: '+t+'/27',rec:'Mild symptoms. Regular movement, sleep and staying connected to people all help. LENA\'s guided tools can support this day to day.'};if(t<=14)return{l:'Moderate Depression',c:'var(--amber)',sev:'moderate',r:'PHQ-9: '+t+'/27',rec:'Speaking with a healthcare professional is recommended. CBT and/or medication may be appropriate.'};if(t<=19)return{l:'Moderately Severe Depression',c:'var(--red)',sev:'severe',r:'PHQ-9: '+t+'/27',rec:'Active treatment with a healthcare professional is recommended. Please arrange an appointment soon.'};return{l:'Severe Depression',c:'var(--red)',sev:'severe',r:'PHQ-9: '+t+'/27',rec:'Please seek professional help promptly. Contact a crisis line or hospital emergency if needed.'};}},
+  phq9:{n:'PHQ-9',ins:'Over the last 2 weeks, how often have you been bothered by any of the following problems?',insMs:'Sepanjang 2 minggu yang lalu, berapa kerapkah anda diganggu oleh mana-mana masalah berikut?',opts:['Not at all','Several days','More than half the days','Nearly everyday'],optsMs:['Tidak sama sekali','Beberapa hari','Lebih separuh hari','Hampir setiap hari'],qs:['Little interest or pleasure in doing things','Feeling down, depressed or hopeless','Trouble falling or staying asleep, or sleeping too much','Feeling tired or having little energy','Poor appetite or overeating','Feeling bad about yourself \u2013 or that you are a failure or have let yourself or your family down','Trouble concentrating on things, such as reading the newspaper or watching television','Moving or speaking so slowly that people could have noticed? Or the opposite \u2013 being so fidgety or restless that you have been moving around a lot more than usual','Thoughts that you would be better off dead or of hurting yourself in some way'],qsMs:['Kurang berminat atau keseronokan dalam melakukan sesuatu perkara','Rasa sedih, tidak gembira, atau putus asa','Masalah untuk tidur atau tidur nyenyak atau tidur berlebihan','Rasa letih atau mempunyai sedikit tenaga','Kurang selera atau makan berlebihan','Rasa buruk mengenai diri anda \u2013 atau anda seorang yang gagal atau anda telah menyebabkan diri anda atau keluarga anda kecewa','Masalah untuk menumpukan perhatian ke atas sesuatu perkara seperti membaca surat khabar atau menonton televisyen','Bergerak atau bercakap terlalu perlahan sehingga orang lain perasan? Atau sebaliknya \u2013 menjadi sangat resah atau gelisah sehinggakan anda telah bergerak banyak daripada biasa','Memikirkan adalah lebih baik saja jika anda mati atau mencederakan diri sendiri dalam beberapa cara'],score(s){const t=s.reduce((a,b)=>a+b,0);if(t<=4)return{l:'Minimal Depression',c:'var(--green)',sev:'minimal',r:'PHQ-9: '+t+'/27',rec:'Minimal depressive symptoms. Maintain healthy habits and keep checking in with LENA.'};if(t<=9)return{l:'Mild Depression',c:'var(--amber)',sev:'mild',r:'PHQ-9: '+t+'/27',rec:'Mild symptoms. Regular movement, sleep and staying connected to people all help. LENA\'s guided tools can support this day to day.'};if(t<=14)return{l:'Moderate Depression',c:'var(--amber)',sev:'moderate',r:'PHQ-9: '+t+'/27',rec:'Speaking with a healthcare professional is recommended. They can talk through what would help in your situation.'};if(t<=19)return{l:'Moderately Severe Depression',c:'var(--red)',sev:'severe',r:'PHQ-9: '+t+'/27',rec:'Active treatment with a healthcare professional is recommended. Please arrange an appointment soon.'};return{l:'Severe Depression',c:'var(--red)',sev:'severe',r:'PHQ-9: '+t+'/27',rec:'Please seek professional help promptly. Contact a crisis line or hospital emergency if needed.'};}},
   dass21:{n:'DASS-21',ins:'Please read each statement and select a number 0, 1, 2 or 3 that indicates how much the statement applied to you over the past week. There are no right or wrong answers. Do not spend too much time on any statement.',insMs:'Sila baca setiap kenyataan di bawah dan pilih jawapan 0, 1, 2 atau 3 bagi menggambarkan keadaan anda sepanjang minggu yang lalu. Tiada jawapan yang betul atau salah. Jangan mengambil masa yang terlalu lama untuk mana-mana kenyataan.',opts:['Did not apply to me at all','Applied to me to some degree, or some of the time','Applied to me to a considerable degree, good part of time','Applied to me very much, or most of the time'],optsMs:['Tidak langsung menggambarkan keadaan saya','Sedikit atau jarang-jarang menggambarkan keadaan saya','Banyak atau kerapkali menggambarkan keadaan saya','Sangat banyak atau sangat kerap menggambarkan keadaan saya'],qs:['I found it hard to wind down','I was aware of dryness of my mouth','I couldn\'t seem to experience any positive feeling at all','I experienced breathing difficulty (e.g. excessively rapid breathing, breathlessness in the absence of physical exertion)','I found it difficult to work up the initiative to do things','I tended to over-react to situations','I experienced trembling (e.g. in the hands)','I felt that I was using a lot of nervous energy','I was worried about situations in which I might panic and make a fool of myself','I felt that I had nothing to look forward to','I found myself getting agitated','I found it difficult to relax','I felt down-hearted and blue','I was intolerant of anything that kept me from getting on with what I was doing','I felt I was close to panic','I was unable to become enthusiastic about anything','I felt I wasn\'t worth much as a person','I felt that I was rather touchy','I was aware of the action of my heart in the absence of physical exertion (e.g. sense of heart rate increase, heart missing a beat)','I felt scared without any good reason','I felt that life was meaningless'],qsMs:['Saya dapati diri saya sukar ditenteramkan.','Saya sedar mulut saya terasa kering.','Saya tidak dapat mengalami perasaan positif sama sekali.','Saya mengalami kesukaran bernafas (contohnya pernafasan yang laju, tercungap-cungap walaupun tidak melakukan senaman fizikal).','Saya sukar untuk mendapatkan semangat bagi melakukan sesuatu perkara.','Saya cenderung untuk bertindak keterlaluan dalam sesuatu keadaan.','Saya rasa menggeletar (contohnya pada tangan).','Saya rasa saya menggunakan banyak tenaga dalam keadaan cemas.','Saya bimbang keadaan di mana saya mungkin menjadi panik dan melakukan perkara yang membodohkan diri sendiri.','Saya rasa saya tidak mempunyai apa-apa untuk diharapkan.','Saya dapati diri saya semakin gelisah.','Saya rasa sukar untuk relaks.','Saya rasa sedih dan murung.','Saya tidak dapat menahan sabar dengan perkara yang menghalang saya meneruskan apa yang saya lakukan.','Saya rasa hampir-hampir menjadi panik/cemas.','Saya tidak bersemangat dengan apa jua yang saya lakukan.','Saya rasa tidak begitu berharga sebagai seorang individu.','Saya rasa saya mudah tersentuh.','Saya sedar tindakbalas jantung saya walaupun tidak melakukan aktiviti fizikal (contohnya kadar denyutan jantung bertambah, atau denyutan jantung berkurangan).','Saya berasa takut tanpa sebab yang munasabah.','Saya rasa hidup ini tidak bermakna.'],score(s){const g=ix=>ix.map(i=>s[i]||0).reduce((a,b)=>a+b,0);const d=g([2,4,9,12,15,16,20]),a=g([1,3,6,8,14,18,19]),st=g([0,5,7,10,11,13,17]);const L=['Normal','Mild','Moderate','Severe','Extremely Severe'];const band=(v,c)=>{let i=0;while(i<4&&v>c[i])i++;return L[i];};const CD=[5,7,10,14],CA=[4,5,7,10],CS=[7,9,13,17];const dB=band(d,CD),aB=band(a,CA),sB=band(st,CS);const rk=x=>L.indexOf(x);const worst=Math.max(rk(dB),rk(aB),rk(sB));const col=['var(--green)','var(--amber)','var(--amber)','var(--red)','var(--red)'][worst];const sv=['minimal','mild','moderate','severe','severe'][worst];return{l:'DASS-21 Complete',c:col,sev:sv,r:'S:'+st+' A:'+a+' D:'+d,rec:'Stress '+st+'/21 ('+sB+') | Anxiety '+a+'/21 ('+aB+') | Depression '+d+'/21 ('+dB+').',sub:{stress:st,anxiety:a,depression:d,sB:sB,aB:aB,dB:dB},bars:[{l:'Stress - '+sB,p:Math.round(st/21*100),c:'#9C27B0'},{l:'Anxiety - '+aB,p:Math.round(a/21*100),c:'#FF9800'},{l:'Depression - '+dB,p:Math.round(d/21*100),c:'#F44336'}]};}},
 };
 
@@ -4141,6 +4158,290 @@ try{ renderHomeStats(); }catch(e){}
   if (!('serviceWorker' in navigator)) return;
   window.addEventListener('load', function(){
     navigator.serviceWorker.register('/sw.js').catch(function(){});
+  });
+})();
+
+
+/* ══ ACCOUNTS AND SYNC ═══════════════════════════════════════════════
+   Talks to /api/auth/* and /api/sync. Everything degrades: if the
+   endpoints are not deployed, or the device is offline, or the
+   database is asleep, the app carries on exactly as it did before,
+   storing everything on this device.
+   ════════════════════════════════════════════════════════════════════ */
+window.LENA_BACKEND = (function(){
+
+  var available = false;
+  var me = null;
+
+  /* A uuid derived from a string, so the same local record always maps
+     to the same server id. Without this, every sync would insert
+     duplicates instead of updating. xmur3 gives four 32-bit words,
+     which is the 128 bits a uuid needs. The version nibble is set to 5
+     because this is a name-based id, not a random one. */
+  function uuidFrom(str){
+    function xmur3(s){
+      var h=1779033703^s.length;
+      for(var i=0;i<s.length;i++){
+        h=Math.imul(h^s.charCodeAt(i),3432918353);
+        h=h<<13|h>>>19;
+      }
+      return function(){
+        h=Math.imul(h^(h>>>16),2246822507);
+        h=Math.imul(h^(h>>>13),3266489909);
+        h^=h>>>16;
+        return h>>>0;
+      };
+    }
+    var next=xmur3('lena:'+str), hex='';
+    for(var i=0;i<4;i++) hex+=('00000000'+next().toString(16)).slice(-8);
+    return hex.slice(0,8)+'-'+hex.slice(8,12)+'-5'+hex.slice(13,16)+'-'+
+           ('89ab'[parseInt(hex[16],16)%4])+hex.slice(17,20)+'-'+hex.slice(20,32);
+  }
+
+  function readJSON(k,fallback){
+    try{ var v=JSON.parse(localStorage.getItem(k)||'null'); return v===null?fallback:v; }
+    catch(e){ return fallback; }
+  }
+  function arr(k){ var v=readJSON(k,[]); return Array.isArray(v)?v:[]; }
+
+  /* Singletons such as the safety plan carry no timestamp of their own,
+     so changes are detected by hashing the content. The stamp only
+     moves when the content actually changes, which stops this device
+     winning every merge simply by syncing most recently. */
+  function stamps(){ return readJSON('lena_sync_stamps',{}); }
+  function stampFor(kind,payload){
+    var all=stamps(), h=uuidFrom(JSON.stringify(payload)), cur=all[kind];
+    if(!cur||cur.h!==h){
+      all[kind]={h:h,t:Date.now()};
+      try{ localStorage.setItem('lena_sync_stamps',JSON.stringify(all)); }catch(e){}
+      return all[kind].t;
+    }
+    return cur.t;
+  }
+
+  function prefsBundle(){
+    return {
+      prefs:      readJSON('lena_prefs',null),
+      muslim:     (function(){ try{ return localStorage.getItem('lena_muslim'); }catch(e){ return null; } })(),
+      appearance: readJSON('lena_appearance',null),
+      sleep_plan: readJSON('lena_sleep_plan',null)
+    };
+  }
+
+  function rec(kind,key,payload,t){
+    return { id:uuidFrom(kind+':'+key), kind:kind, payload:payload,
+             updated_at:new Date(t||Date.now()).toISOString(), deleted:false };
+  }
+
+  /* Everything on this device, in the shape /api/sync expects. */
+  function localRecords(){
+    var out=[];
+    arr('lena_mood_log').forEach(function(m){ out.push(rec('mood',String(m.t),m,m.t)); });
+    arr('lena_journal').forEach(function(j){ out.push(rec('journal',String(j.id),j,j.t||j.id)); });
+    arr('lena_assess_history').forEach(function(h){ out.push(rec('screening',String(h.t),h,h.t)); });
+    arr('lena_sleep_log').forEach(function(sl){ out.push(rec('sleep',String(sl.d),sl,sl.t)); });
+
+    var sp=readJSON('lena_safety_plan',null);
+    if(sp) out.push(rec('safety_plan','one',sp,stampFor('safety_plan',sp)));
+
+    var pb=prefsBundle();
+    out.push(rec('prefs','one',pb,stampFor('prefs',pb)));
+    return out;
+  }
+
+  /* Insert anything the server has that this device does not. Arrays
+     here are append-mostly, so a union by natural key is enough and
+     avoids clobbering a local edit the server has not seen. */
+  function applyRemote(records){
+    var byKind={};
+    records.forEach(function(r){ (byKind[r.kind]=byKind[r.kind]||[]).push(r); });
+
+    function mergeArray(key,kind,idOf){
+      var list=arr(key), seen={}, changed=false;
+      list.forEach(function(x){ seen[String(idOf(x))]=true; });
+      (byKind[kind]||[]).forEach(function(r){
+        if(r.deleted) return;
+        var k=String(idOf(r.payload));
+        if(!seen[k]){ list.push(r.payload); seen[k]=true; changed=true; }
+      });
+      if(changed){
+        list.sort(function(a,b){ return (a.t||0)-(b.t||0); });
+        try{ localStorage.setItem(key,JSON.stringify(list)); }catch(e){}
+      }
+    }
+    mergeArray('lena_mood_log','mood',function(x){ return x.t; });
+    mergeArray('lena_journal','journal',function(x){ return x.id; });
+    mergeArray('lena_assess_history','screening',function(x){ return x.t; });
+    mergeArray('lena_sleep_log','sleep',function(x){ return x.d; });
+
+    (byKind.safety_plan||[]).forEach(function(r){
+      if(r.deleted) return;
+      var local=stamps().safety_plan;
+      if(!local || Date.parse(r.updated_at) > local.t){
+        try{ localStorage.setItem('lena_safety_plan',JSON.stringify(r.payload)); }catch(e){}
+      }
+    });
+
+    (byKind.prefs||[]).forEach(function(r){
+      if(r.deleted) return;
+      var local=stamps().prefs;
+      if(local && Date.parse(r.updated_at) <= local.t) return;
+      var p=r.payload||{};
+      try{
+        if(p.prefs)      localStorage.setItem('lena_prefs',JSON.stringify(p.prefs));
+        if(p.appearance) localStorage.setItem('lena_appearance',JSON.stringify(p.appearance));
+        if(p.sleep_plan) localStorage.setItem('lena_sleep_plan',JSON.stringify(p.sleep_plan));
+        if(p.muslim!==null&&p.muslim!==undefined) localStorage.setItem('lena_muslim',p.muslim);
+      }catch(e){}
+    });
+  }
+
+  function api(path,opts){
+    opts=opts||{};
+    opts.credentials='same-origin';
+    opts.headers=opts.headers||{};
+    if(opts.body) opts.headers['Content-Type']='application/json';
+    return fetch(path,opts).then(function(r){
+      var ct=r.headers.get('content-type')||'';
+      if(ct.indexOf('json')===-1) throw new Error('not json');
+      return r.json().then(function(b){ return {status:r.status, body:b}; });
+    });
+  }
+
+  function syncNow(){
+    if(!available||!me) return Promise.resolve(false);
+    var since=null;
+    try{ since=localStorage.getItem('lena_sync_since'); }catch(e){}
+
+    /* Order matters on a device that has never synced. Collecting
+       local records stamps the singletons, namely the safety plan and
+       the preferences, as changed right now. If that happened before
+       the pull, an empty new device would beat the server with its
+       own blank preferences and the real ones would be thrown away.
+       So the first sync on a device pulls first and pushes second.
+       Afterwards, push first is right, because local edits are the
+       newer thing. */
+    var first = !since;
+    var pull = function(){
+      return api('/api/sync?since='+encodeURIComponent(since||'1970-01-01T00:00:00.000Z'));
+    };
+    var push = function(){
+      return api('/api/sync',{method:'PUT',body:JSON.stringify({records:localRecords()})});
+    };
+
+    return (first ? Promise.resolve() : push())
+      .then(pull)
+      .then(function(r){
+        if(first && r && r.status===200){
+          applyRemote((r.body&&r.body.records)||[]);
+          return push().then(function(){ return r; });
+        }
+        return r;
+      })
+      .then(function(r){
+        if(r.status!==200) return false;
+        applyRemote(r.body.records||[]);
+        try{ localStorage.setItem('lena_sync_since',r.body.now); }catch(e){}
+        ['renderMood','renderJournal','renderSleep','renderTrend','renderHomeStats','renderPrefs']
+          .forEach(function(fn){ try{ window[fn] && window[fn](); }catch(e){} });
+        return true;
+      })
+      .catch(function(){ return false; });   // never block the app on sync
+  }
+
+  function authenticate(email,password,isRegister){
+    var nameEl=document.getElementById('auth-name');
+    var displayName=(isRegister&&nameEl)?(nameEl.value||'').trim():'';
+    var btn=document.getElementById('auth-btn');
+    var label=btn?btn.textContent:'';
+    if(btn){ btn.disabled=true; btn.textContent='Please wait…'; }
+
+    return api(isRegister?'/api/auth/register':'/api/auth/login',
+      {method:'POST',body:JSON.stringify({email:email,password:password,displayName:displayName})})
+      .then(function(r){
+        if(btn){ btn.disabled=false; btn.textContent=label; }
+        if(r.status===200||r.status===201){
+          me=r.body.user;
+          try{ saveUser({name:me.displayName||'',email:me.email}); }catch(e){}
+          proceedAfterAuth(email);
+          syncNow();
+          return true;
+        }
+        authError((r.body&&r.body.message)||'That did not work. Please try again.');
+        return false;
+      })
+      .catch(function(){
+        if(btn){ btn.disabled=false; btn.textContent=label; }
+        // The server became unreachable mid-attempt. Rather than
+        // stranding somebody who may be in distress, let them in and
+        // keep their data on the device.
+        available=false;
+        proceedAfterAuth(email);
+        return false;
+      });
+  }
+
+  function logout(){
+    return api('/api/auth/logout',{method:'POST'}).catch(function(){});
+  }
+
+  function deleteAccount(password){
+    return api('/api/account/delete',
+      {method:'POST',body:JSON.stringify({password:password,confirm:'DELETE'})});
+  }
+
+  /* One probe on boot. Anything other than a clean JSON answer means
+     local-only, which is the state the app is in today. */
+  /* Once per tab, not once per page load. Without the backend
+     deployed this request 404s, and repeating it on every navigation
+     puts a red line in the console for no reason. Remembering the
+     answer for the tab keeps it to one. A new tab asks again, so
+     deploying the backend later needs no action here. */
+  function probe(){
+    if(!navigator.onLine) return Promise.resolve(false);
+    try{ if(sessionStorage.getItem('lena_api_absent')==='1') return Promise.resolve(false); }catch(e){}
+    return api('/api/auth/me')
+      .then(function(r){
+        if(r.status!==200||r.body.degraded) return false;
+        available=true;
+        me=r.body.user||null;
+        if(me){ syncNow(); }
+        return true;
+      })
+      .catch(function(){
+        try{ sessionStorage.setItem('lena_api_absent','1'); }catch(e){}
+        return false;
+      });
+  }
+
+  return {
+    get available(){ return available; },
+    get user(){ return me; },
+    probe:probe, authenticate:authenticate, logout:logout,
+    deleteAccount:deleteAccount, syncNow:syncNow,
+    localRecords:localRecords, applyRemote:applyRemote, uuidFrom:uuidFrom
+  };
+})();
+
+/* Probe once, quietly, after the app has painted. */
+(function(){
+  function go(){ try{ LENA_BACKEND.probe(); }catch(e){} }
+  if(document.readyState==='complete') setTimeout(go,0);
+  else window.addEventListener('load',function(){ setTimeout(go,0); });
+})();
+
+/* Push anything new when the tab is hidden or the device comes back
+   online. Cheap, and it means a user who closes the tab does not lose
+   the last few entries from the server copy. */
+(function(){
+  function push(){
+    if(window.LENA_BACKEND && LENA_BACKEND.available && LENA_BACKEND.user){
+      try{ LENA_BACKEND.syncNow(); }catch(e){}
+    }
+  }
+  window.addEventListener('online',push);
+  document.addEventListener('visibilitychange',function(){
+    if(document.visibilityState==='hidden') push();
   });
 })();
 
