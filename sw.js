@@ -5,9 +5,11 @@
    safety plan have to open when there is no connection, because a safety
    plan you cannot open during a crisis is not a safety plan.
 
-   The whole app is a single HTML document with its images inlined, so
-   caching that one document caches every screen except the chatbot, which
-   needs the network because it calls the API.
+   The whole app is a single HTML document. Since v7 the team photos are
+   separate files in /assets/team/ rather than built into the page, which
+   took index.html from 3.5 MB to about 0.3 MB. They are precached below
+   so the Team screen still works offline. Everything else works offline
+   except the chatbot, which needs the network because it calls the API.
 
    Caching strategy, by request type:
 
@@ -27,7 +29,7 @@
    previous build. This is the one way a service worker commonly goes wrong.
    ────────────────────────────────────────────────────────────────────── */
 
-const CACHE_VERSION = 'v6';
+const CACHE_VERSION = 'v7';
 const CACHE = 'lena-' + CACHE_VERSION;
 
 // Everything needed for a cold, offline start.
@@ -39,7 +41,17 @@ const PRECACHE = [
   '/icon-512.png',
   '/icon-maskable-512.png',
   '/apple-touch-icon.png',
-  '/favicon-32.png'
+  '/favicon-32.png',
+  '/assets/LENA-logo.png',
+  '/assets/team/ahmad-anwar.webp',
+  '/assets/team/amir-aatieff.webp',
+  '/assets/team/dini-oktarina-dwi-handayani.webp',
+  '/assets/team/asmarani.webp',
+  '/assets/team/noor-hayani.webp',
+  '/assets/team/zahidah.webp',
+  '/assets/team/muhammad-ilham.webp',
+  '/assets/team/muhammad-ikhwan.webp',
+  '/assets/team/nor-hamidah.webp'
 ];
 
 self.addEventListener('install', (event) => {
