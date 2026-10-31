@@ -20,7 +20,10 @@
   --bg:#F0F9F6;--bg2:#fff;--bg3:#E4F4EF;--bg4:#D4EDE6;
   --primary:#2BB89A;--primary2:#22A088;--primary3:#1A8870;
   --accent:#F4A438;--soft:#A8DDD0;--soft2:#C5EBE2;
-  --text:#1E3D35;--text2:#4A7268;--muted:#8AADA6;
+  --text:#1E3D35;--text2:#365A50;--muted:#4A6963;
+  --primary-t:#1A705D;--fill:#1F846F;--fill2:#1A7462;--on-fill:#fff;
+  --green-t:#1E6F50;--red-t:#BC2439;--amber-t:#845A11;--lav-t:#4C6394;--accent-t:#905608;
+  --red-fill:#D3364C;--on-avatar:#1E3D35;
   --card:rgba(255,255,255,0.85);--card-b:rgba(255,255,255,0.96);
   --border:rgba(43,184,154,0.15);--border2:rgba(43,184,154,0.28);
   --shadow:rgba(43,184,154,0.12);--shadow2:rgba(0,0,0,0.08);
@@ -29,11 +32,11 @@
   --r:14px;--r2:20px;--r3:28px;
   --ff-d:'Playfair Display',Georgia,serif;--ff-b:'Plus Jakarta Sans',sans-serif;
 }
-[data-theme=ocean]{--bg:#EBF5FB;--bg2:#fff;--bg3:#D6ECF8;--bg4:#C2E3F5;--primary:#1260A8;--primary2:#0E4C88;--accent:#C05C00;--soft:#8EC8E8;--text:#061828;--text2:#12345A;--muted:#3A6A8A;--card:rgba(255,255,255,0.88);--card-b:rgba(255,255,255,0.97);--border:rgba(18,96,168,0.18);--border2:rgba(18,96,168,0.32);--shadow:rgba(18,96,168,0.14);--shadow2:rgba(0,0,0,0.08);--nav:rgba(255,255,255,0.94);--overlay:rgba(6,24,40,0.58)}
-[data-theme=lavender]{--bg:#F5EEF8;--bg2:#fff;--bg3:#EBE0F5;--bg4:#DED0F0;--primary:#6A3A9E;--primary2:#522A84;--accent:#C05C00;--soft:#C8A8E8;--text:#18022E;--text2:#341258;--muted:#6A4090;--card:rgba(255,255,255,0.88);--card-b:rgba(255,255,255,0.97);--border:rgba(106,58,158,0.18);--border2:rgba(106,58,158,0.32);--shadow:rgba(106,58,158,0.14);--shadow2:rgba(0,0,0,0.08);--nav:rgba(255,255,255,0.94);--overlay:rgba(24,2,46,0.58)}
-[data-theme=sunrise]{--bg:#FFF8EE;--bg2:#fff;--bg3:#FDEFD8;--bg4:#FAE0B8;--primary:#B04A00;--primary2:#903800;--accent:#1060B0;--soft:#F5C880;--text:#200800;--text2:#4A1800;--muted:#804010;--card:rgba(255,255,255,0.88);--card-b:rgba(255,255,255,0.97);--border:rgba(176,74,0,0.18);--border2:rgba(176,74,0,0.32);--shadow:rgba(176,74,0,0.14);--shadow2:rgba(0,0,0,0.08);--nav:rgba(255,255,255,0.94);--overlay:rgba(32,8,0,0.58)}
-[data-theme=forest]{--bg:#EEF7EE;--bg2:#fff;--bg3:#DDF0DD;--bg4:#C8E8C8;--primary:#145C14;--primary2:#0A4A0A;--accent:#7A5600;--soft:#90D090;--text:#061006;--text2:#122A12;--muted:#385A38;--card:rgba(255,255,255,0.88);--card-b:rgba(255,255,255,0.97);--border:rgba(20,92,20,0.18);--border2:rgba(20,92,20,0.32);--shadow:rgba(20,92,20,0.14);--shadow2:rgba(0,0,0,0.08);--nav:rgba(255,255,255,0.94);--overlay:rgba(6,16,6,0.58)}
-[data-theme=dark]{--bg:#07101A;--bg2:#0C1924;--bg3:#12202E;--bg4:#1A2D40;--primary:#1FADA0;--primary2:#28C4B5;--accent:#C9A84C;--soft:#4FD9CB;--text:#D8EDF5;--text2:#A0C8D8;--muted:#7AAABA;--card:rgba(255,255,255,0.06);--card-b:rgba(255,255,255,0.09);--border:rgba(255,255,255,0.1);--border2:rgba(31,173,160,0.35);--shadow:rgba(31,173,160,0.18);--shadow2:rgba(0,0,0,0.3);--nav:rgba(7,16,26,0.96);--overlay:rgba(0,0,0,0.72)}
+[data-theme=ocean]{--bg:#EBF5FB;--bg2:#fff;--bg3:#D6ECF8;--bg4:#C2E3F5;--primary:#1260A8;--primary2:#0E4C88;--accent:#C05C00;--soft:#8EC8E8;--text:#061828;--text2:#12345A;--muted:#3A6A8A;--card:rgba(255,255,255,0.88);--card-b:rgba(255,255,255,0.97);--border:rgba(18,96,168,0.18);--border2:rgba(18,96,168,0.32);--shadow:rgba(18,96,168,0.14);--shadow2:rgba(0,0,0,0.08);--nav:rgba(255,255,255,0.94);--overlay:rgba(6,24,40,0.58);--primary-t:var(--primary);--fill:var(--primary);--fill2:var(--primary2);--accent-t:#A85000;--on-avatar:#fff}
+[data-theme=lavender]{--bg:#F5EEF8;--bg2:#fff;--bg3:#EBE0F5;--bg4:#DED0F0;--primary:#6A3A9E;--primary2:#522A84;--accent:#C05C00;--soft:#C8A8E8;--text:#18022E;--text2:#341258;--muted:#6A4090;--card:rgba(255,255,255,0.88);--card-b:rgba(255,255,255,0.97);--border:rgba(106,58,158,0.18);--border2:rgba(106,58,158,0.32);--shadow:rgba(106,58,158,0.14);--shadow2:rgba(0,0,0,0.08);--nav:rgba(255,255,255,0.94);--overlay:rgba(24,2,46,0.58);--primary-t:var(--primary);--fill:var(--primary);--fill2:var(--primary2);--accent-t:#A85000;--on-avatar:#fff}
+[data-theme=sunrise]{--bg:#FFF8EE;--bg2:#fff;--bg3:#FDEFD8;--bg4:#FAE0B8;--primary:#B04A00;--primary2:#903800;--accent:#1060B0;--soft:#F5C880;--text:#200800;--text2:#4A1800;--muted:#804010;--card:rgba(255,255,255,0.88);--card-b:rgba(255,255,255,0.97);--border:rgba(176,74,0,0.18);--border2:rgba(176,74,0,0.32);--shadow:rgba(176,74,0,0.14);--shadow2:rgba(0,0,0,0.08);--nav:rgba(255,255,255,0.94);--overlay:rgba(32,8,0,0.58);--primary-t:var(--primary);--fill:var(--primary);--fill2:var(--primary2);--accent-t:var(--accent);--on-avatar:#fff}
+[data-theme=forest]{--bg:#EEF7EE;--bg2:#fff;--bg3:#DDF0DD;--bg4:#C8E8C8;--primary:#145C14;--primary2:#0A4A0A;--accent:#7A5600;--soft:#90D090;--text:#061006;--text2:#122A12;--muted:#385A38;--card:rgba(255,255,255,0.88);--card-b:rgba(255,255,255,0.97);--border:rgba(20,92,20,0.18);--border2:rgba(20,92,20,0.32);--shadow:rgba(20,92,20,0.14);--shadow2:rgba(0,0,0,0.08);--nav:rgba(255,255,255,0.94);--overlay:rgba(6,16,6,0.58);--primary-t:var(--primary);--fill:var(--primary);--fill2:var(--primary2);--accent-t:var(--accent);--on-avatar:#fff}
+[data-theme=dark]{--bg:#07101A;--bg2:#0C1924;--bg3:#12202E;--bg4:#1A2D40;--primary:#1FADA0;--primary2:#28C4B5;--accent:#C9A84C;--soft:#4FD9CB;--text:#D8EDF5;--text2:#A0C8D8;--muted:#7AAABA;--card:rgba(255,255,255,0.06);--card-b:rgba(255,255,255,0.09);--border:rgba(255,255,255,0.1);--border2:rgba(31,173,160,0.35);--shadow:rgba(31,173,160,0.18);--shadow2:rgba(0,0,0,0.3);--nav:rgba(7,16,26,0.96);--overlay:rgba(0,0,0,0.72);--primary-t:var(--primary);--fill:var(--primary);--fill2:var(--primary2);--on-fill:#04131A;--green-t:var(--green);--red-t:#F08090;--amber-t:var(--amber);--lav-t:var(--lav);--accent-t:var(--accent);--on-avatar:#04131A}
 
 /* ══ RESET & BASE ═══════════════════════════════════════════════════ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -49,16 +52,16 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 /* ══ SIDEBAR ═════════════════════════════════════════════════════════ */
 .sidebar{display:flex;flex-direction:column;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border2) transparent;background:var(--nav);backdrop-filter:blur(24px);border-right:1px solid var(--border);padding:28px 0 20px;z-index:10;transition:background .4s}
 .logo{padding:0 24px 28px;border-bottom:1px solid var(--border)}
-.logo-name{font-family:var(--ff-d);font-size:28px;color:var(--primary);letter-spacing:-0.5px}
+.logo-name{font-family:var(--ff-d);font-size:28px;color:var(--primary-t);letter-spacing:-0.5px}
 .logo-tagline{font-size:11px;color:var(--muted);margin-top:2px;font-weight:500}
 .nav-section{padding:18px 16px 6px;font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
 .nav-link{display:flex;align-items:center;gap:12px;padding:10px 20px;border-radius:0 var(--r2) var(--r2) 0;margin:2px 12px 2px 0;font-size:13px;font-weight:600;color:var(--text2);cursor:pointer;transition:all .18s;border:1px solid transparent}
 .nav-link .ni{font-size:17px;flex-shrink:0;width:22px;text-align:center}
 .nav-link:hover{background:var(--bg3);color:var(--text);border-color:var(--border)}
-.nav-link.act{background:rgba(43,184,154,.12);color:var(--primary);border-color:rgba(43,184,154,.18)}
+.nav-link.act{background:rgba(43,184,154,.12);color:var(--primary-t);border-color:rgba(43,184,154,.18)}
 .sidebar-footer{margin-top:auto;padding:16px 20px;border-top:1px solid var(--border)}
-.sos-btn{width:100%;padding:10px;border-radius:var(--r);border:none;background:#E05C6E;color:#fff;font-family:var(--ff-b);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 3px 12px rgba(224,92,110,.3)}
-.sos-btn:hover{background:#C8485A;transform:translateY(-1px)}
+.sos-btn{width:100%;padding:10px;border-radius:var(--r);border:none;background:var(--red-fill);color:#fff;font-family:var(--ff-b);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 3px 12px rgba(224,92,110,.3)}
+.sos-btn:hover{background:#B92E42;transform:translateY(-1px)}
 
 /* ══ MAIN CONTENT ════════════════════════════════════════════════════ */
 .main{display:flex;flex-direction:column;overflow:hidden;position:relative}
@@ -66,7 +69,7 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 .topbar-title{font-family:var(--ff-d);font-size:20px;color:var(--text)}
 .topbar-right{display:flex;align-items:center;gap:14px}
 .tb-clock{font-size:13px;color:var(--muted);font-weight:600}
-.tb-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;cursor:pointer;box-shadow:0 3px 12px var(--shadow)}
+.tb-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--on-avatar);cursor:pointer;box-shadow:0 3px 12px var(--shadow)}
 .content-area{flex:1;position:relative;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent;padding:28px 32px}
 .content-area::-webkit-scrollbar{width:4px}
 .content-area::-webkit-scrollbar-track{background:transparent}
@@ -79,7 +82,7 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 /* ══ SHARED COMPONENTS ════════════════════════════════════════════════ */
 .shd{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;margin-top:6px}
 .shd h2{font-family:var(--ff-d);font-size:18px;color:var(--text)}
-.shd a{font-size:12px;color:var(--primary);cursor:pointer;font-weight:600;text-decoration:none}
+.shd a{font-size:12px;color:var(--primary-t);cursor:pointer;font-weight:600;text-decoration:none}
 .shd a:hover{text-decoration:underline}
 .card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:20px;transition:all .2s;box-shadow:0 3px 16px var(--shadow);backdrop-filter:blur(8px)}
 .card-hover:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:0 6px 24px var(--shadow);cursor:pointer}
@@ -87,16 +90,16 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
 .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .row{display:flex;gap:14px;align-items:center}
-.btn-p{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:11px 22px;border-radius:var(--r);border:none;background:linear-gradient(135deg,var(--primary),var(--primary2));color:#fff;font-family:var(--ff-b);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 4px 16px var(--shadow)}
+.btn-p{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:11px 22px;border-radius:var(--r);border:none;background:linear-gradient(135deg,var(--fill),var(--fill2));color:var(--on-fill);font-family:var(--ff-b);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 4px 16px var(--shadow)}
 .btn-p:hover{transform:translateY(-1px);box-shadow:0 6px 22px var(--shadow)}
 .btn-g{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;border-radius:var(--r);border:1.5px solid var(--border2);background:transparent;color:var(--text);font-family:var(--ff-b);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
-.btn-g:hover{border-color:var(--primary);color:var(--primary)}
+.btn-g:hover{border-color:var(--primary);color:var(--primary-t)}
 .tag{display:inline-flex;align-items:center;gap:3px;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase}
-.tg-p{background:rgba(43,184,154,.13);color:var(--primary)}
-.tg-a{background:rgba(244,164,56,.13);color:var(--accent)}
-.tg-r{background:rgba(224,92,110,.13);color:var(--red)}
-.tg-g{background:rgba(52,191,138,.13);color:var(--green)}
-.tg-l{background:rgba(139,157,195,.13);color:var(--lav)}
+.tg-p{background:rgba(43,184,154,.13);color:var(--primary-t)}
+.tg-a{background:rgba(244,164,56,.13);color:var(--accent-t)}
+.tg-r{background:rgba(224,92,110,.13);color:var(--red-t)}
+.tg-g{background:rgba(52,191,138,.13);color:var(--green-t)}
+.tg-l{background:rgba(139,157,195,.13);color:var(--lav-t)}
 .sp{height:20px}.sp8{height:8px}.sp12{height:12px}
 .pbar-row{margin-bottom:12px}
 .pbar-lbl{display:flex;justify-content:space-between;font-size:12px;font-weight:600;color:var(--text2);margin-bottom:5px}
@@ -107,7 +110,7 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 .inp-label{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px;display:block}
 
 /* ══ TOAST ════════════════════════════════════════════════════════════ */
-.toast{position:fixed;bottom:28px;right:28px;background:var(--primary);color:#fff;padding:11px 22px;border-radius:30px;font-size:13px;font-weight:700;box-shadow:0 6px 24px var(--shadow);z-index:1000;opacity:0;transition:all .3s;pointer-events:none;transform:translateY(10px)}
+.toast{position:fixed;bottom:28px;right:28px;background:var(--fill);color:var(--on-fill);padding:11px 22px;border-radius:30px;font-size:13px;font-weight:700;box-shadow:0 6px 24px var(--shadow);z-index:1000;opacity:0;transition:all .3s;pointer-events:none;transform:translateY(10px)}
 .toast.show{opacity:1;transform:translateY(0)}
 
 /* ══ MODAL ════════════════════════════════════════════════════════════ */
@@ -117,7 +120,7 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 .msheet{background:var(--bg);border-radius:var(--r3);padding:32px;width:520px;max-width:90vw;max-height:85vh;overflow-y:auto;position:relative;box-shadow:0 20px 60px var(--shadow2);border:1px solid var(--border)}
 .msheet-wide{width:800px}
 .mcls{position:absolute;top:18px;right:18px;background:var(--bg3);border:none;color:var(--text2);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .2s}
-.mcls:hover{background:var(--primary);color:#fff}
+.mcls:hover{background:var(--fill);color:var(--on-fill)}
 
 /* ══ MOOD FACES ═══════════════════════════════════════════════════════ */
 .mf{width:40px;height:40px;border-radius:50%;background:var(--bg3);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;transition:all .2s}
@@ -128,7 +131,7 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 .scrow{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:4px}
 .scp{display:flex;align-items:center;gap:8px;padding:9px 16px;border-radius:30px;border:1.5px solid var(--border);background:var(--card);cursor:pointer;transition:all .2s;font-size:13px;color:var(--text2);font-weight:600;box-shadow:0 2px 8px var(--shadow)}
 .scp:hover{background:var(--bg3);border-color:var(--border2)}
-.scp.on{background:var(--primary);border-color:var(--primary);color:#fff;box-shadow:0 4px 16px var(--shadow)}
+.scp.on{background:var(--fill);border-color:var(--primary);color:var(--on-fill);box-shadow:0 4px 16px var(--shadow)}
 .spbar{display:flex;align-items:flex-end;gap:2px;height:13px}
 .spbar span{display:block;width:3px;background:#fff;border-radius:2px;animation:eq 1.2s ease-in-out infinite alternate}
 .spbar span:nth-child(1){height:5px}.spbar span:nth-child(2){height:11px;animation-delay:.15s}.spbar span:nth-child(3){height:7px;animation-delay:.3s}.spbar span:nth-child(4){height:9px;animation-delay:.45s}
@@ -140,7 +143,7 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 .ptit{font-size:13px;font-weight:700;color:#fff}
 .psub{font-size:10px;color:rgba(255,255,255,.75)}
 .pbtn{width:32px;height:32px;border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;transition:all .2s}
-.pb-play{background:#fff;color:var(--primary)}
+.pb-play{background:#fff;color:var(--primary-t)}
 .pb-stop{background:rgba(255,255,255,.22);color:#fff;font-size:11px}
 .pbtn:hover{transform:scale(1.1)}
 .pprog-wrap{flex:1;height:4px;background:rgba(255,255,255,.25);border-radius:2px;overflow:hidden;cursor:pointer}
@@ -149,7 +152,7 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 /* ══ STAT CARD ════════════════════════════════════════════════════════ */
 .scard{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:18px 16px;text-align:center;cursor:pointer;transition:all .18s;box-shadow:0 2px 10px var(--shadow)}
 .scard:hover{border-color:var(--border2);transform:translateY(-1px)}
-.scnum{font-family:var(--ff-d);font-size:24px;color:var(--primary);font-weight:700}
+.scnum{font-family:var(--ff-d);font-size:24px;color:var(--primary-t);font-weight:700}
 .sclbl{font-size:11px;color:var(--muted);margin-top:2px;font-weight:600}
 
 /* ══ CHART BARS ═══════════════════════════════════════════════════════ */
@@ -157,7 +160,7 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 .mbar-wrap{height:80px;display:flex;align-items:flex-end;width:100%}
 .mbar{width:100%;border-radius:6px 6px 0 0;transition:height .5s ease}
 .mday{font-size:9px;color:var(--muted)}
-.mday-t{color:var(--primary);font-weight:700}
+.mday-t{color:var(--primary-t);font-weight:700}
 
 /* ══ FEATURE GRID ═════════════════════════════════════════════════════ */
 .feat-card{border-radius:var(--r2);padding:20px 16px;cursor:pointer;transition:transform .2s,box-shadow .2s;border:1px solid var(--border)}
@@ -175,7 +178,7 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 
 /* ══ CBT ══════════════════════════════════════════════════════════════ */
 .cbt-cat{padding:7px 14px;border-radius:20px;border:1.5px solid var(--border);background:var(--card);font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:all .18s}
-.cbt-cat.act{border-color:var(--primary);background:rgba(43,184,154,.12);color:var(--primary)}
+.cbt-cat.act{border-color:var(--primary);background:rgba(43,184,154,.12);color:var(--primary-t)}
 .aopt{display:flex;align-items:center;gap:14px;padding:13px 16px;border-radius:var(--r);border:1.5px solid var(--border);background:var(--card);margin-bottom:10px;cursor:pointer;transition:all .18s}
 .aopt:hover{border-color:var(--border2)}
 .aopt.sel{border-color:var(--primary);background:rgba(43,184,154,.1)}
@@ -197,30 +200,30 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 /* ══ BG PICKER ════════════════════════════════════════════════════════ */
 .bg-opt{padding:10px 16px;border-radius:var(--r);border:2px solid var(--border);background:var(--card);cursor:pointer;transition:all .2s;text-align:center;font-size:12px;font-weight:600;color:var(--text2)}
 .bg-opt:hover{border-color:var(--border2)}
-.bg-opt.act{border-color:var(--primary);background:rgba(43,184,154,.1);color:var(--primary)}
+.bg-opt.act{border-color:var(--primary);background:rgba(43,184,154,.1);color:var(--primary-t)}
 .bg-preview{height:44px;border-radius:8px;margin-bottom:6px;overflow:hidden}
 
 /* ══ SLEEP TIME ════════════════════════════════════════════════════════ */
 .time-box{background:var(--bg3);border:1.5px solid var(--border);border-radius:var(--r);padding:14px 16px;cursor:pointer;transition:all .2s}
 .time-box:hover{border-color:var(--primary)}
 .time-box.focus{border-color:var(--primary);background:rgba(43,184,154,.07)}
-.time-input{font-family:var(--ff-d);font-size:26px;color:var(--primary);background:transparent;border:none;outline:none;width:100%;text-align:center;cursor:pointer}
+.time-input{font-family:var(--ff-d);font-size:26px;color:var(--primary-t);background:transparent;border:none;outline:none;width:100%;text-align:center;cursor:pointer}
 .time-lbl{font-size:10px;color:var(--muted);font-weight:700;text-align:center;margin-bottom:4px;text-transform:uppercase;letter-spacing:.08em}
 
 /* ══ RESOURCE PLAYER ══════════════════════════════════════════════════ */
 .rp-mode-toggle{display:flex;background:rgba(255,255,255,.15);border-radius:30px;padding:4px}
 .rp-mode-btn{padding:8px 20px;border-radius:26px;border:none;font-family:var(--ff-b);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;color:rgba(255,255,255,.7);background:transparent}
-.rp-mode-btn.act{background:#fff;color:var(--primary)}
+.rp-mode-btn.act{background:#fff;color:var(--primary-t)}
 .read-page{display:none;animation:fadeSlide .35s ease}
 .read-page.active{display:block}
 @keyframes fadeSlide{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:none}}
 .qual-pill{padding:7px 13px;border-radius:20px;border:1.5px solid var(--border);background:var(--card);font-size:12px;color:var(--text2);cursor:pointer;transition:all .18s;font-weight:600}
 .qual-pill:hover{border-color:var(--border2)}
-.qual-pill.sel{border-color:var(--lav);background:rgba(139,157,195,.15);color:var(--lav)}
+.qual-pill.sel{border-color:var(--lav);background:rgba(139,157,195,.15);color:var(--lav-t)}
 
 /* ══ BREATHE ══════════════════════════════════════════════════════════ */
 @keyframes breathe{0%,100%{transform:scale(.8);opacity:.7}50%{transform:scale(1.1);opacity:1}}
-.borb{border-radius:50%;background:radial-gradient(circle,var(--primary) 0%,rgba(43,184,154,.3) 60%,transparent 100%);animation:breathe 8s ease-in-out infinite;animation-play-state:paused;display:flex;align-items:center;justify-content:center}
+.borb{border-radius:50%;background:radial-gradient(circle,var(--fill) 0%,rgba(43,184,154,.3) 60%,transparent 100%);animation:breathe 8s ease-in-out infinite;animation-play-state:paused;display:flex;align-items:center;justify-content:center}
 .brng{border-radius:50%;border:2px solid rgba(43,184,154,.25);animation:breathe 8s ease-in-out infinite;animation-delay:.5s;animation-play-state:paused}
 
 /* ══ CHAT ═════════════════════════════════════════════════════════════ */
@@ -238,9 +241,9 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 .sline:last-child{border-bottom:none}
 .slico{font-size:28px;flex-shrink:0}
 .slname{font-size:14px;font-weight:700;color:var(--text);margin-bottom:2px}
-.slnum{font-size:18px;font-weight:800;color:var(--primary)}
+.slnum{font-size:18px;font-weight:800;color:var(--primary-t)}
 .slhrs{font-size:11px;color:var(--muted)}
-.scall{padding:9px 16px;background:var(--primary);color:#fff;border:none;border-radius:var(--r);font-size:12px;font-weight:700;cursor:pointer;font-family:var(--ff-b);transition:all .2s}
+.scall{padding:9px 16px;background:var(--fill);color:var(--on-fill);border:none;border-radius:var(--r);font-size:12px;font-weight:700;cursor:pointer;font-family:var(--ff-b);transition:all .2s}
 .scall:hover{background:var(--primary2)}
 
 /* ══ LOADING / AUTH SCREENS ═══════════════════════════════════════════ */
@@ -283,7 +286,7 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 .pstep::before{content:'';position:absolute;left:17px;top:28px;bottom:0;width:1px;background:var(--border)}
 .pstep:last-child::before{display:none}
 .pdot{width:34px;height:34px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px}
-.ptime{font-size:11px;color:var(--primary);font-weight:700;margin-bottom:2px}
+.ptime{font-size:11px;color:var(--primary-t);font-weight:700;margin-bottom:2px}
 .pdesc{font-size:13px;color:var(--text);font-weight:600}
 .psub2{font-size:11px;color:var(--muted);margin-top:2px}
 
@@ -292,7 +295,7 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 .hlcard:hover{border-color:rgba(224,92,110,.4);transform:translateY(-1px)}
 .hl-ico{font-size:28px;flex-shrink:0}
 .hl-name{font-size:14px;font-weight:700;color:var(--text)}
-.hl-num{font-size:18px;font-weight:800;color:var(--red);font-family:var(--ff-d)}
+.hl-num{font-size:18px;font-weight:800;color:var(--red-t);font-family:var(--ff-d)}
 .hl-hrs{font-size:11px;color:var(--muted)}
 
 /* ══ RES CARD ═════════════════════════════════════════════════════════ */
@@ -301,21 +304,21 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 .res-ico{width:50px;height:50px;border-radius:14px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:24px}
 .res-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}
 .res-sub{font-size:11px;color:var(--muted)}
-.res-meta{font-size:10px;color:var(--primary);margin-top:4px;font-weight:700}
+.res-meta{font-size:10px;color:var(--primary-t);margin-top:4px;font-weight:700}
 
 /* ══ JOURNAL ══════════════════════════════════════════════════════════ */
 .qual-pill{padding:7px 13px;border-radius:20px;border:1.5px solid var(--border);background:var(--card);font-size:12px;color:var(--text2);cursor:pointer;transition:all .18s;font-weight:600}
 .qual-pill:hover{border-color:var(--border2)}
-.qual-pill.sel{border-color:var(--lav);background:rgba(139,157,195,.15);color:var(--lav)}
+.qual-pill.sel{border-color:var(--lav);background:rgba(139,157,195,.15);color:var(--lav-t)}
 
 /* LENA'S TEAM ADDITION */
 .lena-team-wrap{margin-top:20px}
 .lena-team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .lena-team-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:18px;text-align:center;transition:.2s;box-shadow:0 3px 16px var(--shadow)}
 .lena-team-card:hover{transform:translateY(-3px);border-color:var(--border2)}
-.lena-team-avatar{width:70px;height:70px;border-radius:50%;margin:0 auto 12px;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;color:white;font-size:24px;font-weight:700}
+.lena-team-avatar{width:70px;height:70px;border-radius:50%;margin:0 auto 12px;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;color:var(--on-avatar);font-size:24px;font-weight:700}
 .lena-team-name{font-size:14px;font-weight:800;color:var(--text);line-height:1.4}
-.lena-team-role{font-size:11px;color:var(--primary);font-weight:700;margin-top:6px}
+.lena-team-role{font-size:11px;color:var(--primary-t);font-weight:700;margin-top:6px}
 .lena-team-org{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4}
 @media(max-width:900px){.lena-team-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.lena-team-grid{grid-template-columns:1fr}}
@@ -378,7 +381,7 @@ a.scall{padding:9px 16px}
     text-align:center;white-space:nowrap;
   }
   .nav-link .ni{font-size:19px;width:auto}
-  .nav-link.act{background:transparent;color:var(--primary);box-shadow:inset 0 -3px 0 var(--primary)}
+  .nav-link.act{background:transparent;color:var(--primary-t);box-shadow:inset 0 -3px 0 var(--primary)}
 
   .topbar{padding:12px 16px}
   .tb-clock{display:none}
@@ -456,14 +459,14 @@ a:focus-visible,.time-input:focus-visible,input[type="range"]:focus-visible{
 <img alt="LENA" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" src="assets/LENA-logo.png" style="width:86px;height:86px;border-radius:18px;object-fit:cover;box-shadow:0 6px 24px var(--shadow)"/>
 <div style="display:none;width:86px;height:86px;border-radius:18px;background:linear-gradient(135deg,var(--primary),var(--accent));align-items:center;justify-content:center;font-size:40px;box-shadow:0 6px 24px var(--shadow)">🌿</div>
 </div>
-<div style="font-family:var(--ff-d);font-size:46px;color:var(--primary);margin-bottom:4px;letter-spacing:-1px">LENA</div>
+<div style="font-family:var(--ff-d);font-size:46px;color:var(--primary-t);margin-bottom:4px;letter-spacing:-1px">LENA</div>
 <div style="font-size:13px;color:var(--muted);font-weight:500">Live Emotional Needs Assistant</div>
 </div>
 <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r3);padding:36px 40px;width:420px;box-shadow:0 16px 50px var(--shadow2);backdrop-filter:blur(12px)">
 <h2 style="font-family:var(--ff-d);font-size:24px;color:var(--text);margin-bottom:4px">Welcome back</h2>
 <p style="font-size:13px;color:var(--muted);margin-bottom:24px">Your safe space for mental wellbeing</p>
 <div id="auth-tabs" style="display:flex;background:var(--bg3);border-radius:10px;padding:4px;margin-bottom:22px">
-<div id="tab-si" onclick="switchAuthTab('si')" style="flex:1;padding:9px;text-align:center;border-radius:8px;background:var(--primary);color:#fff;font-size:14px;font-weight:700;cursor:pointer">Sign In</div>
+<div id="tab-si" onclick="switchAuthTab('si')" style="flex:1;padding:9px;text-align:center;border-radius:8px;background:var(--fill);color:var(--on-fill);font-size:14px;font-weight:700;cursor:pointer">Sign In</div>
 <div id="tab-re" onclick="switchAuthTab('re')" style="flex:1;padding:9px;text-align:center;border-radius:8px;color:var(--muted);font-size:14px;font-weight:700;cursor:pointer">Register</div>
 </div>
 <div style="margin-bottom:14px"><label class="inp-label">Email Address</label><input aria-label="Email address" class="inp-field" id="auth-email" placeholder="you@email.com" type="email"/></div>
@@ -474,7 +477,7 @@ a:focus-visible,.time-input:focus-visible,input[type="range"]:focus-visible{
 </div>
 <button class="btn-p" id="auth-btn" onclick="doLogin()" style="width:100%;padding:14px;margin-top:16px;font-size:14px">Sign In →</button>
 <div style="text-align:center;margin-top:14px;font-size:12px;color:var(--muted)">or</div>
-<div onclick="currentAuthTab='si';document.getElementById('auth-email').value='guest@lena.app';document.getElementById('auth-pw').value='guest';doLogin()" style="text-align:center;margin-top:12px;font-size:12px;color:var(--primary);cursor:pointer;font-weight:600">Continue as Guest</div>
+<div onclick="currentAuthTab='si';document.getElementById('auth-email').value='guest@lena.app';document.getElementById('auth-pw').value='guest';doLogin()" style="text-align:center;margin-top:12px;font-size:12px;color:var(--primary-t);cursor:pointer;font-weight:600">Continue as Guest</div>
 <div style="text-align:center;margin-top:18px;font-size:11px;color:var(--muted)">Protected by PDPA 2010 · Mood and screening data stay on your device. Chat messages are sent to an AI service.</div>
 </div>
 </div>
@@ -485,7 +488,7 @@ a:focus-visible,.time-input:focus-visible,input[type="range"]:focus-visible{
 <img alt="LENA" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" src="assets/LENA-logo.png" style="width:80px;height:80px;border-radius:16px;object-fit:cover;box-shadow:0 6px 24px var(--shadow)"/>
 <div style="display:none;width:80px;height:80px;border-radius:16px;background:linear-gradient(135deg,var(--primary),var(--accent));align-items:center;justify-content:center;font-size:36px;box-shadow:0 6px 24px var(--shadow)">🌿</div>
 </div>
-<div style="font-family:var(--ff-d);font-size:38px;color:var(--primary);margin-bottom:16px;animation:fadeUp .8s ease .1s both">LENA</div>
+<div style="font-family:var(--ff-d);font-size:38px;color:var(--primary-t);margin-bottom:16px;animation:fadeUp .8s ease .1s both">LENA</div>
 <div id="loading-quote-display" style="margin-bottom:8px">
 <div id="islamic-quote-ar" style="font-size:24px;direction:rtl;line-height:2;color:var(--text);margin-bottom:12px;animation:fadeUp .8s ease .2s both"></div>
 <div id="islamic-quote-tr" style="font-size:14px;font-style:italic;color:var(--text2);line-height:1.7;margin-bottom:8px;animation:fadeUp .8s ease .4s both"></div>
@@ -551,7 +554,7 @@ a:focus-visible,.time-input:focus-visible,input[type="range"]:focus-visible{
 <div id="page-indicator" style="font-size:12px;color:var(--muted);font-weight:600">Page 1 of 4</div>
 <div style="display:flex;gap:10px;align-items:center">
 <button id="pg-prev-btn" onclick="prevPage()" style="padding:6px 14px;border-radius:20px;border:1.5px solid var(--border);background:var(--card);font-family:var(--ff-b);font-size:12px;font-weight:700;cursor:pointer;color:var(--text)">← Prev</button>
-<button id="pg-next-btn" onclick="nextPage()" style="padding:6px 14px;border-radius:20px;border:none;background:var(--primary);font-family:var(--ff-b);font-size:12px;font-weight:700;cursor:pointer;color:#fff">Next →</button>
+<button id="pg-next-btn" onclick="nextPage()" style="padding:6px 14px;border-radius:20px;border:none;background:var(--fill);font-family:var(--ff-b);font-size:12px;font-weight:700;cursor:pointer;color:var(--on-fill)">Next →</button>
 </div>
 </div>
 <div id="read-content-area" style="padding:28px;max-height:360px;overflow-y:auto">
@@ -570,7 +573,7 @@ a:focus-visible,.time-input:focus-visible,input[type="range"]:focus-visible{
 <img alt="LENA" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" src="assets/LENA-logo.png" style="width:72px;height:72px;border-radius:16px;object-fit:cover;box-shadow:0 4px 18px var(--shadow)"/>
 <div style="display:none;width:72px;height:72px;border-radius:16px;background:linear-gradient(135deg,var(--primary),var(--accent));align-items:center;justify-content:center;font-size:32px;box-shadow:0 4px 18px var(--shadow)">🌿</div>
 </div>
-<div style="font-family:var(--ff-d);font-size:32px;color:var(--primary);margin-bottom:4px">Welcome to LENA 🌿</div>
+<div style="font-family:var(--ff-d);font-size:32px;color:var(--primary-t);margin-bottom:4px">Welcome to LENA 🌿</div>
 <div style="font-size:13px;color:var(--muted)">Let us personalise your experience</div>
 </div>
 <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r3);padding:36px 40px;width:460px;max-width:90vw;box-shadow:0 16px 50px var(--shadow2);backdrop-filter:blur(12px)">
@@ -633,7 +636,7 @@ a:focus-visible,.time-input:focus-visible,input[type="range"]:focus-visible{
 <button class="btn-g" onclick="skipCheckin()" style="padding:14px 20px" title="Skip for now">Skip</button>
 </div>
 <div style="text-align:center;margin-top:12px">
-<span onclick="openEditCheckin()" style="font-size:11px;color:var(--primary);cursor:pointer;font-weight:600">✏️ Edit later in Mood Tracker</span>
+<span onclick="openEditCheckin()" style="font-size:11px;color:var(--primary-t);cursor:pointer;font-weight:600">✏️ Edit later in Mood Tracker</span>
 </div>
 </div>
 </div>
@@ -646,7 +649,7 @@ a:focus-visible,.time-input:focus-visible,input[type="range"]:focus-visible{
 <div id="privacy-body"></div>
 <div style="display:flex;gap:9px;margin-top:18px">
 <button class="btn-g" onclick="exportData()" style="flex:1;padding:12px;justify-content:center">Download a copy</button>
-<button class="btn-p" onclick="wipeData()" style="flex:1;padding:12px;background:var(--red)">Delete everything</button>
+<button class="btn-p" onclick="wipeData()" style="flex:1;padding:12px;background:var(--red-fill);color:#fff">Delete everything</button>
 </div>
 </div>
 </div>
@@ -758,7 +761,7 @@ a:focus-visible,.time-input:focus-visible,input[type="range"]:focus-visible{
 <div class="fu fu1" style="background:linear-gradient(135deg,rgba(43,184,154,.12),rgba(244,164,56,.07));border:1px solid var(--border2);border-radius:var(--r2);padding:22px">
 <div id="greet-sub" style="font-size:12px;color:var(--muted);font-weight:600;margin-bottom:3px">Good morning</div>
 <div id="greet-name" style="font-family:var(--ff-d);font-size:26px;color:var(--text);margin-bottom:14px">🌿</div>
-<div style="font-size:11px;font-weight:700;color:var(--primary);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px">✦ Daily Check-In</div>
+<div style="font-size:11px;font-weight:700;color:var(--primary-t);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px">✦ Daily Check-In</div>
 <div class="mfrow" style="display:flex;gap:10px;align-items:center">
 <div class="mf" onclick="quickMood(event,this,'😞',1)">😞</div>
 <div class="mf" onclick="quickMood(event,this,'😔',2)">😔</div>
@@ -766,15 +769,15 @@ a:focus-visible,.time-input:focus-visible,input[type="range"]:focus-visible{
 <div class="mf" onclick="quickMood(event,this,'🙂',4)">🙂</div>
 <div class="mf sel" onclick="quickMood(event,this,'😊',5)">😊</div>
 <div id="mood-disp" style="font-size:12px;color:var(--muted);margin-left:8px"></div>
-<span onclick="openMoodModal()" style="font-size:11px;color:var(--primary);cursor:pointer;margin-left:6px;font-weight:600" title="Edit check-in">✏️</span>
+<span onclick="openMoodModal()" style="font-size:11px;color:var(--primary-t);cursor:pointer;margin-left:6px;font-weight:600" title="Edit check-in">✏️</span>
 </div>
 </div>
 <!-- Quick stats -->
 <div class="grid3 fu fu1" style="align-content:start">
 <div class="scard" onclick="go('mood')"><div class="scnum" id="st-streak">0</div><div class="sclbl">Day streak 🔥</div></div>
-<div class="scard" onclick="go('assess')"><div class="scnum" id="st-phq" style="color:var(--amber)">n/a</div><div class="sclbl" id="st-phq-lbl">PHQ-9 score</div></div>
-<div class="scard" onclick="go('sleep')"><div class="scnum" id="st-sleep" style="color:var(--lav)">n/a</div><div class="sclbl">Avg sleep</div></div>
-<div class="scard" onclick="go('journal')" style="grid-column:1 / -1"><div style="display:flex;align-items:center;gap:12px"><div style="font-size:22px">📓</div><div><div id="st-journal" style="font-size:13px;font-weight:700;color:var(--text)">Journal</div><div id="st-journal-sub" style="font-size:11px;color:var(--muted)">Write today's entry</div></div><span style="margin-left:auto;color:var(--primary)">›</span></div></div>
+<div class="scard" onclick="go('assess')"><div class="scnum" id="st-phq" style="color:var(--amber-t)">n/a</div><div class="sclbl" id="st-phq-lbl">PHQ-9 score</div></div>
+<div class="scard" onclick="go('sleep')"><div class="scnum" id="st-sleep" style="color:var(--lav-t)">n/a</div><div class="sclbl">Avg sleep</div></div>
+<div class="scard" onclick="go('journal')" style="grid-column:1 / -1"><div style="display:flex;align-items:center;gap:12px"><div style="font-size:22px">📓</div><div><div id="st-journal" style="font-size:13px;font-weight:700;color:var(--text)">Journal</div><div id="st-journal-sub" style="font-size:11px;color:var(--muted)">Write today's entry</div></div><span style="margin-left:auto;color:var(--primary-t)">›</span></div></div>
 </div>
 </div>
 <!-- Soundscapes -->
@@ -849,7 +852,7 @@ a:focus-visible,.time-input:focus-visible,input[type="range"]:focus-visible{
 <div style="margin-bottom:14px">
 <div style="font-size:12px;color:var(--muted);margin-bottom:8px">Intensity (1 to 10)</div>
 <input aria-label="How strong is this feeling, 1 to 10" id="ml-intensity" max="10" min="1" oninput="updIntensity(this.value)" style="width:100%;accent-color:var(--primary)" type="range" value="4"/>
-<div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:3px"><span>Mild</span><strong id="ml-intensity-lbl" style="color:var(--primary)">4</strong><span>Severe</span></div>
+<div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:3px"><span>Mild</span><strong id="ml-intensity-lbl" style="color:var(--primary-t)">4</strong><span>Severe</span></div>
 </div>
 <div style="margin-bottom:12px">
 <div id="ml-prompt" style="font-size:12px;color:var(--muted);margin-bottom:7px">Anything you want to note? (optional)</div>
@@ -879,7 +882,7 @@ a:focus-visible,.time-input:focus-visible,input[type="range"]:focus-visible{
 <!-- History -->
 <div class="grid2" style="margin-bottom:20px">
 <div class="card">
-<div class="shd" style="margin:0 0 4px"><h2>Last 14 Days</h2><span id="ml-trend-note" style="font-size:12px;color:var(--primary);font-weight:700"></span></div>
+<div class="shd" style="margin:0 0 4px"><h2>Last 14 Days</h2><span id="ml-trend-note" style="font-size:12px;color:var(--primary-t);font-weight:700"></span></div>
 <div id="ml-chart-empty" style="padding:22px 6px;text-align:center;color:var(--muted);font-size:13px;line-height:1.6"></div>
 <div id="ml-chart-wrap" style="display:none;margin-top:10px">
 <canvas id="ml-canvas" style="width:100%;height:150px;display:block"></canvas>
@@ -906,7 +909,7 @@ a:focus-visible,.time-input:focus-visible,input[type="range"]:focus-visible{
 <div><div class="time-lbl">Actual Wake-Up</div><div class="time-box" onclick="this.classList.toggle('focus')"><input aria-label="Actual wake-up time" class="time-input" id="wake-time-actual" type="time" value="06:18"/></div></div>
 </div>
 <button class="btn-p" onclick="calcSleep()" style="width:100%;padding:12px">Calculate Duration ✓</button>
-<div id="sleep-calc-result" style="text-align:center;margin-top:12px;font-family:var(--ff-d);font-size:22px;color:var(--primary);display:none"></div>
+<div id="sleep-calc-result" style="text-align:center;margin-top:12px;font-family:var(--ff-d);font-size:22px;color:var(--primary-t);display:none"></div>
 </div>
 <!-- Sleep quality -->
 <div class="card">
@@ -986,8 +989,8 @@ a:focus-visible,.time-input:focus-visible,input[type="range"]:focus-visible{
 <div style="max-width:640px;margin-bottom:6px">
 <div>
 <div class="shd"><h2>Clinical Screening Tests</h2></div>
-<div class="card card-hover" onclick="startAssess('phq9')" style="display:flex;gap:13px;align-items:center;margin-bottom:10px"><div style="font-size:26px">📋</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">PHQ-9: Depression</div><div style="font-size:11px;color:var(--muted)">Patient Health Questionnaire · 9 Qs · ~3 min</div></div><span style="color:var(--primary)">›</span></div>
-<div class="card card-hover" onclick="startAssess('dass21')" style="display:flex;gap:13px;align-items:center"><div style="font-size:26px">🔬</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">DASS-21</div><div style="font-size:11px;color:var(--muted)">Depression · Anxiety · Stress · 21 Qs · ~7 min</div></div><span style="color:var(--primary)">›</span></div>
+<div class="card card-hover" onclick="startAssess('phq9')" style="display:flex;gap:13px;align-items:center;margin-bottom:10px"><div style="font-size:26px">📋</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">PHQ-9: Depression</div><div style="font-size:11px;color:var(--muted)">Patient Health Questionnaire · 9 Qs · ~3 min</div></div><span style="color:var(--primary-t)">›</span></div>
+<div class="card card-hover" onclick="startAssess('dass21')" style="display:flex;gap:13px;align-items:center"><div style="font-size:26px">🔬</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">DASS-21</div><div style="font-size:11px;color:var(--muted)">Depression · Anxiety · Stress · 21 Qs · ~7 min</div></div><span style="color:var(--primary-t)">›</span></div>
 </div>
 <div style="height:16px"></div>
 <div class="card">
@@ -1030,13 +1033,13 @@ a:focus-visible,.time-input:focus-visible,input[type="range"]:focus-visible{
 <button class="btn-p" onclick="go('mood')" style="padding:12px 20px;font-size:13px">Track my mood instead →</button>
 <button class="btn-g" onclick="coolProceed()" style="padding:12px 20px;font-size:13px">Take it anyway</button>
 </div>
-<div onclick="showAssessSel()" style="margin-top:14px;font-size:12px;color:var(--primary);cursor:pointer;font-weight:600">← Back to screening tests</div>
+<div onclick="showAssessSel()" style="margin-top:14px;font-size:12px;color:var(--primary-t);cursor:pointer;font-weight:600">← Back to screening tests</div>
 </div>
 </div>
 <!-- Result -->
 <div id="assess-res" style="display:none;max-width:680px;margin:0 auto">
 <div id="res-hero" style="border-radius:var(--r2);padding:28px;text-align:center;background:linear-gradient(145deg,rgba(52,191,138,.1),rgba(43,184,154,.06));border:1px solid rgba(52,191,138,.2);margin-bottom:16px">
-<div id="res-score" style="font-family:var(--ff-d);font-size:56px;color:var(--green)">8</div>
+<div id="res-score" style="font-family:var(--ff-d);font-size:56px;color:var(--green-t)">8</div>
 <div id="res-label" style="font-size:18px;font-weight:700;color:var(--text);margin:8px 0 4px">Mild Depression</div>
 <div id="res-sub" style="font-size:13px;color:var(--muted)">PHQ-9 · Assessed today</div>
 </div>
@@ -1083,10 +1086,10 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <div style="font-family:var(--ff-d);font-size:18px;color:var(--text);margin-bottom:14px">About CBT</div>
 <div style="font-size:13px;color:var(--text2);line-height:1.8;margin-bottom:14px">Cognitive Behavioural Therapy (CBT) is one of the most evidence-based psychological treatments in the world. It works by identifying and changing unhelpful thought patterns and behaviours.</div>
 <div style="background:var(--bg3);border-radius:var(--r);padding:14px;margin-bottom:12px">
-<div style="font-size:12px;font-weight:700;color:var(--primary);margin-bottom:6px">The CBT Triangle</div>
+<div style="font-size:12px;font-weight:700;color:var(--primary-t);margin-bottom:6px">The CBT Triangle</div>
 <div style="text-align:center;font-size:13px;color:var(--text2);line-height:2">Thoughts 💭<br/>↕<br/>Feelings 😊 ↔ Behaviour 🎯</div>
 </div>
-<div style="background:rgba(244,164,56,.07);border:1px solid rgba(244,164,56,.2);border-radius:var(--r);padding:13px 14px;margin-bottom:12px"><div style="font-size:12px;font-weight:700;color:var(--amber);margin-bottom:6px">Why there are no worksheets here</div><div style="font-size:12px;color:var(--text2);line-height:1.7">Structured CBT exercises such as thought records are built to be reviewed with a clinician, who reads what you wrote and works through it with you. Completed alone, they rarely go deep. LENA therefore offers guided tools you can finish by yourself and feel the benefit of straight away. If you want to work through a thought record properly, do it with a professional.</div><div style="font-size:12px;color:var(--primary);font-weight:600;margin-top:10px;cursor:pointer" onclick="go('crisis')">Find professional support ›</div></div><div style="font-size:12px;color:var(--muted);line-height:1.7">LENA's CBT tools are adapted for Malaysian Muslim users, integrating Islamic values and culturally-congruent examples.</div>
+<div style="background:rgba(244,164,56,.07);border:1px solid rgba(244,164,56,.2);border-radius:var(--r);padding:13px 14px;margin-bottom:12px"><div style="font-size:12px;font-weight:700;color:var(--amber-t);margin-bottom:6px">Why there are no worksheets here</div><div style="font-size:12px;color:var(--text2);line-height:1.7">Structured CBT exercises such as thought records are built to be reviewed with a clinician, who reads what you wrote and works through it with you. Completed alone, they rarely go deep. LENA therefore offers guided tools you can finish by yourself and feel the benefit of straight away. If you want to work through a thought record properly, do it with a professional.</div><div style="font-size:12px;color:var(--primary-t);font-weight:600;margin-top:10px;cursor:pointer" onclick="go('crisis')">Find professional support ›</div></div><div style="font-size:12px;color:var(--muted);line-height:1.7">LENA's CBT tools are adapted for Malaysian Muslim users, integrating Islamic values and culturally-congruent examples.</div>
 </div>
 </div>
 <div class="sp"></div>
@@ -1101,7 +1104,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 </div>
 <div class="card">
 <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:7px">
-<span id="gt-count">Step 1</span><span id="gt-timer" style="color:var(--primary);font-weight:700;display:none"></span>
+<span id="gt-count">Step 1</span><span id="gt-timer" style="color:var(--primary-t);font-weight:700;display:none"></span>
 </div>
 <div style="height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;margin-bottom:22px">
 <div id="gt-prog" style="height:100%;border-radius:3px;background:var(--primary);transition:width .4s;width:0%"></div>
@@ -1131,18 +1134,18 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <div class="rgrid rgrid-side" style="display:grid;grid-template-columns:1fr 360px;gap:24px;align-items:start">
 <div style="display:flex;flex-direction:column;align-items:center;gap:20px;padding:20px 0">
 <div onclick="toggleBreath()" style="position:relative;width:200px;height:200px;cursor:pointer">
-<div class="borb" id="borb" style="width:200px;height:200px"><div id="bphase" style="font-family:var(--ff-d);font-size:19px;color:#fff;text-align:center">Inhale</div></div>
+<div class="borb" id="borb" style="width:200px;height:200px"><div id="bphase" style="font-family:var(--ff-d);font-size:19px;color:var(--on-fill);text-align:center">Inhale</div></div>
 <div class="brng" style="position:absolute;inset:-14px"></div>
 </div>
-<div id="bcnt" style="font-size:56px;font-family:var(--ff-d);color:var(--primary);line-height:1">4</div>
+<div id="bcnt" style="font-size:56px;font-family:var(--ff-d);color:var(--primary-t);line-height:1">4</div>
 <div id="bdesc-t" style="font-size:14px;color:var(--text2);text-align:center;max-width:320px;line-height:1.7">Breathe <strong>in</strong> for 4 → Hold 7 → <strong>Out</strong> for 8.<br/>Click the orb to begin.</div>
-<button id="bbtn" onclick="toggleBreath()" style="padding:14px 42px;border-radius:30px;border:none;background:linear-gradient(135deg,var(--primary),var(--primary2));color:#fff;font-family:var(--ff-b);font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 6px 20px var(--shadow);transition:all .2s">▶ Begin</button>
+<button id="bbtn" onclick="toggleBreath()" style="padding:14px 42px;border-radius:30px;border:none;background:linear-gradient(135deg,var(--fill),var(--fill2));color:var(--on-fill);font-family:var(--ff-b);font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 6px 20px var(--shadow);transition:all .2s">▶ Begin</button>
 </div>
 <div>
 <div class="card" style="margin-bottom:14px">
 <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px">Technique</div>
 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
-<div id="btt1" onclick="setBT(this,'478')" style="padding:8px 15px;border-radius:20px;font-size:12px;font-weight:700;background:var(--primary);color:#fff;cursor:pointer">4-7-8</div>
+<div id="btt1" onclick="setBT(this,'478')" style="padding:8px 15px;border-radius:20px;font-size:12px;font-weight:700;background:var(--fill);color:var(--on-fill);cursor:pointer">4-7-8</div>
 <div id="btt2" onclick="setBT(this,'box')" style="padding:8px 15px;border-radius:20px;font-size:12px;font-weight:700;background:var(--bg3);color:var(--text2);cursor:pointer">Box Breathing</div>
 <div id="btt3" onclick="setBT(this,'deep')" style="padding:8px 15px;border-radius:20px;font-size:12px;font-weight:700;background:var(--bg3);color:var(--text2);cursor:pointer">Deep Calm</div>
 <div id="btt4" onclick="setBT(this,'coherent')" style="padding:8px 15px;border-radius:20px;font-size:12px;font-weight:700;background:var(--bg3);color:var(--text2);cursor:pointer">Coherent</div>
@@ -1222,8 +1225,8 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 </div>
 <div class="shd"><h2>Daily Dhikr</h2></div>
 <div class="grid3" style="margin-bottom:20px">
-<div class="card" onclick="audioPending('Morning Dhikr')" style="text-align:center;opacity:.72;cursor:pointer"><div style="font-size:32px;margin-bottom:8px">🤲</div><div style="font-size:14px;font-weight:700;color:var(--text)">Morning Dhikr</div><div style="font-size:11px;color:var(--muted);margin-top:3px">Recitation not added yet</div></div>
-<div class="card" onclick="audioPending('Evening Dhikr')" style="text-align:center;opacity:.72;cursor:pointer"><div style="font-size:32px;margin-bottom:8px">🌙</div><div style="font-size:14px;font-weight:700;color:var(--text)">Evening Dhikr</div><div style="font-size:11px;color:var(--muted);margin-top:3px">Recitation not added yet</div></div>
+<div class="card" onclick="audioPending('Morning Dhikr')" style="text-align:center;opacity:.72;cursor:pointer"><div style="font-size:32px;margin-bottom:8px">🤲</div><div style="font-size:14px;font-weight:700;color:var(--text)">Morning Dhikr</div><div style="font-size:11px;color:var(--text);margin-top:3px">Recitation not added yet</div></div>
+<div class="card" onclick="audioPending('Evening Dhikr')" style="text-align:center;opacity:.72;cursor:pointer"><div style="font-size:32px;margin-bottom:8px">🌙</div><div style="font-size:14px;font-weight:700;color:var(--text)">Evening Dhikr</div><div style="font-size:11px;color:var(--text);margin-top:3px">Recitation not added yet</div></div>
 <div class="card card-hover" onclick="openResModal('Quran &amp; Healing','How the Quran calms the mind and heart','📖','Islamic')" style="text-align:center"><div style="font-size:32px;margin-bottom:8px">📖</div><div style="font-size:14px;font-weight:700;color:var(--text)">Quran &amp; Healing</div><div style="font-size:11px;color:var(--muted);margin-top:3px">Read</div></div>
 </div>
 <div class="sp"></div>
@@ -1269,7 +1272,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <div class="hlcard" onclick="dial('+60376272929')" style="margin-bottom:12px"><div class="hl-ico">📞</div><div style="flex:1"><div class="hl-name">Befrienders KL</div><div class="hl-num">03-7627 2929</div><div class="hl-hrs">Emotional support · 24/7</div></div><a class="btn-p" href="tel:+60376272929" onclick="event.stopPropagation()" style="padding:10px 18px">Call</a></div>
 <div class="hlcard" onclick="dial('1800820066')" style="margin-bottom:12px"><div class="hl-ico">💙</div><div style="flex:1"><div class="hl-name">MOH Mental Health</div><div class="hl-num">1800-82-0066</div><div class="hl-hrs">Toll-free · 24/7</div></div><a class="btn-p" href="tel:1800820066" onclick="event.stopPropagation()" style="padding:10px 18px">Call</a></div>
 <div class="hlcard" onclick="dial('15999')" style="margin-bottom:12px"><div class="hl-ico">🌙</div><div style="flex:1"><div class="hl-name">Talian Kasih</div><div class="hl-num">15999</div><div class="hl-hrs">Ministry of Women · 24/7</div></div><a class="btn-p" href="tel:15999" onclick="event.stopPropagation()" style="padding:10px 18px">Call</a></div>
-<div class="hlcard" onclick="dial('999')"><div class="hl-ico">🏥</div><div style="flex:1"><div class="hl-name">Emergency</div><div class="hl-num">999</div></div><a class="btn-p" href="tel:999" onclick="event.stopPropagation()" style="padding:10px 18px;background:#E05C6E">Call</a></div>
+<div class="hlcard" onclick="dial('999')"><div class="hl-ico">🏥</div><div style="flex:1"><div class="hl-name">Emergency</div><div class="hl-num">999</div></div><a class="btn-p" href="tel:999" onclick="event.stopPropagation()" style="padding:10px 18px;background:var(--red-fill);color:#fff">Call</a></div>
 <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border)"><div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px">Partner clinic: professional care</div><div style="font-size:11px;color:var(--muted);margin-bottom:12px">LENA's clinical partner. Appointment-based, not a 24-hour crisis line. If you need help right now, use the numbers above.</div><div class="hlcard" onclick="dial('+60342666806')"><div class="hl-ico">🩺</div><div style="flex:1"><div class="hl-name">NH Edu-Health Centre · Setiawangsa</div><div class="hl-num">03-4266 6806</div><div class="hl-hrs">Psychiatrist · Clinical psychologist: 03-4251 1588 · WhatsApp 018-299 1227</div></div><a class="btn-g" href="tel:+60342666806" onclick="event.stopPropagation()" style="padding:10px 18px">Call</a></div></div>
 </div>
 <div class="card">
@@ -1301,7 +1304,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <div class="chat-wrap">
 <div class="chat-head" style="background:var(--card);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:12px;flex-shrink:0">
 <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0"><img alt="" src="/icon-192.png" style="width:100%;height:100%;object-fit:cover;display:block"/></div>
-<div><div style="font-size:14px;font-weight:700;color:var(--text)">LENA AI</div><div style="font-size:11px;color:var(--green);font-weight:600">● Online · Supportive listening</div></div>
+<div><div style="font-size:14px;font-weight:700;color:var(--text)">LENA AI</div><div style="font-size:11px;color:var(--green-t);font-weight:600">● Online · Supportive listening</div></div>
 <button onclick="clearChat()" title="Clear this conversation" style="margin-left:auto;flex-shrink:0;padding:7px 14px;border-radius:18px;border:1px solid var(--border2);background:transparent;color:var(--text2);font-family:var(--ff-b);font-size:12px;font-weight:600;cursor:pointer">Clear chat</button><div class="chat-note" style="font-size:11px;color:var(--muted);text-align:right;line-height:1.5;max-width:240px">LENA does not diagnose and is not a replacement for professional care.<br>Chat messages are sent to an AI service to generate replies.</div>
 </div>
 <div class="chat-area" id="chatarea" style="background:var(--bg)">
@@ -1320,9 +1323,9 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <!-- Write -->
 <div>
 <div class="card" style="margin-bottom:14px">
-<div style="font-size:11px;font-weight:700;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">✨ Today's Prompt</div>
+<div style="font-size:11px;font-weight:700;color:var(--accent-t);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">✨ Today's Prompt</div>
 <div id="j-prompt" style="font-family:var(--ff-d);font-size:16px;color:var(--text);margin-bottom:12px;line-height:1.5"></div>
-<button id="j-open-btn" onclick="openJournalComposer()" style="padding:9px 18px;border-radius:20px;background:var(--primary);color:#fff;border:none;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--ff-b)">✏️ Write to this prompt</button>
+<button id="j-open-btn" onclick="openJournalComposer()" style="padding:9px 18px;border-radius:20px;background:var(--fill);color:var(--on-fill);border:none;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--ff-b)">✏️ Write to this prompt</button>
 </div>
 <div id="j-area" style="display:none">
 <div class="card" style="margin-bottom:14px">
@@ -1364,7 +1367,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <!-- Left col: avatar + account -->
 <div>
 <div class="card" style="text-align:center;margin-bottom:14px">
-<div id="pf-avatar" style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:700;color:#fff;margin:0 auto 12px;box-shadow:0 6px 24px var(--shadow)">🌿</div>
+<div id="pf-avatar" style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:700;color:var(--on-avatar);margin:0 auto 12px;box-shadow:0 6px 24px var(--shadow)">🌿</div>
 <div id="pf-name" style="font-family:var(--ff-d);font-size:20px;color:var(--text)"></div>
 <div id="pf-meta" style="font-size:13px;color:var(--muted);margin-top:3px"></div>
 <div id="pf-edit" style="display:none;margin-top:14px;text-align:left">
@@ -1381,7 +1384,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <div class="pi" onclick="openPrivacy()"><span class="pi-ico">🔒</span><span class="pi-txt">Privacy &amp; Data</span><span class="pi-arr">›</span></div>
 <div class="pi" onclick="go('assess')"><span class="pi-ico">📋</span><span class="pi-txt">Screening History</span><span class="pi-arr">›</span></div>
 <div class="pi" onclick="exportData()"><span class="pi-ico">📊</span><span class="pi-txt">Export My Data</span><span class="pi-arr">›</span></div>
-<div class="pi" onclick="openFeedback()" style="border-color:rgba(43,184,154,.3)"><span class="pi-ico">💬</span><span class="pi-txt" style="color:var(--primary);font-weight:600">Share Feedback</span><span class="pi-arr" style="color:var(--primary)">›</span></div>
+<div class="pi" onclick="openFeedback()" style="border-color:rgba(43,184,154,.3)"><span class="pi-ico">💬</span><span class="pi-txt" style="color:var(--primary-t);font-weight:600">Share Feedback</span><span class="pi-arr" style="color:var(--primary-t)">›</span></div>
 <div class="pi" onclick="signOut()"><span class="pi-ico">🚪</span><span class="pi-txt">Sign Out</span><span class="pi-arr">›</span></div>
 </div>
 <!-- Right col: appearance + islamic prefs -->
@@ -1823,7 +1826,7 @@ function renderPresets(){
       '<div style="width:28px;height:28px;border-radius:50%;flex:none;background:linear-gradient(135deg,'+p.c[0]+','+p.c[1]+');box-shadow:0 2px 6px rgba(0,0,0,.18)"></div>'+
       '<div style="min-width:0"><div style="font-size:12.5px;font-weight:700;color:inherit">'+p.name+'</div>'+
       '<div style="font-size:10.5px;color:var(--muted);font-weight:500">'+p.ico+' '+p.bg+'</div></div>'+
-      (on?'<div style="margin-left:auto;font-size:13px;color:var(--primary)">✓</div>':'')+
+      (on?'<div style="margin-left:auto;font-size:13px;color:var(--primary-t)">✓</div>':'')+
       '</div>';
   }).join('');
 }
@@ -1869,7 +1872,7 @@ function loadSafety(){
 }
 function telHref(p){return 'tel:'+String(p).replace(/[^+0-9]/g,'');}
 function spStep(n,title,body){
-  return '<div class="pstep"><div class="pdot" style="background:rgba(52,191,138,.15);color:var(--green);font-size:12px;font-weight:700">'+n+
+  return '<div class="pstep"><div class="pdot" style="background:rgba(52,191,138,.15);color:var(--green-t);font-size:12px;font-weight:700">'+n+
     '</div><div style="min-width:0"><div class="pdesc">'+title+'</div>'+body+'</div></div>';
 }
 function spLines(txt,fallback){
@@ -1888,7 +1891,7 @@ function renderSafety(){
     contacts=p.contacts.map(c=>{
       if(!c.p)return '<div class="psub2">'+esc(c.n)+'</div>';
       const label=(c.n&&c.n!==c.p)?esc(c.n)+' · '+esc(c.p):esc(c.p);
-      return '<div class="psub2"><a href="'+telHref(c.p)+'" style="color:var(--primary);font-weight:700;text-decoration:none">'+label+'</a></div>';
+      return '<div class="psub2"><a href="'+telHref(c.p)+'" style="color:var(--primary-t);font-weight:700;text-decoration:none">'+label+'</a></div>';
     }).join('');
   }
   v.innerHTML=
@@ -1896,7 +1899,7 @@ function renderSafety(){
     spStep(2,'What helps me',spLines(p.cope,'Not written yet. Example: deep breathing, go for a walk, make tea.'))+
     spStep(3,'People I can contact',contacts)+
     spStep(4,'Call a helpline','<div class="psub2">See the numbers on the left. They answer 24 hours.</div>')+
-    '<div class="pstep" style="padding-bottom:0"><div class="pdot" style="background:rgba(52,191,138,.15);color:var(--green);font-size:12px;font-weight:700">5</div><div><div class="pdesc">Go to hospital emergency</div><div class="psub2">If in immediate danger, call 999.</div></div></div>';
+    '<div class="pstep" style="padding-bottom:0"><div class="pdot" style="background:rgba(52,191,138,.15);color:var(--green-t);font-size:12px;font-weight:700">5</div><div><div class="pdesc">Go to hospital emergency</div><div class="psub2">If in immediate danger, call 999.</div></div></div>';
 }
 function openSafetyEdit(){
   const p=loadSafety();
@@ -2277,18 +2280,18 @@ function renderSleep(){
   if(panel){
     const last=all.length?all[all.length-1]:null;
     if(!last){
-      panel.innerHTML='<div style="font-size:12px;color:var(--lav);line-height:1.6;padding:4px 8px">Nothing logged yet. Set your actual bedtime and wake-up above, pick any tags that fit, then press Log Sleep.</div>';
+      panel.innerHTML='<div style="font-size:12px;color:#41558A;line-height:1.6;padding:4px 8px">Nothing logged yet. Set your actual bedtime and wake-up above, pick any tags that fit, then press Log Sleep.</div>';
     }else{
       const q=sleepQuality(last.tags||[]);
-      let third='<div style="font-size:10px;color:var(--lav);font-weight:700">VS GOAL</div><div style="font-family:var(--ff-d);font-size:20px;color:var(--lav)">n/a</div>';
+      let third='<div style="font-size:10px;color:var(--lav-t);font-weight:700">VS GOAL</div><div style="font-family:var(--ff-d);font-size:20px;color:var(--lav-t)">n/a</div>';
       if(last.goal){
         const diff=last.mins-last.goal;
         const txt=diff===0?'on target':hmShort(Math.abs(diff))+(diff>0?' over':' under');
-        third='<div style="font-size:10px;color:var(--lav);font-weight:700">VS GOAL</div><div style="font-family:var(--ff-d);font-size:17px;color:var(--lav);line-height:1.2">'+txt+'</div>';
+        third='<div style="font-size:10px;color:var(--lav-t);font-weight:700">VS GOAL</div><div style="font-family:var(--ff-d);font-size:17px;color:var(--lav-t);line-height:1.2">'+txt+'</div>';
       }
       panel.innerHTML=
-        '<div><div style="font-size:10px;color:var(--lav);font-weight:700">DURATION</div><div style="font-family:var(--ff-d);font-size:20px;color:var(--lav)">'+hm(last.mins)+'</div></div>'+
-        '<div><div style="font-size:10px;color:var(--lav);font-weight:700">QUALITY</div><div style="font-family:var(--ff-d);font-size:20px;color:var(--lav)">'+q+'</div></div>'+
+        '<div><div style="font-size:10px;color:var(--lav-t);font-weight:700">DURATION</div><div style="font-family:var(--ff-d);font-size:20px;color:var(--lav-t)">'+hm(last.mins)+'</div></div>'+
+        '<div><div style="font-size:10px;color:var(--lav-t);font-weight:700">QUALITY</div><div style="font-family:var(--ff-d);font-size:20px;color:var(--lav-t)">'+q+'</div></div>'+
         '<div>'+third+'</div>';
     }
   }
@@ -2308,7 +2311,7 @@ function renderSleep(){
     const bar=d.mins==null
       ? '<div style="height:100%;border-bottom:2px dashed rgba(139,157,195,.4);width:100%"></div>'
       : '<div style="height:'+pct+'%;background:'+grad+';border-radius:4px 4px 0 0;width:100%"></div>';
-    const lblStyle=d.lbl==='Today'?'font-size:9px;color:var(--primary);font-weight:700':'font-size:9px;color:var(--muted)';
+    const lblStyle=d.lbl==='Today'?'font-size:9px;color:var(--primary-t);font-weight:700':'font-size:9px;color:var(--muted)';
     return '<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end" title="'+(d.mins==null?'no entry':hm(d.mins))+'">'+bar+'<div style="'+lblStyle+'">'+d.lbl+'</div></div>';
   }).join('');
   if(sub){
@@ -2317,8 +2320,8 @@ function renderSleep(){
       sub.textContent='No sleep logged in the last 7 days.';
     }else{
       const avg=logged.reduce((a,b)=>a+b.mins,0)/logged.length;
-      sub.innerHTML='Target: <strong style="color:var(--primary)">7 to 8 hours</strong> · average of '+
-        logged.length+(logged.length===1?' night':' nights')+' logged: <strong style="color:var(--lav)">'+
+      sub.innerHTML='Target: <strong style="color:var(--primary-t)">7 to 8 hours</strong> · average of '+
+        logged.length+(logged.length===1?' night':' nights')+' logged: <strong style="color:var(--lav-t)">'+
         (avg/60).toFixed(1)+'h</strong>';
     }
   }
@@ -3395,7 +3398,7 @@ function renderTrend(){
   const hist=loadHistory();
   const nP=hist.filter(h=>h.k==='phq9').length, nD=hist.filter(h=>h.k==='dass21').length;
 
-  const mk=(id,lab,n,active)=>'<div onclick="setTrend(\''+id+'\')" style="cursor:pointer;padding:6px 12px;border-radius:999px;font-size:12px;font-weight:600;border:1px solid '+(active?'transparent':'var(--bd)')+';background:'+(active?'var(--primary)':'transparent')+';color:'+(active?'#fff':'var(--text2)')+'">'+lab+(n?' ('+n+')':'')+'</div>';
+  const mk=(id,lab,n,active)=>'<div onclick="setTrend(\''+id+'\')" style="cursor:pointer;padding:6px 12px;border-radius:999px;font-size:12px;font-weight:600;border:1px solid '+(active?'transparent':'var(--bd)')+';background:'+(active?'var(--fill)':'transparent')+';color:'+(active?'var(--on-fill)':'var(--text2)')+'">'+lab+(n?' ('+n+')':'')+'</div>';
   let html=mk('phq9','PHQ-9',nP,trendKey==='phq9')+mk('dass21','DASS-21',nD,trendKey==='dass21');
   if(trendKey==='dass21'&&nD){
     html+='<div style="width:100%;height:0"></div>';
@@ -4084,7 +4087,7 @@ function chatBubble(html,crisis,act){
   let inner='<div style="padding:12px 16px;border-radius:4px 18px 18px 18px;background:'+bg+
     ';border:1px solid '+bd+';font-size:14px;color:var(--text);line-height:1.65">'+html;
   if(act) inner+='<div style="margin-top:12px"><button onclick="'+act.f+
-    '" style="padding:9px 16px;border-radius:20px;background:var(--primary);color:#fff;border:none;'+
+    '" style="padding:9px 16px;border-radius:20px;background:var(--fill);color:var(--on-fill);border:none;'+
     'font-size:12px;font-weight:700;cursor:pointer;font-family:var(--ff-b)">'+act.l+' →</button></div>';
   inner+='</div>';
   w.innerHTML='<div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0"><img alt="" src="/icon-192.png" style="width:100%;height:100%;object-fit:cover;display:block"/></div>'+inner;
@@ -4102,7 +4105,7 @@ async function sendChat(){
   const um=document.createElement('div');
   um.className='chat-bubble-wrap';
   um.style.cssText='max-width:70%;display:flex;gap:8px;align-self:flex-end;flex-direction:row-reverse';
-  um.innerHTML='<div style="padding:12px 16px;border-radius:18px 4px 18px 18px;background:var(--primary);color:#fff;font-size:14px;line-height:1.6">'+esc(msg)+'</div>';
+  um.innerHTML='<div style="padding:12px 16px;border-radius:18px 4px 18px 18px;background:var(--fill);color:var(--on-fill);font-size:14px;line-height:1.6">'+esc(msg)+'</div>';
   area.appendChild(um); inp.value=''; area.scrollTop=area.scrollHeight;
   try{saveChatSession();}catch(e){}
 
