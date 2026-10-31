@@ -822,7 +822,6 @@ a:focus-visible,.time-input:focus-visible,input[type="range"]:focus-visible{
 <div class="scp" data-s="waves" onclick="toggleSnd(this,'waves')"><span>🌀</span><span>Waves</span></div>
 <div class="scp" data-s="white" onclick="toggleSnd(this,'white')"><span>📻</span><span>White Noise</span></div>
 <div class="scp" data-s="piano" onclick="toggleSnd(this,'piano')"><span>🎹</span><span>Soft Piano</span></div>
-<div class="scp" data-s="nash" onclick="toggleSnd(this,'nash')"><span>🎶</span><span>Nasheed</span></div>
 </div>
 <!-- Tools grid -->
 <div class="shd fu fu3" style="margin-top:22px"><h2>Your Tools</h2></div>
@@ -1213,7 +1212,6 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <div class="scp" data-s="piano" onclick="toggleSnd(this,'piano')"><span>🎹</span><span>Soft Piano</span></div>
 <div class="scp" data-s="cricket" onclick="toggleSnd(this,'cricket')"><span>🦗</span><span>Crickets</span></div>
 <div class="scp" data-s="bowl" onclick="toggleSnd(this,'bowl')"><span>🔔</span><span>Singing Bowl</span></div>
-<div class="scp" data-s="nash" onclick="toggleSnd(this,'nash')"><span>🎶</span><span>Nasheed</span></div>
 </div>
 <div class="shd"><h2>Sleep Soundscapes</h2></div>
 <div style="font-size:12px;color:var(--muted);margin:-6px 0 12px">Generated in your browser, so they keep going without downloading anything.</div>
@@ -1749,6 +1747,7 @@ const TITLES={
 };
 
 function go(id){
+  try{finishTyping();}catch(e){}
   const sid=SM[id];
   if(id==='home')setTimeout(()=>{try{renderHomeStats();}catch(e){}},30);
   if(!sid){toast('Screen coming soon');return;}
@@ -2401,8 +2400,7 @@ const SF={
   white:()=>mkSnd('allpass',1000,null,.08),
   piano:()=>mkSnd('bandpass',1600,3,.04),
   cricket:()=>mkSnd('bandpass',3200,2,.04),
-  bowl:()=>mkSnd('bandpass',600,8,.06),
-  nash:()=>mkSnd('bandpass',1200,2,.07)
+  bowl:()=>mkSnd('bandpass',600,8,.06)
 };
 
 function syncPills(type,on){
@@ -2422,6 +2420,10 @@ function toggleSnd(el,type){
     delete aSounds[type];syncPills(type,false);
     if(!Object.keys(aSounds).length)closePlayer();else{refreshPlayerBar();toast('Sound stopped');}
   }else{
+    // One sound at a time. Layering is what the ready-made combos are
+    // for, where the volumes are balanced; free stacking of anything
+    // with anything quickly turns into noise.
+    stopSounds();
     const fn=SF[type]||SF.rain;const snd=fn();
     snd.gain.gain.setValueAtTime(0,Actx.currentTime);
     snd.gain.gain.setTargetAtTime(snd.gain.gain.value||.1,Actx.currentTime,.5);
@@ -2430,6 +2432,15 @@ function toggleSnd(el,type){
     refreshPlayerBar();
     toast(lbl+' playing');
   }
+}
+// Stop everything quietly, without closing the player or a toast.
+function stopSounds(){
+  Object.keys(aSounds).forEach(t=>{
+    const s=aSounds[t];
+    s.gain.gain.setTargetAtTime(0,Actx.currentTime,.3);
+    setTimeout(()=>{try{s.src.stop();}catch(e){}if(s.lfo)s.lfo.stop();},500);
+    delete aSounds[t];syncPills(t,false);
+  });
 }
 function stopAll(){
   Object.keys(aSounds).forEach(t=>{
@@ -2466,6 +2477,7 @@ function playMix(name,types){
     return;
   }
   if(Actx.state==='suspended')Actx.resume();
+  stopSounds();
   list.forEach(t=>{
     if(aSounds[t])return;
     const fn=SF[t]||SF.rain;
@@ -4161,7 +4173,55 @@ async function askLena(message){
 }
 
 // ── Rendering ────────────────────────────────────────
-function chatBubble(html,crisis,act){
+/* Typewriter. The reply has already arrived in full; this only reveals
+   it. Words come out at a pace that finishes an average reply in about
+   two seconds and never takes longer than three, however long the
+   reply. The visible copy is hidden from screen readers and a hidden
+   full copy is read instead, so a screen reader hears the reply once,
+   whole, rather than word by word. */
+let typing=null;
+function finishTyping(){
+  if(!typing)return;
+  const t=typing; typing=null;
+  clearInterval(t.timer);
+  t.box.innerHTML=t.html+(t.tail||'');
+  t.box.removeAttribute('aria-hidden');
+  if(t.sr&&t.sr.parentNode)t.sr.parentNode.removeChild(t.sr);
+  const area=document.getElementById('chatarea');
+  if(area)area.scrollTop=area.scrollHeight;
+  try{saveChatSession();}catch(e){}
+}
+function typeInto(box,html,tail){
+  finishTyping();
+  let reduce=false;
+  try{reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){}
+  // Split into words and tags, keeping the spaces with the words, so
+  // a <br> or an entity is never cut in half.
+  const parts=html.match(/<[^>]+>|&[#a-z0-9]+;|\s+|[^\s<&]+/gi)||[html];
+  const words=parts.filter(function(p){return !/^\s+$/.test(p)&&p.charAt(0)!=='<';}).length;
+  if(reduce||words<4){box.innerHTML=html+(tail||'');try{saveChatSession();}catch(e){}return;}
+  const sr=document.createElement('span');
+  sr.className='sr-only';sr.innerHTML=html;
+  box.parentNode.insertBefore(sr,box);
+  box.setAttribute('aria-hidden','true');
+  const step=Math.max(12,Math.min(45,Math.round(Math.min(3000,words*35)/words)));
+  let i=0;
+  typing={box:box,html:html,tail:tail,sr:sr,timer:0};
+  const area=document.getElementById('chatarea');
+  typing.timer=setInterval(function(){
+    // one word per tick, plus any spaces and tags around it
+    let out=0;
+    while(i<parts.length){
+      const p=parts[i++];
+      if(!/^\s+$/.test(p)&&p.charAt(0)!=='<'){out++; if(out>1){i--;break;}}
+    }
+    box.innerHTML=parts.slice(0,i).join('');
+    if(area)area.scrollTop=area.scrollHeight;
+    if(i>=parts.length)finishTyping();
+  },step);
+  box.addEventListener('click',finishTyping,{once:true});
+}
+function chatBubble(html,crisis,act,animate){
   const area=document.getElementById('chatarea');
   const w=document.createElement('div');
   w.className='chat-bubble-wrap';
@@ -4176,6 +4236,13 @@ function chatBubble(html,crisis,act){
   inner+='</div>';
   w.innerHTML='<div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0"><img alt="" src="/icon-192.png" style="width:100%;height:100%;object-fit:cover;display:block"/></div>'+inner;
   area.appendChild(w); area.scrollTop=area.scrollHeight;
+  if(animate&&!crisis){
+    const box=w.lastElementChild;
+    const tail=act?box.innerHTML.slice(box.innerHTML.lastIndexOf('<div style="margin-top:12px">')):'';
+    box.innerHTML='';
+    typeInto(box,html,tail);
+    return;
+  }
   try{saveChatSession();}catch(e){}
 }
 function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
@@ -4183,6 +4250,7 @@ function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g
 async function sendChat(){
   const inp=document.getElementById('chatinp');
   const msg=inp.value.trim(); if(!msg)return;
+  finishTyping();
   const btn=document.querySelector('#sc-chat .btn-p');
   const area=document.getElementById('chatarea');
 
@@ -4203,7 +4271,7 @@ async function sendChat(){
   const ty=document.createElement('div');
   ty.className='chat-bubble-wrap';
   ty.style.cssText='max-width:60%;display:flex;gap:9px;align-self:flex-start';
-  ty.innerHTML='<div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">\uD83C\uDF3F</div><div style="padding:12px 16px;border-radius:4px 18px 18px 18px;background:var(--card);border:1px solid var(--border);font-size:14px;color:var(--muted)">LENA is typing\u2026</div>';
+  ty.innerHTML='<div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0"><img alt="" src="/icon-192.png" style="width:100%;height:100%;object-fit:cover;display:block"/></div><div style="padding:12px 16px;border-radius:4px 18px 18px 18px;background:var(--card);border:1px solid var(--border);font-size:14px;color:var(--muted)">LENA is typing\u2026</div>';
   area.appendChild(ty); area.scrollTop=area.scrollHeight;
 
   let r;
@@ -4211,7 +4279,7 @@ async function sendChat(){
   catch(e){ r={t:failureMessage('error'),fail:true}; }
 
   if(ty.parentNode)ty.parentNode.removeChild(ty);
-  chatBubble(r.t,false,r.act);
+  chatBubble(r.t,false,r.act,!r.fail);
   if(!r.fail){ pushHistory('user',msg); pushHistory('assistant',r.t.replace(/<[^>]+>/g,' ')); }
   inp.disabled=false; if(btn)btn.disabled=false; inp.focus();
 }
