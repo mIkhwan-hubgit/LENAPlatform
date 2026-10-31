@@ -138,10 +138,10 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 @keyframes eq{0%{transform:scaleY(.4)}100%{transform:scaleY(1)}}
 
 /* ══ PLAYER BAR (desktop, top of main) ══════════════════════════════ */
-.player-bar{display:none;align-items:center;gap:14px;background:linear-gradient(135deg,var(--primary),var(--primary2));padding:10px 24px;border-bottom:1px solid rgba(255,255,255,.15);flex-shrink:0;z-index:9}
+.player-bar{display:none;align-items:center;gap:14px;background:linear-gradient(135deg,var(--fill),var(--fill2));padding:10px 24px;border-bottom:1px solid rgba(255,255,255,.15);flex-shrink:0;z-index:9}
 .player-bar.vis{display:flex}
-.ptit{font-size:13px;font-weight:700;color:#fff}
-.psub{font-size:10px;color:rgba(255,255,255,.75)}
+.ptit{font-size:13px;font-weight:700;color:var(--on-fill)}
+.psub{font-size:11px;color:var(--on-fill);opacity:.9}
 .pbtn{width:32px;height:32px;border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;transition:all .2s}
 .pb-play{background:#fff;color:var(--primary-t)}
 .pb-stop{background:rgba(255,255,255,.22);color:#fff;font-size:11px}
@@ -461,6 +461,12 @@ a:focus-visible,.time-input:focus-visible,input[type="range"]:focus-visible{
 .care-acts{display:flex;gap:8px;flex-wrap:wrap}
 .care-acts .btn-g{padding:9px 16px;font-size:12px}
 .care-acts .care-later{background:none;border:none;color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;padding:9px 6px;font-family:var(--ff-b)}
+
+.pvol{margin-left:auto;width:110px;accent-color:var(--on-fill);cursor:pointer}
+.scp.loading{opacity:.55}
+.scp.loading::after{content:'';display:inline-block;width:10px;height:10px;margin-left:6px;border-radius:50%;
+  border:2px solid currentColor;border-right-color:transparent;animation:spin .8s linear infinite;vertical-align:-1px}
+@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
@@ -764,7 +770,8 @@ a:focus-visible,.time-input:focus-visible,input[type="range"]:focus-visible{
 <div class="psub" id="p-sub">Ambient · Playing</div>
 </div>
 
-<button class="pbtn pb-stop" onclick="stopAll()" title="Stop all sounds">■</button>
+<input type="range" class="pvol" id="p-vol" min="0" max="100" step="1" aria-label="Volume" oninput="setSoundVolume(this.value)"/>
+<button class="pbtn pb-stop" onclick="stopAll()" title="Stop all sounds" aria-label="Stop all sounds">■</button>
 <button aria-label="Play or pause" class="pbtn pb-play" id="p-playbtn" onclick="togglePlay()">⏸</button>
 </div>
 <!-- CONTENT -->
@@ -819,7 +826,6 @@ a:focus-visible,.time-input:focus-visible,input[type="range"]:focus-visible{
 <div class="scp" data-s="thunder" onclick="toggleSnd(this,'thunder')"><span>⛈</span><span>Thunder</span></div>
 <div class="scp" data-s="birds" onclick="toggleSnd(this,'birds')"><span>🐦</span><span>Birds</span></div>
 <div class="scp" data-s="stream" onclick="toggleSnd(this,'stream')"><span>🏞</span><span>Stream</span></div>
-<div class="scp" data-s="waves" onclick="toggleSnd(this,'waves')"><span>🌀</span><span>Waves</span></div>
 <div class="scp" data-s="white" onclick="toggleSnd(this,'white')"><span>📻</span><span>White Noise</span></div>
 <div class="scp" data-s="piano" onclick="toggleSnd(this,'piano')"><span>🎹</span><span>Soft Piano</span></div>
 </div>
@@ -1207,19 +1213,18 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <div class="scp" data-s="thunder" onclick="toggleSnd(this,'thunder')"><span>⛈</span><span>Thunder</span></div>
 <div class="scp" data-s="birds" onclick="toggleSnd(this,'birds')"><span>🐦</span><span>Birds</span></div>
 <div class="scp" data-s="stream" onclick="toggleSnd(this,'stream')"><span>🏞</span><span>Stream</span></div>
-<div class="scp" data-s="waves" onclick="toggleSnd(this,'waves')"><span>🌀</span><span>Waves</span></div>
 <div class="scp" data-s="white" onclick="toggleSnd(this,'white')"><span>📻</span><span>White Noise</span></div>
 <div class="scp" data-s="piano" onclick="toggleSnd(this,'piano')"><span>🎹</span><span>Soft Piano</span></div>
 <div class="scp" data-s="cricket" onclick="toggleSnd(this,'cricket')"><span>🦗</span><span>Crickets</span></div>
 <div class="scp" data-s="bowl" onclick="toggleSnd(this,'bowl')"><span>🔔</span><span>Singing Bowl</span></div>
 </div>
 <div class="shd"><h2>Sleep Soundscapes</h2></div>
-<div style="font-size:12px;color:var(--muted);margin:-6px 0 12px">Generated in your browser, so they keep going without downloading anything.</div>
+<div style="font-size:12px;color:var(--muted);margin:-6px 0 12px">Real recordings. Each one loads the first time you play it, then works offline too.</div>
 <div class="grid4" style="margin-bottom:22px">
-<div onclick="playMix('Ocean Night','ocean,waves')" onmouseenter="this.style.transform='translateY(-3px)'" onmouseleave="this.style.transform=''" style="border-radius:var(--r2);overflow:hidden;cursor:pointer;box-shadow:0 4px 16px var(--shadow);transition:transform .22s"><div style="height:120px;background:linear-gradient(145deg,#C8E8F5,#A0D0F0);display:flex;align-items:center;justify-content:center;font-size:44px">🌊</div><div style="padding:10px;background:var(--card)"><div style="font-size:13px;font-weight:700;color:var(--text)">Ocean Night</div><div style="font-size:11px;color:var(--muted)">Plays until you stop it</div></div></div>
-<div onclick="playMix('Desert Wind','wind,cricket')" onmouseenter="this.style.transform='translateY(-3px)'" onmouseleave="this.style.transform=''" style="border-radius:var(--r2);overflow:hidden;cursor:pointer;box-shadow:0 4px 16px var(--shadow);transition:transform .22s"><div style="height:120px;background:linear-gradient(145deg,#E0D0F5,#C8B0F0);display:flex;align-items:center;justify-content:center;font-size:44px">🌙</div><div style="padding:10px;background:var(--card)"><div style="font-size:13px;font-weight:700;color:var(--text)">Desert Wind</div><div style="font-size:11px;color:var(--muted)">Plays until you stop it</div></div></div>
-<div onclick="playMix('Forest Stream','forest,stream,cricket')" onmouseenter="this.style.transform='translateY(-3px)'" onmouseleave="this.style.transform=''" style="border-radius:var(--r2);overflow:hidden;cursor:pointer;box-shadow:0 4px 16px var(--shadow);transition:transform .22s"><div style="height:120px;background:linear-gradient(145deg,#C5E8D0,#A0D4B8);display:flex;align-items:center;justify-content:center;font-size:44px">🌿</div><div style="padding:10px;background:var(--card)"><div style="font-size:13px;font-weight:700;color:var(--text)">Forest Stream</div><div style="font-size:11px;color:var(--muted)">Plays until you stop it</div></div></div>
-<div onclick="playMix('Night Rain','rain,thunder')" onmouseenter="this.style.transform='translateY(-3px)'" onmouseleave="this.style.transform=''" style="border-radius:var(--r2);overflow:hidden;cursor:pointer;box-shadow:0 4px 16px var(--shadow);transition:transform .22s"><div style="height:120px;background:linear-gradient(145deg,#F5E5C0,#F0D090);display:flex;align-items:center;justify-content:center;font-size:44px">🌧</div><div style="padding:10px;background:var(--card)"><div style="font-size:13px;font-weight:700;color:var(--text)">Night Rain</div><div style="font-size:11px;color:var(--muted)">Plays until you stop it</div></div></div>
+<div onclick="playMix('Beach','ocean:1,wind:.45')" onmouseenter="this.style.transform='translateY(-3px)'" onmouseleave="this.style.transform=''" style="border-radius:var(--r2);overflow:hidden;cursor:pointer;box-shadow:0 4px 16px var(--shadow);transition:transform .22s"><div style="height:120px;background:linear-gradient(145deg,#C8E8F5,#A0D0F0);display:flex;align-items:center;justify-content:center;font-size:44px">🌊</div><div style="padding:10px;background:var(--card)"><div style="font-size:13px;font-weight:700;color:var(--text)">Beach</div><div style="font-size:11px;color:var(--muted)">Plays until you stop it</div></div></div>
+<div onclick="playMix('Campfire','fire:1,cricket:.4')" onmouseenter="this.style.transform='translateY(-3px)'" onmouseleave="this.style.transform=''" style="border-radius:var(--r2);overflow:hidden;cursor:pointer;box-shadow:0 4px 16px var(--shadow);transition:transform .22s"><div style="height:120px;background:linear-gradient(145deg,#E0D0F5,#C8B0F0);display:flex;align-items:center;justify-content:center;font-size:44px">🔥</div><div style="padding:10px;background:var(--card)"><div style="font-size:13px;font-weight:700;color:var(--text)">Campfire</div><div style="font-size:11px;color:var(--muted)">Plays until you stop it</div></div></div>
+<div onclick="playMix('Forest Stream','forest:.8,stream:.65,birds:.5')" onmouseenter="this.style.transform='translateY(-3px)'" onmouseleave="this.style.transform=''" style="border-radius:var(--r2);overflow:hidden;cursor:pointer;box-shadow:0 4px 16px var(--shadow);transition:transform .22s"><div style="height:120px;background:linear-gradient(145deg,#C5E8D0,#A0D4B8);display:flex;align-items:center;justify-content:center;font-size:44px">🌿</div><div style="padding:10px;background:var(--card)"><div style="font-size:13px;font-weight:700;color:var(--text)">Forest Stream</div><div style="font-size:11px;color:var(--muted)">Plays until you stop it</div></div></div>
+<div onclick="playMix('Rainy Night','rain:1,cricket:.4')" onmouseenter="this.style.transform='translateY(-3px)'" onmouseleave="this.style.transform=''" style="border-radius:var(--r2);overflow:hidden;cursor:pointer;box-shadow:0 4px 16px var(--shadow);transition:transform .22s"><div style="height:120px;background:linear-gradient(145deg,#F5E5C0,#F0D090);display:flex;align-items:center;justify-content:center;font-size:44px">🌧</div><div style="padding:10px;background:var(--card)"><div style="font-size:13px;font-weight:700;color:var(--text)">Rainy Night</div><div style="font-size:11px;color:var(--muted)">Plays until you stop it</div></div></div>
 </div>
 <div class="sp"></div>
 </div><!-- end discover -->
@@ -2373,6 +2378,19 @@ function renderSleep(){
 // ════════════════════════════════════════════════════
 const Actx=new(window.AudioContext||window.webkitAudioContext)();
 const aSounds={};
+// Everything goes through one master gain, which the volume slider sets.
+// 70 on the slider is the level the recordings were prepared at.
+const master=Actx.createGain();master.connect(Actx.destination);
+const VOL_KEY='lena_sound_volume';
+let soundVol=70;
+try{const v=localStorage.getItem(VOL_KEY);if(v!==null&&+v>=0&&+v<=100)soundVol=+v;}catch(e){}
+function volGain(v){return Math.pow(v/70,2);}
+master.gain.value=volGain(soundVol);
+function setSoundVolume(v){
+  soundVol=Math.max(0,Math.min(100,+v||0));
+  master.gain.setTargetAtTime(volGain(soundVol),Actx.currentTime,.05);
+  try{localStorage.setItem(VOL_KEY,String(soundVol));}catch(e){}
+}
 function mkNoise(){
   const b=Actx.createBuffer(1,Actx.sampleRate*3,Actx.sampleRate);
   const d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;
@@ -2383,25 +2401,96 @@ function mkSnd(ft,fr,Q,vol,lfo){
   fil.type=ft;fil.frequency.value=fr;if(Q)fil.Q.value=Q;g.gain.value=vol;
   let ln=null;
   if(lfo){ln=Actx.createOscillator();const lg=Actx.createGain();ln.frequency.value=lfo.r;lg.gain.value=lfo.d;ln.connect(lg);lg.connect(fil.frequency);ln.start();}
-  src.connect(fil);fil.connect(g);g.connect(Actx.destination);src.start();
+  src.connect(fil);fil.connect(g);g.connect(master);src.start();
   return{src,gain:g,fil,lfo:ln};
 }
+// Real recordings, levelled to the same loudness (see the notes in the
+// project). White noise stays generated, at a level that matches them.
+const SOUND_FILE={rain:'rain',thunder:'thunder',ocean:'ocean',forest:'forest',birds:'birds',
+  stream:'stream',wind:'wind',cafe:'cafe',cricket:'crickets',fire:'fire',piano:'piano',bowl:'bowl'};
 const SF={
-  rain:()=>mkSnd('bandpass',600,.4,.12),
-  ocean:()=>mkSnd('lowpass',300,1,.15,{r:.12,d:80}),
-  forest:()=>mkSnd('highpass',1200,null,.06),
-  fire:()=>mkSnd('lowpass',180,null,.18),
-  cafe:()=>mkSnd('bandpass',900,.8,.08),
-  wind:()=>mkSnd('lowpass',400,null,.1),
-  thunder:()=>mkSnd('lowpass',120,null,.22),
-  birds:()=>mkSnd('bandpass',2400,1.5,.05),
-  stream:()=>mkSnd('bandpass',800,.6,.1),
-  waves:()=>mkSnd('lowpass',250,1,.18,{r:.08,d:60}),
-  white:()=>mkSnd('allpass',1000,null,.08),
-  piano:()=>mkSnd('bandpass',1600,3,.04),
-  cricket:()=>mkSnd('bandpass',3200,2,.04),
-  bowl:()=>mkSnd('bandpass',600,8,.06)
+  white:()=>mkSnd('allpass',1000,null,.03)
 };
+const soundBufs={};
+function decodeAudio(ab){
+  // Older Safari only supports the callback form of decodeAudioData.
+  return new Promise(function(res,rej){
+    const p=Actx.decodeAudioData(ab,res,rej);
+    if(p&&p.then)p.then(res,rej);
+  });
+}
+function loadSound(type){
+  if(soundBufs[type])return soundBufs[type];
+  soundBufs[type]=fetch('/assets/sounds/'+SOUND_FILE[type]+'.mp3')
+    .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.arrayBuffer();})
+    .then(decodeAudio)
+    .then(function(buf){
+      // Some browsers keep the MP3 encoder's few milliseconds of silence
+      // at each end, which would put a tiny gap in every loop. Loop only
+      // the part where there is actually sound.
+      const ch=[];for(let c=0;c<buf.numberOfChannels;c++)ch.push(buf.getChannelData(c));
+      const loud=function(i){return ch.some(function(d){return Math.abs(d[i])>1e-4;});};
+      let a=0,b=buf.length-1;
+      while(a<b&&!loud(a))a++;
+      while(b>a&&!loud(b))b--;
+      return {buf:buf,start:a/buf.sampleRate,end:(b+1)/buf.sampleRate};
+    })
+    .catch(function(e){delete soundBufs[type];throw e;});
+  return soundBufs[type];
+}
+let playToken=0;
+function clearPills(){
+  document.querySelectorAll('.scp.on,.scp.loading').forEach(function(p){
+    p.classList.remove('loading');syncPills(p.dataset.s,false);
+  });
+}
+/* Start one sound, or a combo, replacing whatever is playing. list is
+   [[type, level], ...]. Resolves true once the sound is actually
+   playing, or false if it failed or the person tapped something else
+   while it was loading. */
+async function startSounds(list){
+  const token=++playToken;
+  stopSounds();clearPills();
+  if(Actx.state==='suspended'){try{await Actx.resume();}catch(e){}}
+  list.forEach(function(it){
+    document.querySelectorAll('.scp[data-s="'+it[0]+'"]').forEach(function(p){p.classList.add('loading');});
+  });
+  let loaded;
+  try{
+    loaded=await Promise.all(list.map(function(it){return SF[it[0]]?null:loadSound(it[0]);}));
+  }catch(e){
+    if(token===playToken){
+      clearPills();
+      toast(navigator.onLine===false
+        ?'This sound needs a connection the first time you play it.'
+        :'That sound did not load. Please try again.');
+    }
+    return false;
+  }
+  if(token!==playToken)return false;
+  clearPills();
+  const now=Actx.currentTime;
+  list.forEach(function(it,i){
+    const t=it[0],lv=it[1];
+    let snd;
+    if(SF[t]){
+      snd=SF[t]();
+      const v=snd.gain.gain.value*lv;
+      snd.gain.gain.setValueAtTime(0,now);snd.gain.gain.setTargetAtTime(v,now,.4);
+    }else{
+      const L=loaded[i];
+      const src=Actx.createBufferSource();
+      src.buffer=L.buf;src.loop=true;src.loopStart=L.start;src.loopEnd=L.end;
+      const g=Actx.createGain();
+      g.gain.setValueAtTime(0,now);g.gain.setTargetAtTime(lv,now,.4);
+      src.connect(g);g.connect(master);src.start(now,L.start);
+      snd={src:src,gain:g,lfo:null};
+    }
+    aSounds[t]=snd;syncPills(t,true);
+  });
+  refreshPlayerBar();
+  return true;
+}
 
 function syncPills(type,on){
   document.querySelectorAll('.scp[data-s="'+type+'"]').forEach(p=>{
@@ -2412,26 +2501,20 @@ function syncPills(type,on){
   });
 }
 function toggleSnd(el,type){
-  if(Actx.state==='suspended')Actx.resume();
   if(aSounds[type]){
+    ++playToken;
     const s=aSounds[type];
     s.gain.gain.setTargetAtTime(0,Actx.currentTime,.3);
     setTimeout(()=>{try{s.src.stop();}catch(e){}if(s.lfo)s.lfo.stop();},500);
     delete aSounds[type];syncPills(type,false);
     if(!Object.keys(aSounds).length)closePlayer();else{refreshPlayerBar();toast('Sound stopped');}
-  }else{
-    // One sound at a time. Layering is what the ready-made combos are
-    // for, where the volumes are balanced; free stacking of anything
-    // with anything quickly turns into noise.
-    stopSounds();
-    const fn=SF[type]||SF.rain;const snd=fn();
-    snd.gain.gain.setValueAtTime(0,Actx.currentTime);
-    snd.gain.gain.setTargetAtTime(snd.gain.gain.value||.1,Actx.currentTime,.5);
-    aSounds[type]=snd;syncPills(type,true);
-    const lbl=el.querySelectorAll('span')[1]?.textContent||type;
-    refreshPlayerBar();
-    toast(lbl+' playing');
+    return;
   }
+  // One sound at a time. Layering is what the ready-made combos are
+  // for, where the volumes are balanced; free stacking of anything
+  // with anything quickly turns into noise.
+  const lbl=el.querySelectorAll('span')[1]?.textContent||type;
+  startSounds([[type,1]]).then(function(ok){if(ok)toast(lbl+' playing');});
 }
 // Stop everything quietly, without closing the player or a toast.
 function stopSounds(){
@@ -2443,6 +2526,7 @@ function stopSounds(){
   });
 }
 function stopAll(){
+  ++playToken;clearPills();
   Object.keys(aSounds).forEach(t=>{
     const s=aSounds[t];
     s.gain.gain.setTargetAtTime(0,Actx.currentTime,.3);
@@ -2461,33 +2545,17 @@ function stopAll(){
 // "play" really does start sound. The four cards here used to call
 // playItem, which moved a progress bar across the screen for a 45 minute
 // "sleep story" that did not exist and made no sound at all.
-function playMix(name,types){
-  const list=String(types).split(',');
-  const already=list.every(t=>aSounds[t]);
-  if(already){
-    list.forEach(t=>{
-      const snd=aSounds[t];
-      if(!snd)return;
-      snd.gain.gain.setTargetAtTime(0,Actx.currentTime,.3);
-      setTimeout(()=>{try{snd.src.stop();}catch(e){}if(snd.lfo)snd.lfo.stop();},500);
-      delete aSounds[t];syncPills(t,false);
-    });
-    if(!Object.keys(aSounds).length)closePlayer();else refreshPlayerBar();
-    toast(name+' stopped');
-    return;
-  }
-  if(Actx.state==='suspended')Actx.resume();
-  stopSounds();
-  list.forEach(t=>{
-    if(aSounds[t])return;
-    const fn=SF[t]||SF.rain;
-    const snd=fn();
-    snd.gain.gain.setValueAtTime(0,Actx.currentTime);
-    snd.gain.gain.setTargetAtTime(snd.gain.gain.value||.1,Actx.currentTime,.5);
-    aSounds[t]=snd;syncPills(t,true);
+// A combo: "rain:1,cricket:.45" plays rain at full level and crickets
+// underneath it. The levels are what keeps a combo calm.
+function playMix(name,spec){
+  const list=String(spec).split(',').map(function(p){
+    const kv=p.split(':');return [kv[0],kv.length>1?+kv[1]:1];
   });
-  refreshPlayerBar();
-  toast(name+' playing. Tap again to stop.');
+  const playing=Object.keys(aSounds);
+  if(playing.length===list.length&&list.every(function(it){return aSounds[it[0]];})){
+    stopAll();toast(name+' stopped');return;
+  }
+  startSounds(list).then(function(ok){if(ok)toast(name+' playing. Tap again to stop.');});
 }
 // Audio we do not have. Saying so beats a player bar that pretends.
 function audioPending(label){
@@ -2502,6 +2570,7 @@ function refreshPlayerBar(){
   if(sub)sub.textContent=Actx.state==='running'?'Ambient · playing':'Ambient · paused';
   const pb=document.getElementById('p-playbtn');
   if(pb)pb.textContent=Actx.state==='running'?'⏸':'▶';
+  const pv=document.getElementById('p-vol');if(pv)pv.value=soundVol;
   document.getElementById('player-bar').classList.add('vis');
 }
 
@@ -2781,7 +2850,8 @@ const DATA_ITEMS=[
   {k:'lena_feedback',   label:'Feedback you wrote',    count:v=>v.length},
   {k:'lena_muslim',     label:'Islamic sections on or off',count:v=>1},
   {k:'lena_appearance', label:'Colour theme',           count:v=>1},
-  {k:'lena_care_dismissed', label:'Support note hidden for now', count:v=>1}
+  {k:'lena_care_dismissed', label:'Support note hidden for now', count:v=>1},
+  {k:'lena_sound_volume', label:'Sound volume', count:v=>1}
 ];
 function dataSummary(){
   const rows=[];
