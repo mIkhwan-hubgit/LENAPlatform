@@ -481,6 +481,23 @@ a:focus-visible,.time-input:focus-visible,input[type="range"]:focus-visible{
 #tk-later{background:none;border:none;color:var(--muted);font-family:var(--ff-b);font-size:13px;font-weight:600;cursor:pointer;padding:9px 4px}
 #tk-later:hover{color:var(--text)}
 #tk-done{margin-left:auto}
+
+/* Press feedback. Down quickly, back with a small spring. The same look
+   for a tap, a click, or Enter and Space on the keyboard. */
+button,[role="button"],[role="switch"],.scp,.mf,a.btn-p,a.scall{
+  transition-property:transform,box-shadow,background-color,border-color,color,opacity;
+  transition-duration:.28s;transition-timing-function:cubic-bezier(.34,1.56,.64,1)}
+button:active:not(:disabled),[role="button"]:active,[role="switch"]:active,.scp:active,a.btn-p:active,a.scall:active,.kb-press{
+  transform:scale(.95)!important;transition-duration:.08s;transition-timing-function:ease-out}
+.feat-card:active,.res-card:active,.card-hover:active,.gt-card:active,.scard:active,.hlcard:active,.pi:active,.feat-card.kb-press,.res-card.kb-press,.card-hover.kb-press,.gt-card.kb-press,.scard.kb-press{
+  transform:scale(.98)!important}
+.mf:active,.mf.kb-press{transform:scale(.88)!important}
+.tsw:active .tk,.tsw.kb-press .tk{transform:scale(.85)}
+@media (prefers-reduced-motion:reduce){
+  button,[role="button"],[role="switch"],.scp,.mf{transition-duration:.01s}
+  button:active,[role="button"]:active,[role="switch"]:active,.scp:active,.mf:active,.kb-press,
+  .feat-card:active,.res-card:active,.card-hover:active,.gt-card:active,.scard:active,.hlcard:active,.pi:active{transform:none!important;filter:brightness(.94)}
+}
 </style>
 </head>
 <body>
@@ -1608,10 +1625,10 @@ function showLoadingQuote(){
 let currentAuthTab='si';
 function switchAuthTab(t){
   currentAuthTab=t;
-  document.getElementById('tab-si').style.background=t==='si'?'var(--primary)':'transparent';
-  document.getElementById('tab-si').style.color=t==='si'?'#fff':'var(--muted)';
-  document.getElementById('tab-re').style.background=t==='re'?'var(--primary)':'transparent';
-  document.getElementById('tab-re').style.color=t==='re'?'#fff':'var(--muted)';
+  document.getElementById('tab-si').style.background=t==='si'?'var(--fill)':'transparent';
+  document.getElementById('tab-si').style.color=t==='si'?'var(--on-fill)':'var(--muted)';
+  document.getElementById('tab-re').style.background=t==='re'?'var(--fill)':'transparent';
+  document.getElementById('tab-re').style.color=t==='re'?'var(--on-fill)':'var(--muted)';
   document.getElementById('reg-fields').style.display=t==='re'?'block':'none';
   document.getElementById('auth-btn').textContent=t==='re'?'Create Account →':'Sign In →';
   const wt=document.querySelector('#auth-screen h2');
@@ -5034,17 +5051,15 @@ function tkPick(st){
   return next;
 }
 let tkCur=null;
+let tkAuto=false;
 function openThinkCheck(manual){
   const st=tkLoad();
-  let id;
-  if(manual){
-    // From Guided Tools: today's question if it is still open, otherwise
-    // the next one, so someone who wants more practice gets it.
-    id=(st.day===tkToday()&&!st.done)?st.id:tkPick(st);
-  }else{
-    id=tkPick(st);
-  }
-  st.day=tkToday();st.id=id;st.done=false;tkSave(st);
+  const id=tkPick(st);
+  tkAuto=!manual;
+  // Only the automatic pop-up counts as today's. Practising from Guided
+  // Tools is extra and never uses it up.
+  if(tkAuto)st.shown=tkToday();
+  tkSave(st);
   const q=CBT_Q.find(function(x){return x.id===id;});if(!q)return;
   tkCur=q;
   document.getElementById('tk-kind').textContent=TK_KIND[q.k]||'';
@@ -5079,22 +5094,18 @@ function tkAnswer(i){
   fb.style.display='block';
   document.getElementById('tk-done').style.display='';
   document.getElementById('tk-later').style.display='none';
-  const st=tkLoad();st.done=true;if(!Array.isArray(st.seen))st.seen=[];
+  const st=tkLoad();if(!Array.isArray(st.seen))st.seen=[];
   if(st.seen.indexOf(q.id)<0)st.seen.push(q.id);tkSave(st);
   setTimeout(function(){document.getElementById('tk-done').focus();},60);
 }
 function closeThinkCheck(){
-  const st=tkLoad();
-  // "Not today" counts as today's turn, so it does not pop up again
-  // until tomorrow. The question stays unanswered and comes back later.
-  st.day=tkToday();tkSave(st);
   document.getElementById('think-modal').classList.remove('open');
 }
 // Pops up once a day, only once the app is actually on screen, and not
 // on a day the person has said is hard.
 function tkShouldShow(){
   const st=tkLoad();
-  if(st.day===tkToday())return false;
+  if(st.shown===tkToday())return false;
   let p;try{p=loadPrefs();}catch(e){return false;}
   if(!p.quiz)return false;
   let low=false;
@@ -5105,26 +5116,104 @@ function tkShouldShow(){
   }catch(e){}
   return !low;
 }
-(function tkWatch(){
-  let tries=0;
-  const timer=setInterval(function(){
-    tries++;
-    if(tries>1200){clearInterval(timer);return;}   // give up after ten minutes
-    let open=false;try{open=appIsOpen();}catch(e){}
-    if(!open)return;
-    if(document.querySelector('.mover.open'))return;  // never on top of another sheet
-    clearInterval(timer);
-    // a short pause after the app appears, so it does not feel like an ambush
-    setTimeout(function(){
-      if(document.querySelector('.mover.open'))return;
-      if(tkShouldShow())openThinkCheck(false);
-    },1500);
-  },500);
-})();
-document.addEventListener('keydown',function(e){
-  if(e.key==='Escape'&&document.getElementById('think-modal').classList.contains('open'))closeThinkCheck();
-});
+/* Checked every second while LENA is visible. It shows when the Home
+   screen is on screen, nothing covers it, and it has not already shown
+   today, so it also works for a tab left open overnight. It waits for
+   the Home screen to have been showing for a moment first. */
+let tkHomeSince=0;
+setInterval(function(){
+  if(document.hidden){tkHomeSince=0;return;}
+  let ready=false;
+  try{
+    const home=document.getElementById('sc-home');
+    ready=appIsOpen()&&home&&home.classList.contains('active')&&!document.querySelector('.mover.open');
+  }catch(e){}
+  if(!ready){tkHomeSince=0;return;}
+  if(!tkHomeSince){tkHomeSince=Date.now();return;}
+  if(Date.now()-tkHomeSince<1200)return;
+  tkHomeSince=0;
+  if(tkShouldShow())openThinkCheck(false);
+},1000);
 
+
+</script>
+
+<script>
+/* Keyboard behaviour people expect from any website. */
+(function(){
+  function click(id){const b=document.getElementById(id);if(b)b.click();}
+  function visible(el){return !!el&&el.offsetParent!==null;}
+  // Enter submits these single-line fields, like a form.
+  const ENTER={
+    'auth-email':function(){click('auth-btn');},'auth-pw':function(){click('auth-btn');},'auth-name':function(){click('auth-btn');},
+    'pf-name-input':function(){saveProfileName();},
+    'sp-n1':function(){saveSafety();},'sp-p1':function(){saveSafety();},'sp-n2':function(){saveSafety();},
+    'sp-p2':function(){saveSafety();},'sp-n3':function(){saveSafety();},'sp-p3':function(){saveSafety();}
+  };
+  // Ctrl+Enter or Cmd+Enter saves these text boxes. Plain Enter still
+  // starts a new line, as it does everywhere else.
+  const SAVE={
+    'journal-textarea':function(){saveJournalEntry();},'mm-note':function(){saveMoodModal();},
+    'checkin-note':function(){saveCheckin();},'fb-text':function(){submitFeedback();},
+    'ml-note':function(){logMood();},'sp-warn':function(){saveSafety();},'sp-cope':function(){saveSafety();}
+  };
+  const FOCUSABLE='button:not([disabled]),a[href],input:not([disabled]),textarea:not([disabled]),select:not([disabled]),[tabindex]:not([tabindex="-1"])';
+  function topModal(){const m=document.querySelectorAll('.mover.open');return m.length?m[m.length-1]:null;}
+
+  document.addEventListener('keydown',function(e){
+    const t=e.target, id=t&&t.id;
+    if(e.key==='Enter'&&!e.isComposing){
+      if(t.tagName==='INPUT'&&ENTER[id]){e.preventDefault();ENTER[id]();return;}
+      if(t.tagName==='TEXTAREA'&&(e.ctrlKey||e.metaKey)&&SAVE[id]){e.preventDefault();SAVE[id]();return;}
+    }
+    if(e.key==='Escape'){
+      const m=topModal();
+      if(m){const c=m.querySelector('.mcls');if(c){e.preventDefault();c.click();}return;}
+      if(id==='sidebar-search'&&t.value){t.value='';try{doSidebarSearch('');}catch(x){}return;}
+    }
+    // Tab stays inside an open window, like a real dialog.
+    if(e.key==='Tab'){
+      const m=topModal();if(!m)return;
+      const f=Array.prototype.filter.call(m.querySelectorAll(FOCUSABLE),visible);
+      if(!f.length)return;
+      const first=f[0],last=f[f.length-1];
+      if(!m.contains(document.activeElement)){e.preventDefault();first.focus();return;}
+      if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+      else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+    }
+    // Arrow keys turn pages in an open article.
+    if((e.key==='ArrowRight'||e.key==='ArrowLeft')&&topModal()&&topModal().id==='res-modal'&&!/INPUT|TEXTAREA/.test(t.tagName)){
+      e.preventDefault();try{(e.key==='ArrowRight'?nextPage:prevPage)();}catch(x){}
+    }
+    // Show the same press animation for Enter and Space on a button.
+    if((e.key==='Enter'||e.key===' ')&&t&&(t.tagName==='BUTTON'||/^(button|switch)$/.test(t.getAttribute('role')||''))){
+      t.classList.add('kb-press');setTimeout(function(){t.classList.remove('kb-press');},120);
+    }
+  },true);
+
+  // When a window opens, move focus into it. When it closes, put focus
+  // back where it was, so keyboard users do not lose their place.
+  const opener=new WeakMap();
+  new MutationObserver(function(muts){
+    muts.forEach(function(mu){
+      const m=mu.target;
+      if(!m.classList||!m.classList.contains('mover'))return;
+      const isOpen=m.classList.contains('open');
+      if(isOpen&&!opener.has(m)){
+        opener.set(m,document.activeElement);
+        setTimeout(function(){
+          if(m.contains(document.activeElement))return;
+          const f=Array.prototype.filter.call(m.querySelectorAll(FOCUSABLE),visible);
+          const pick=f.find(function(x){return !x.classList.contains('mcls');})||f[0];
+          if(pick)pick.focus();
+        },80);
+      }else if(!isOpen&&opener.has(m)){
+        const back=opener.get(m);opener.delete(m);
+        if(back&&document.contains(back)&&back.focus)try{back.focus();}catch(x){}
+      }
+    });
+  }).observe(document.body,{subtree:true,attributes:true,attributeFilter:['class']});
+})();
 </script>
 </body>
 </html>
