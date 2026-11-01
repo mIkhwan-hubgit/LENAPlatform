@@ -467,6 +467,20 @@ a:focus-visible,.time-input:focus-visible,input[type="range"]:focus-visible{
 .scp.loading::after{content:'';display:inline-block;width:10px;height:10px;margin-left:6px;border-radius:50%;
   border:2px solid currentColor;border-right-color:transparent;animation:spin .8s linear infinite;vertical-align:-1px}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+.tk-opt{text-align:left;padding:12px 14px;border-radius:var(--r);border:1.5px solid var(--border2);background:var(--card);
+  color:var(--text);font-family:var(--ff-b);font-size:14px;line-height:1.5;cursor:pointer;transition:border-color .15s,background .15s}
+.tk-opt:hover:not(:disabled){border-color:var(--primary)}
+.tk-opt:disabled{cursor:default}
+.tk-opt.right{border-color:var(--green-t);background:rgba(52,191,138,.10)}
+.tk-opt.picked:not(.right){border-color:var(--amber-t);background:rgba(229,164,53,.10)}
+.tk-opt .tk-mark{font-weight:700;margin-left:6px}
+.tk-fb-h{font-weight:700;font-size:14px;margin-bottom:6px;color:var(--text)}
+.tk-fb-p{font-size:13px;color:var(--text2);line-height:1.65}
+.tk-tip{margin-top:10px;font-size:13px;color:var(--text);line-height:1.6}
+#tk-later{background:none;border:none;color:var(--muted);font-family:var(--ff-b);font-size:13px;font-weight:600;cursor:pointer;padding:9px 4px}
+#tk-later:hover{color:var(--text)}
+#tk-done{margin-left:auto}
 </style>
 </head>
 <body>
@@ -675,6 +689,21 @@ a:focus-visible,.time-input:focus-visible,input[type="range"]:focus-visible{
 </div>
 </div>
 <!-- ══ FEEDBACK MODAL ════════════════════════════════════════════════ -->
+<div class="mover" id="think-modal" onclick="if(event.target===this)closeThinkCheck()">
+<div class="msheet" style="width:520px" role="dialog" aria-modal="true" aria-labelledby="tk-title">
+<button class="mcls" aria-label="Close" onclick="closeThinkCheck()">✕</button>
+<div id="tk-title" style="font-family:var(--ff-d);font-size:22px;color:var(--text);margin-bottom:2px">🧠 Thinking check</div>
+<div id="tk-kind" style="font-size:12px;color:var(--muted);margin-bottom:18px"></div>
+<div id="tk-scene" style="font-size:15px;color:var(--text);line-height:1.65;padding:14px 16px;background:var(--bg3);border-radius:var(--r);margin-bottom:14px"></div>
+<div id="tk-q" style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px"></div>
+<div id="tk-opts" role="group" aria-labelledby="tk-q" style="display:flex;flex-direction:column;gap:8px"></div>
+<div id="tk-fb" aria-live="polite" style="display:none;margin-top:16px;padding:14px 16px;border-radius:var(--r);border:1px solid var(--border2);background:var(--card)"></div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:18px;gap:10px">
+<button id="tk-later" onclick="closeThinkCheck()">Not today</button>
+<button id="tk-done" class="btn-p" onclick="closeThinkCheck()" style="display:none;padding:10px 22px">Done</button>
+</div>
+</div>
+</div>
 <div class="mover" id="feedback-modal" onclick="if(event.target===this)closeFeedback()">
 <div class="msheet" style="width:520px">
 <button class="mcls" aria-label="Close" onclick="closeFeedback()">✕</button>
@@ -1106,6 +1135,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <div class="grid2">
 <div>
 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px"><div class="cbt-cat act" data-cat="all" onclick="setCbtCat(this)">All</div><div class="cbt-cat" data-cat="grounding" onclick="setCbtCat(this)">Grounding</div><div class="cbt-cat" data-cat="movement" onclick="setCbtCat(this)">Movement</div><div class="cbt-cat" data-cat="relaxation" onclick="setCbtCat(this)">Relaxation</div><div class="cbt-cat" data-cat="islamic" onclick="setCbtCat(this)">Islamic</div></div>
+<div class="card gt-card" data-cat="all" onclick="openThinkCheck(true)" style="margin-bottom:12px;cursor:pointer"><div style="display:flex;align-items:center;gap:13px;margin-bottom:10px"><div style="width:44px;height:44px;border-radius:12px;background:rgba(139,157,195,.16);display:flex;align-items:center;justify-content:center;font-size:22px">🧠</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">Thinking check</div><div style="font-size:11px;color:var(--muted)">Thinking traps · 1 min</div></div><button class="btn-p" onclick="event.stopPropagation();openThinkCheck(true)" style="padding:8px 16px;font-size:12px">Start</button></div><div style="font-size:12px;color:var(--text2);line-height:1.6">One short question a day about the thinking traps everyone falls into, like turning one bad result into "I always fail". Spotting them is the first step to seeing things more fairly.</div></div>
 <div class="card gt-card" data-cat="grounding" onclick="startGT('ground')" style="margin-bottom:12px;cursor:pointer"><div style="display:flex;align-items:center;gap:13px;margin-bottom:10px"><div style="width:44px;height:44px;border-radius:12px;background:rgba(52,191,138,.12);display:flex;align-items:center;justify-content:center;font-size:22px">🌱</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">Grounding 5-4-3-2-1</div><div style="font-size:11px;color:var(--muted)">Grounding · 3 min</div></div><button class="btn-p" onclick="event.stopPropagation();startGT('ground')" style="padding:8px 16px;font-size:12px">Start</button></div><div style="font-size:12px;color:var(--text2);line-height:1.6">Come back to the present by moving through your five senses, one at a time. Useful when anxiety spikes or things start to feel unreal.</div></div>
 <div class="card gt-card" data-cat="movement" onclick="startGT('move')" style="margin-bottom:12px;cursor:pointer"><div style="display:flex;align-items:center;gap:13px;margin-bottom:10px"><div style="width:44px;height:44px;border-radius:12px;background:rgba(244,164,56,.12);display:flex;align-items:center;justify-content:center;font-size:22px">🚶</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">Movement Break</div><div style="font-size:11px;color:var(--muted)">Movement · 4 min</div></div><button class="btn-p" onclick="event.stopPropagation();startGT('move')" style="padding:8px 16px;font-size:12px">Start</button></div><div style="font-size:12px;color:var(--text2);line-height:1.6">A short guided sequence of stretches and gentle movement. Physical activity shifts mood faster than thinking about mood does.</div></div>
 <div class="card gt-card" data-cat="relaxation" onclick="startGT('breathe')" style="margin-bottom:12px;cursor:pointer"><div style="display:flex;align-items:center;gap:13px;margin-bottom:10px"><div style="width:44px;height:44px;border-radius:12px;background:rgba(139,157,195,.12);display:flex;align-items:center;justify-content:center;font-size:22px">🌬</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">Deep Breathing</div><div style="font-size:11px;color:var(--muted)">Relaxation · 5 min</div></div><button class="btn-p" onclick="event.stopPropagation();startGT('breathe')" style="padding:8px 16px;font-size:12px">Start</button></div><div style="font-size:12px;color:var(--text2);line-height:1.6">4-7-8 breathing activates the parasympathetic nervous system for immediate anxiety relief.</div></div>
@@ -1411,6 +1441,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <button id="pf-editbtn" class="btn-p" onclick="openProfileEdit()" style="margin-top:14px;width:100%;padding:11px">Edit Profile</button>
 </div>
 <div class="pi" onclick="togglePref('checkin')"><span class="pi-ico">☀️</span><span class="pi-txt">Ask how I am when I open LENA</span><div class="tsw" id="tsw-checkin" onclick="event.stopPropagation();togglePref('checkin')"><div class="tk"></div></div></div>
+<div class="pi" onclick="togglePref('quiz')"><span class="pi-ico">🧠</span><span class="pi-txt">Daily thinking check when I open LENA</span><div class="tsw" id="tsw-quiz" onclick="event.stopPropagation();togglePref('quiz')"><div class="tk"></div></div></div>
 <div class="pi" onclick="openPrivacy()"><span class="pi-ico">🔒</span><span class="pi-txt">Privacy &amp; Data</span><span class="pi-arr">›</span></div>
 <div class="pi" onclick="go('assess')"><span class="pi-ico">📋</span><span class="pi-txt">Screening History</span><span class="pi-arr">›</span></div>
 <div class="pi" onclick="exportData()"><span class="pi-ico">📊</span><span class="pi-txt">Export My Data</span><span class="pi-arr">›</span></div>
@@ -2782,12 +2813,13 @@ function runBreath(){
 // worse than no switch.
 // ════════════════════════════════════════════════════
 const PREFKEY='lena_prefs';
-const PREF_DEFAULTS={checkin:true,quotes:true};
+const PREF_DEFAULTS={checkin:true,quotes:true,quiz:true};
 function loadPrefs(){
   const p=Object.assign({},PREF_DEFAULTS);
   try{const st=JSON.parse(localStorage.getItem(PREFKEY)||'null');
     if(st&&typeof st==='object'){if(typeof st.checkin==='boolean')p.checkin=st.checkin;
-      if(typeof st.quotes==='boolean')p.quotes=st.quotes;}}catch(e){}
+      if(typeof st.quotes==='boolean')p.quotes=st.quotes;
+      if(typeof st.quiz==='boolean')p.quiz=st.quiz;}}catch(e){}
   return p;
 }
 function savePrefs(p){try{localStorage.setItem(PREFKEY,JSON.stringify(p));}catch(e){}}
@@ -2802,6 +2834,7 @@ function renderPrefs(){
   const p=loadPrefs();
   setSwitch('tsw-checkin',p.checkin);
   setSwitch('tsw-quotes',p.quotes);
+  setSwitch('tsw-quiz',p.quiz);
   setSwitch('tsw-islamic',isMuslimUser);
   applyReligionPref();
 }
@@ -2828,6 +2861,7 @@ function togglePref(which){
   renderPrefs();
   if(which==='checkin')toast(p.checkin?'LENA will ask how you are when you open it':'The opening check-in is off');
   if(which==='quotes')toast(p.quotes?'Quote will show while loading':'Loading screen will stay plain');
+  if(which==='quiz')toast(p.quiz?'A thinking check will show once a day':'The daily thinking check is off. It is still in Guided Tools.');
 }
 
 // ════════════════════════════════════════════════════
@@ -2851,7 +2885,8 @@ const DATA_ITEMS=[
   {k:'lena_muslim',     label:'Islamic sections on or off',count:v=>1},
   {k:'lena_appearance', label:'Colour theme',           count:v=>1},
   {k:'lena_care_dismissed', label:'Support note hidden for now', count:v=>1},
-  {k:'lena_sound_volume', label:'Sound volume', count:v=>1}
+  {k:'lena_sound_volume', label:'Sound volume', count:v=>1},
+  {k:'lena_thinkcheck', label:'Thinking check progress', count:v=>1}
 ];
 function dataSummary(){
   const rows=[];
@@ -4844,6 +4879,252 @@ window.LENA_BACKEND = (function(){
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);
   else start();
 })();
+</script>
+<script>
+/* Daily thinking check. Short scenarios about other people, never about
+   the user, so a question never asks someone to rate their own
+   symptoms or dwell on their own worst moment. Three kinds:
+     trap      name the thinking trap in the scenario
+     balanced  pick the more balanced way to see it
+     step      pick a helpful next step
+   Feedback on a wrong answer is never "wrong". It shows the answer and
+   the reason, because the point is practice, not a score. */
+const CBT_Q=[
+{id:1,k:'trap',s:'Aina gets 58% on one quiz. She thinks, "I always fail. I\'ll never be good at this subject."',
+ q:'Which thinking trap is this?',o:['Overgeneralising','Mind reading','Personalising','Should statements'],a:0,
+ why:'One result has turned into "always" and "never". Words like always, never, everyone and nothing are the usual sign.',
+ tip:'When you catch "always" or "never", ask what actually happened this one time.'},
+{id:2,k:'balanced',s:'Hafiz sent a message in the class group chat. Nobody replied for an hour.',
+ q:'Which thought is the most balanced?',o:['"Everyone thinks my message was stupid."','"People are probably busy. I\'ll see if anyone replies later."','"I should never post in the group again."','"Nobody in this class likes me."'],a:1,
+ why:'It allows for other reasons, like people being busy, instead of assuming the worst about what others think.',
+ tip:'Before deciding what silence means, list two other reasons it could be happening.'},
+{id:3,k:'trap',s:'Mei Ling\'s friend looked at her phone during their talk. Mei Ling thinks, "She thinks I\'m boring."',
+ q:'Which thinking trap is this?',o:['Catastrophising','All-or-nothing thinking','Mind reading','Discounting the positive'],a:2,
+ why:'Mei Ling is treating a guess about her friend\'s thoughts as a fact. She cannot know what her friend was thinking.',
+ tip:'Ask yourself, "What do I actually know, and what am I guessing?"'},
+{id:4,k:'trap',s:'Ravi has a presentation tomorrow. He thinks, "I\'ll freeze, everyone will laugh, and I\'ll fail the whole course."',
+ q:'Which thinking trap is this?',o:['Labelling','Catastrophising','Personalising','Mental filter'],a:1,
+ why:'One worry leads straight to the worst possible ending, step after step, with no evidence for each step.',
+ tip:'Ask, "What is the most likely outcome, not just the worst one?"'},
+{id:5,k:'trap',s:'Siti made one mistake at her part-time job. She tells herself, "I\'m such an idiot."',
+ q:'Which thinking trap is this?',o:['Labelling','Fortune telling','Mind reading','Comparing'],a:0,
+ why:'A single mistake has been turned into a label for her whole self. A mistake is something a person did, not who they are.',
+ tip:'Describe the mistake instead of yourself. "I mixed up an order" is fixable. "I\'m an idiot" is not.'},
+{id:6,k:'trap',s:'Daniel scrolls through his friends\' posts and thinks, "Everyone is doing better than me."',
+ q:'Which thinking trap is this?',o:['Should statements','Comparing','Emotional reasoning','Catastrophising'],a:1,
+ why:'He is comparing his whole life to the best moments others choose to post, which is not a fair comparison.',
+ tip:'Compare yourself with where you were last month, not with someone else\'s highlights.'},
+{id:7,k:'trap',s:'Nurul feels anxious about her exam. She thinks, "I feel so nervous, so I must be unprepared."',
+ q:'Which thinking trap is this?',o:['Overgeneralising','Personalising','Emotional reasoning','Mind reading'],a:2,
+ why:'A feeling is being used as proof. Feeling nervous is normal before exams and says little about how prepared she is.',
+ tip:'Feelings are real, but they are not evidence. Check what you have actually done to prepare.'},
+{id:8,k:'balanced',s:'Arif\'s team lost the futsal match. He thinks it was all his fault because he missed one shot.',
+ q:'Which thought is the most balanced?',o:['"I let everyone down."','"I\'m the worst player on the team."','"I missed one shot. The result came from the whole game and the whole team."','"I should quit the team."'],a:2,
+ why:'It keeps his part in proportion. A match result depends on many players and many moments.',
+ tip:'When you blame yourself, ask, "What else played a part in this?"'},
+{id:9,k:'trap',s:'Arif\'s team lost. He thinks, "It\'s all my fault, I missed that shot."',
+ q:'Which thinking trap is this?',o:['Personalising','Mental filter','Fortune telling','Comparing'],a:0,
+ why:'He is taking full blame for an outcome that many people and things contributed to.',
+ tip:'Try drawing a pie chart of everything that caused the result. Your slice is usually smaller than it feels.'},
+{id:10,k:'trap',s:'Hana got nine compliments on her art and one critical comment. She can only think about the critical one.',
+ q:'Which thinking trap is this?',o:['Catastrophising','Mental filter','Labelling','Should statements'],a:1,
+ why:'One negative detail is filtering out everything else, so the whole picture looks negative.',
+ tip:'Write down the positives you are skipping over, then read them back.'},
+{id:11,k:'trap',s:'Zul\'s lecturer praised his essay. Zul thinks, "She was just being nice. It doesn\'t count."',
+ q:'Which thinking trap is this?',o:['Discounting the positive','Mind reading','Overgeneralising','Emotional reasoning'],a:0,
+ why:'Good feedback is being explained away so it cannot count, which keeps a negative view of himself in place.',
+ tip:'Practise saying "thank you" and letting it count, even if it feels uncomfortable.'},
+{id:12,k:'trap',s:'Farah thinks, "I should be able to handle everything on my own without help."',
+ q:'Which thinking trap is this?',o:['Should statements','Catastrophising','Comparing','Mind reading'],a:0,
+ why:'"Should" sets a rigid rule that no one can keep, and breaking it leads to guilt or shame.',
+ tip:'Swap "I should" for "I would like to" or "It would help if". Notice how the pressure changes.'},
+{id:13,k:'trap',s:'Ken is about to apply for an internship. He thinks, "There\'s no point. They\'ll reject me anyway."',
+ q:'Which thinking trap is this?',o:['Personalising','Labelling','Fortune telling','Mental filter'],a:2,
+ why:'He is predicting the future as if it were already decided, and the prediction stops him from trying.',
+ tip:'Ask, "How do I know? What would happen if I tried anyway?"'},
+{id:14,k:'trap',s:'Lina got a B+ instead of an A. She thinks, "If it\'s not perfect, it\'s a failure."',
+ q:'Which thinking trap is this?',o:['All-or-nothing thinking','Comparing','Emotional reasoning','Mind reading'],a:0,
+ why:'There are only two boxes, perfect or failure, with nothing in between. Most results sit somewhere in the middle.',
+ tip:'Put it on a scale from 0 to 100 instead of pass or fail.'},
+{id:15,k:'balanced',s:'Imran was not invited to a friend\'s birthday dinner.',
+ q:'Which thought is the most balanced?',o:['"They hate me."','"Maybe it was a small dinner. I can ask my friend about it, or plan something together myself."','"I\'ll never have real friends."','"It\'s because I\'m boring."'],a:1,
+ why:'It considers other explanations and leads to an action, instead of a conclusion about himself.',
+ tip:'A balanced thought often ends with something you can do.'},
+{id:16,k:'step',s:'Aisyah has felt flat all week and has stopped doing things she used to enjoy.',
+ q:'Which next step is most likely to help her mood?',o:['Wait until she feels motivated before doing anything','Plan one small, easy, enjoyable activity for today','Stay in bed until the feeling passes','Make a long list of everything she has been avoiding'],a:1,
+ why:'Motivation often follows action rather than coming first. One small activity can start to lift mood, which is the idea behind behavioural activation.',
+ tip:'Pick something that takes ten minutes or less, like a short walk or a favourite song.'},
+{id:17,k:'step',s:'Jun keeps thinking, "I\'m going to fail my finals."',
+ q:'Which question helps him test that thought?',o:['"Why am I always like this?"','"What evidence do I have for and against this?"','"What will people think of me?"','"Why can\'t I be like everyone else?"'],a:1,
+ why:'Looking at evidence on both sides treats the thought as a guess to check, not a fact to accept.',
+ tip:'Draw two columns, "Evidence for" and "Evidence against", and fill in both.'},
+{id:18,k:'balanced',s:'Priya forgot to reply to her mum\'s message for a whole day.',
+ q:'Which thought is the most balanced?',o:['"I\'m a terrible daughter."','"I forgot because I was busy. I\'ll reply now and say sorry."','"Mum will never forgive me."','"I ruin everything."'],a:1,
+ why:'It owns the mistake without turning it into a judgement of her whole character, and it leads to a fix.',
+ tip:'Talk to yourself the way you would talk to a friend who made the same slip.'},
+{id:19,k:'trap',s:'Amir thinks, "I can\'t do group work. The last group project went badly, so they\'ll all go badly."',
+ q:'Which thinking trap is this?',o:['Overgeneralising','Should statements','Discounting the positive','Labelling'],a:0,
+ why:'One bad experience is being used as a rule for every future group.',
+ tip:'Ask, "What was different about that one time? What could be different next time?"'},
+{id:20,k:'step',s:'Sarah feels overwhelmed by three assignments due on Friday.',
+ q:'Which next step is most helpful?',o:['Think about all three at once until she has a full plan','Break the first assignment into a small task she can start in ten minutes','Wait until Thursday when the pressure will help her focus','Tell herself she is bad at managing time'],a:1,
+ why:'Big tasks feel lighter when broken into one small first step. Starting reduces the overwhelm more than planning everything.',
+ tip:'Ask, "What is the smallest next step?" and do only that.'},
+{id:21,k:'trap',s:'Hakim did not get a reply from his crush. He thinks, "This proves nobody will ever like me."',
+ q:'Which thinking trap is this?',o:['Mind reading','Catastrophising','Comparing','Personalising'],a:1,
+ why:'One unanswered message is being stretched into a conclusion about his whole future.',
+ tip:'Notice the jump. Ask, "What does this one event really tell me?"'},
+{id:22,k:'balanced',s:'Wei was quiet in a tutorial and thinks the lecturer must think he is lazy.',
+ q:'Which thought is the most balanced?',o:['"The lecturer definitely thinks I\'m lazy."','"I don\'t know what the lecturer thinks. If I want to, I can ask a question next time."','"I\'m a bad student."','"I should drop this course."'],a:1,
+ why:'It separates what he knows from what he is guessing, and gives him something he can choose to do.',
+ tip:'Replace "they think" with "I don\'t know what they think".'},
+{id:23,k:'trap',s:'Alya thinks, "I felt lonely today, so I must be unlovable."',
+ q:'Which thinking trap is this?',o:['Emotional reasoning','Fortune telling','Should statements','Mental filter'],a:0,
+ why:'A painful feeling is being treated as proof of something about who she is. Loneliness is a feeling many people have, not a verdict.',
+ tip:'Name the feeling, "I feel lonely", without adding a conclusion after it.'},
+{id:24,k:'step',s:'Faiz notices he keeps replaying an argument with a friend late at night.',
+ q:'Which next step is most helpful?',o:['Keep replaying it until he finds the perfect answer','Write the thought down, then set a time tomorrow to decide what to do about it','Message the friend at 2 a.m. to argue again','Tell himself he is too sensitive'],a:1,
+ why:'Writing a worry down and scheduling it for later can stop the loop, so the mind does not have to keep holding it.',
+ tip:'Keep a "worry for tomorrow" note on your phone for thoughts that come at night.'},
+{id:25,k:'trap',s:'Tasha\'s parents argued at dinner. She thinks, "It\'s my fault they\'re upset."',
+ q:'Which thinking trap is this?',o:['Overgeneralising','Personalising','Labelling','Comparing'],a:1,
+ why:'She is taking responsibility for something between other people that she did not cause and cannot control.',
+ tip:'Ask, "Is this really about me, or am I standing near it?"'},
+{id:26,k:'balanced',s:'Rizal scored lower than his friend on a test.',
+ q:'Which thought is the most balanced?',o:['"My friend is just smarter than me."','"I\'m the dumbest in class."','"My friend did better this time. I can look at which questions I missed."','"There\'s no point studying."'],a:2,
+ why:'It accepts the result without ranking his worth, and turns it into something useful.',
+ tip:'Use a result as information, not as a grade on yourself.'},
+{id:27,k:'trap',s:'Nadia thinks, "If I don\'t get into my first-choice university, my whole life is ruined."',
+ q:'Which thinking trap is this?',o:['Mind reading','Catastrophising','Discounting the positive','Personalising'],a:1,
+ why:'One outcome is being treated as the end of everything, when there are many paths to a good life.',
+ tip:'Ask, "If this happened, how would I cope? Who could help?"'},
+{id:28,k:'step',s:'Kai has been feeling low and has not talked to anyone about it.',
+ q:'Which next step is most helpful?',o:['Keep it to himself so he does not bother anyone','Tell one person he trusts, even just a little','Wait for it to go away on its own','Search online for the worst possible explanation'],a:1,
+ why:'Sharing with one trusted person often makes a heavy feeling lighter. It also means he is not carrying it alone.',
+ tip:'A first message can be simple, like "Hey, can we talk for a bit?"'},
+{id:29,k:'trap',s:'Iman finished a big project but thinks, "Anyone could have done that. It wasn\'t a big deal."',
+ q:'Which thinking trap is this?',o:['Discounting the positive','Fortune telling','Overgeneralising','Should statements'],a:0,
+ why:'A real achievement is being shrunk until it does not count.',
+ tip:'Write down one thing you did well this week, and leave it there without adding "but".'},
+{id:30,k:'balanced',s:'Syafiq woke up late and missed his morning class.',
+ q:'Which thought is the most balanced?',o:['"The whole day is ruined now."','"I missed one class. I can get the notes and still use the rest of the day."','"I\'m so lazy."','"I always mess things up."'],a:1,
+ why:'It keeps one setback in proportion and moves on to what he can still do.',
+ tip:'One bad hour does not have to become one bad day.'}
+];
+
+/* Daily thinking check.
+
+   State lives on the device under lena_thinkcheck:
+     {day:'2026-10-31', id:12, done:false, seen:[...]}
+   Questions come in an order that is shuffled once per person, so two
+   friends do not see the same question on the same day, and nothing
+   repeats until all thirty have been seen. Option order is shuffled
+   each time, so the right answer is not always in the same place. */
+const TK_KEY='lena_thinkcheck';
+const TK_KIND={trap:'Spot the thinking trap',balanced:'Find the balanced thought',step:'Pick a helpful next step'};
+function tkToday(){const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
+function tkLoad(){try{return JSON.parse(localStorage.getItem(TK_KEY)||'null')||{};}catch(e){return {};}}
+function tkSave(st){try{localStorage.setItem(TK_KEY,JSON.stringify(st));}catch(e){}}
+function tkShuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));const t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function tkPick(st){
+  if(!Array.isArray(st.order)||st.order.length!==CBT_Q.length)st.order=tkShuffle(CBT_Q.map(function(q){return q.id;}));
+  if(!Array.isArray(st.seen))st.seen=[];
+  let next=st.order.find(function(id){return st.seen.indexOf(id)<0;});
+  if(next===undefined){st.seen=[];next=st.order[0];}
+  return next;
+}
+let tkCur=null;
+function openThinkCheck(manual){
+  const st=tkLoad();
+  let id;
+  if(manual){
+    // From Guided Tools: today's question if it is still open, otherwise
+    // the next one, so someone who wants more practice gets it.
+    id=(st.day===tkToday()&&!st.done)?st.id:tkPick(st);
+  }else{
+    id=tkPick(st);
+  }
+  st.day=tkToday();st.id=id;st.done=false;tkSave(st);
+  const q=CBT_Q.find(function(x){return x.id===id;});if(!q)return;
+  tkCur=q;
+  document.getElementById('tk-kind').textContent=TK_KIND[q.k]||'';
+  document.getElementById('tk-scene').textContent=q.s;
+  document.getElementById('tk-q').textContent=q.q;
+  const box=document.getElementById('tk-opts');box.innerHTML='';
+  tkShuffle(q.o.map(function(t,i){return i;})).forEach(function(i){
+    const b=document.createElement('button');
+    b.type='button';b.className='tk-opt';b.textContent=q.o[i];b.dataset.i=i;
+    b.onclick=function(){tkAnswer(i);};
+    box.appendChild(b);
+  });
+  const fb=document.getElementById('tk-fb');fb.style.display='none';fb.innerHTML='';
+  document.getElementById('tk-done').style.display='none';
+  document.getElementById('tk-later').style.display='';
+  document.getElementById('think-modal').classList.add('open');
+  setTimeout(function(){const f=box.querySelector('button');if(f)f.focus();},60);
+}
+function tkAnswer(i){
+  const q=tkCur;if(!q)return;
+  const right=i===q.a;
+  document.querySelectorAll('#tk-opts .tk-opt').forEach(function(b){
+    const bi=+b.dataset.i;b.disabled=true;
+    if(bi===q.a){b.classList.add('right');b.insertAdjacentHTML('beforeend','<span class="tk-mark" aria-hidden="true">✓</span>');b.setAttribute('aria-label',q.o[bi]+', the answer');}
+    if(bi===i)b.classList.add('picked');
+  });
+  const fb=document.getElementById('tk-fb');
+  fb.innerHTML='<div class="tk-fb-h"></div><div class="tk-fb-p"></div><div class="tk-tip"></div>';
+  fb.querySelector('.tk-fb-h').textContent=right?'Yes, that’s it.':'Close. It’s “'+q.o[q.a]+'”.';
+  fb.querySelector('.tk-fb-p').textContent=q.why;
+  fb.querySelector('.tk-tip').textContent='Try this: '+q.tip;
+  fb.style.display='block';
+  document.getElementById('tk-done').style.display='';
+  document.getElementById('tk-later').style.display='none';
+  const st=tkLoad();st.done=true;if(!Array.isArray(st.seen))st.seen=[];
+  if(st.seen.indexOf(q.id)<0)st.seen.push(q.id);tkSave(st);
+  setTimeout(function(){document.getElementById('tk-done').focus();},60);
+}
+function closeThinkCheck(){
+  const st=tkLoad();
+  // "Not today" counts as today's turn, so it does not pop up again
+  // until tomorrow. The question stays unanswered and comes back later.
+  st.day=tkToday();tkSave(st);
+  document.getElementById('think-modal').classList.remove('open');
+}
+// Pops up once a day, only once the app is actually on screen, and not
+// on a day the person has said is hard.
+function tkShouldShow(){
+  const st=tkLoad();
+  if(st.day===tkToday())return false;
+  let p;try{p=loadPrefs();}catch(e){return false;}
+  if(!p.quiz)return false;
+  let low=false;
+  try{
+    const t0=new Date();t0.setHours(0,0,0,0);
+    const today=loadMoods().filter(function(m){return m.t>=t0.getTime();});
+    if(today.length&&today[today.length-1].m<=2)low=true;
+  }catch(e){}
+  return !low;
+}
+(function tkWatch(){
+  let tries=0;
+  const timer=setInterval(function(){
+    tries++;
+    if(tries>1200){clearInterval(timer);return;}   // give up after ten minutes
+    let open=false;try{open=appIsOpen();}catch(e){}
+    if(!open)return;
+    if(document.querySelector('.mover.open'))return;  // never on top of another sheet
+    clearInterval(timer);
+    // a short pause after the app appears, so it does not feel like an ambush
+    setTimeout(function(){
+      if(document.querySelector('.mover.open'))return;
+      if(tkShouldShow())openThinkCheck(false);
+    },1500);
+  },500);
+})();
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'&&document.getElementById('think-modal').classList.contains('open'))closeThinkCheck();
+});
+
 </script>
 </body>
 </html>
