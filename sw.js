@@ -17,10 +17,10 @@
      /api/*                      network only; on failure a JSON error is
                                  returned so the app's existing error path
                                  runs instead of throwing
-     navigations                 stale-while-revalidate, so the app opens
-                                 instantly from cache, costs no data on a
-                                 repeat visit, and quietly updates itself
-                                 in the background for next time
+     navigations                 network first, so a new deploy shows on
+                                 the first open; the saved copy is used
+                                 when offline or when the network has not
+                                 answered within 3.5 seconds
      same-origin GET             cache first, then network
      cross-origin GET (fonts)    cache first, then network, failures ignored
 
@@ -29,7 +29,7 @@
    previous build. This is the one way a service worker commonly goes wrong.
    ────────────────────────────────────────────────────────────────────── */
 
-const CACHE_VERSION = 'v12';
+const CACHE_VERSION = 'v13';
 const CACHE = 'lena-' + CACHE_VERSION;
 
 // Everything needed for a cold, offline start.
@@ -116,19 +116,27 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Page loads. Serve the cached document immediately, refresh behind it.
+  // Page loads. Network first, so a deploy is visible straight away; the
+  // saved copy if offline or if the network is slow to answer.
   if (req.mode === 'navigate') {
     event.respondWith((async () => {
       const cache = await caches.open(CACHE);
-      const cached = await cache.match('/index.html');
 
       const network = fetch(req).then((resp) => {
         if (isCacheable(resp)) cache.put('/index.html', resp.clone());
         return resp;
       }).catch(() => null);
 
-      // Cached copy wins on speed. If there is none, wait for the network.
-      // If there is no network either, fall back to a plain offline notice.
+      const fresh = await Promise.race([
+        network,
+        new Promise((r) => setTimeout(() => r(null), 3500))
+      ]);
+      if (fresh && fresh.ok) return fresh;
+
+      // Slow or offline. Use the saved copy. If there is none yet, keep
+      // waiting for the network, and if that fails too, show a plain
+      // notice that still carries the crisis numbers.
+      const cached = await cache.match('/index.html');
       return cached || (await network) || new Response(
         '<!doctype html><meta charset="utf-8">' +
         '<meta name="viewport" content="width=device-width,initial-scale=1">' +
