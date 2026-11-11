@@ -270,6 +270,21 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 .tsw.on .tk{left:21px}
 .tsw.off .tk{left:2px}
 
+/* ══ ABOUT ═══════════════════════════════════════════════════════════ */
+.about-wrap{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.about-hero{display:flex;gap:16px;align-items:center;padding:22px;border-radius:var(--r2);border:1px solid var(--border2);
+  background:linear-gradient(135deg,rgba(43,184,154,.12),rgba(244,164,56,.07))}
+.about-hero img{width:64px;height:64px;border-radius:18px;flex:none}
+.about-hero h2{font-family:var(--ff-d);font-size:26px;color:var(--text);margin:0 0 4px;font-weight:400}
+.about-hero p{margin:0;font-size:14px;color:var(--text2);line-height:1.65}
+.about-card h3{font-size:15px;font-weight:700;color:var(--text);margin:0 0 8px;display:flex;align-items:center;gap:8px}
+.about-card p{font-size:13.5px;color:var(--text2);line-height:1.7;margin:0 0 8px}
+.about-card p:last-child{margin-bottom:0}
+.about-feats{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px;margin-top:4px}
+.about-feats div{display:flex;gap:9px;align-items:center;font-size:13px;color:var(--text);background:var(--bg3);border-radius:12px;padding:9px 11px}
+.about-not{border-color:rgba(224,92,110,.28)}
+.about-acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.about-ver{text-align:center;font-size:12px;color:var(--muted);padding:4px 0 10px}
 /* ══ GAMES ═══════════════════════════════════════════════════════════ */
 .games-wrap{max-width:680px;margin:0 auto}
 #sc-games .lp{--lp-card:var(--bg2);--lp-bg:var(--bg3)}
@@ -798,11 +813,12 @@ button:active:not(:disabled),[role="button"]:active,[role="switch"]:active,.scp:
 <div class="nav-link" id="nl-edu" onclick="go('edu')"><span class="ni">📚</span> Resources</div>
 <div class="nav-link" id="nl-crisis" onclick="go('crisis')"><span class="ni">🆘</span> Crisis Help</div>
 <div class="nav-link" id="nl-team" onclick="go('team')"><span class="ni">🌿</span> LENA's Team</div>
+<div class="nav-link" id="nl-about" onclick="go('about')"><span class="ni">ℹ️</span> About LENA</div>
 <div class="nav-section">Account</div>
 <div class="nav-link" id="nl-profile" onclick="go('profile')"><span class="ni">👤</span> Profile &amp; Settings</div>
 <div class="sidebar-footer">
 <button class="sos-btn" onclick="openSOS()">🆘 Emergency SOS</button>
-<div style="text-align:center;margin-top:10px;font-size:10px;color:var(--muted)">LENA v1.0 · IIUM KICT FYP 2025</div>
+<div style="text-align:center;margin-top:10px;font-size:10px;color:var(--muted)"><a onclick="go('about')" style="color:inherit;cursor:pointer;text-decoration:underline">LENA v1.0 · About</a> · IIUM KICT FYP 2025</div>
 </div>
 </aside>
 <!-- MAIN PANEL -->
@@ -1221,17 +1237,63 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 </div>
 </div><!-- end cbt-ex -->
 <!-- ══ BREATHE ══════════════════════════════════════════════════ -->
+<div class="screen" id="sc-about">
+<div class="about-wrap">
+<div class="about-hero">
+<img src="assets/LENA-logo.png" alt="" width="64" height="64" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+<div aria-hidden="true" style="display:none;width:64px;height:64px;border-radius:18px;flex:none;align-items:center;justify-content:center;font-size:32px;background:var(--bg3)">🌿</div>
+<div><h2>About LENA</h2><p>LENA is a mental wellness companion for young people in Malaysia. It helps you notice how you feel, practise skills that help, and find support when you need it.</p></div>
+</div>
+<div class="card about-card">
+<h3><span aria-hidden="true">🧭</span> What you can do here</h3>
+<div class="about-feats">
+<div><span aria-hidden="true">📊</span>Track your mood and sleep</div>
+<div><span aria-hidden="true">📋</span>Take PHQ-9 and DASS-21 screening</div>
+<div><span aria-hidden="true">💭</span>Practise guided tools</div>
+<div><span aria-hidden="true">🫁</span>Slow down with breathing</div>
+<div><span aria-hidden="true">📓</span>Write in a private journal</div>
+<div><span aria-hidden="true">🎮</span>Play calming and thinking games</div>
+<div><span aria-hidden="true">🎵</span>Listen to soundscapes</div>
+<div><span aria-hidden="true">📚</span>Read about mental health</div>
+<div class="isl-only"><span aria-hidden="true">🕌</span>Find faith-based reflections</div>
+<div><span aria-hidden="true">💬</span>Talk things through with LENA AI</div>
+</div>
+</div>
+<div class="card about-card about-not">
+<h3><span aria-hidden="true">⚠️</span> What LENA is not</h3>
+<p><strong>LENA does not diagnose.</strong> A screening result is a starting point for a talk with a doctor or counsellor. It is not a diagnosis.</p>
+<p><strong>LENA is not an emergency service.</strong> If you are in danger, or thinking about ending your life, call a helpline or go to the nearest emergency department now.</p>
+<p><strong>LENA AI is a computer program, not a person or a therapist.</strong> It can get things wrong. For anything serious, talk to someone you trust or a professional.</p>
+<div class="about-acts"><button class="btn-p" onclick="openSOS()" style="padding:10px 18px;font-size:13px">🆘 See helplines</button></div>
+</div>
+<div class="card about-card">
+<h3><span aria-hidden="true">🔒</span> Your data</h3>
+<p>What you log stays in this browser, on this device. Your mood, sleep, journal, screening results and safety plan are never uploaded.</p>
+<p>The one exception is the chat. Messages you send to LENA AI go to an AI service so it can write a reply.</p>
+<div class="about-acts"><button class="btn-g" onclick="openPrivacy()" style="padding:10px 18px;font-size:13px">See what is stored</button></div>
+</div>
+<div class="card about-card">
+<h3><span aria-hidden="true">🌿</span> Who made LENA</h3>
+<p>LENA was built by a research team at the Kulliyyah of Information and Communication Technology (KICT), International Islamic University Malaysia. A consultant psychiatrist is part of the team.</p>
+<div class="about-acts"><button class="btn-g" onclick="go('team')" style="padding:10px 18px;font-size:13px">Meet the team</button></div>
+</div>
+<div class="about-ver">LENA v1.0 · build 16 · IIUM KICT</div>
+</div>
+<div class="sp"></div>
+</div>
 <div class="screen" id="sc-games">
 <div class="games-wrap" id="games-root" aria-label="Games"></div>
 </div>
 <div class="screen" id="sc-breathe">
 <div class="rgrid rgrid-side" style="display:grid;grid-template-columns:1fr 360px;gap:24px;align-items:start">
 <div style="display:flex;flex-direction:column;align-items:center;gap:20px;padding:20px 0">
-<div onclick="toggleBreath()" style="position:relative;width:200px;height:200px;cursor:pointer">
+<div id="borb-wrap" onclick="toggleBreath()" style="position:relative;width:200px;height:200px;cursor:pointer;touch-action:none;-webkit-user-select:none;user-select:none">
 <div class="borb" id="borb" style="width:200px;height:200px"><div id="bphase" style="font-family:var(--ff-d);font-size:19px;color:var(--on-fill);text-align:center">Inhale</div></div>
 <div class="brng" style="position:absolute;inset:-14px"></div>
 </div>
 <div id="bcnt" style="font-size:56px;font-family:var(--ff-d);color:var(--primary-t);line-height:1">4</div>
+<div id="bdots" aria-hidden="true" style="display:none;gap:8px"></div>
+<div id="hold-live" class="sr-only" aria-live="polite"></div>
 <div id="bdesc-t" style="font-size:14px;color:var(--text2);text-align:center;max-width:320px;line-height:1.7">Breathe <strong>in</strong> for 4 → Hold 7 → <strong>Out</strong> for 8.<br/>Click the orb to begin.</div>
 <button id="bbtn" onclick="toggleBreath()" style="padding:14px 42px;border-radius:30px;border:none;background:linear-gradient(135deg,var(--fill),var(--fill2));color:var(--on-fill);font-family:var(--ff-b);font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 6px 20px var(--shadow);transition:all .2s">▶ Begin</button>
 </div>
@@ -1243,6 +1305,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <div id="btt2" onclick="setBT(this,'box')" style="padding:8px 15px;border-radius:20px;font-size:12px;font-weight:700;background:var(--bg3);color:var(--text2);cursor:pointer">Box Breathing</div>
 <div id="btt3" onclick="setBT(this,'deep')" style="padding:8px 15px;border-radius:20px;font-size:12px;font-weight:700;background:var(--bg3);color:var(--text2);cursor:pointer">Deep Calm</div>
 <div id="btt4" onclick="setBT(this,'coherent')" style="padding:8px 15px;border-radius:20px;font-size:12px;font-weight:700;background:var(--bg3);color:var(--text2);cursor:pointer">Coherent</div>
+<div id="btt5" onclick="setBT(this,'hold')" style="padding:8px 15px;border-radius:20px;font-size:12px;font-weight:700;background:var(--bg3);color:var(--text2);cursor:pointer">✋ Hold to breathe</div>
 </div>
 <div style="background:var(--bg3);border-radius:var(--r);padding:14px">
 <div id="btname" style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:5px">4-7-8 Technique</div>
@@ -1474,6 +1537,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 </div>
 <div class="pi" onclick="togglePref('checkin')"><span class="pi-ico">☀️</span><span class="pi-txt">Ask how I am when I open LENA</span><div class="tsw" id="tsw-checkin" onclick="event.stopPropagation();togglePref('checkin')"><div class="tk"></div></div></div>
 <div class="pi" onclick="togglePref('quiz')"><span class="pi-ico">🧠</span><span class="pi-txt">Daily thinking check when I open LENA</span><div class="tsw" id="tsw-quiz" onclick="event.stopPropagation();togglePref('quiz')"><div class="tk"></div></div></div>
+<div class="pi" onclick="go('about')"><span class="pi-ico">ℹ️</span><span class="pi-txt">About LENA</span><span class="pi-arr">›</span></div>
 <div class="pi" onclick="openPrivacy()"><span class="pi-ico">🔒</span><span class="pi-txt">Privacy &amp; Data</span><span class="pi-arr">›</span></div>
 <div class="pi" onclick="go('assess')"><span class="pi-ico">📋</span><span class="pi-txt">Screening History</span><span class="pi-arr">›</span></div>
 <div class="pi" onclick="exportData()"><span class="pi-ico">📊</span><span class="pi-txt">Export My Data</span><span class="pi-arr">›</span></div>
@@ -1805,13 +1869,13 @@ const SM={
   home:'sc-home',mood:'sc-mood',sleep:'sc-sleep','sleep-plan':'sc-sleep-plan',
   assess:'sc-assess',cbt:'sc-cbt','cbt-ex':'sc-cbt-ex',breathe:'sc-breathe',
   discover:'sc-discover',islamic:'sc-islamic',edu:'sc-edu',crisis:'sc-crisis',team:'sc-team',
-  chat:'sc-chat',journal:'sc-journal',profile:'sc-profile',games:'sc-games'
+  chat:'sc-chat',journal:'sc-journal',profile:'sc-profile',games:'sc-games',about:'sc-about'
 };
 const TITLES={
   home:'Home',mood:'Mood Tracker',sleep:'Sleep Tracker','sleep-plan':'Sleep Plan',
   assess:'Screening Test',cbt:'Guided Tools','cbt-ex':'Guided Tool',breathe:'Breathing Exercise',
   discover:'Soundscapes',islamic:'Islamic Reflections',edu:'Resources',crisis:'Crisis Help',team:"LENA's Team",
-  chat:'LENA AI Chat',journal:'Journal',profile:'Profile & Settings',games:'Games'
+  chat:'LENA AI Chat',journal:'Journal',profile:'Profile & Settings',games:'Games',about:'About LENA'
 };
 
 function go(id){
@@ -1827,6 +1891,7 @@ function go(id){
     chatSc.style.display='none';
   }
   if(id!=='cbt-ex'){try{gtClear();}catch(e){}}
+  if(id!=='breathe'){try{holdReset();}catch(e){}}
   if(id==='games'){setTimeout(()=>{try{startGames();}catch(e){}},0);}else{try{stopGames();}catch(e){}}
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   if(id==='assess')setTimeout(()=>{try{renderTrend();}catch(e){}},30);
@@ -2763,16 +2828,18 @@ function prevPage(){if(curPage>0){curPage--;renderReadPage();}}
 // BREATHING
 // ════════════════════════════════════════════════════
 let bActive=false,bTimer=null,bStep=0,bTech='478';
-const BT={'478':{n:'4-7-8',p:[{l:'Inhale',d:4},{l:'Hold',d:7},{l:'Exhale',d:8}],desc:'Developed by Dr. Andrew Weil. Activates the parasympathetic nervous system, reducing anxiety and promoting sleep onset within minutes.'},box:{n:'Box Breathing',p:[{l:'Inhale',d:4},{l:'Hold',d:4},{l:'Exhale',d:4},{l:'Hold',d:4}],desc:'Used by Navy SEALs. Regulates the autonomic nervous system and improves focus under pressure.'},deep:{n:'Deep Calm',p:[{l:'Inhale',d:5},{l:'Hold',d:2},{l:'Exhale',d:7}],desc:'The extended exhale activates the vagal brake, rapidly lowering heart rate.'},coherent:{n:'Coherent',p:[{l:'Inhale',d:5},{l:'Exhale',d:5}],desc:'5-6 breaths per minute synchronises heart rate variability, reducing anxiety.'}};
+const BT={'478':{n:'4-7-8',p:[{l:'Inhale',d:4},{l:'Hold',d:7},{l:'Exhale',d:8}],desc:'Developed by Dr. Andrew Weil. Activates the parasympathetic nervous system, reducing anxiety and promoting sleep onset within minutes.'},box:{n:'Box Breathing',p:[{l:'Inhale',d:4},{l:'Hold',d:4},{l:'Exhale',d:4},{l:'Hold',d:4}],desc:'Used by Navy SEALs. Regulates the autonomic nervous system and improves focus under pressure.'},hold:{n:'Hold to breathe',p:[{l:'Hold me',d:4}],desc:'You set the pace. Hold the orb while you breathe in, and let go to breathe out. A long, slow out-breath is what calms the body, so the out-breath here is longer than the in-breath.'},deep:{n:'Deep Calm',p:[{l:'Inhale',d:5},{l:'Hold',d:2},{l:'Exhale',d:7}],desc:'The extended exhale activates the vagal brake, rapidly lowering heart rate.'},coherent:{n:'Coherent',p:[{l:'Inhale',d:5},{l:'Exhale',d:5}],desc:'5-6 breaths per minute synchronises heart rate variability, reducing anxiety.'}};
 function setBT(el,key){
-  ['btt1','btt2','btt3','btt4'].forEach(id=>{
+  ['btt1','btt2','btt3','btt4','btt5'].forEach(id=>{
     const e=document.getElementById(id);
     if(e){e.style.background='var(--bg3)';e.style.color='var(--text2)';}
   });
   el.style.background='var(--primary)';el.style.color='#fff';
   // Stop any running session
   if(bActive){bActive=false;clearTimeout(bTimer);}
+  holdOff();
   bTech=key;bStep=0;
+  if(key==='hold'){holdOn();toast(BT.hold.n+' selected');return;}
   document.getElementById('bbtn').textContent='▶ Begin';
   const t=BT[key];
   document.getElementById('bphase').textContent=t.p[0].l;
@@ -2805,6 +2872,7 @@ function setBT(el,key){
   toast(t.n+' selected');
 }
 function toggleBreath(){
+  if(bTech==='hold')return;
   bActive=!bActive;
   document.getElementById('bbtn').textContent=bActive?'⏸ Pause':'▶ Begin';
   const borb=document.getElementById('borb');
@@ -2919,7 +2987,16 @@ const DATA_ITEMS=[
   {k:'lena_appearance', label:'Colour theme',           count:v=>1},
   {k:'lena_care_dismissed', label:'Support note hidden for now', count:v=>1},
   {k:'lena_sound_volume', label:'Sound volume', count:v=>1},
-  {k:'lena_thinkcheck', label:'Thinking check progress', count:v=>1}
+  {k:'lena_thinkcheck', label:'Thinking check progress', count:v=>1},
+  {k:'lena_pop_mode', label:'Game progress and scores', count:v=>1},
+  {k:'lena_pop_muted', label:'Game progress and scores', count:v=>1},
+  {k:'lena_pop_wrapsnd', label:'Game progress and scores', count:v=>1},
+  {k:'lena_pop_best', label:'Game progress and scores', count:v=>1},
+  {k:'lena_pop_best_round', label:'Game progress and scores', count:v=>1},
+  {k:'lena_pop_best_round_medium', label:'Game progress and scores', count:v=>1},
+  {k:'lena_hunt_best', label:'Game progress and scores', count:v=>1},
+  {k:'lena_court_case', label:'Game progress and scores', count:v=>1},
+  {k:'lena_reframe_n', label:'Game progress and scores', count:v=>1}
 ];
 function dataSummary(){
   const rows=[];
@@ -2930,6 +3007,7 @@ function dataSummary(){
     let n=1;
     try{const v=JSON.parse(raw);if(Array.isArray(v))n=v.length;}catch(e){}
     if(n===0)return;
+    if(rows.some(r=>r.label===it.label))return;
     rows.push({label:it.label,n:n,arr:(raw.charAt(0)==='[')});
   });
   return rows;
@@ -3331,6 +3409,7 @@ const SEARCH_INDEX=[
   {ico:'🌱',label:'Grounding 5-4-3-2-1',sub:'Guided tool',screen:'cbt',action:()=>startGT('ground')},
   {ico:'🚶',label:'Movement Break',sub:'Guided tool',screen:'cbt',action:()=>startGT('move')},
   {ico:'🫁',label:'Breathe',sub:'Breathing exercises',screen:'breathe'},
+  {ico:'✋',label:'Hold to breathe',sub:'Breathing · at your own pace',screen:'breathe',action:()=>{go('breathe');setTimeout(()=>setBT(document.getElementById('btt5'),'hold'),60);}},
   {ico:'🟣',label:'Pop-it',sub:'Game',screen:'games',action:()=>openGames('free')},
   {ico:'💭',label:'Thought Pop',sub:'Game · thinking traps',screen:'games',action:()=>openGames('thought')},
   {ico:'🔎',label:'Word Hunt',sub:'Game · thinking traps',screen:'games',action:()=>openGames('words')},
@@ -5275,6 +5354,105 @@ function startGames(){
 }
 function stopGames(){if(gamesHandle){try{gamesHandle.stop();}catch(e){}gamesHandle=null;}}
 function openGames(mode){gamesWant=mode||null;go('games');}
+</script>
+
+<script>
+/* ══ HOLD TO BREATHE ═══════════════════════════════════════════════════
+   Hold the orb while breathing in. After 4 seconds it says let go.
+   Let go and breathe out while it shrinks for 6 seconds. Six breaths.
+   It follows the hands rather than a clock, so a slow breather is never
+   rushed. Letting go before 1.5 seconds gently asks for a longer breath
+   and does not count. */
+const HOLD={IN:4000,OUT:6000,MIN:1500,TOTAL:6};
+let hold={on:false,state:'idle',n:0,t0:0,tick:null,end:null,cue:null};
+function holdEls(){return{wrap:document.getElementById('borb-wrap'),orb:document.getElementById('borb'),ring:document.querySelector('#sc-breathe .brng'),
+  ph:document.getElementById('bphase'),cnt:document.getElementById('bcnt'),desc:document.getElementById('bdesc-t'),btn:document.getElementById('bbtn'),
+  dots:document.getElementById('bdots'),live:document.getElementById('hold-live')};}
+function holdReduced(){try{return matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){return false;}}
+function holdScale(sc,ms){
+  const e=holdEls();
+  [e.orb,e.ring].forEach(x=>{if(!x)return;x.style.animation='none';x.style.transition=holdReduced()?'none':'transform '+ms+'ms '+(ms>1000?'ease-in-out':'ease-out');x.style.transform='scale('+sc+')';});
+}
+function holdSay(phase,count,desc){
+  const e=holdEls();e.ph.textContent=phase;e.cnt.textContent=count;if(desc!=null)e.desc.innerHTML=desc;
+  e.live.textContent=phase+(desc?'. '+desc.replace(/<[^>]+>/g,''):'');
+}
+function holdDots(){
+  const e=holdEls();e.dots.innerHTML='';
+  for(let i=0;i<HOLD.TOTAL;i++){const d=document.createElement('span');d.style.cssText='width:11px;height:11px;border-radius:50%;transition:background .4s;background:'+(i<hold.n?'var(--fill)':'var(--bg4)');e.dots.appendChild(d);}
+}
+function holdCount(ms,cb){
+  // the number ticks once a second; the cue itself is timed exactly
+  clearInterval(hold.tick);clearTimeout(hold.cue);let left=Math.ceil(ms/1000);holdEls().cnt.textContent=left;
+  hold.tick=setInterval(()=>{left--;holdEls().cnt.textContent=left>0?left:'';if(left<=0)clearInterval(hold.tick);},1000);
+  if(cb)hold.cue=setTimeout(()=>{clearInterval(hold.tick);holdEls().cnt.textContent='';cb();},ms);
+}
+function holdIdle(first){
+  hold.state='idle';holdScale(.8,600);
+  holdSay(first?'Hold me':'Next breath','',first
+    ?'Press and hold the orb while you breathe <strong>in</strong>. Let go when it says, and breathe <strong>out</strong> slowly.<br>Six breaths, at your own pace.'
+    :'Hold the orb again when you are ready.');
+}
+function holdOn(){
+  hold.on=true;hold.n=0;
+  const e=holdEls();
+  e.btn.style.display='none';e.dots.style.display='flex';
+  e.wrap.setAttribute('role','button');e.wrap.setAttribute('tabindex','0');
+  e.wrap.setAttribute('aria-label','Breathing orb. Press and hold to breathe in, let go to breathe out.');
+  document.getElementById('btname').textContent=BT.hold.n;
+  document.getElementById('btdesc-t').textContent=BT.hold.desc;
+  holdDots();holdIdle(true);
+}
+function holdReset(){
+  clearInterval(hold.tick);clearTimeout(hold.end);clearTimeout(hold.cue);
+  if(hold.on){hold.n=0;holdDots();holdIdle(true);}
+}
+function holdOff(){
+  if(!hold.on)return;
+  clearInterval(hold.tick);clearTimeout(hold.end);clearTimeout(hold.cue);hold.on=false;hold.state='idle';
+  const e=holdEls();
+  e.btn.style.display='';e.dots.style.display='none';
+  e.wrap.removeAttribute('aria-label');
+  [e.orb,e.ring].forEach(x=>{if(!x)return;x.style.animation='';x.style.transition='';x.style.transform='';});
+}
+function holdPress(){
+  if(!hold.on||hold.state==='in'||hold.state==='out')return;
+  if(hold.state==='done'){hold.n=0;holdDots();}
+  try{if(Actx.state==='suspended')Actx.resume();}catch(e){}
+  hold.state='in';hold.t0=Date.now();
+  holdScale(1.15,HOLD.IN);
+  holdSay('Breathe in','','Breathe in slowly. Keep holding the orb.');
+  holdCount(HOLD.IN,()=>{if(hold.state==='in'){holdSay('Let go','','Let go of the orb, and breathe out.');try{navigator.vibrate&&navigator.vibrate(15);}catch(e){}}});
+}
+function holdRelease(){
+  if(!hold.on||hold.state!=='in')return;
+  clearInterval(hold.tick);clearTimeout(hold.cue);
+  if(Date.now()-hold.t0<HOLD.MIN){
+    hold.state='idle';holdScale(.8,500);
+    holdSay('A little longer','','Try holding until the orb says <strong>let go</strong>. Slow is good.');
+    return;
+  }
+  hold.state='out';hold.n++;holdDots();
+  holdScale(.8,HOLD.OUT);
+  holdSay('Breathe out','','Breathe out slowly, a little longer than you breathed in.');
+  holdCount(HOLD.OUT);
+  hold.end=setTimeout(()=>{
+    if(hold.n>=HOLD.TOTAL){
+      hold.state='done';
+      holdSay('Well done','','Six slow breaths. Notice how your body feels now.<br>Hold the orb to go again.');
+    }else holdIdle(false);
+  },HOLD.OUT);
+}
+(function(){
+  const w=document.getElementById('borb-wrap');if(!w)return;
+  w.addEventListener('pointerdown',e=>{if(!hold.on)return;e.preventDefault();try{w.setPointerCapture(e.pointerId);}catch(x){}holdPress();});
+  ['pointerup','pointercancel'].forEach(t=>w.addEventListener(t,()=>{if(hold.on)holdRelease();}));
+  w.addEventListener('keydown',e=>{if(!hold.on||(e.key!==' '&&e.key!=='Enter'))return;e.preventDefault();e.stopPropagation();if(!e.repeat)holdPress();});
+  w.addEventListener('keyup',e=>{if(!hold.on||(e.key!==' '&&e.key!=='Enter'))return;e.preventDefault();holdRelease();});
+  w.addEventListener('contextmenu',e=>{if(hold.on)e.preventDefault();});
+  // a phone that switches apps mid-breath should not leave it stuck
+  document.addEventListener('visibilitychange',()=>{if(document.hidden&&hold.state==='in')holdRelease();});
+})();
 </script>
 </body>
 </html>
