@@ -270,6 +270,12 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 .tsw.on .tk{left:21px}
 .tsw.off .tk{left:2px}
 
+/* ══ GAMES ═══════════════════════════════════════════════════════════ */
+.games-wrap{max-width:680px;margin:0 auto}
+#sc-games .lp{--lp-card:var(--bg2);--lp-bg:var(--bg3)}
+.games-wait{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;min-height:320px;text-align:center;color:var(--text2);font-size:14px;line-height:1.6;padding:20px}
+.games-wait .gw-ico{font-size:40px}
+.games-home{background:linear-gradient(135deg,rgba(155,133,214,.14),rgba(226,143,168,.10))}
 /* ══ SEARCH ═══════════════════════════════════════════════════════════ */
 .search-bar{display:flex;align-items:center;gap:8px;background:var(--bg3);border:1.5px solid var(--border);border-radius:var(--r);padding:8px 12px;margin:10px 12px 4px;transition:border-color .2s}
 .search-bar:focus-within{border-color:var(--primary)}
@@ -784,6 +790,7 @@ button:active:not(:disabled),[role="button"]:active,[role="switch"]:active,.scp:
 <div class="nav-link" id="nl-assess" onclick="go('assess')"><span class="ni">📋</span> Screening Test</div>
 <div class="nav-link" id="nl-cbt" onclick="go('cbt')"><span class="ni">💭</span> Guided Tools</div>
 <div class="nav-link" id="nl-breathe" onclick="go('breathe')"><span class="ni">🫁</span> Breathe</div>
+<div class="nav-link" id="nl-games" onclick="go('games')"><span class="ni">🎮</span> Games</div>
 <div class="nav-link" id="nl-journal" onclick="go('journal')"><span class="ni">📓</span> Journal</div>
 <div class="nav-link isl-only" id="nl-islamic" onclick="go('islamic')"><span class="ni">🕌</span> Kerohanian</div>
 <div class="nav-section">Wellness</div>
@@ -886,6 +893,10 @@ button:active:not(:disabled),[role="button"]:active,[role="switch"]:active,.scp:
 <div class="feat-card fc-red" onclick="go('breathe')"><div class="fc-emoji">🫁</div><div class="fc-title">Breathe</div><div class="fc-sub">4-7-8 · Box · More</div></div>
 <div class="feat-card fc-gold" onclick="go('journal')"><div class="fc-emoji">📓</div><div class="fc-title">Journal</div><div class="fc-sub">Reflect &amp; record</div></div>
 <div class="feat-card fc-teal isl-only" onclick="go('islamic')"><div class="fc-emoji">🕌</div><div class="fc-title">Islamic Reflections</div><div class="fc-sub">Faith-based support</div></div>
+</div>
+<div class="res-card games-home fu fu3" onclick="go('games')" style="margin-bottom:22px">
+<div class="res-ico" style="background:rgba(155,133,214,.18)">🎮</div>
+<div style="flex:1"><div class="res-title">Pop &amp; think</div><div class="res-sub">Pop-it and bubble wrap to unwind, plus quick games that train your thinking</div><div class="res-meta">Play ›</div></div>
 </div>
 <!-- Islamic + Daily Discovery -->
 <div class="grid2 fu fu4">
@@ -1153,6 +1164,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <div>
 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px"><div class="cbt-cat act" data-cat="all" onclick="setCbtCat(this)">All</div><div class="cbt-cat" data-cat="grounding" onclick="setCbtCat(this)">Grounding</div><div class="cbt-cat" data-cat="movement" onclick="setCbtCat(this)">Movement</div><div class="cbt-cat" data-cat="relaxation" onclick="setCbtCat(this)">Relaxation</div><div class="cbt-cat" data-cat="islamic" onclick="setCbtCat(this)">Islamic</div></div>
 <div class="card gt-card" data-cat="all" onclick="openThinkCheck(true)" style="margin-bottom:12px;cursor:pointer"><div style="display:flex;align-items:center;gap:13px;margin-bottom:10px"><div style="width:44px;height:44px;border-radius:12px;background:rgba(139,157,195,.16);display:flex;align-items:center;justify-content:center;font-size:22px">🧠</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">Thinking check</div><div style="font-size:11px;color:var(--muted)">Thinking traps · 1 min</div></div><button class="btn-p" onclick="event.stopPropagation();openThinkCheck(true)" style="padding:8px 16px;font-size:12px">Start</button></div><div style="font-size:12px;color:var(--text2);line-height:1.6">One short question a day about the thinking traps everyone falls into, like turning one bad result into "I always fail". Spotting them is the first step to seeing things more fairly.</div></div>
+<div class="card gt-card" data-cat="all" onclick="openGames('think')" style="margin-bottom:12px;cursor:pointer"><div style="display:flex;align-items:center;gap:13px;margin-bottom:10px"><div style="width:44px;height:44px;border-radius:12px;background:rgba(155,133,214,.16);display:flex;align-items:center;justify-content:center;font-size:22px">🎮</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">Thinking games</div><div style="font-size:11px;color:var(--muted)">Thought Pop · Word Hunt · Evidence Court · Reframe</div></div><button class="btn-p" onclick="event.stopPropagation();openGames('think')" style="padding:8px 16px;font-size:12px">Play</button></div><div style="font-size:12px;color:var(--text2);line-height:1.6">Short games for the same skills. Spot thinking traps, check the facts behind a thought, and find a fairer way to say it.</div></div>
 <div class="card gt-card" data-cat="grounding" onclick="startGT('ground')" style="margin-bottom:12px;cursor:pointer"><div style="display:flex;align-items:center;gap:13px;margin-bottom:10px"><div style="width:44px;height:44px;border-radius:12px;background:rgba(52,191,138,.12);display:flex;align-items:center;justify-content:center;font-size:22px">🌱</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">Grounding 5-4-3-2-1</div><div style="font-size:11px;color:var(--muted)">Grounding · 3 min</div></div><button class="btn-p" onclick="event.stopPropagation();startGT('ground')" style="padding:8px 16px;font-size:12px">Start</button></div><div style="font-size:12px;color:var(--text2);line-height:1.6">Come back to the present by moving through your five senses, one at a time. Useful when anxiety spikes or things start to feel unreal.</div></div>
 <div class="card gt-card" data-cat="movement" onclick="startGT('move')" style="margin-bottom:12px;cursor:pointer"><div style="display:flex;align-items:center;gap:13px;margin-bottom:10px"><div style="width:44px;height:44px;border-radius:12px;background:rgba(244,164,56,.12);display:flex;align-items:center;justify-content:center;font-size:22px">🚶</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">Movement Break</div><div style="font-size:11px;color:var(--muted)">Movement · 4 min</div></div><button class="btn-p" onclick="event.stopPropagation();startGT('move')" style="padding:8px 16px;font-size:12px">Start</button></div><div style="font-size:12px;color:var(--text2);line-height:1.6">A short guided sequence of stretches and gentle movement. Physical activity shifts mood faster than thinking about mood does.</div></div>
 <div class="card gt-card" data-cat="relaxation" onclick="startGT('breathe')" style="margin-bottom:12px;cursor:pointer"><div style="display:flex;align-items:center;gap:13px;margin-bottom:10px"><div style="width:44px;height:44px;border-radius:12px;background:rgba(139,157,195,.12);display:flex;align-items:center;justify-content:center;font-size:22px">🌬</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">Deep Breathing</div><div style="font-size:11px;color:var(--muted)">Relaxation · 5 min</div></div><button class="btn-p" onclick="event.stopPropagation();startGT('breathe')" style="padding:8px 16px;font-size:12px">Start</button></div><div style="font-size:12px;color:var(--text2);line-height:1.6">4-7-8 breathing activates the parasympathetic nervous system for immediate anxiety relief.</div></div>
@@ -1209,6 +1221,9 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 </div>
 </div><!-- end cbt-ex -->
 <!-- ══ BREATHE ══════════════════════════════════════════════════ -->
+<div class="screen" id="sc-games">
+<div class="games-wrap" id="games-root" aria-label="Games"></div>
+</div>
 <div class="screen" id="sc-breathe">
 <div class="rgrid rgrid-side" style="display:grid;grid-template-columns:1fr 360px;gap:24px;align-items:start">
 <div style="display:flex;flex-direction:column;align-items:center;gap:20px;padding:20px 0">
@@ -1790,13 +1805,13 @@ const SM={
   home:'sc-home',mood:'sc-mood',sleep:'sc-sleep','sleep-plan':'sc-sleep-plan',
   assess:'sc-assess',cbt:'sc-cbt','cbt-ex':'sc-cbt-ex',breathe:'sc-breathe',
   discover:'sc-discover',islamic:'sc-islamic',edu:'sc-edu',crisis:'sc-crisis',team:'sc-team',
-  chat:'sc-chat',journal:'sc-journal',profile:'sc-profile'
+  chat:'sc-chat',journal:'sc-journal',profile:'sc-profile',games:'sc-games'
 };
 const TITLES={
   home:'Home',mood:'Mood Tracker',sleep:'Sleep Tracker','sleep-plan':'Sleep Plan',
   assess:'Screening Test',cbt:'Guided Tools','cbt-ex':'Guided Tool',breathe:'Breathing Exercise',
   discover:'Soundscapes',islamic:'Islamic Reflections',edu:'Resources',crisis:'Crisis Help',team:"LENA's Team",
-  chat:'LENA AI Chat',journal:'Journal',profile:'Profile & Settings'
+  chat:'LENA AI Chat',journal:'Journal',profile:'Profile & Settings',games:'Games'
 };
 
 function go(id){
@@ -1812,6 +1827,7 @@ function go(id){
     chatSc.style.display='none';
   }
   if(id!=='cbt-ex'){try{gtClear();}catch(e){}}
+  if(id==='games'){setTimeout(()=>{try{startGames();}catch(e){}},0);}else{try{stopGames();}catch(e){}}
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   if(id==='assess')setTimeout(()=>{try{renderTrend();}catch(e){}},30);
   if(id==='mood')setTimeout(()=>{try{renderMood();}catch(e){}},30);
@@ -3315,6 +3331,11 @@ const SEARCH_INDEX=[
   {ico:'🌱',label:'Grounding 5-4-3-2-1',sub:'Guided tool',screen:'cbt',action:()=>startGT('ground')},
   {ico:'🚶',label:'Movement Break',sub:'Guided tool',screen:'cbt',action:()=>startGT('move')},
   {ico:'🫁',label:'Breathe',sub:'Breathing exercises',screen:'breathe'},
+  {ico:'🟣',label:'Pop-it',sub:'Game',screen:'games',action:()=>openGames('free')},
+  {ico:'💭',label:'Thought Pop',sub:'Game · thinking traps',screen:'games',action:()=>openGames('thought')},
+  {ico:'🔎',label:'Word Hunt',sub:'Game · thinking traps',screen:'games',action:()=>openGames('words')},
+  {ico:'⚖️',label:'Evidence Court',sub:'Game · checking the facts',screen:'games',action:()=>openGames('court')},
+  {ico:'🧩',label:'Reframe Builder',sub:'Game · fairer thoughts',screen:'games',action:()=>openGames('reframe')},
   {ico:'🫁',label:'4-7-8 Breathing',sub:'Anxiety relief technique',screen:'breathe'},
   {ico:'🫁',label:'Box Breathing',sub:'Focus & calm technique',screen:'breathe'},
   {ico:'📓',label:'Journal',sub:'Daily reflections',screen:'journal'},
@@ -5214,6 +5235,46 @@ setInterval(function(){
     });
   }).observe(document.body,{subtree:true,attributes:true,attributeFilter:['class']});
 })();
+</script>
+
+<script>
+/* ══ GAMES ════════════════════════════════════════════════════════════
+   The game lives in assets/games.js and is fetched the first time the
+   Games screen opens, so it costs nothing for people who never play.
+   The service worker keeps it after that, so it works offline. */
+const GAMES_SRC='/assets/games.js?v=15';
+let gamesLoad=null, gamesHandle=null, gamesWant=null;
+function loadGames(){
+  if(window.LenaPop)return Promise.resolve();
+  if(gamesLoad)return gamesLoad;
+  gamesLoad=new Promise((ok,fail)=>{
+    const sc=document.createElement('script');sc.src=GAMES_SRC;sc.async=true;
+    sc.onload=()=>window.LenaPop?ok():fail(new Error('no game'));
+    sc.onerror=()=>{sc.remove();fail(new Error('load failed'));};
+    document.head.appendChild(sc);
+  }).catch(e=>{gamesLoad=null;throw e;});
+  return gamesLoad;
+}
+function gamesWait(html){const r=document.getElementById('games-root');if(r)r.innerHTML='<div class="games-wait">'+html+'</div>';}
+function startGames(){
+  const root=document.getElementById('games-root');if(!root)return;
+  if(gamesHandle){gamesHandle.stop();gamesHandle=null;}
+  if(!window.LenaPop)gamesWait('<div class="gw-ico" aria-hidden="true">🎮</div><div>Loading the games…</div>');
+  loadGames().then(()=>{
+    if(!document.getElementById('sc-games').classList.contains('active'))return;
+    let mode=gamesWant;gamesWant=null;
+    if(mode==='think'){
+      // the last thinking game played, or Thought Pop
+      let last=null;try{last=(JSON.parse(localStorage.getItem('lena_pop_mode')||'null')||{}).m;}catch(e){}
+      mode=['thought','words','court','reframe'].includes(last)?last:'thought';
+    }
+    gamesHandle=window.LenaPop.mount(root,{output:master,mode:mode||undefined});
+  }).catch(()=>{
+    gamesWait('<div class="gw-ico" aria-hidden="true">📶</div><div>The games need a connection the first time you open them.<br>After that they work offline.</div><button class="btn-p" onclick="startGames()" style="padding:10px 22px;font-size:13px">Try again</button>');
+  });
+}
+function stopGames(){if(gamesHandle){try{gamesHandle.stop();}catch(e){}gamesHandle=null;}}
+function openGames(mode){gamesWant=mode||null;go('games');}
 </script>
 </body>
 </html>
