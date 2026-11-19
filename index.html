@@ -686,6 +686,9 @@ button:active:not(:disabled),[role="button"]:active,[role="switch"]:active,.scp:
 .in-key{display:inline-block;min-width:20px;text-align:center;font-weight:700;color:var(--primary-t)}
 .in-note{margin-top:14px;font-size:12.5px;color:var(--text2);line-height:1.6;padding:10px 12px;border-radius:12px;background:var(--bg3)}
 .in-done{font-size:14px;color:var(--text);padding:16px;border-radius:14px;background:var(--bg3);line-height:1.6}
+.tc-quote{margin:10px 0 4px;padding:10px 14px;border-left:3px solid var(--primary);background:var(--bg3);border-radius:0 12px 12px 0;font-size:14px;color:var(--text);font-style:italic;line-height:1.5}
+.tc-quote span,.tc-ex span{display:block;font-style:normal;font-size:11px;font-weight:700;letter-spacing:.02em;color:var(--muted);margin-bottom:3px}
+.tc-ex{margin-top:10px;padding:10px 14px;border-radius:12px;border:1px dashed var(--border2);font-size:12.5px;color:var(--text2);line-height:1.55}
 
 @media (prefers-reduced-motion:reduce){
   .ls-scene *{animation:none!important}
@@ -696,6 +699,9 @@ button:active:not(:disabled),[role="button"]:active,[role="switch"]:active,.scp:
   button:active,[role="button"]:active,[role="switch"]:active,.scp:active,.mf:active,.kb-press,
   .feat-card:active,.res-card:active,.card-hover:active,.gt-card:active,.scard:active,.hlcard:active,.pi:active{transform:none!important;filter:brightness(.94)}
 }
+.ml-num{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--fill);color:var(--on-fill);font-size:11px;margin-right:6px;vertical-align:1px}
+.ml-sel{font-size:12px;color:var(--primary-t);font-weight:600;margin-top:10px;min-height:16px}
+.ml-tag:focus-visible{outline:3px solid var(--primary);outline-offset:2px}
 </style>
 </head>
 <body>
@@ -1265,8 +1271,8 @@ return {
 <div id="mood-screen-card" style="margin-bottom:16px"></div>
 <div class="grid2" style="margin-bottom:20px">
 <!-- Log mood -->
-<div style="background:linear-gradient(135deg,rgba(43,184,154,.12),rgba(244,164,56,.07));border:1px solid var(--border2);border-radius:var(--r2);padding:22px">
-<div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px">How are you feeling right now?</div>
+<div style="align-self:start;background:linear-gradient(135deg,rgba(43,184,154,.12),rgba(244,164,56,.07));border:1px solid var(--border2);border-radius:var(--r2);padding:22px">
+<div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px"><b class="ml-num">1</b> How are you feeling right now?</div>
 <div id="ml-date-note" style="font-size:11px;color:var(--muted);margin-bottom:14px"></div>
 <div style="display:flex;gap:14px;justify-content:space-around;margin-bottom:18px">
 <div onclick="pickMood(this,1)" class="ml-face" data-v="1" style="display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer"><div class="mf" style="width:46px;height:46px;font-size:24px">&#128542;</div><span style="font-size:11px;color:var(--muted)">Struggling</span></div>
@@ -1280,28 +1286,30 @@ return {
 <input aria-label="How strong is this feeling, 1 to 10" id="ml-intensity" max="10" min="1" oninput="updIntensity(this.value)" style="width:100%;accent-color:var(--primary)" type="range" value="4"/>
 <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:3px"><span>Mild</span><strong id="ml-intensity-lbl" style="color:var(--primary-t)">4</strong><span>Severe</span></div>
 </div>
-<div style="margin-bottom:12px">
-<div id="ml-prompt" style="font-size:12px;color:var(--muted);margin-bottom:7px">Anything you want to note? (optional)</div>
+</div>
+<!-- Symptoms -->
+<div class="card">
+<div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px"><b class="ml-num">2</b> What is part of this feeling? (optional)</div>
+<div style="font-size:12px;color:var(--text2);margin-bottom:14px;line-height:1.55">Tap anything that fits. These are saved with this mood. After about a week of entries, LENA shows which ones tend to come with your better or harder days, under Last 14 Days.</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
+<div onclick="toggleTag(this)" role="button" tabindex="0" aria-pressed="false" class="ml-tag" data-t="Anxious" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px">&#128560;</div><div style="font-size:11px;color:var(--text2);margin-top:3px">Anxious</div></div>
+<div onclick="toggleTag(this)" role="button" tabindex="0" aria-pressed="false" class="ml-tag" data-t="Tired" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px">&#128564;</div><div style="font-size:11px;color:var(--text2);margin-top:3px">Tired</div></div>
+<div onclick="toggleTag(this)" role="button" tabindex="0" aria-pressed="false" class="ml-tag" data-t="Irritable" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px">&#128548;</div><div style="font-size:11px;color:var(--text2);margin-top:3px">Irritable</div></div>
+<div onclick="toggleTag(this)" role="button" tabindex="0" aria-pressed="false" class="ml-tag" data-t="Grateful" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px">&#128522;</div><div style="font-size:11px;color:var(--text2);margin-top:3px">Grateful</div></div>
+<div onclick="toggleTag(this)" role="button" tabindex="0" aria-pressed="false" class="ml-tag" data-t="Overwhelmed" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px">&#129327;</div><div style="font-size:11px;color:var(--text2);margin-top:3px">Overwhelmed</div></div>
+<div onclick="toggleTag(this)" role="button" tabindex="0" aria-pressed="false" class="ml-tag" data-t="Motivated" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px">&#127775;</div><div style="font-size:11px;color:var(--text2);margin-top:3px">Motivated</div></div>
+<div onclick="toggleTag(this)" role="button" tabindex="0" aria-pressed="false" class="ml-tag" data-t="Sleep" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px">&#127762;</div><div style="font-size:11px;color:var(--text2);margin-top:3px">Sleep</div></div>
+<div onclick="toggleTag(this)" role="button" tabindex="0" aria-pressed="false" class="ml-tag" data-t="Study" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px">&#128218;</div><div style="font-size:11px;color:var(--text2);margin-top:3px">Study / Work</div></div>
+<div onclick="toggleTag(this)" role="button" tabindex="0" aria-pressed="false" class="ml-tag" data-t="Family" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px">&#127968;</div><div style="font-size:11px;color:var(--text2);margin-top:3px">Family</div></div>
+<div onclick="toggleTag(this)" role="button" tabindex="0" aria-pressed="false" class="ml-tag" data-t="Friends" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px">&#128101;</div><div style="font-size:11px;color:var(--text2);margin-top:3px">Friends</div></div>
+</div>
+<div id="ml-tags-sel" class="ml-sel" aria-live="polite"></div>
+<div style="margin-top:16px"><div style="margin-bottom:12px">
+<div id="ml-prompt" style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px"><b class="ml-num">3</b> Anything else to note? (optional)</div>
 <textarea aria-label="Mood note" id="ml-note" maxlength="500" oninput="updCount()" placeholder="A few words is enough..." style="width:100%;min-height:62px;resize:vertical;padding:10px 12px;border-radius:var(--r);border:1.5px solid var(--border);background:var(--card);color:var(--text);font-family:inherit;font-size:13px;line-height:1.5"></textarea>
 <div id="ml-count" style="text-align:right;font-size:10px;color:var(--muted);margin-top:3px"></div>
 </div>
 <button class="btn-p" onclick="logMood()" style="width:100%;padding:12px">Log Mood</button>
-</div>
-<!-- Symptoms -->
-<div class="card">
-<div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px">What's going on?</div>
-<div style="font-size:11px;color:var(--muted);margin-bottom:14px">Tap any that apply &mdash; helps spot patterns later</div>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
-<div onclick="toggleTag(this)" class="ml-tag" data-t="Anxious" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px">&#128560;</div><div style="font-size:11px;color:var(--text2);margin-top:3px">Anxious</div></div>
-<div onclick="toggleTag(this)" class="ml-tag" data-t="Tired" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px">&#128564;</div><div style="font-size:11px;color:var(--text2);margin-top:3px">Tired</div></div>
-<div onclick="toggleTag(this)" class="ml-tag" data-t="Irritable" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px">&#128548;</div><div style="font-size:11px;color:var(--text2);margin-top:3px">Irritable</div></div>
-<div onclick="toggleTag(this)" class="ml-tag" data-t="Grateful" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px">&#128522;</div><div style="font-size:11px;color:var(--text2);margin-top:3px">Grateful</div></div>
-<div onclick="toggleTag(this)" class="ml-tag" data-t="Overwhelmed" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px">&#129327;</div><div style="font-size:11px;color:var(--text2);margin-top:3px">Overwhelmed</div></div>
-<div onclick="toggleTag(this)" class="ml-tag" data-t="Motivated" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px">&#127775;</div><div style="font-size:11px;color:var(--text2);margin-top:3px">Motivated</div></div>
-<div onclick="toggleTag(this)" class="ml-tag" data-t="Sleep" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px">&#127762;</div><div style="font-size:11px;color:var(--text2);margin-top:3px">Sleep</div></div>
-<div onclick="toggleTag(this)" class="ml-tag" data-t="Study" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px">&#128218;</div><div style="font-size:11px;color:var(--text2);margin-top:3px">Study / Work</div></div>
-<div onclick="toggleTag(this)" class="ml-tag" data-t="Family" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px">&#127968;</div><div style="font-size:11px;color:var(--text2);margin-top:3px">Family</div></div>
-<div onclick="toggleTag(this)" class="ml-tag" data-t="Friends" style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .18s;text-align:center"><div style="font-size:20px">&#128101;</div><div style="font-size:11px;color:var(--text2);margin-top:3px">Friends</div></div>
 </div>
 </div>
 </div>
@@ -1599,7 +1607,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <p style="font-size:12px;color:var(--muted)">The sunset loading scene uses photos by Pietro De Grandi and Margo Evardson on Unsplash.</p>
 <div class="about-acts"><button class="btn-g" onclick="go('team')" style="padding:10px 18px;font-size:13px">Meet the team</button></div>
 </div>
-<div class="about-ver">LENA v1.0 · build 19 · IIUM KICT</div>
+<div class="about-ver">LENA v1.0 · build 20 · IIUM KICT</div>
 </div>
 <div class="sp"></div>
 </div>
@@ -1807,7 +1815,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 </div>
 <div class="card" style="margin-bottom:14px" id="tc-card">
 <div style="font-size:11px;font-weight:700;color:var(--accent-t);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">🧠 Thought check</div>
-<div id="tc-start"><div style="font-size:13.5px;color:var(--text2);line-height:1.6;margin-bottom:12px">Stuck on a thought? Untangle it in four short steps, then keep it in your journal.</div>
+<div id="tc-start"><div style="font-size:13.5px;color:var(--text2);line-height:1.6;margin-bottom:12px">Stuck on a thought that keeps coming back? Look at it again in three short steps, then keep it in your journal.</div>
 <button type="button" onclick="openThoughtCheck()" style="padding:9px 18px;border-radius:20px;background:var(--fill);color:var(--on-fill);border:none;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--ff-b)">Start a thought check</button></div>
 <div id="tc-area" style="display:none"><div id="tc-body"></div></div>
 </div>
@@ -2219,7 +2227,7 @@ const SM={
 const TITLES={
   home:'Home',mood:'Mood Tracker',sleep:'Sleep Tracker','sleep-plan':'Sleep Plan',
   assess:'Screening Test',cbt:'Guided Tools','cbt-ex':'Guided Tool',breathe:'Breathing Exercise',
-  discover:'Soundscapes',islamic:'Islamic Reflections',edu:'Resources',crisis:'Crisis Help',team:"LENA's Team",
+  discover:'Soundscapes',islamic:'Kerohanian',edu:'Resources',crisis:'Crisis Help',team:"LENA's Team",
   chat:'LENA AI Chat',journal:'Journal',profile:'Profile & Settings',games:'Games',about:'About LENA'
 };
 
@@ -2261,9 +2269,7 @@ function go(id){
   }
   // Update sidebar
   document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('act'));
-  // Islamic Reflections sits inside Resources now, so it lights that link.
-  const NAV_PARENT={islamic:'edu'};
-  const nl=document.getElementById('nl-'+(NAV_PARENT[id]||id));
+  const nl=document.getElementById('nl-'+id);
   if(nl)nl.classList.add('act');
   // Update title
   document.getElementById('page-title').textContent=TITLES[id]||'LENA';
@@ -3784,7 +3790,7 @@ const SEARCH_INDEX=[
   {ico:'🫁',label:'4-7-8 Breathing',sub:'Anxiety relief technique',screen:'breathe'},
   {ico:'🫁',label:'Box Breathing',sub:'Focus & calm technique',screen:'breathe'},
   {ico:'📓',label:'Journal',sub:'Daily reflections',screen:'journal'},
-  {ico:'🕌',label:'Islamic Reflections',sub:'In Resources \u00b7 Quran, dhikr & spiritual support',screen:'islamic'},
+  {ico:'🕌',label:'Kerohanian',sub:'Quran, dhikr and spiritual support',screen:'islamic'},
   {ico:'🎵',label:'Soundscapes',sub:'Ambient sounds for focus & sleep',screen:'discover'},
   {ico:'📚',label:'Resources',sub:'Psychoeducation articles & audio',screen:'edu'},
   {ico:'🆘',label:'Crisis Help',sub:'Emergency helplines & safety plan',screen:'crisis'},
@@ -3867,7 +3873,7 @@ function handleSearchClick(idx,e){
 // ASSESSMENTS
 // ════════════════════════════════════════════════════
 const AS={
-  phq9:{n:'PHQ-9',ins:'Over the last 2 weeks, how often have you been bothered by any of the following problems?',insMs:'Sepanjang 2 minggu yang lalu, berapa kerapkah anda diganggu oleh mana-mana masalah berikut?',opts:['Not at all','Several days','More than half the days','Nearly everyday'],optsMs:['Tidak sama sekali','Beberapa hari','Lebih separuh hari','Hampir setiap hari'],qs:['Little interest or pleasure in doing things','Feeling down, depressed or hopeless','Trouble falling or staying asleep, or sleeping too much','Feeling tired or having little energy','Poor appetite or overeating','Feeling bad about yourself \u2013 or that you are a failure or have let yourself or your family down','Trouble concentrating on things, such as reading the newspaper or watching television','Moving or speaking so slowly that people could have noticed? Or the opposite \u2013 being so fidgety or restless that you have been moving around a lot more than usual','Thoughts that you would be better off dead or of hurting yourself in some way'],qsMs:['Kurang berminat atau keseronokan dalam melakukan sesuatu perkara','Rasa sedih, tidak gembira, atau putus asa','Masalah untuk tidur atau tidur nyenyak atau tidur berlebihan','Rasa letih atau mempunyai sedikit tenaga','Kurang selera atau makan berlebihan','Rasa buruk mengenai diri anda \u2013 atau anda seorang yang gagal atau anda telah menyebabkan diri anda atau keluarga anda kecewa','Masalah untuk menumpukan perhatian ke atas sesuatu perkara seperti membaca surat khabar atau menonton televisyen','Bergerak atau bercakap terlalu perlahan sehingga orang lain perasan? Atau sebaliknya \u2013 menjadi sangat resah atau gelisah sehinggakan anda telah bergerak banyak daripada biasa','Memikirkan adalah lebih baik saja jika anda mati atau mencederakan diri sendiri dalam beberapa cara'],score(s){const t=s.reduce((a,b)=>a+b,0);if(t<=4)return{l:'Minimal Depression',c:'var(--green)',sev:'minimal',r:'PHQ-9: '+t+'/27',rec:'Minimal depressive symptoms. Maintain healthy habits and keep checking in with LENA.'};if(t<=9)return{l:'Mild Depression',c:'var(--amber)',sev:'mild',r:'PHQ-9: '+t+'/27',rec:'Mild symptoms. Regular movement, sleep and staying connected to people all help. LENA\'s guided tools can support this day to day.'};if(t<=14)return{l:'Moderate Depression',c:'var(--amber)',sev:'moderate',r:'PHQ-9: '+t+'/27',rec:'Speaking with a healthcare professional is recommended. They can talk through what would help in your situation.'};if(t<=19)return{l:'Moderately Severe Depression',c:'var(--red)',sev:'severe',r:'PHQ-9: '+t+'/27',rec:'Active treatment with a healthcare professional is recommended. Please arrange an appointment soon.'};return{l:'Severe Depression',c:'var(--red)',sev:'severe',r:'PHQ-9: '+t+'/27',rec:'Please seek professional help promptly. Contact a crisis line or hospital emergency if needed.'};}},
+  phq9:{n:'PHQ-9',ins:'Over the last 2 weeks, how often have you been bothered by any of the following problems?',insMs:'Sepanjang 2 minggu yang lalu, berapa kerapkah anda diganggu oleh mana-mana masalah berikut?',opts:['Not at all','Several days','More than half the days','Nearly everyday'],optsMs:['Tidak sama sekali','Beberapa hari','Lebih separuh hari','Hampir setiap hari'],qs:['Little interest or pleasure in doing things','Feeling down, depressed or hopeless','Trouble falling or staying asleep, or sleeping too much','Feeling tired or having little energy','Poor appetite or overeating','Feeling bad about yourself, or that you are a failure or have let yourself or your family down','Trouble concentrating on things, such as reading the newspaper or watching television','Moving or speaking so slowly that people could have noticed? Or the opposite, being so fidgety or restless that you have been moving around a lot more than usual','Thoughts that you would be better off dead or of hurting yourself in some way'],qsMs:['Kurang berminat atau keseronokan dalam melakukan sesuatu perkara','Rasa sedih, tidak gembira, atau putus asa','Masalah untuk tidur atau tidur nyenyak atau tidur berlebihan','Rasa letih atau mempunyai sedikit tenaga','Kurang selera atau makan berlebihan','Rasa buruk mengenai diri anda, atau anda seorang yang gagal atau anda telah menyebabkan diri anda atau keluarga anda kecewa','Masalah untuk menumpukan perhatian ke atas sesuatu perkara seperti membaca surat khabar atau menonton televisyen','Bergerak atau bercakap terlalu perlahan sehingga orang lain perasan? Atau sebaliknya, menjadi sangat resah atau gelisah sehinggakan anda telah bergerak banyak daripada biasa','Memikirkan adalah lebih baik saja jika anda mati atau mencederakan diri sendiri dalam beberapa cara'],score(s){const t=s.reduce((a,b)=>a+b,0);if(t<=4)return{l:'Minimal Depression',c:'var(--green)',sev:'minimal',r:'PHQ-9: '+t+'/27',rec:'Minimal depressive symptoms. Maintain healthy habits and keep checking in with LENA.'};if(t<=9)return{l:'Mild Depression',c:'var(--amber)',sev:'mild',r:'PHQ-9: '+t+'/27',rec:'Mild symptoms. Regular movement, sleep and staying connected to people all help. LENA\'s guided tools can support this day to day.'};if(t<=14)return{l:'Moderate Depression',c:'var(--amber)',sev:'moderate',r:'PHQ-9: '+t+'/27',rec:'Speaking with a healthcare professional is recommended. They can talk through what would help in your situation.'};if(t<=19)return{l:'Moderately Severe Depression',c:'var(--red)',sev:'severe',r:'PHQ-9: '+t+'/27',rec:'Active treatment with a healthcare professional is recommended. Please arrange an appointment soon.'};return{l:'Severe Depression',c:'var(--red)',sev:'severe',r:'PHQ-9: '+t+'/27',rec:'Please seek professional help promptly. Contact a crisis line or hospital emergency if needed.'};}},
   dass21:{n:'DASS-21',ins:'Please read each statement and select a number 0, 1, 2 or 3 that indicates how much the statement applied to you over the past week. There are no right or wrong answers. Do not spend too much time on any statement.',insMs:'Sila baca setiap kenyataan di bawah dan pilih jawapan 0, 1, 2 atau 3 bagi menggambarkan keadaan anda sepanjang minggu yang lalu. Tiada jawapan yang betul atau salah. Jangan mengambil masa yang terlalu lama untuk mana-mana kenyataan.',opts:['Did not apply to me at all','Applied to me to some degree, or some of the time','Applied to me to a considerable degree, good part of time','Applied to me very much, or most of the time'],optsMs:['Tidak langsung menggambarkan keadaan saya','Sedikit atau jarang-jarang menggambarkan keadaan saya','Banyak atau kerapkali menggambarkan keadaan saya','Sangat banyak atau sangat kerap menggambarkan keadaan saya'],qs:['I found it hard to wind down','I was aware of dryness of my mouth','I couldn\'t seem to experience any positive feeling at all','I experienced breathing difficulty (e.g. excessively rapid breathing, breathlessness in the absence of physical exertion)','I found it difficult to work up the initiative to do things','I tended to over-react to situations','I experienced trembling (e.g. in the hands)','I felt that I was using a lot of nervous energy','I was worried about situations in which I might panic and make a fool of myself','I felt that I had nothing to look forward to','I found myself getting agitated','I found it difficult to relax','I felt down-hearted and blue','I was intolerant of anything that kept me from getting on with what I was doing','I felt I was close to panic','I was unable to become enthusiastic about anything','I felt I wasn\'t worth much as a person','I felt that I was rather touchy','I was aware of the action of my heart in the absence of physical exertion (e.g. sense of heart rate increase, heart missing a beat)','I felt scared without any good reason','I felt that life was meaningless'],qsMs:['Saya dapati diri saya sukar ditenteramkan.','Saya sedar mulut saya terasa kering.','Saya tidak dapat mengalami perasaan positif sama sekali.','Saya mengalami kesukaran bernafas (contohnya pernafasan yang laju, tercungap-cungap walaupun tidak melakukan senaman fizikal).','Saya sukar untuk mendapatkan semangat bagi melakukan sesuatu perkara.','Saya cenderung untuk bertindak keterlaluan dalam sesuatu keadaan.','Saya rasa menggeletar (contohnya pada tangan).','Saya rasa saya menggunakan banyak tenaga dalam keadaan cemas.','Saya bimbang keadaan di mana saya mungkin menjadi panik dan melakukan perkara yang membodohkan diri sendiri.','Saya rasa saya tidak mempunyai apa-apa untuk diharapkan.','Saya dapati diri saya semakin gelisah.','Saya rasa sukar untuk relaks.','Saya rasa sedih dan murung.','Saya tidak dapat menahan sabar dengan perkara yang menghalang saya meneruskan apa yang saya lakukan.','Saya rasa hampir-hampir menjadi panik/cemas.','Saya tidak bersemangat dengan apa jua yang saya lakukan.','Saya rasa tidak begitu berharga sebagai seorang individu.','Saya rasa saya mudah tersentuh.','Saya sedar tindakbalas jantung saya walaupun tidak melakukan aktiviti fizikal (contohnya kadar denyutan jantung bertambah, atau denyutan jantung berkurangan).','Saya berasa takut tanpa sebab yang munasabah.','Saya rasa hidup ini tidak bermakna.'],score(s){const g=ix=>ix.map(i=>s[i]||0).reduce((a,b)=>a+b,0);const d=g([2,4,9,12,15,16,20]),a=g([1,3,6,8,14,18,19]),st=g([0,5,7,10,11,13,17]);const L=['Normal','Mild','Moderate','Severe','Extremely Severe'];const band=(v,c)=>{let i=0;while(i<4&&v>c[i])i++;return L[i];};const CD=[5,7,10,14],CA=[4,5,7,10],CS=[7,9,13,17];const dB=band(d,CD),aB=band(a,CA),sB=band(st,CS);const rk=x=>L.indexOf(x);const worst=Math.max(rk(dB),rk(aB),rk(sB));const col=['var(--green)','var(--amber)','var(--amber)','var(--red)','var(--red)'][worst];const sv=['minimal','mild','moderate','severe','severe'][worst];return{l:'DASS-21 Complete',c:col,sev:sv,r:'S:'+st+' A:'+a+' D:'+d,rec:'Stress '+st+'/21 ('+sB+') | Anxiety '+a+'/21 ('+aB+') | Depression '+d+'/21 ('+dB+').',sub:{stress:st,anxiety:a,depression:d,sB:sB,aB:aB,dB:dB},bars:[{l:'Stress - '+sB,p:Math.round(st/21*100),c:'#9C27B0'},{l:'Anxiety - '+aB,p:Math.round(a/21*100),c:'#FF9800'},{l:'Depression - '+dB,p:Math.round(d/21*100),c:'#F44336'}]};}},
 };
 
@@ -4105,7 +4111,7 @@ function renderTrend(){
   const lg=document.getElementById('trend-legend'), lt=document.getElementById('trend-latest');
   if(trendKey==='phq9'){
     lg.innerHTML=BANDS.phq9.lab.map((l,i)=>'<span><span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:'+BANDCOL[i].replace(/[\d.]+\)$/,'.55)')+';margin-right:5px"></span>'+l+'</span>').join('');
-    let msg='Latest: '+last.total+'/27 \u2014 '+last.band+' \u00b7 '+fmtD(last.t);
+    let msg='Latest: '+last.total+'/27, '+last.band+' \u00b7 '+fmtD(last.t);
     if(prev){const dl=last.total-prev.total;msg+=' ('+(dl===0?'unchanged':(dl>0?'up '+dl:'down '+Math.abs(dl)))+' since '+fmtD(prev.t)+').';}
     else{msg+='. Take it again to see how your score changes over time.';}
     lt.textContent=msg;
@@ -4113,7 +4119,7 @@ function renderTrend(){
     const S=BANDS.dass21.series.find(x=>x.k===trendSub);
     lg.innerHTML=BANDS.dass21.lab.map((l,i)=>'<span><span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:'+BANDCOL[i].replace(/[\d.]+\)$/,'.55)')+';margin-right:5px"></span>'+l+'</span>').join('');
     const bk={stress:'sB',anxiety:'aB',depression:'dB'}[trendSub];
-    let msg='Latest '+S.n.toLowerCase()+': '+last[trendSub]+'/21 \u2014 '+last[bk]+' \u00b7 '+fmtD(last.t);
+    let msg='Latest '+S.n.toLowerCase()+': '+last[trendSub]+'/21, '+last[bk]+' \u00b7 '+fmtD(last.t);
     if(prev){const dl=last[trendSub]-prev[trendSub];msg+=' ('+(dl===0?'unchanged':(dl>0?'up '+dl:'down '+Math.abs(dl)))+' since '+fmtD(prev.t)+').';}
     else{msg+='. Take it again to see how your score changes over time.';}
     lt.textContent=msg;
@@ -4213,6 +4219,12 @@ function toggleTag(el){
   const on=el.classList.contains('act');
   el.style.borderColor=on?'var(--primary)':'var(--border)';
   el.style.background=on?'rgba(43,184,154,.1)':'var(--card)';
+  el.setAttribute('aria-pressed',on?'true':'false');
+  mlSelNote();
+}
+function mlSelNote(){
+  const t=[...document.querySelectorAll('.ml-tag.act')].map(x=>x.dataset.t), b=document.getElementById('ml-tags-sel');
+  if(b)b.textContent=t.length?'Saved with this mood: '+t.join(', '):'';
 }
 function logMood(){
   if(!mlMood){toast('Pick how you\'re feeling first');return;}
@@ -4224,11 +4236,12 @@ function logMood(){
   // reset composer
   mlMood=null;
   document.querySelectorAll('.ml-face').forEach(c=>{c.querySelector('.mf')?.classList.remove('sel');const sp=c.querySelector('span');if(sp){sp.style.color='var(--muted)';sp.style.fontWeight='400';}});
-  document.querySelectorAll('.ml-tag.act').forEach(t=>{t.classList.remove('act');t.style.borderColor='var(--border)';t.style.background='var(--card)';});
+  document.querySelectorAll('.ml-tag.act').forEach(t=>{t.classList.remove('act');t.style.borderColor='var(--border)';t.style.background='var(--card)';t.setAttribute('aria-pressed','false');});
+  mlSelNote();
   const n=document.getElementById('ml-note'); if(n)n.value='';
   const iv2=document.getElementById('ml-intensity'); if(iv2){iv2.value=4;updIntensity(4);}
   updCount();
-  const p=document.getElementById('ml-prompt'); if(p)p.textContent='Anything you want to note? (optional)';
+  const p=document.getElementById('ml-prompt'); if(p)p.innerHTML='<b class="ml-num">3</b> Anything else to note? (optional)';
   renderMood();
 }
 function mTime(ts){const d=new Date(ts);return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');}
@@ -4283,7 +4296,7 @@ function renderMoodScreenCard(){
     '<div style="flex:1;min-width:200px">'+
       '<div style="font-size:13px;font-weight:700;color:var(--text)">Last screening \u00b7 '+nm+' '+val+'</div>'+
       '<div style="font-size:11px;color:var(--muted);margin-top:2px">'+esc(band)+' \u00b7 '+agoTxt(d)+
-        (stale?' \u2014 due for another':'')+'</div>'+
+        (stale?', due for another':'')+'</div>'+
     '</div>'+
     '<button class="btn-g" onclick="go(\'assess\')" style="padding:8px 15px;font-size:12px">'+
       (stale?'Take again':'View history')+' \u2192</button></div>';
@@ -4300,7 +4313,7 @@ function renderMood(){
     const t0=new Date();t0.setHours(0,0,0,0);const tt=t0.getTime();
     const c=all.filter(m=>{const d=new Date(m.t);d.setHours(0,0,0,0);return d.getTime()===tt;}).length;
     note.textContent=c===0?''
-      :c===1?'Logged once today. Log again any time your mood shifts \u2014 it will be kept separately.'
+      :c===1?'Logged once today. Log again any time your mood shifts. It will be kept separately.'
       :'Logged '+c+' times today. Every entry is kept.';
   }
 
@@ -6318,20 +6331,31 @@ window.printDocSummary=function(){
 };
 
 // ── Thought check, a guided journal entry ────────────────────────────
+// Three steps, thought first. The first version opened with "What
+// happened?", and a student wrote the thought there because to them it
+// felt like a fact; the next step then asked for the thought again. Now
+// step one is the thought itself, and the later steps show it back.
 const TC=[
-  {k:'sit',q:'What happened?',hint:'Just the facts, like a camera would see it.',ph:'e.g. My friend walked past me without saying hi.'},
-  {k:'th',q:'What went through your mind?',hint:'Write the thought the way it sounded in your head.',ph:'e.g. She is angry with me.',need:true},
-  {k:'fr',q:'If a friend had this thought, what would you tell them?',hint:'Think of what you know, not only what you fear.',ph:'e.g. She might not have seen you. She was in a hurry.'},
-  {k:'bal',q:'What is a fairer way to see it?',hint:'It does not have to be positive. Just closer to the whole picture.',ph:'e.g. I do not know why she did not say hi. I can ask her later.'}
+  {k:'th',q:'What is the thought?',
+   hint:'Write the sentence your mind keeps saying, the way it sounds in your head.',
+   ex:'Everyone in my class thinks I am annoying.',need:true},
+  {k:'fr',q:'Imagine your best friend said this to you.',
+   hint:'What would you say back to them? Think of what you actually know, not only what you are afraid of.',
+   ex:'Not everyone. Two people replied to you today, and Hana asked you to sit with her.'},
+  {k:'bal',q:'Now say it again, in a fairer way.',
+   hint:'It does not have to be positive. Just closer to the whole picture.',
+   ex:'Some people might find me annoying sometimes, but I do not really know what everyone thinks, and some people clearly like being with me.'}
 ];
 let tcStep=0, tcData={};
 function renderTC(){
   const box=document.getElementById('tc-body');if(!box)return;
-  const s=TC[tcStep];
+  const s=TC[tcStep], th=(tcData.th||'').trim();
   box.innerHTML='<div class="tc-prog" aria-hidden="true">'+TC.map((_,i)=>'<span class="'+(i<=tcStep?'on':'')+'"></span>').join('')+'</div>'+
     '<div class="tc-step">Step '+(tcStep+1)+' of '+TC.length+'</div>'+
+    (tcStep>0&&th?'<div class="tc-quote"><span>Your thought</span>"'+h(th)+'"</div>':'')+
     '<label class="tc-q" for="tc-in">'+s.q+'</label><div class="tc-hint">'+s.hint+'</div>'+
-    '<textarea id="tc-in" class="tc-in" maxlength="600" placeholder="'+h(s.ph)+'" oninput="tcKeep(this.value)">'+h(tcData[s.k]||'')+'</textarea>'+
+    '<textarea id="tc-in" class="tc-in" maxlength="600" oninput="tcKeep(this.value)">'+h(tcData[s.k]||'')+'</textarea>'+
+    '<div class="tc-ex"><span>'+(tcStep?'Example, for the thought "'+h(TC[0].ex)+'"':'Example')+'</span>'+h(s.ex)+'</div>'+
     '<div class="pl-acts">'+(tcStep?'<button type="button" class="btn-g" onclick="tcGo(-1)">Back</button>':'<button type="button" class="btn-g" onclick="closeThoughtCheck()">Cancel</button>')+
     (tcStep<TC.length-1?'<button type="button" class="btn-p" onclick="tcGo(1)">Next</button>':'<button type="button" class="btn-p" onclick="tcSave()">Save to journal ✓</button>')+'</div>';
 }
@@ -6354,13 +6378,12 @@ window.closeThoughtCheck=function(){
 };
 window.tcSave=function(){
   const v=k=>(tcData[k]||'').trim();
-  if(!v('th')){tcStep=1;renderTC();toast('Write the thought first, even a few words');return;}
+  if(!v('th')){tcStep=0;renderTC();toast('Write the thought first, even a few words');return;}
   let x='Thought check: "'+v('th')+'"';
-  if(v('sit'))x+='\n\nWhat happened: '+v('sit');
   if(v('fr'))x+='\n\nWhat I would tell a friend: '+v('fr');
   if(v('bal'))x+='\n\nA fairer way to see it: '+v('bal');
   const all=loadJournal();
-  all.push({id:Date.now(),t:Date.now(),m:'',tags:['Thought check'],x:x,tc:{sit:v('sit'),th:v('th'),fr:v('fr'),bal:v('bal')}});
+  all.push({id:Date.now(),t:Date.now(),m:'',tags:['Thought check'],x:x,tc:{th:v('th'),fr:v('fr'),bal:v('bal')}});
   while(all.length>400)all.shift();
   saveJournalAll(all);
   closeThoughtCheck();renderJournal();

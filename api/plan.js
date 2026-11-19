@@ -91,7 +91,7 @@ export function parsePlan(text, n) {
   const seen = new Set(order);
   if (seen.size !== n || order.some(k => !Number.isInteger(k) || k < 0 || k >= n)) return null;
   const why = Array.isArray(j.why) ? j.why : [];
-  return { order, why: order.map((_, i) => String(why[i] || '').replace(/\s+/g, ' ').trim().slice(0, 140)) };
+  return { order, why: order.map((_, i) => String(why[i] || '').replace(/\s+/g, ' ').replace(/(\d)\s*[\u2013\u2014]\s*(\d)/g, '$1 to $2').replace(/\s*[\u2013\u2014]\s*/g, ', ').trim().slice(0, 140)) };
 }
 
 export default async function handler(req, res) {
