@@ -29,7 +29,7 @@
    previous build. This is the one way a service worker commonly goes wrong.
    ────────────────────────────────────────────────────────────────────── */
 
-const CACHE_VERSION = 'v18';
+const CACHE_VERSION = 'v19';
 const CACHE = 'lena-' + CACHE_VERSION;
 
 // Everything needed for a cold, offline start.
@@ -45,6 +45,8 @@ const PRECACHE = [
   '/assets/LENA-logo.png',
   '/assets/loading/mountain.webp',
   '/assets/loading/mountain-wide.webp',
+  '/assets/loading/water-mask.png',
+  '/assets/loading/water-mask-wide.png',
   '/assets/loading/grass.webp',
   '/assets/loading/mark-dim.webp',
   '/assets/loading/mark-lit.webp',
