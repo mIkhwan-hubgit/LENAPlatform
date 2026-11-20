@@ -43,6 +43,9 @@ const PRECACHE = [
   '/apple-touch-icon.png',
   '/favicon-32.png',
   '/assets/LENA-logo.png',
+  // Quranic reflections content. Bump CACHE_VERSION whenever this file
+  // changes, or returning users keep the old verses.
+  '/assets/reflections.json',
   '/assets/loading/mountain.webp',
   '/assets/loading/mountain-wide.webp',
   '/assets/loading/water-mask.png',

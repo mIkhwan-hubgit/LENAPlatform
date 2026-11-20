@@ -1,0 +1,255 @@
+{
+  "version": 2,
+  "about": "Quranic reflections shown in LENA's Kerohanian section. Every entry starts as status 'draft'. Only a qualified reviewer changes it to 'reviewed' and fills in reviewed_by and reviewed_on. See REFLECTIONS-GUIDE.md. Tafsir summaries were checked against Tafsir Ibn Kathir (Abridged), Darussalam, as published on quran.com, on 2026-11-20. They are paraphrases, not quotations.",
+  "themes": [
+    {
+      "id": "hope",
+      "en": "Hope",
+      "ms": "Harapan",
+      "icon": "🌅"
+    },
+    {
+      "id": "calm",
+      "en": "Calm",
+      "ms": "Ketenangan",
+      "icon": "🌿"
+    },
+    {
+      "id": "far",
+      "en": "Feeling far from Allah",
+      "ms": "Rasa jauh dari Allah",
+      "icon": "🌙"
+    },
+    {
+      "id": "pressure",
+      "en": "When it feels like too much",
+      "ms": "Bila terasa terlalu berat",
+      "icon": "🪨"
+    },
+    {
+      "id": "sad",
+      "en": "Sadness and grief",
+      "ms": "Sedih dan duka",
+      "icon": "🤍"
+    },
+    {
+      "id": "afraid",
+      "en": "Worry and fear",
+      "ms": "Risau dan takut",
+      "icon": "🫧"
+    }
+  ],
+  "entries": [
+    {
+      "id": "94-5-6",
+      "ref": "94:5-6",
+      "surah_en": "Ash-Sharh",
+      "surah_ms": "Al-Insyirah",
+      "themes": [
+        "hope",
+        "pressure"
+      ],
+      "ar": "فَإِنَّ مَعَ الْعُسْرِ يُسْرًا ﴿٥﴾ إِنَّ مَعَ الْعُسْرِ يُسْرًا ﴿٦﴾",
+      "en": "For indeed, with hardship comes ease. Indeed, with hardship comes ease.",
+      "ms": "Maka sesungguhnya bersama kesukaran itu ada kemudahan. Sesungguhnya bersama kesukaran itu ada kemudahan.",
+      "translation_source": "Draft wording by the LENA team. Replace with an approved translation and name it here.",
+      "tafsir": [
+        {
+          "source": "Tafsir Ibn Kathir (Abridged)",
+          "en": "Ibn Kathir explains that Allah tells us that with hardship comes ease, and then repeats it to confirm it.",
+          "ms": "Ibn Kathir menerangkan bahawa Allah memberitahu bersama kesukaran ada kemudahan, kemudian mengulanginya untuk menguatkannya."
+        }
+      ],
+      "reflect_en": "Many people find it steadying that ease is spoken of as being with the hardship, not only after it. Was there anything, even something small, that stayed with you through this week?",
+      "reflect_ms": "Ramai orang rasa lebih tenang bila tahu kemudahan disebut bersama kesukaran, bukan selepasnya sahaja. Ada tak satu benda, walaupun kecil, yang ada dengan kau sepanjang minggu ni?",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "reviewer_note": "Summary checked against the abridged English (Darussalam). The full Arabic tafsir also discusses the saying 'one hardship will not overcome two eases'; add it only after checking the Arabic text."
+    },
+    {
+      "id": "13-28",
+      "ref": "13:28",
+      "surah_en": "Ar-Ra'd",
+      "surah_ms": "Ar-Ra'd",
+      "themes": [
+        "calm"
+      ],
+      "ar": "الَّذِينَ آمَنُوا وَتَطْمَئِنُّ قُلُوبُهُمْ بِذِكْرِ اللَّهِ ۗ أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ ﴿٢٨﴾",
+      "en": "Those who believe and whose hearts find rest in the remembrance of Allah. Surely, in the remembrance of Allah do hearts find rest.",
+      "ms": "Iaitu orang-orang yang beriman dan tenang hati mereka dengan mengingati Allah. Ketahuilah, dengan mengingati Allah, hati menjadi tenang.",
+      "translation_source": "Draft wording by the LENA team. Replace with an approved translation and name it here.",
+      "tafsir": [
+        {
+          "source": "Tafsir Ibn Kathir (Abridged)",
+          "en": "Ibn Kathir explains that the hearts of the believers become at ease, turn towards Allah, grow calm when He is remembered, and are content with Him as their Protector and Helper.",
+          "ms": "Ibn Kathir menerangkan bahawa hati orang beriman menjadi lapang, bersandar kepada Allah, tenang ketika Dia diingati, dan reda dengan-Nya sebagai Pelindung dan Penolong."
+        }
+      ],
+      "reflect_en": "For some people, a few quiet minutes of dhikr before sleep is what settles the mind. Some nights it will not feel calming, and that is not a measure of anyone's faith.",
+      "reflect_ms": "Bagi sesetengah orang, beberapa minit berzikir sebelum tidur yang buat fikiran reda. Ada malam ia tak rasa menenangkan, dan itu bukan ukuran iman sesiapa.",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "reviewer_note": "The reflection must not suggest that a heart which is not calm shows weak faith."
+    },
+    {
+      "id": "93-3",
+      "ref": "93:3",
+      "surah_en": "Ad-Duha",
+      "surah_ms": "Ad-Duha",
+      "themes": [
+        "far",
+        "hope"
+      ],
+      "ar": "مَا وَدَّعَكَ رَبُّكَ وَمَا قَلَىٰ ﴿٣﴾",
+      "en": "Your Lord has not forsaken you, nor has He become displeased.",
+      "ms": "Tuhanmu tidak meninggalkanmu dan tidak pula membencimu.",
+      "translation_source": "Draft wording by the LENA team. Replace with an approved translation and name it here.",
+      "tafsir": [
+        {
+          "source": "Tafsir Ibn Kathir (Abridged)",
+          "en": "Ibn Kathir cites the narration of Jundub ibn 'Abdullah al-Bajali, recorded by al-Bukhari, Muslim and others: the Prophet ﷺ was unwell and did not rise for night prayer for a night or two, a woman taunted him that he had been abandoned, and Allah revealed the opening verses of Ad-Duha.",
+          "ms": "Ibn Kathir memetik riwayat Jundub bin 'Abdullah al-Bajali, yang direkodkan oleh al-Bukhari, Muslim dan lain-lain: Nabi ﷺ tidak sihat dan tidak bangun solat malam selama satu atau dua malam, seorang perempuan mengejek baginda kononnya telah ditinggalkan, lalu Allah menurunkan ayat-ayat awal surah Ad-Duha."
+        }
+      ],
+      "reflect_en": "Even the Prophet ﷺ went through a stretch when others said he had been left alone. Feeling far away during a hard patch is something devout people have known for a very long time.",
+      "reflect_ms": "Nabi ﷺ sendiri pernah lalui satu tempoh bila orang lain kata baginda telah ditinggalkan. Rasa jauh masa susah ni perkara yang orang yang kuat agama pun dah lama kenal.",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "reviewer_note": "The verse addresses the Prophet ﷺ. Confirm the reviewer is comfortable presenting it as comfort for users, and that the reflection speaks about people rather than about what Allah is doing in the user's life."
+    },
+    {
+      "id": "2-286a",
+      "ref": "2:286 (opening)",
+      "surah_en": "Al-Baqarah",
+      "surah_ms": "Al-Baqarah",
+      "themes": [
+        "pressure"
+      ],
+      "ar": "لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا",
+      "en": "Allah does not burden a soul beyond what it can bear.",
+      "ms": "Allah tidak membebani seseorang melainkan sesuai dengan kesanggupannya.",
+      "translation_source": "Draft wording by the LENA team. Replace with an approved translation and name it here.",
+      "tafsir": [
+        {
+          "source": "Tafsir Ibn Kathir (Abridged)",
+          "en": "Ibn Kathir explains that Allah does not ask of anyone what is beyond their ability, and that this shows His kindness, compassion and generosity towards His creation.",
+          "ms": "Ibn Kathir menerangkan bahawa Allah tidak menuntut seseorang melebihi kemampuannya, dan ini menunjukkan kebaikan, belas kasihan dan kemurahan-Nya terhadap makhluk."
+        }
+      ],
+      "reflect_en": "Carrying something within your capacity does not mean carrying it alone. Who is one person you could share a little of it with?",
+      "reflect_ms": "Memikul sesuatu yang kau mampu tak bermaksud kena pikul seorang diri. Siapa satu orang yang kau boleh kongsi sikit dengan dia?",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "reviewer_note": "This verse is often quoted to tell struggling people 'so you can handle it'. Make sure nothing here reads that way."
+    },
+    {
+      "id": "12-86",
+      "ref": "12:86",
+      "surah_en": "Yusuf",
+      "surah_ms": "Yusuf",
+      "themes": [
+        "sad"
+      ],
+      "ar": "قَالَ إِنَّمَا أَشْكُو بَثِّي وَحُزْنِي إِلَى اللَّهِ وَأَعْلَمُ مِنَ اللَّهِ مَا لَا تَعْلَمُونَ ﴿٨٦﴾",
+      "en": "He said, \"I only complain of my anguish and my grief to Allah, and I know from Allah what you do not know.\"",
+      "ms": "Dia berkata, \"Sesungguhnya aku hanya mengadukan kesusahan dan kesedihanku kepada Allah, dan aku mengetahui daripada Allah apa yang kamu tidak ketahui.\"",
+      "translation_source": "Draft wording by the LENA team. Replace with an approved translation and name it here.",
+      "tafsir": [
+        {
+          "source": "Tafsir Ibn Kathir (Abridged)",
+          "en": "Ibn Kathir explains that Yaqub said this when his sons told him he would waste away from remembering Yusuf. He took his grief to Allah, and by 'I know from Allah what you do not know' he meant that he still hoped for every good from Allah.",
+          "ms": "Ibn Kathir menerangkan bahawa Yaakub berkata begini apabila anak-anaknya berkata dia akan binasa kerana terus mengingati Yusuf. Dia membawa kesedihannya kepada Allah, dan dengan 'aku mengetahui daripada Allah apa yang kamu tidak ketahui' dia maksudkan bahawa dia masih mengharapkan segala kebaikan daripada Allah."
+        }
+      ],
+      "reflect_en": "Yaqub was a prophet, he grieved for years, and he said so out loud. Deep sadness is not a sign that faith has gone missing. Bringing it to Allah and telling a person you trust can go side by side.",
+      "reflect_ms": "Yaakub seorang nabi, dia bersedih bertahun-tahun, dan dia tak sembunyikan. Sedih yang dalam bukan tanda iman dah hilang. Mengadu kepada Allah dan bercerita dengan orang yang kau percaya boleh jalan seiring.",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "reviewer_note": "'To Allah, not to you' can be read as 'don't tell people how you feel'. Make sure the entry does not say that, since LENA encourages reaching out."
+    },
+    {
+      "id": "9-40",
+      "ref": "9:40 (part)",
+      "surah_en": "At-Tawbah",
+      "surah_ms": "At-Taubah",
+      "themes": [
+        "afraid"
+      ],
+      "ar": "إِذْ هُمَا فِي الْغَارِ إِذْ يَقُولُ لِصَاحِبِهِ لَا تَحْزَنْ إِنَّ اللَّهَ مَعَنَا",
+      "en": "When the two of them were in the cave, and he said to his companion, \"Do not grieve, Allah is with us.\"",
+      "ms": "Ketika mereka berdua berada di dalam gua, dan dia berkata kepada sahabatnya, \"Janganlah engkau bersedih, sesungguhnya Allah bersama kita.\"",
+      "translation_source": "Draft wording by the LENA team. Replace with an approved translation and name it here.",
+      "tafsir": [
+        {
+          "source": "Tafsir Ibn Kathir (Abridged)",
+          "en": "Ibn Kathir cites the report from Anas, recorded by Imam Ahmad and in al-Bukhari and Muslim, that Abu Bakr said in the cave, during the Hijrah, that if one of the men searching looked down at his feet he would see them, and the Prophet ﷺ replied, \"What do you think of two, when Allah is the third of them?\"",
+          "ms": "Ibn Kathir memetik riwayat daripada Anas, yang direkodkan oleh Imam Ahmad serta al-Bukhari dan Muslim, bahawa Abu Bakar berkata di dalam gua semasa Hijrah, jika salah seorang yang mencari mereka melihat ke bawah kakinya, pasti dia nampak mereka, lalu Nabi ﷺ menjawab, \"Apa sangkaanmu terhadap dua orang, sedangkan Allah yang ketiganya?\""
+        }
+      ],
+      "reflect_en": "Abu Bakr was frightened while sitting right beside the Prophet ﷺ, and what he was given was company, not a telling-off. Being afraid does not make someone a weak believer.",
+      "reflect_ms": "Abu Bakar takut walaupun duduk betul-betul sebelah Nabi ﷺ, dan apa yang dia dapat ialah teman, bukan teguran. Rasa takut tak menjadikan seseorang itu lemah iman.",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "reviewer_note": "'La tahzan' can sound like an order not to feel sad. Check the reflection keeps the focus on companionship."
+    },
+    {
+      "id": "2-186",
+      "ref": "2:186",
+      "surah_en": "Al-Baqarah",
+      "surah_ms": "Al-Baqarah",
+      "themes": [
+        "far"
+      ],
+      "ar": "وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ ۖ أُجِيبُ دَعْوَةَ الدَّاعِ إِذَا دَعَانِ ۖ فَلْيَسْتَجِيبُوا لِي وَلْيُؤْمِنُوا بِي لَعَلَّهُمْ يَرْشُدُونَ ﴿١٨٦﴾",
+      "en": "And when My servants ask you about Me, I am near. I respond to the call of the one who calls when he calls upon Me. So let them respond to Me and believe in Me, so that they may be rightly guided.",
+      "ms": "Dan apabila hamba-hamba-Ku bertanya kepadamu tentang Aku, maka sesungguhnya Aku dekat. Aku memperkenankan permohonan orang yang berdoa apabila dia berdoa kepada-Ku. Maka hendaklah mereka menyahut seruan-Ku dan beriman kepada-Ku, supaya mereka mendapat petunjuk.",
+      "translation_source": "Draft wording by the LENA team. Replace with an approved translation and name it here.",
+      "tafsir": [
+        {
+          "source": "Tafsir Ibn Kathir (Abridged)",
+          "en": "Ibn Kathir records a narration that a Bedouin asked the Prophet ﷺ whether their Lord was near, so they could speak to Him quietly, or far, so they should call out to Him, and that this verse was revealed in answer.",
+          "ms": "Ibn Kathir merekodkan satu riwayat bahawa seorang Arab badwi bertanya kepada Nabi ﷺ sama ada Tuhan mereka dekat sehingga mereka boleh bermunajat perlahan-lahan, atau jauh sehingga mereka perlu menyeru dengan kuat, lalu ayat ini diturunkan sebagai jawapan."
+        }
+      ],
+      "reflect_en": "Many people come back to this verse on nights when they feel far away. Du'a does not need special words. Your own words, in any language, are enough to start with.",
+      "reflect_ms": "Ramai orang kembali kepada ayat ni pada malam-malam mereka rasa jauh. Doa tak perlukan perkataan khas. Ayat kau sendiri, dalam bahasa apa pun, dah cukup untuk mula.",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "reviewer_note": "The Bedouin narration is attributed to Ibn Kathir in Ma'arif al-Qur'an; confirm it in Ibn Kathir himself and check its chain. The reflection must not promise that a prayer will be answered in a particular way or by a particular time."
+    },
+    {
+      "id": "20-25-28",
+      "ref": "20:25-28",
+      "surah_en": "Ta Ha",
+      "surah_ms": "Taha",
+      "themes": [
+        "afraid",
+        "pressure"
+      ],
+      "ar": "قَالَ رَبِّ اشْرَحْ لِي صَدْرِي ﴿٢٥﴾ وَيَسِّرْ لِي أَمْرِي ﴿٢٦﴾ وَاحْلُلْ عُقْدَةً مِنْ لِسَانِي ﴿٢٧﴾ يَفْقَهُوا قَوْلِي ﴿٢٨﴾",
+      "en": "He said, \"My Lord, open up my chest for me, make my task easy for me, and untie the knot from my tongue, so that they may understand what I say.\"",
+      "ms": "Dia berkata, \"Wahai Tuhanku, lapangkanlah dadaku, mudahkanlah urusanku, dan lepaskanlah kekelua lidahku, supaya mereka faham perkataanku.\"",
+      "translation_source": "Draft wording by the LENA team. Replace with an approved translation and name it here.",
+      "tafsir": [
+        {
+          "source": "Tafsir Ibn Kathir (Abridged)",
+          "en": "Ibn Kathir explains that Musa asked for this when he was commanded to go to Pharaoh, a heavy task. He asked Allah to open his chest and ease his task, and to loosen the difficulty in his speech so that he would be understood.",
+          "ms": "Ibn Kathir menerangkan bahawa Musa memohon begini apabila dia diperintahkan pergi kepada Firaun, satu tugas yang berat. Dia memohon Allah melapangkan dadanya dan memudahkan urusannya, serta melepaskan kesukaran dalam percakapannya supaya dia difahami."
+        }
+      ],
+      "reflect_en": "Musa asked for this just before the hardest conversation of his life, and he was open that he struggled to speak. Some students say it quietly before an exam, a presentation or a difficult talk.",
+      "reflect_ms": "Musa minta ni sebelum perbualan paling berat dalam hidupnya, dan dia berterus terang yang dia susah nak bercakap. Ada pelajar yang baca perlahan-lahan sebelum exam, presentation atau perbualan yang susah.",
+      "status": "draft",
+      "reviewed_by": null,
+      "reviewed_on": null,
+      "reviewer_note": "Confirm the Malay rendering of 'uqdah min lisani' and that presenting this as a du'a before exams is acceptable."
+    }
+  ]
+}
