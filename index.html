@@ -734,9 +734,28 @@ button:active:not(:disabled),[role="button"]:active,[role="switch"]:active,.scp:
 @media (prefers-reduced-motion:reduce){
   .screen.active > *,.screen.active > .grid2 > *,.screen.active > .grid3 > *{animation:none!important}
 }
+/* icons (v23) */
+.ic{width:1em;height:1em;display:inline-block;vertical-align:-.15em;flex:none}
+.nav-link .ni{display:inline-flex;align-items:center;justify-content:center;color:var(--primary-t)}
+.nav-link .ni .ic{width:21px;height:21px}
+.nav-link:not(.act) .ni{opacity:.82}
+.fc-emoji .ic{width:34px;height:34px;color:var(--primary-t)}
+.fc-teal .fc-emoji .ic{color:#16756B}.fc-lav .fc-emoji .ic{color:#6A4A9E}.fc-blue .fc-emoji .ic{color:#2D5C99}
+.fc-gold .fc-emoji .ic{color:#99600F}.fc-grn .fc-emoji .ic{color:#24734A}.fc-red .fc-emoji .ic{color:#A93545}
+[data-theme=dark] .fc-emoji .ic{color:var(--primary-t)!important}
+.res-ico .ic{width:26px;height:26px;color:var(--primary-t)}
+.pi-ico{display:inline-flex}.pi-ico .ic{width:22px;height:22px;color:var(--primary-t)}
+.sos-btn .ic-sos{width:17px;height:17px;vertical-align:-3px;margin-right:2px}
+.refl-lang{display:inline-flex;border:1px solid var(--border2);border-radius:999px;overflow:hidden;margin:0 0 14px}
+.refl-lang button{border:0;background:transparent;color:var(--text2);font:inherit;font-size:12.5px;font-weight:700;padding:8px 16px;min-height:38px;cursor:pointer}
+.refl-lang button[aria-pressed="true"]{background:var(--fill);color:var(--on-fill)}
+.refl-lang button:focus-visible{outline:3px solid var(--primary);outline-offset:-3px}
 </style>
 </head>
 <body>
+<!-- Icons: Phosphor duotone (MIT), inlined once and reused -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="ph-books" viewBox="0 0 256 256" fill="currentColor"><path d="M48,72h64V184H48ZM190.64,38.39a8,8,0,0,0-9.5-6.21l-46.81,10a8.07,8.07,0,0,0-6.15,9.57L139.79,107l62.46-13.42Z" opacity="0.2"/><path d="M231.65,194.55,198.46,36.75a16,16,0,0,0-19-12.39L132.65,34.42a16.08,16.08,0,0,0-12.3,19l33.19,157.8A16,16,0,0,0,169.16,224a16.25,16.25,0,0,0,3.38-.36l46.81-10.06A16.09,16.09,0,0,0,231.65,194.55ZM136,50.15c0-.06,0-.09,0-.09l46.8-10,3.33,15.87L139.33,66Zm6.62,31.47,46.82-10.05,3.34,15.9L146,97.53Zm6.64,31.57,46.82-10.06,13.3,63.24-46.82,10.06ZM216,197.94l-46.8,10-3.33-15.87L212.67,182,216,197.85C216,197.91,216,197.94,216,197.94ZM104,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V48A16,16,0,0,0,104,32ZM56,48h48V64H56Zm0,32h48v96H56Zm48,128H56V192h48v16Z"/></symbol><symbol id="ph-brain" viewBox="0 0 256 256" fill="currentColor"><path d="M240,124a48,48,0,0,1-32,45.27h0V176a40,40,0,0,1-80,0,40,40,0,0,1-80,0v-6.73h0a48,48,0,0,1,0-90.54V72a40,40,0,0,1,80,0,40,40,0,0,1,80,0v6.73A48,48,0,0,1,240,124Z" opacity="0.2"/><path d="M248,124a56.11,56.11,0,0,0-32-50.61V72a48,48,0,0,0-88-26.49A48,48,0,0,0,40,72v1.39a56,56,0,0,0,0,101.2V176a48,48,0,0,0,88,26.49A48,48,0,0,0,216,176v-1.41A56.09,56.09,0,0,0,248,124ZM88,208a32,32,0,0,1-31.81-28.56A55.87,55.87,0,0,0,64,180h8a8,8,0,0,0,0-16H64A40,40,0,0,1,50.67,86.27,8,8,0,0,0,56,78.73V72a32,32,0,0,1,64,0v68.26A47.8,47.8,0,0,0,88,128a8,8,0,0,0,0,16,32,32,0,0,1,0,64Zm104-44h-8a8,8,0,0,0,0,16h8a55.87,55.87,0,0,0,7.81-.56A32,32,0,1,1,168,144a8,8,0,0,0,0-16,47.8,47.8,0,0,0-32,12.26V72a32,32,0,0,1,64,0v6.73a8,8,0,0,0,5.33,7.54A40,40,0,0,1,192,164Zm16-52a8,8,0,0,1-8,8h-4a36,36,0,0,1-36-36V80a8,8,0,0,1,16,0v4a20,20,0,0,0,20,20h4A8,8,0,0,1,208,112ZM60,120H56a8,8,0,0,1,0-16h4A20,20,0,0,0,80,84V80a8,8,0,0,1,16,0v4A36,36,0,0,1,60,120Z"/></symbol><symbol id="ph-chart-line-up" viewBox="0 0 256 256" fill="currentColor"><path d="M224,64V208H32V48H208A16,16,0,0,1,224,64Z" opacity="0.2"/><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V156.69l50.34-50.35a8,8,0,0,1,11.32,0L128,132.69,180.69,80H160a8,8,0,0,1,0-16h40a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V91.31l-58.34,58.35a8,8,0,0,1-11.32,0L96,123.31l-56,56V200H224A8,8,0,0,1,232,208Z"/></symbol><symbol id="ph-chat-circle-dots" viewBox="0 0 256 256" fill="currentColor"><path d="M224,128A96,96,0,0,1,79.93,211.11h0L42.54,223.58a8,8,0,0,1-10.12-10.12l12.47-37.39h0A96,96,0,1,1,224,128Z" opacity="0.2"/><path d="M128,24A104,104,0,0,0,36.18,176.88L24.83,210.93a16,16,0,0,0,20.24,20.24l34.05-11.35A104,104,0,1,0,128,24Zm0,192a87.87,87.87,0,0,1-44.06-11.81,8,8,0,0,0-4-1.08,7.85,7.85,0,0,0-2.53.42L40,216,52.47,178.6a8,8,0,0,0-.66-6.54A88,88,0,1,1,128,216Zm12-88a12,12,0,1,1-12-12A12,12,0,0,1,140,128Zm-44,0a12,12,0,1,1-12-12A12,12,0,0,1,96,128Zm88,0a12,12,0,1,1-12-12A12,12,0,0,1,184,128Z"/></symbol><symbol id="ph-chat-teardrop-text" viewBox="0 0 256 256" fill="currentColor"><path d="M224,124h0a92,92,0,0,1-92,92H48a8,8,0,0,1-8-8V124a92,92,0,0,1,92-92h0A92,92,0,0,1,224,124Z" opacity="0.2"/><path d="M172,112a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h68A8,8,0,0,1,172,112Zm-8,24H96a8,8,0,0,0,0,16h68a8,8,0,0,0,0-16Zm68-12A100.11,100.11,0,0,1,132,224H48a16,16,0,0,1-16-16V124a100,100,0,0,1,200,0Zm-16,0a84,84,0,0,0-168,0v84h84A84.09,84.09,0,0,0,216,124Z"/></symbol><symbol id="ph-clipboard-text" viewBox="0 0 256 256" fill="currentColor"><path d="M208,48V216a8,8,0,0,1-8,8H56a8,8,0,0,1-8-8V48a8,8,0,0,1,8-8H96a39.83,39.83,0,0,0-8,24v8h80V64a39.83,39.83,0,0,0-8-24h40A8,8,0,0,1,208,48Z" opacity="0.2"/><path d="M168,152a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,152Zm-8-40H96a8,8,0,0,0,0,16h64a8,8,0,0,0,0-16Zm56-64V216a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V48A16,16,0,0,1,56,32H92.26a47.92,47.92,0,0,1,71.48,0H200A16,16,0,0,1,216,48ZM96,64h64a32,32,0,0,0-64,0ZM200,48H173.25A47.93,47.93,0,0,1,176,64v8a8,8,0,0,1-8,8H88a8,8,0,0,1-8-8V64a47.93,47.93,0,0,1,2.75-16H56V216H200Z"/></symbol><symbol id="ph-device-mobile" viewBox="0 0 256 256" fill="currentColor"><path d="M192,56V200H64V56Z" opacity="0.2"/><path d="M176,16H80A24,24,0,0,0,56,40V216a24,24,0,0,0,24,24h96a24,24,0,0,0,24-24V40A24,24,0,0,0,176,16ZM72,64H184V192H72Zm8-32h96a8,8,0,0,1,8,8v8H72V40A8,8,0,0,1,80,32Zm96,192H80a8,8,0,0,1-8-8v-8H184v8A8,8,0,0,1,176,224Z"/></symbol><symbol id="ph-export" viewBox="0 0 256 256" fill="currentColor"><path d="M208,104V216H48V104Z" opacity="0.2"/><path d="M216,112v96a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V112A16,16,0,0,1,56,96H80a8,8,0,0,1,0,16H56v96H200V112H176a8,8,0,0,1,0-16h24A16,16,0,0,1,216,112ZM93.66,69.66,120,43.31V136a8,8,0,0,0,16,0V43.31l26.34,26.35a8,8,0,0,0,11.32-11.32l-40-40a8,8,0,0,0-11.32,0l-40,40A8,8,0,0,0,93.66,69.66Z"/></symbol><symbol id="ph-game-controller" viewBox="0 0 256 256" fill="currentColor"><path d="M216.86,207.57a28,28,0,0,1-24.66-7.77L150.09,152H172a51.94,51.94,0,0,0,51.2-61h0l16.36,84.17A28,28,0,0,1,216.86,207.57Z" opacity="0.2"/><path d="M176,112H152a8,8,0,0,1,0-16h24a8,8,0,0,1,0,16ZM104,96H96V88a8,8,0,0,0-16,0v8H72a8,8,0,0,0,0,16h8v8a8,8,0,0,0,16,0v-8h8a8,8,0,0,0,0-16ZM241.48,200.65a36,36,0,0,1-54.94,4.81c-.12-.12-.24-.24-.35-.37L146.48,160h-37L69.81,205.09l-.35.37A36.08,36.08,0,0,1,44,216,36,36,0,0,1,8.56,173.75a.68.68,0,0,1,0-.14L24.93,89.52A59.88,59.88,0,0,1,83.89,40H172a60.08,60.08,0,0,1,59,49.25c0,.06,0,.12,0,.18l16.37,84.17a.68.68,0,0,1,0,.14A35.74,35.74,0,0,1,241.48,200.65ZM172,144a44,44,0,0,0,0-88H83.89A43.9,43.9,0,0,0,40.68,92.37l0,.13L24.3,176.59A20,20,0,0,0,58,194.3l41.92-47.59a8,8,0,0,1,6-2.71Zm59.7,32.59-8.74-45A60,60,0,0,1,172,160h-4.2L198,194.31a20.09,20.09,0,0,0,17.46,5.39,20,20,0,0,0,16.23-23.11Z"/></symbol><symbol id="ph-heartbeat" viewBox="0 0 256 256" fill="currentColor"><path d="M232,102c0,66-104,122-104,122S24,168,24,102A54,54,0,0,1,78,48c22.59,0,41.94,12.31,50,32,8.06-19.69,27.41-32,50-32A54,54,0,0,1,232,102Z" opacity="0.2"/><path d="M72,144H32a8,8,0,0,1,0-16H67.72l13.62-20.44a8,8,0,0,1,13.32,0l25.34,38,9.34-14A8,8,0,0,1,136,128h24a8,8,0,0,1,0,16H140.28l-13.62,20.44a8,8,0,0,1-13.32,0L88,126.42l-9.34,14A8,8,0,0,1,72,144ZM178,40c-20.65,0-38.73,8.88-50,23.89C116.73,48.88,98.65,40,78,40a62.07,62.07,0,0,0-62,62c0,.75,0,1.5,0,2.25a8,8,0,1,0,16-.5c0-.58,0-1.17,0-1.75A46.06,46.06,0,0,1,78,56c19.45,0,35.78,10.36,42.6,27a8,8,0,0,0,14.8,0c6.82-16.67,23.15-27,42.6-27a46.06,46.06,0,0,1,46,46c0,53.61-77.76,102.15-96,112.8-10.83-6.31-42.63-26-66.68-52.21a8,8,0,1,0-11.8,10.82c31.17,34,72.93,56.68,74.69,57.63a8,8,0,0,0,7.58,0C136.21,228.66,240,172,240,102A62.07,62.07,0,0,0,178,40Z"/></symbol><symbol id="ph-house" viewBox="0 0 256 256" fill="currentColor"><path d="M216,120v96H152V152H104v64H40V120a8,8,0,0,1,2.34-5.66l80-80a8,8,0,0,1,11.32,0l80,80A8,8,0,0,1,216,120Z" opacity="0.2"/><path d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z"/></symbol><symbol id="ph-info" viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a96,96,0,1,1-96-96A96,96,0,0,1,224,128Z" opacity="0.2"/><path d="M144,176a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176Zm88-48A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128ZM124,96a12,12,0,1,0-12-12A12,12,0,0,0,124,96Z"/></symbol><symbol id="ph-leaf" viewBox="0 0 256 256" fill="currentColor"><path d="M63.81,192.19c-47.89-79.81,16-159.62,151.64-151.64C223.43,176.23,143.62,240.08,63.81,192.19Z" opacity="0.2"/><path d="M223.45,40.07a8,8,0,0,0-7.52-7.52C139.8,28.08,78.82,51,52.82,94a87.09,87.09,0,0,0-12.76,49c.57,15.92,5.21,32,13.79,47.85l-19.51,19.5a8,8,0,0,0,11.32,11.32l19.5-19.51C81,210.73,97.09,215.37,113,215.94q1.67.06,3.33.06A86.93,86.93,0,0,0,162,203.18C205,177.18,227.93,116.21,223.45,40.07ZM153.75,189.5c-22.75,13.78-49.68,14-76.71.77l88.63-88.62a8,8,0,0,0-11.32-11.32L65.73,179c-13.19-27-13-54,.77-76.71,22.09-36.47,74.6-56.44,141.31-54.06C210.2,114.89,190.22,167.41,153.75,189.5Z"/></symbol><symbol id="ph-lifebuoy" viewBox="0 0 256 256" fill="currentColor"><path d="M195.88,195.88l-39.6-39.6a40,40,0,0,0,0-56.56l39.6-39.6A96,96,0,0,1,195.88,195.88ZM60.12,60.12a96,96,0,0,0,0,135.76l39.6-39.6a40,40,0,0,1,0-56.56Z" opacity="0.2"/><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm39.1,131.79a47.84,47.84,0,0,0,0-55.58l28.5-28.49a87.83,87.83,0,0,1,0,112.56ZM96,128a32,32,0,1,1,32,32A32,32,0,0,1,96,128Zm88.28-67.6L155.79,88.9a47.84,47.84,0,0,0-55.58,0L71.72,60.4a87.83,87.83,0,0,1,112.56,0ZM60.4,71.72l28.5,28.49a47.84,47.84,0,0,0,0,55.58L60.4,184.28a87.83,87.83,0,0,1,0-112.56ZM71.72,195.6l28.49-28.5a47.84,47.84,0,0,0,55.58,0l28.49,28.5a87.83,87.83,0,0,1-112.56,0Z"/></symbol><symbol id="ph-lock-key" viewBox="0 0 256 256" fill="currentColor"><path d="M208,88H48a8,8,0,0,0-8,8V208a8,8,0,0,0,8,8H208a8,8,0,0,0,8-8V96A8,8,0,0,0,208,88Zm-80,72a20,20,0,1,1,20-20A20,20,0,0,1,128,160Z" opacity="0.2"/><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Zm-80-96a28,28,0,0,0-8,54.83V184a8,8,0,0,0,16,0V166.83A28,28,0,0,0,128,112Zm0,40a12,12,0,1,1,12-12A12,12,0,0,1,128,152Z"/></symbol><symbol id="ph-moon-stars" viewBox="0 0 256 256" fill="currentColor"><path d="M210.69,158.18A88,88,0,1,1,97.82,45.31,96.08,96.08,0,0,0,192,160,96.78,96.78,0,0,0,210.69,158.18Z" opacity="0.2"/><path d="M240,96a8,8,0,0,1-8,8H216v16a8,8,0,0,1-16,0V104H184a8,8,0,0,1,0-16h16V72a8,8,0,0,1,16,0V88h16A8,8,0,0,1,240,96ZM144,56h8v8a8,8,0,0,0,16,0V56h8a8,8,0,0,0,0-16h-8V32a8,8,0,0,0-16,0v8h-8a8,8,0,0,0,0,16Zm72.77,97a8,8,0,0,1,1.43,8A96,96,0,1,1,95.07,37.8a8,8,0,0,1,10.6,9.06A88.07,88.07,0,0,0,209.14,150.33,8,8,0,0,1,216.77,153Zm-19.39,14.88c-1.79.09-3.59.14-5.38.14A104.11,104.11,0,0,1,88,64c0-1.79,0-3.59.14-5.38A80,80,0,1,0,197.38,167.86Z"/></symbol><symbol id="ph-mosque" viewBox="0 0 256 256" fill="currentColor"><path d="M208,128H48c0-64,80-72,80-104C128,56,208,64,208,128Z" opacity="0.2"/><path d="M224,128a23.84,23.84,0,0,0-8,1.38V128c0-41.78-31.07-62.46-53.76-77.56C148.16,41.06,136,33,136,24a8,8,0,0,0-16,0c0,9-12.16,17.06-26.24,26.44C71.07,65.54,40,86.22,40,128v1.38A24,24,0,0,0,8,152v56a8,8,0,0,0,8,8H80a8,8,0,0,0,8-8V176a8,8,0,0,1,16,0v32a8,8,0,0,0,8,8h32a8,8,0,0,0,8-8V176a8,8,0,0,1,16,0v32a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V152A24,24,0,0,0,224,128ZM40,200H24V152a8,8,0,0,1,16,0ZM102.63,63.76c9.67-6.44,19-12.68,25.37-20,6.34,7.35,15.7,13.59,25.37,20,20,13.32,42.48,28.29,46.11,56.24h-143C60.15,92.05,82.6,77.08,102.63,63.76ZM200,200H184V176a24,24,0,0,0-48,0v24H120V176a24,24,0,0,0-48,0v24H56V136H200Zm32,0H216V152a8,8,0,0,1,16,0Z"/></symbol><symbol id="ph-mountains" viewBox="0 0 256 256" fill="currentColor"><path d="M144,52a20,20,0,1,1,20,20A20,20,0,0,1,144,52Zm49.44,55.92a8,8,0,0,0-13.77,0l-33,55.75-21-35.67H50.35L8,200H248Z" opacity="0.2"/><path d="M164,80a28,28,0,1,0-28-28A28,28,0,0,0,164,80Zm0-40a12,12,0,1,1-12,12A12,12,0,0,1,164,40Zm90.88,155.92-54.56-92.08A15.87,15.87,0,0,0,186.55,96h0a15.85,15.85,0,0,0-13.76,7.84L146.63,148l-44.84-76.1a16,16,0,0,0-27.58,0L1.11,195.94A8,8,0,0,0,8,208H248a8,8,0,0,0,6.88-12.08ZM88,80l23.57,40H64.43ZM22,192l33-56h66l33,56Zm150.57,0-16.66-28.28L186.55,112,234,192Z"/></symbol><symbol id="ph-music-notes" viewBox="0 0 256 256" fill="currentColor"><path d="M208,164a28,28,0,1,1-28-28A28,28,0,0,1,208,164ZM52,168a28,28,0,1,0,28,28A28,28,0,0,0,52,168Z" opacity="0.2"/><path d="M212.92,17.69a8,8,0,0,0-6.86-1.45l-128,32A8,8,0,0,0,72,56V166.08A36,36,0,1,0,88,196V110.25l112-28v51.83A36,36,0,1,0,216,164V24A8,8,0,0,0,212.92,17.69ZM52,216a20,20,0,1,1,20-20A20,20,0,0,1,52,216ZM88,93.75V62.25l112-28v31.5ZM180,184a20,20,0,1,1,20-20A20,20,0,0,1,180,184Z"/></symbol><symbol id="ph-notebook" viewBox="0 0 256 256" fill="currentColor"><path d="M80,40V216H48a8,8,0,0,1-8-8V48a8,8,0,0,1,8-8Z" opacity="0.2"/><path d="M184,112a8,8,0,0,1-8,8H112a8,8,0,0,1,0-16h64A8,8,0,0,1,184,112Zm-8,24H112a8,8,0,0,0,0,16h64a8,8,0,0,0,0-16Zm48-88V208a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V48A16,16,0,0,1,48,32H208A16,16,0,0,1,224,48ZM48,208H72V48H48Zm160,0V48H88V208H208Z"/></symbol><symbol id="ph-plant" viewBox="0 0 256 256" fill="currentColor"><path d="M138.54,149.46C106.62,96.25,149.18,43.05,239.63,48.37,245,138.82,191.75,181.39,138.54,149.46ZM16.26,88.26c-3.8,64.61,34.21,95,72.21,72.21C111.27,122.47,80.87,84.46,16.26,88.26Z" opacity="0.2"/><path d="M247.63,47.89a8,8,0,0,0-7.52-7.52c-51.76-3-93.32,12.74-111.18,42.22-11.8,19.48-11.78,43.16-.16,65.74a71.37,71.37,0,0,0-14.17,26.95L98.33,159c7.82-16.33,7.52-33.36-1-47.49C84.09,89.73,53.62,78,15.79,80.27a8,8,0,0,0-7.52,7.52c-2.23,37.83,9.46,68.3,31.25,81.5A45.82,45.82,0,0,0,63.44,176,54.58,54.58,0,0,0,87,170.33l25,25V224a8,8,0,0,0,16,0V194.51a55.61,55.61,0,0,1,12.27-35,73.91,73.91,0,0,0,33.31,8.4,60.9,60.9,0,0,0,31.83-8.86C234.89,141.21,250.67,99.65,247.63,47.89ZM86.06,146.74l-24.41-24.4a8,8,0,0,0-11.31,11.31l24.41,24.41c-9.61,3.18-18.93,2.39-26.94-2.46C32.47,146.31,23.79,124.32,24,96c28.31-.25,50.31,8.47,59.6,23.81C88.45,127.82,89.24,137.14,86.06,146.74Zm111.06-1.36c-13.4,8.11-29.15,8.73-45.15,2l53.69-53.7a8,8,0,0,0-11.31-11.32L140.65,136c-6.76-16-6.15-31.76,2-45.15,13.94-23,47-35.8,89.33-34.83C232.94,98.34,220.14,131.44,197.12,145.38Z"/></symbol><symbol id="ph-puzzle-piece" viewBox="0 0 256 256" fill="currentColor"><path d="M204,168a28,28,0,0,0,12-2.69V208a8,8,0,0,1-8,8H64a8,8,0,0,1-8-8V165.31a28,28,0,1,1,0-50.62V72a8,8,0,0,1,8-8h46.69a28,28,0,1,1,50.61,0H208a8,8,0,0,1,8,8v42.69A28,28,0,1,0,204,168Z" opacity="0.2"/><path d="M220.27,158.54a8,8,0,0,0-7.7-.46,20,20,0,1,1,0-36.16A8,8,0,0,0,224,114.69V72a16,16,0,0,0-16-16H171.78a35.36,35.36,0,0,0,.22-4,36.15,36.15,0,0,0-11.36-26.25,36,36,0,0,0-60.55,23.63,36.56,36.56,0,0,0,.14,6.62H64A16,16,0,0,0,48,72v32.22a35.36,35.36,0,0,0-4-.22,36.12,36.12,0,0,0-26.24,11.36,35.7,35.7,0,0,0-9.69,27,36.08,36.08,0,0,0,33.31,33.6,36.56,36.56,0,0,0,6.62-.14V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V165.31A8,8,0,0,0,220.27,158.54ZM208,208H64V165.31a8,8,0,0,0-11.43-7.23,20,20,0,1,1,0-36.16A8,8,0,0,0,64,114.69V72h46.69a8,8,0,0,0,7.23-11.43,20,20,0,1,1,36.16,0A8,8,0,0,0,161.31,72H208v32.23a35.68,35.68,0,0,0-6.62-.14A36,36,0,0,0,204,176a35.36,35.36,0,0,0,4-.22Z"/></symbol><symbol id="ph-sign-out" viewBox="0 0 256 256" fill="currentColor"><path d="M224,56V200a16,16,0,0,1-16,16H48V40H208A16,16,0,0,1,224,56Z" opacity="0.2"/><path d="M120,216a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H56V208h56A8,8,0,0,1,120,216Zm109.66-93.66-40-40a8,8,0,0,0-11.32,11.32L204.69,120H112a8,8,0,0,0,0,16h92.69l-26.35,26.34a8,8,0,0,0,11.32,11.32l40-40A8,8,0,0,0,229.66,122.34Z"/></symbol><symbol id="ph-siren" viewBox="0 0 256 256" fill="currentColor"><path d="M208,129v39H48V128a80,80,0,0,1,80.61-80C172.72,48.33,208,84.89,208,129Z" opacity="0.2"/><path d="M120,16V8a8,8,0,0,1,16,0v8a8,8,0,0,1-16,0Zm80,32a8,8,0,0,0,5.66-2.34l8-8a8,8,0,0,0-11.32-11.32l-8,8A8,8,0,0,0,200,48ZM50.34,45.66A8,8,0,0,0,61.66,34.34l-8-8A8,8,0,0,0,42.34,37.66Zm87,26.45a8,8,0,1,0-2.64,15.78C153.67,91.08,168,108.32,168,128a8,8,0,0,0,16,0C184,100.6,163.93,76.57,137.32,72.11ZM232,176v24a16,16,0,0,1-16,16H40a16,16,0,0,1-16-16V176a16,16,0,0,1,16-16V128a88,88,0,0,1,88-88h.68c48.15.36,87.33,40.29,87.33,89v31A16,16,0,0,1,232,176ZM56,160H200V129c0-40-32.05-72.71-71.45-73H128a72,72,0,0,0-72,72Zm160,40V176H40v24H216Z"/></symbol><symbol id="ph-stethoscope" viewBox="0 0 256 256" fill="currentColor"><path d="M240,160a32,32,0,1,1-32-32A32,32,0,0,1,240,160Z" opacity="0.2"/><path d="M220,160a12,12,0,1,1-12-12A12,12,0,0,1,220,160Zm-4.55,39.29A48.08,48.08,0,0,1,168,240H144a48.05,48.05,0,0,1-48-48V151.49A64,64,0,0,1,40,88V40a8,8,0,0,1,8-8H72a8,8,0,0,1,0,16H56V88a48,48,0,0,0,48.64,48c26.11-.34,47.36-22.25,47.36-48.83V48H136a8,8,0,0,1,0-16h24a8,8,0,0,1,8,8V87.17c0,32.84-24.53,60.29-56,64.31V192a32,32,0,0,0,32,32h24a32.06,32.06,0,0,0,31.22-25,40,40,0,1,1,16.23.27ZM232,160a24,24,0,1,0-24,24A24,24,0,0,0,232,160Z"/></symbol><symbol id="ph-sun" viewBox="0 0 256 256" fill="currentColor"><path d="M184,128a56,56,0,1,1-56-56A56,56,0,0,1,184,128Z" opacity="0.2"/><path d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm72,88a64,64,0,1,1-64-64A64.07,64.07,0,0,1,192,128Zm-16,0a48,48,0,1,0-48,48A48.05,48.05,0,0,0,176,128ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"/></symbol><symbol id="ph-user-circle" viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a95.76,95.76,0,0,1-31.8,71.37A72,72,0,0,0,128,160a40,40,0,1,0-40-40,40,40,0,0,0,40,40,72,72,0,0,0-64.2,39.37h0A96,96,0,1,1,224,128Z" opacity="0.2"/><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM74.08,197.5a64,64,0,0,1,107.84,0,87.83,87.83,0,0,1-107.84,0ZM96,120a32,32,0,1,1,32,32A32,32,0,0,1,96,120Zm97.76,66.41a79.66,79.66,0,0,0-36.06-28.75,48,48,0,1,0-59.4,0,79.66,79.66,0,0,0-36.06,28.75,88,88,0,1,1,131.52,0Z"/></symbol><symbol id="ph-wind" viewBox="0 0 256 256" fill="currentColor"><path d="M120,96a24,24,0,1,1,24-24A24,24,0,0,1,120,96Zm88-16a24,24,0,1,0,24,24A24,24,0,0,0,208,80Zm-56,80a24,24,0,1,0,24,24A24,24,0,0,0,152,160Z" opacity="0.2"/><path d="M184,184a32,32,0,0,1-32,32c-13.7,0-26.95-8.93-31.5-21.22a8,8,0,0,1,15-5.56C137.74,195.27,145,200,152,200a16,16,0,0,0,0-32H40a8,8,0,0,1,0-16H152A32,32,0,0,1,184,184Zm-64-80a32,32,0,0,0,0-64c-13.7,0-26.95,8.93-31.5,21.22a8,8,0,0,0,15,5.56C105.74,60.73,113,56,120,56a16,16,0,0,1,0,32H24a8,8,0,0,0,0,16Zm88-32c-13.7,0-26.95,8.93-31.5,21.22a8,8,0,0,0,15,5.56C193.74,92.73,201,88,208,88a16,16,0,0,1,0,32H32a8,8,0,0,0,0,16H208a32,32,0,0,0,0-64Z"/></symbol></defs></svg>
+
 <!-- ANIMATED NATURE BACKGROUND -->
 <canvas id="nature-canvas"></canvas>
 <!-- ══ AUTH SCREEN ═════════════════════════════════════════════════ -->
@@ -1112,9 +1131,10 @@ return {
 <button class="mcls" aria-label="Close" onclick="closeReflection()">✕</button>
 <div id="refl-m-tag" style="font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px"></div>
 <div id="refl-m-title" style="font-family:var(--ff-d);font-size:22px;color:var(--text);margin-bottom:14px"></div>
-<div id="refl-m-draft" class="refl-draft" style="display:none;margin-bottom:14px">Draft. This entry has not been checked by a qualified reviewer yet.</div>
+<div class="refl-lang" role="group" aria-label="Language"><button type="button" id="refl-l-en" aria-pressed="true" onclick="setReflLang('en')">English</button><button type="button" id="refl-l-ms" aria-pressed="false" onclick="setReflLang('ms')">Bahasa Melayu</button></div>
+<div id="refl-m-draft" class="refl-draft" style="display:none;margin-bottom:14px"></div>
 <div id="refl-m-body"></div>
-<div style="margin-top:18px;padding-top:12px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);line-height:1.6">LENA shows these as the named scholars wrote them. It does not interpret the Quran and does not say what a verse means for your situation. For that, ask someone qualified.</div>
+<div id="refl-m-foot" style="margin-top:18px;padding-top:12px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);line-height:1.6"></div>
 </div>
 </div>
 <div class="mover" id="feedback-modal" onclick="if(event.target===this)closeFeedback()">
@@ -1172,27 +1192,27 @@ return {
 <input aria-label="Search features" id="sidebar-search" onblur="setTimeout(()=&gt;document.getElementById('search-results-panel').style.display='none',200)" onfocus="if(this.value.length&gt;0)document.getElementById('search-results-panel').style.display='block'" oninput="doSidebarSearch(this.value)" onkeydown="if(event.key==='Enter'){const panel=document.getElementById('search-results-panel');const r=panel._results&amp;&amp;panel._results[0];if(r){panel.style.display='none';this.value='';filterNav('');if(r.action)r.action();if(r.screen)go(r.screen);}}" placeholder="Search features…" type="text"/>
 </div>
 <div class="search-results" id="search-results-panel"></div>
-<div class="nav-link act" id="nl-home" onclick="go('home')"><span class="ni">🏠</span> Home</div>
-<div class="nav-link" id="nl-mood" onclick="go('mood')"><span class="ni">📊</span> Mood Tracker</div>
-<div class="nav-link" id="nl-sleep" onclick="go('sleep')"><span class="ni">🌙</span> Sleep Tracker</div>
-<div class="nav-link" id="nl-chat" onclick="go('chat')"><span class="ni">💬</span> LENA AI Chat</div>
+<div class="nav-link act" id="nl-home" onclick="go('home')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-house"/></svg></span> Home</div>
+<div class="nav-link" id="nl-mood" onclick="go('mood')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-chart-line-up"/></svg></span> Mood Tracker</div>
+<div class="nav-link" id="nl-sleep" onclick="go('sleep')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-moon-stars"/></svg></span> Sleep Tracker</div>
+<div class="nav-link" id="nl-chat" onclick="go('chat')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-chat-circle-dots"/></svg></span> LENA AI Chat</div>
 <div class="nav-section">Tools</div>
-<div class="nav-link" id="nl-assess" onclick="go('assess')"><span class="ni">📋</span> Screening Test</div>
-<div class="nav-link" id="nl-cbt" onclick="go('cbt')"><span class="ni">💭</span> Guided Tools</div>
-<div class="nav-link" id="nl-breathe" onclick="go('breathe')"><span class="ni">🫁</span> Breathe</div>
-<div class="nav-link" id="nl-games" onclick="go('games')"><span class="ni">🎮</span> Games</div>
-<div class="nav-link" id="nl-journal" onclick="go('journal')"><span class="ni">📓</span> Journal</div>
-<div class="nav-link isl-only" id="nl-islamic" onclick="go('islamic')"><span class="ni">🕌</span> Kerohanian</div>
+<div class="nav-link" id="nl-assess" onclick="go('assess')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-clipboard-text"/></svg></span> Screening Test</div>
+<div class="nav-link" id="nl-cbt" onclick="go('cbt')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-brain"/></svg></span> Guided Tools</div>
+<div class="nav-link" id="nl-breathe" onclick="go('breathe')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-wind"/></svg></span> Breathe</div>
+<div class="nav-link" id="nl-games" onclick="go('games')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-game-controller"/></svg></span> Games</div>
+<div class="nav-link" id="nl-journal" onclick="go('journal')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-notebook"/></svg></span> Journal</div>
+<div class="nav-link isl-only" id="nl-islamic" onclick="go('islamic')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-mosque"/></svg></span> Kerohanian</div>
 <div class="nav-section">Wellness</div>
-<div class="nav-link" id="nl-discover" onclick="go('discover')"><span class="ni">🎵</span> Soundscapes</div>
-<div class="nav-link" id="nl-edu" onclick="go('edu')"><span class="ni">📚</span> Resources</div>
-<div class="nav-link" id="nl-crisis" onclick="go('crisis')"><span class="ni">🆘</span> Crisis Help</div>
-<div class="nav-link" id="nl-team" onclick="go('team')"><span class="ni">🌿</span> LENA's Team</div>
-<div class="nav-link" id="nl-about" onclick="go('about')"><span class="ni">ℹ️</span> About LENA</div>
+<div class="nav-link" id="nl-discover" onclick="go('discover')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-music-notes"/></svg></span> Soundscapes</div>
+<div class="nav-link" id="nl-edu" onclick="go('edu')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-books"/></svg></span> Resources</div>
+<div class="nav-link" id="nl-crisis" onclick="go('crisis')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-lifebuoy"/></svg></span> Crisis Help</div>
+<div class="nav-link" id="nl-team" onclick="go('team')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-plant"/></svg></span> LENA's Team</div>
+<div class="nav-link" id="nl-about" onclick="go('about')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-info"/></svg></span> About LENA</div>
 <div class="nav-section">Account</div>
-<div class="nav-link" id="nl-profile" onclick="go('profile')"><span class="ni">👤</span> Profile &amp; Settings</div>
+<div class="nav-link" id="nl-profile" onclick="go('profile')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-user-circle"/></svg></span> Profile &amp; Settings</div>
 <div class="sidebar-footer">
-<button class="sos-btn" onclick="openSOS()">🆘 Emergency SOS</button>
+<button class="sos-btn" onclick="openSOS()"><svg class="ic ic-sos" aria-hidden="true" focusable="false"><use href="#ph-siren"/></svg> Emergency SOS</button>
 <div style="text-align:center;margin-top:10px;font-size:10px;color:var(--muted)"><a onclick="go('about')" style="color:inherit;cursor:pointer;text-decoration:underline">LENA v1.0 · About</a> · IIUM KICT FYP 2025</div>
 </div>
 </aside>
@@ -1278,17 +1298,17 @@ return {
 <!-- Tools grid -->
 <div class="shd fu fu3" style="margin-top:22px"><h2>Your Tools</h2></div>
 <div class="grid4 fu fu3" style="margin-bottom:22px">
-<div class="feat-card fc-teal" onclick="go('assess')"><div class="fc-emoji">📋</div><div class="fc-title">Screening Test</div><div class="fc-sub">PHQ-9 · DASS-21</div></div>
-<div class="feat-card fc-lav" onclick="go('mood')"><div class="fc-emoji">📊</div><div class="fc-title">Mood Tracker</div><div class="fc-sub">Daily check-ins</div></div>
-<div class="feat-card fc-blue" onclick="go('sleep')"><div class="fc-emoji">🌙</div><div class="fc-title">Sleep Tracker</div><div class="fc-sub">Sleep quality &amp; goals</div></div>
-<div class="feat-card fc-gold" onclick="go('cbt')"><div class="fc-emoji">💭</div><div class="fc-title">Guided Tools</div><div class="fc-sub">Grounding · movement · calm</div></div>
-<div class="feat-card fc-grn" onclick="go('edu')"><div class="fc-emoji">📚</div><div class="fc-title">Resources</div><div class="fc-sub">Psychoeducation</div></div>
-<div class="feat-card fc-red" onclick="go('breathe')"><div class="fc-emoji">🫁</div><div class="fc-title">Breathe</div><div class="fc-sub">4-7-8 · Box · More</div></div>
-<div class="feat-card fc-gold" onclick="go('journal')"><div class="fc-emoji">📓</div><div class="fc-title">Journal</div><div class="fc-sub">Reflect &amp; record</div></div>
-<div class="feat-card fc-teal isl-only" onclick="go('islamic')"><div class="fc-emoji">🕌</div><div class="fc-title">Kerohanian</div><div class="fc-sub">Faith-based support</div></div>
+<div class="feat-card fc-teal" onclick="go('assess')"><div class="fc-emoji"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-clipboard-text"/></svg></div><div class="fc-title">Screening Test</div><div class="fc-sub">PHQ-9 · DASS-21</div></div>
+<div class="feat-card fc-lav" onclick="go('mood')"><div class="fc-emoji"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-chart-line-up"/></svg></div><div class="fc-title">Mood Tracker</div><div class="fc-sub">Daily check-ins</div></div>
+<div class="feat-card fc-blue" onclick="go('sleep')"><div class="fc-emoji"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-moon-stars"/></svg></div><div class="fc-title">Sleep Tracker</div><div class="fc-sub">Sleep quality &amp; goals</div></div>
+<div class="feat-card fc-gold" onclick="go('cbt')"><div class="fc-emoji"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-brain"/></svg></div><div class="fc-title">Guided Tools</div><div class="fc-sub">Grounding · movement · calm</div></div>
+<div class="feat-card fc-grn" onclick="go('edu')"><div class="fc-emoji"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-books"/></svg></div><div class="fc-title">Resources</div><div class="fc-sub">Psychoeducation</div></div>
+<div class="feat-card fc-red" onclick="go('breathe')"><div class="fc-emoji"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-wind"/></svg></div><div class="fc-title">Breathe</div><div class="fc-sub">4-7-8 · Box · More</div></div>
+<div class="feat-card fc-gold" onclick="go('journal')"><div class="fc-emoji"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-notebook"/></svg></div><div class="fc-title">Journal</div><div class="fc-sub">Reflect &amp; record</div></div>
+<div class="feat-card fc-teal isl-only" onclick="go('islamic')"><div class="fc-emoji"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-mosque"/></svg></div><div class="fc-title">Kerohanian</div><div class="fc-sub">Faith-based support</div></div>
 </div>
 <div class="res-card games-home fu fu3" onclick="go('games')" style="margin-bottom:22px">
-<div class="res-ico" style="background:rgba(155,133,214,.18)">🎮</div>
+<div class="res-ico" style="background:rgba(155,133,214,.18)"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-game-controller"/></svg></div>
 <div style="flex:1"><div class="res-title">Pop &amp; think</div><div class="res-sub">Pop-it and bubble wrap to unwind, plus quick games that train your thinking</div><div class="res-meta">Play ›</div></div>
 </div>
 <!-- Islamic + Daily Discovery -->
@@ -1305,11 +1325,11 @@ return {
 <div>
 <div class="shd" style="margin-top:0"><h2>Daily Discovery</h2></div>
 <div class="res-card" onclick="openResModal('Breathing Controls Emotions','How breath regulates your nervous system · 4 min','🫁','Psychoeducation')" style="margin-bottom:12px">
-<div class="res-ico" style="background:rgba(43,184,154,.12)">🫁</div>
+<div class="res-ico" style="background:rgba(43,184,154,.12)"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-wind"/></svg></div>
 <div><div class="res-title">Breathing controls your emotions</div><div class="res-sub">Evidence-based · Today</div><div class="res-meta">📖 Read · 4 min</div></div>
 </div>
 <div class="res-card" onclick="go('chat')">
-<div class="res-ico" style="background:rgba(244,164,56,.12)">🤖</div>
+<div class="res-ico" style="background:rgba(244,164,56,.12)"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-chat-circle-dots"/></svg></div>
 <div><div class="res-title">Talk to LENA AI</div><div class="res-sub">Supportive listening · 24/7</div><div class="res-meta">Start a conversation ›</div></div>
 </div>
 </div>
@@ -1657,7 +1677,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <p style="font-size:12px;color:var(--muted)">The sunset loading scene uses photos by Pietro De Grandi and Margo Evardson on Unsplash.</p>
 <div class="about-acts"><button class="btn-g" onclick="go('team')" style="padding:10px 18px;font-size:13px">Meet the team</button></div>
 </div>
-<div class="about-ver">LENA v1.0 · build 22 · IIUM KICT</div>
+<div class="about-ver">LENA v1.0 · build 23 · IIUM KICT</div>
 </div>
 <div class="sp"></div>
 </div>
@@ -1748,13 +1768,13 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <div class="card">
 <div style="font-family:var(--ff-d);font-size:17px;color:var(--text);margin-bottom:14px">Islamic Psychoeducation 📚</div>
 <div class="res-card" onclick="openResModal('Islam &amp; Mental Health','Mental illness is not a spiritual failing, an Islamic perspective','🕌','Islamic Psychoeducation')" style="margin-bottom:10px">
-<div class="res-ico" style="background:rgba(43,184,154,.12)">🕌</div><div><div class="res-title">Islam &amp; Mental Health</div><div class="res-sub">Mental illness is not a spiritual failing</div><div class="res-meta">📖 Read · 7 min</div></div>
+<div class="res-ico" style="background:rgba(43,184,154,.12)"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-mosque"/></svg></div><div><div class="res-title">Islam &amp; Mental Health</div><div class="res-sub">Mental illness is not a spiritual failing</div><div class="res-meta">📖 Read · 7 min</div></div>
 </div>
 <div class="res-card" onclick="openResModal('Mindfulness in Islam','Muraqabah, tafakkur, and presence of heart','🌿','Islamic Psychoeducation')" style="margin-bottom:10px">
-<div class="res-ico" style="background:rgba(52,191,138,.12)">🌿</div><div><div class="res-title">Mindfulness in Islam</div><div class="res-sub">Muraqabah, tafakkur, and presence of heart</div><div class="res-meta">📖 Read · 5 min</div></div>
+<div class="res-ico" style="background:rgba(52,191,138,.12)"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-leaf"/></svg></div><div><div class="res-title">Mindfulness in Islam</div><div class="res-sub">Muraqabah, tafakkur, and presence of heart</div><div class="res-meta">📖 Read · 5 min</div></div>
 </div>
 <div class="res-card" onclick="openResModal('Sabr &amp; Resilience','The Islamic framework for coping with hardship','💪','Islamic Psychoeducation')">
-<div class="res-ico" style="background:rgba(244,164,56,.12)">💪</div><div><div class="res-title">Sabr &amp; Resilience</div><div class="res-sub">Islamic framework for coping with hardship</div><div class="res-meta">📖 Read · 6 min</div></div>
+<div class="res-ico" style="background:rgba(244,164,56,.12)"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-mountains"/></svg></div><div><div class="res-title">Sabr &amp; Resilience</div><div class="res-sub">Islamic framework for coping with hardship</div><div class="res-meta">📖 Read · 6 min</div></div>
 </div>
 </div>
 </div>
@@ -1775,7 +1795,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <!-- ══ EDU / RESOURCES ═════════════════════════════════════════ -->
 <div class="screen" id="sc-edu">
 <div class="res-card isl-only" onclick="go('islamic')" style="margin-bottom:18px;background:linear-gradient(135deg,rgba(43,184,154,.10),rgba(244,164,56,.06))">
-<div class="res-ico" style="background:rgba(43,184,154,.14)">🕌</div>
+<div class="res-ico" style="background:rgba(43,184,154,.14)"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-mosque"/></svg></div>
 <div><div class="res-title">Kerohanian</div>
 <div class="res-sub">Quranic reflections, dhikr and spiritual support</div>
 <div class="res-meta">Open section ›</div></div></div>
@@ -1789,15 +1809,15 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 </div>
 <div class="grid2">
 <div>
-<div class="res-card" onclick="openResModal('Understanding Depression','What it is, what it isn\'t, and how CBT helps','🧠','Depression')" style="margin-bottom:12px"><div class="res-ico" style="background:rgba(43,184,154,.12)">🧠</div><div><div class="res-title">Understanding Depression</div><div class="res-sub">What it is, what it isn't, and how CBT helps</div><div class="res-meta">📖 Read · 5 min</div></div></div>
-<div class="res-card" onclick="openResModal('Types of Anxiety','Generalised, panic, social, phobias, separation and exam anxiety','🧩','Anxiety')" style="margin-bottom:12px"><div class="res-ico" style="background:rgba(139,157,195,.12)">🧩</div><div><div class="res-title">Types of Anxiety</div><div class="res-sub">What each one looks like, with pictures and sources</div><div class="res-meta">📖 Read · 8 min</div></div></div>
-<div class="res-card" onclick="openResModal('Managing Anxiety','Evidence-based strategies for daily anxiety','😰','Anxiety')" style="margin-bottom:12px"><div class="res-ico" style="background:rgba(139,157,195,.12)">😰</div><div><div class="res-title">Managing Anxiety</div><div class="res-sub">Evidence-based strategies for daily anxiety</div><div class="res-meta">📖 Read · 6 min</div></div></div>
-<div class="res-card" onclick="openResModal('Sleep Hygiene Guide','Science-backed tips for better sleep quality','🌙','Sleep')" style="margin-bottom:12px"><div class="res-ico" style="background:rgba(244,164,56,.12)">🌙</div><div><div class="res-title">Sleep Hygiene Guide</div><div class="res-sub">Science-backed tips for better sleep quality</div><div class="res-meta">📖 Read · 4 min</div></div></div>
+<div class="res-card" onclick="openResModal('Understanding Depression','What it is, what it isn\'t, and how CBT helps','🧠','Depression')" style="margin-bottom:12px"><div class="res-ico" style="background:rgba(43,184,154,.12)"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-brain"/></svg></div><div><div class="res-title">Understanding Depression</div><div class="res-sub">What it is, what it isn't, and how CBT helps</div><div class="res-meta">📖 Read · 5 min</div></div></div>
+<div class="res-card" onclick="openResModal('Types of Anxiety','Generalised, panic, social, phobias, separation and exam anxiety','🧩','Anxiety')" style="margin-bottom:12px"><div class="res-ico" style="background:rgba(139,157,195,.12)"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-puzzle-piece"/></svg></div><div><div class="res-title">Types of Anxiety</div><div class="res-sub">What each one looks like, with pictures and sources</div><div class="res-meta">📖 Read · 8 min</div></div></div>
+<div class="res-card" onclick="openResModal('Managing Anxiety','Evidence-based strategies for daily anxiety','😰','Anxiety')" style="margin-bottom:12px"><div class="res-ico" style="background:rgba(139,157,195,.12)"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-heartbeat"/></svg></div><div><div class="res-title">Managing Anxiety</div><div class="res-sub">Evidence-based strategies for daily anxiety</div><div class="res-meta">📖 Read · 6 min</div></div></div>
+<div class="res-card" onclick="openResModal('Sleep Hygiene Guide','Science-backed tips for better sleep quality','🌙','Sleep')" style="margin-bottom:12px"><div class="res-ico" style="background:rgba(244,164,56,.12)"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-moon-stars"/></svg></div><div><div class="res-title">Sleep Hygiene Guide</div><div class="res-sub">Science-backed tips for better sleep quality</div><div class="res-meta">📖 Read · 4 min</div></div></div>
 </div>
 <div>
-<div class="res-card" onclick="openResModal('Islam &amp; Mental Health','Mental illness is not a spiritual failing','🕌','Islamic')" style="margin-bottom:12px"><div class="res-ico" style="background:rgba(43,184,154,.12)">🕌</div><div><div class="res-title">Islam &amp; Mental Health</div><div class="res-sub">Mental illness is not a spiritual failing</div><div class="res-meta">📖 Read · 7 min</div></div></div>
-<div class="res-card" onclick="openResModal('Building Resilience','How to bounce back from adversity','💪','Resilience')" style="margin-bottom:12px"><div class="res-ico" style="background:rgba(224,92,110,.12)">💪</div><div><div class="res-title">Building Resilience</div><div class="res-sub">How to bounce back from adversity</div><div class="res-meta">📖 Read · 4 min</div></div></div>
-<div class="res-card" onclick="openResModal('Breathing Controls Emotions','How breath regulates your nervous system','🫁','Psychoeducation')"><div class="res-ico" style="background:rgba(43,184,154,.12)">🫁</div><div><div class="res-title">Breathing Controls Emotions</div><div class="res-sub">How breath regulates your nervous system</div><div class="res-meta">📖 Read · 4 min</div></div></div>
+<div class="res-card" onclick="openResModal('Islam &amp; Mental Health','Mental illness is not a spiritual failing','🕌','Islamic')" style="margin-bottom:12px"><div class="res-ico" style="background:rgba(43,184,154,.12)"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-mosque"/></svg></div><div><div class="res-title">Islam &amp; Mental Health</div><div class="res-sub">Mental illness is not a spiritual failing</div><div class="res-meta">📖 Read · 7 min</div></div></div>
+<div class="res-card" onclick="openResModal('Building Resilience','How to bounce back from adversity','💪','Resilience')" style="margin-bottom:12px"><div class="res-ico" style="background:rgba(224,92,110,.12)"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-mountains"/></svg></div><div><div class="res-title">Building Resilience</div><div class="res-sub">How to bounce back from adversity</div><div class="res-meta">📖 Read · 4 min</div></div></div>
+<div class="res-card" onclick="openResModal('Breathing Controls Emotions','How breath regulates your nervous system','🫁','Psychoeducation')"><div class="res-ico" style="background:rgba(43,184,154,.12)"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-wind"/></svg></div><div><div class="res-title">Breathing Controls Emotions</div><div class="res-sub">How breath regulates your nervous system</div><div class="res-meta">📖 Read · 4 min</div></div></div>
 </div>
 </div>
 <div class="sp"></div>
@@ -1928,16 +1948,16 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 </div>
 <button id="pf-editbtn" class="btn-p" onclick="openProfileEdit()" style="margin-top:14px;width:100%;padding:11px">Edit Profile</button>
 </div>
-<div class="pi" onclick="togglePref('checkin')"><span class="pi-ico">☀️</span><span class="pi-txt">Ask how I am when I open LENA</span><div class="tsw" id="tsw-checkin" onclick="event.stopPropagation();togglePref('checkin')"><div class="tk"></div></div></div>
-<div class="pi" onclick="togglePref('quiz')"><span class="pi-ico">🧠</span><span class="pi-txt">Daily thinking check when I open LENA</span><div class="tsw" id="tsw-quiz" onclick="event.stopPropagation();togglePref('quiz')"><div class="tk"></div></div></div>
-<div class="pi" onclick="go('about')"><span class="pi-ico">ℹ️</span><span class="pi-txt">About LENA</span><span class="pi-arr">›</span></div>
-<div class="pi" onclick="openPrivacy()"><span class="pi-ico">🔒</span><span class="pi-txt">Privacy &amp; Data</span><span class="pi-arr">›</span></div>
-<div class="pi" onclick="go('assess')"><span class="pi-ico">📋</span><span class="pi-txt">Screening History</span><span class="pi-arr">›</span></div>
-<div class="pi" onclick="openInstall()"><span class="pi-ico">📲</span><span class="pi-txt">Install LENA on your phone</span><span class="pi-arr">›</span></div>
-<div class="pi" onclick="openDocSummary()"><span class="pi-ico">🩺</span><span class="pi-txt">Summary for your doctor</span><span class="pi-arr">›</span></div>
-<div class="pi" onclick="exportData()"><span class="pi-ico">📊</span><span class="pi-txt">Export My Data</span><span class="pi-arr">›</span></div>
-<div class="pi" onclick="openFeedback()" style="border-color:rgba(43,184,154,.3)"><span class="pi-ico">💬</span><span class="pi-txt" style="color:var(--primary-t);font-weight:600">Share Feedback</span><span class="pi-arr" style="color:var(--primary-t)">›</span></div>
-<div class="pi" onclick="signOut()"><span class="pi-ico">🚪</span><span class="pi-txt">Sign Out</span><span class="pi-arr">›</span></div>
+<div class="pi" onclick="togglePref('checkin')"><span class="pi-ico"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-sun"/></svg></span><span class="pi-txt">Ask how I am when I open LENA</span><div class="tsw" id="tsw-checkin" onclick="event.stopPropagation();togglePref('checkin')"><div class="tk"></div></div></div>
+<div class="pi" onclick="togglePref('quiz')"><span class="pi-ico"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-brain"/></svg></span><span class="pi-txt">Daily thinking check when I open LENA</span><div class="tsw" id="tsw-quiz" onclick="event.stopPropagation();togglePref('quiz')"><div class="tk"></div></div></div>
+<div class="pi" onclick="go('about')"><span class="pi-ico"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-info"/></svg></span><span class="pi-txt">About LENA</span><span class="pi-arr">›</span></div>
+<div class="pi" onclick="openPrivacy()"><span class="pi-ico"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-lock-key"/></svg></span><span class="pi-txt">Privacy &amp; Data</span><span class="pi-arr">›</span></div>
+<div class="pi" onclick="go('assess')"><span class="pi-ico"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-clipboard-text"/></svg></span><span class="pi-txt">Screening History</span><span class="pi-arr">›</span></div>
+<div class="pi" onclick="openInstall()"><span class="pi-ico"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-device-mobile"/></svg></span><span class="pi-txt">Install LENA on your phone</span><span class="pi-arr">›</span></div>
+<div class="pi" onclick="openDocSummary()"><span class="pi-ico"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-stethoscope"/></svg></span><span class="pi-txt">Summary for your doctor</span><span class="pi-arr">›</span></div>
+<div class="pi" onclick="exportData()"><span class="pi-ico"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-export"/></svg></span><span class="pi-txt">Export My Data</span><span class="pi-arr">›</span></div>
+<div class="pi" onclick="openFeedback()" style="border-color:rgba(43,184,154,.3)"><span class="pi-ico"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-chat-teardrop-text"/></svg></span><span class="pi-txt" style="color:var(--primary-t);font-weight:600">Share Feedback</span><span class="pi-arr" style="color:var(--primary-t)">›</span></div>
+<div class="pi" onclick="signOut()"><span class="pi-ico"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-sign-out"/></svg></span><span class="pi-txt">Sign Out</span><span class="pi-arr">›</span></div>
 </div>
 <!-- Right col: appearance + islamic prefs -->
 <div>
@@ -5985,9 +6005,28 @@ function renderReflections(){
 
 // Wrap a translation in quotes unless it already contains quoted speech.
 function reflQuote(t){return /"/.test(t)?t:'"'+t+'"';}
-function openReflection(id){
+// English or Malay, one at a time. The Arabic always shows.
+const REFL_UI={
+  en:{from:'From ',sit:'To sit with',tr:'Translation: ',rev:'Reviewed by ',draft:'Draft. This entry has not been checked by a qualified reviewer yet.',
+      foot:'LENA shows these as the named scholars wrote them. It does not interpret the Quran and does not say what a verse means for your situation. For that, ask someone qualified.'},
+  ms:{from:'Daripada ',sit:'Untuk direnungkan',tr:'Terjemahan: ',rev:'Disemak oleh ',draft:'Draf. Entri ini belum disemak oleh penyemak yang berkelayakan.',
+      foot:'LENA memaparkan tafsiran ini seperti yang ditulis oleh ulama yang dinamakan. LENA tidak mentafsir al-Quran dan tidak menyatakan maksud sesuatu ayat bagi keadaan anda. Untuk itu, rujuklah orang yang berkelayakan.'}
+};
+let reflLang=(function(){try{return localStorage.getItem('lena_refl_lang')==='ms'?'ms':'en';}catch(e){return 'en';}})();
+let reflOpenId=null;
+function setReflLang(l){
+  reflLang=l==='ms'?'ms':'en';
+  try{localStorage.setItem('lena_refl_lang',reflLang);}catch(e){}
+  if(reflOpenId)openReflection(reflOpenId,true);
+}
+function openReflection(id,keep){
   if(!reflData)return;
   const e=reflData.entries.find(function(x){return x.id===id;});if(!e)return;
+  reflOpenId=id;
+  const L=reflLang, U=REFL_UI[L], pick=function(o,k){return o[k+'_'+L]||o[L]||o[k+'_'+(L==='ms'?'en':'ms')]||o[L==='ms'?'en':'ms']||'';};
+  ['en','ms'].forEach(function(k){const b=document.getElementById('refl-l-'+k);if(b)b.setAttribute('aria-pressed',k===L?'true':'false');});
+  document.getElementById('refl-m-draft').textContent=U.draft;
+  document.getElementById('refl-m-foot').textContent=U.foot;
   document.getElementById('refl-m-tag').textContent='Quran '+e.ref;
   document.getElementById('refl-m-title').textContent='Surah '+(e.surah_en||'')+(e.surah_ms&&e.surah_ms!==e.surah_en?' · '+e.surah_ms:'');
   document.getElementById('refl-m-draft').style.display=e.status==='reviewed'?'none':'inline-block';
@@ -5995,29 +6034,29 @@ function openReflection(id){
   const body=document.getElementById('refl-m-body');body.innerHTML='';
   const ar=reflEl('div','refl-ar',e.ar);ar.setAttribute('lang','ar');ar.setAttribute('dir','rtl');
   body.appendChild(ar);
-  if(e.en)body.appendChild(reflEl('div','refl-tr',reflQuote(e.en)));
-  if(e.ms){const m=reflEl('div','refl-ms',reflQuote(e.ms));m.setAttribute('lang','ms');body.appendChild(m);}
-  if(e.translation_source)body.appendChild(reflEl('div','refl-src','Translation: '+e.translation_source));
+  const tr=pick(e,'');
+  if(tr){const m=reflEl('div','refl-tr',reflQuote(tr));m.setAttribute('lang',L);body.appendChild(m);}
+  if(e.translation_source)body.appendChild(reflEl('div','refl-src',U.tr+e.translation_source));
 
   (e.tafsir||[]).forEach(function(t){
-    body.appendChild(reflEl('div','refl-h','From '+(t.source||'tafsir')));
-    if(t.en)body.appendChild(reflEl('div','refl-p',t.en));
-    if(t.ms){const p=reflEl('div','refl-p',t.ms);p.setAttribute('lang','ms');body.appendChild(p);}
+    body.appendChild(reflEl('div','refl-h',U.from+(t.source||'tafsir')));
+    const tx=t[L]||t[L==='ms'?'en':'ms'];
+    if(tx){const p=reflEl('div','refl-p',tx);p.setAttribute('lang',t[L]?L:(L==='ms'?'en':'ms'));body.appendChild(p);}
   });
 
-  if(e.reflect_en||e.reflect_ms){
-    body.appendChild(reflEl('div','refl-h','To sit with'));
+  const rf=e['reflect_'+L]||e['reflect_'+(L==='ms'?'en':'ms')];
+  if(rf){
+    body.appendChild(reflEl('div','refl-h',U.sit));
     const box=reflEl('div','refl-box');
-    if(e.reflect_en)box.appendChild(reflEl('div','refl-p',e.reflect_en));
-    if(e.reflect_ms){const p=reflEl('div','refl-p',e.reflect_ms);p.setAttribute('lang','ms');box.appendChild(p);}
+    const p=reflEl('div','refl-p',rf);p.setAttribute('lang',e['reflect_'+L]?L:(L==='ms'?'en':'ms'));box.appendChild(p);
     body.appendChild(box);
   }
   if(e.status==='reviewed'&&e.reviewed_by){
-    body.appendChild(reflEl('div','refl-src','Reviewed by '+e.reviewed_by+(e.reviewed_on?', '+e.reviewed_on:'')));
+    body.appendChild(reflEl('div','refl-src',U.rev+e.reviewed_by+(e.reviewed_on?', '+e.reviewed_on:'')));
   }
-  document.getElementById('refl-modal').classList.add('open');
+  if(!keep)document.getElementById('refl-modal').classList.add('open');
 }
-function closeReflection(){document.getElementById('refl-modal').classList.remove('open');}
+function closeReflection(){document.getElementById('refl-modal').classList.remove('open');reflOpenId=null;}
 </script>
 
 <script>
