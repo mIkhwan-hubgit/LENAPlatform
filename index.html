@@ -483,6 +483,21 @@ a:focus-visible,.time-input:focus-visible,input[type="range"]:focus-visible{
 .care-acts .btn-g{padding:9px 16px;font-size:12px}
 .care-acts .care-later{background:none;border:none;color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;padding:9px 6px;font-family:var(--ff-b)}
 
+/* ══ QURANIC REFLECTIONS ══════════════════════════════════════════ */
+button.cbt-cat{font-family:var(--ff-b);background:var(--card)}
+button.cbt-cat.act{background:rgba(43,184,154,.12)}
+.refl-card{width:100%;text-align:left;font-family:var(--ff-b);color:var(--text);align-items:flex-start}
+.refl-card .res-ico{font-size:13px;font-weight:700;color:var(--primary-t);background:rgba(43,184,154,.12);flex-direction:column;line-height:1.1}
+.refl-card .res-sub{line-height:1.5;margin-top:2px}
+.refl-draft{display:inline-block;font-size:11px;font-weight:700;color:var(--amber-t);background:rgba(229,164,53,.12);border:1px solid rgba(229,164,53,.35);border-radius:8px;padding:5px 9px;line-height:1.4}
+.refl-ar{font-family:'Amiri','Scheherazade New','Traditional Arabic','Noto Naskh Arabic',serif;font-size:26px;line-height:2.1;direction:rtl;text-align:center;color:var(--text);margin:4px 0 14px}
+.refl-tr{font-size:14px;color:var(--text);line-height:1.7;text-align:center}
+.refl-ms{font-size:13px;color:var(--text2);font-style:italic;line-height:1.7;text-align:center;margin-top:6px}
+.refl-src{font-size:11px;color:var(--muted);text-align:center;margin-top:8px}
+.refl-h{font-size:11px;font-weight:700;color:var(--primary-t);letter-spacing:.08em;text-transform:uppercase;margin:20px 0 8px}
+.refl-p{font-size:13.5px;color:var(--text2);line-height:1.75}
+.refl-p+.refl-p{margin-top:6px;font-style:italic}
+.refl-box{background:var(--bg3);border-radius:var(--r);padding:13px 15px}
 .pvol{margin-left:auto;width:110px;accent-color:var(--on-fill);cursor:pointer}
 .scp.loading{opacity:.55}
 .scp.loading::after{content:'';display:inline-block;width:10px;height:10px;margin-left:6px;border-radius:50%;
@@ -1061,6 +1076,17 @@ return {
 </div>
 </div>
 </div>
+<!-- ══ QURANIC REFLECTION READER ═══════════════════════════════════ -->
+<div class="mover" id="refl-modal" onclick="if(event.target===this)closeReflection()">
+<div class="msheet" style="width:600px" role="dialog" aria-modal="true" aria-labelledby="refl-m-title">
+<button class="mcls" aria-label="Close" onclick="closeReflection()">✕</button>
+<div id="refl-m-tag" style="font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px"></div>
+<div id="refl-m-title" style="font-family:var(--ff-d);font-size:22px;color:var(--text);margin-bottom:14px"></div>
+<div id="refl-m-draft" class="refl-draft" style="display:none;margin-bottom:14px">Draft. This entry has not been checked by a qualified reviewer yet.</div>
+<div id="refl-m-body"></div>
+<div style="margin-top:18px;padding-top:12px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);line-height:1.6">LENA shows these as the named scholars wrote them. It does not interpret the Quran and does not say what a verse means for your situation. For that, ask someone qualified.</div>
+</div>
+</div>
 <div class="mover" id="feedback-modal" onclick="if(event.target===this)closeFeedback()">
 <div class="msheet" style="width:520px">
 <button class="mcls" aria-label="Close" onclick="closeFeedback()">✕</button>
@@ -1243,7 +1269,7 @@ return {
 <div class="aref">Surah Yusuf (12:87)</div>
 <div style="display:flex;gap:10px;margin-top:16px">
 <button class="btn-p" onclick="openResModal('Quranic Reflection','Surah Yusuf 12:87 · 5 min','📖','Islamic')" style="padding:9px 18px;font-size:12px">📖 Read</button>
-<button class="btn-g" onclick="go('islamic')" style="padding:9px 18px;font-size:12px">📖 Read</button>
+<button class="btn-g" onclick="go('islamic')" style="padding:9px 18px;font-size:12px">More reflections ›</button>
 </div>
 </div>
 <div>
@@ -1599,7 +1625,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <p style="font-size:12px;color:var(--muted)">The sunset loading scene uses photos by Pietro De Grandi and Margo Evardson on Unsplash.</p>
 <div class="about-acts"><button class="btn-g" onclick="go('team')" style="padding:10px 18px;font-size:13px">Meet the team</button></div>
 </div>
-<div class="about-ver">LENA v1.0 · build 19 · IIUM KICT</div>
+<div class="about-ver">LENA v1.0 · build 20 · IIUM KICT</div>
 </div>
 <div class="sp"></div>
 </div>
@@ -1699,6 +1725,12 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <div class="res-ico" style="background:rgba(244,164,56,.12)">💪</div><div><div class="res-title">Sabr &amp; Resilience</div><div class="res-sub">Islamic framework for coping with hardship</div><div class="res-meta">📖 Read · 6 min</div></div>
 </div>
 </div>
+</div>
+<div id="refl-section" style="margin-bottom:22px">
+<div class="shd"><h2>Quranic Reflections</h2></div>
+<div style="font-size:12px;color:var(--muted);margin:-6px 0 12px;line-height:1.6">Verses with short tafsir from named scholars, grouped by what you might be going through. Pick a theme.</div>
+<div id="refl-themes" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px"></div>
+<div id="refl-list" class="grid2"></div>
 </div>
 <div class="shd"><h2>Daily Dhikr</h2></div>
 <div class="grid3" style="margin-bottom:20px">
@@ -2245,6 +2277,7 @@ function go(id){
   if(id==='sleep')setTimeout(()=>{try{renderSleep();}catch(e){}},30);
   if(id==='sleep-plan')setTimeout(()=>{try{renderPlan();}catch(e){}},30);
   if(id==='crisis')setTimeout(()=>{try{renderSafety();}catch(e){}},30);
+  if(id==='islamic')setTimeout(()=>{try{renderReflections();}catch(e){}},30);
   if(id==='profile')setTimeout(()=>{try{renderProfile();renderPrefs();renderPresets();}catch(e){}},30);
   const el=document.getElementById(sid);
   if(el){el.classList.add('active');}
@@ -3785,6 +3818,7 @@ const SEARCH_INDEX=[
   {ico:'🫁',label:'Box Breathing',sub:'Focus & calm technique',screen:'breathe'},
   {ico:'📓',label:'Journal',sub:'Daily reflections',screen:'journal'},
   {ico:'🕌',label:'Islamic Reflections',sub:'In Resources \u00b7 Quran, dhikr & spiritual support',screen:'islamic'},
+  {ico:'📖',label:'Quranic Reflections',sub:'Verses with tafsir, by theme',screen:'islamic',isl:true,action:()=>setTimeout(()=>{const s=document.getElementById('refl-section');if(s)s.scrollIntoView({behavior:'smooth',block:'start'});},150)},
   {ico:'🎵',label:'Soundscapes',sub:'Ambient sounds for focus & sleep',screen:'discover'},
   {ico:'📚',label:'Resources',sub:'Psychoeducation articles & audio',screen:'edu'},
   {ico:'🆘',label:'Crisis Help',sub:'Emergency helplines & safety plan',screen:'crisis'},
@@ -3838,7 +3872,7 @@ function doSidebarSearch(q){
      such as a specific guided tool, so the two do not say the same
      thing twice. */
   const results=SEARCH_INDEX.filter(item=>
-    !!item.action&&(item.label.toLowerCase().includes(lq)||item.sub.toLowerCase().includes(lq))
+    !!item.action&&!(item.isl&&!isMuslimUser)&&(item.label.toLowerCase().includes(lq)||item.sub.toLowerCase().includes(lq))
   ).slice(0,6);
   if(!results.length){panel.style.display='none';panel.innerHTML='';return;}
   panel.style.display='block';
@@ -5761,6 +5795,153 @@ setInterval(function(){
     });
   }).observe(document.body,{subtree:true,attributes:true,attributeFilter:['class']});
 })();
+</script>
+
+<script>
+/* ══ QURANIC REFLECTIONS ══════════════════════════════════════════════
+   Content lives in /assets/reflections.json, not in this file, so the
+   team and a reviewer can edit verses and tafsir without touching code.
+   The service worker precaches it, so the section works offline.
+
+   Rules this section keeps:
+   - Text is shown exactly as written in the file and credited to the
+     named source. Nothing here, and nothing in the chatbot, writes
+     tafsir of its own.
+   - The person picks a theme. Verses are never matched to their mood
+     automatically, because that would be the app deciding what a verse
+     means for their life.
+   - An entry whose status is not "reviewed" carries a visible Draft
+     notice. Set REFL_SHOW_DRAFTS to false before a public release so
+     only reviewed entries appear.
+
+   Every string from the file goes in with textContent, never innerHTML,
+   so a stray character in the content cannot break the page. */
+const REFL_SRC='/assets/reflections.json';
+const REFL_SHOW_DRAFTS=true;
+let reflData=null, reflLoad=null, reflTheme='all';
+
+function loadReflections(){
+  if(reflData)return Promise.resolve(reflData);
+  if(reflLoad)return reflLoad;
+  reflLoad=fetch(REFL_SRC)
+    .then(function(r){
+      if(!r.ok){const e=new Error('HTTP '+r.status);e.kind=r.status===404?'missing':'http';e.status=r.status;throw e;}
+      return r.text().then(function(t){
+        try{return JSON.parse(t);}catch(x){const e=new Error('bad json');e.kind='json';e.detail=x.message;throw e;}
+      });
+    })
+    .then(function(d){
+      if(!d||!Array.isArray(d.entries)){const e=new Error('bad file');e.kind='shape';throw e;}
+      reflData=d;return d;
+    })
+    .catch(function(e){reflLoad=null;throw e;});
+  return reflLoad;
+}
+function reflEntries(d){
+  return d.entries.filter(function(e){return e&&e.id&&e.ar&&(REFL_SHOW_DRAFTS||e.status==='reviewed');});
+}
+function reflEl(tag,cls,text){
+  const n=document.createElement(tag);
+  if(cls)n.className=cls;
+  if(text!=null&&text!=='')n.textContent=String(text);
+  return n;
+}
+function reflNote(html){
+  const list=document.getElementById('refl-list');if(!list)return;
+  list.innerHTML='<div class="card" style="grid-column:1 / -1;text-align:center;padding:24px 18px;font-size:13px;color:var(--muted);line-height:1.6">'+html+'</div>';
+}
+function setReflTheme(id){reflTheme=id;renderReflections();}
+
+function renderReflections(){
+  const chips=document.getElementById('refl-themes'), list=document.getElementById('refl-list');
+  if(!chips||!list)return;
+  if(!reflData)reflNote('Loading reflections…');
+  loadReflections().then(function(d){
+    const entries=reflEntries(d);
+    const used={};
+    entries.forEach(function(e){(e.themes||[]).forEach(function(t){used[t]=true;});});
+    const themes=(d.themes||[]).filter(function(t){return used[t.id];});
+    if(reflTheme!=='all'&&!used[reflTheme])reflTheme='all';
+
+    chips.innerHTML='';
+    [{id:'all',en:'All',ms:'Semua',icon:''}].concat(themes).forEach(function(t){
+      const b=reflEl('button','cbt-cat'+(reflTheme===t.id?' act':''),(t.icon?t.icon+' ':'')+t.en);
+      b.type='button';
+      b.setAttribute('aria-pressed',reflTheme===t.id?'true':'false');
+      if(t.ms)b.title=t.ms;
+      b.onclick=function(){setReflTheme(t.id);};
+      chips.appendChild(b);
+    });
+
+    const shown=entries.filter(function(e){return reflTheme==='all'||(e.themes||[]).indexOf(reflTheme)>-1;});
+    if(!shown.length){reflNote('No reflections here yet.');return;}
+    list.innerHTML='';
+    shown.forEach(function(e){
+      const card=reflEl('button','res-card refl-card');
+      card.type='button';
+      card.onclick=function(){openReflection(e.id);};
+      const ico=reflEl('div','res-ico');
+      ico.appendChild(reflEl('span','',e.ref.split(' ')[0]));
+      card.appendChild(ico);
+      const txt=reflEl('div');txt.style.minWidth='0';
+      txt.appendChild(reflEl('div','res-title','Surah '+(e.surah_en||'')));
+      txt.appendChild(reflEl('div','res-sub',e.en||''));
+      const meta=reflEl('div','res-meta',e.status==='reviewed'?'📖 Read':'📖 Read · Draft');
+      txt.appendChild(meta);
+      card.appendChild(txt);
+      list.appendChild(card);
+    });
+  }).catch(function(err){
+    // Say which problem it is, so whoever deployed the app can fix it
+    // without opening the console. Users see a plain sentence either way.
+    let why;
+    const k=err&&err.kind;
+    if(location.protocol==='file:')why='This page was opened as a file. Reflections only load when LENA is opened through a web address, such as your Vercel link or localhost.';
+    else if(navigator.onLine===false)why='Reflections need a connection the first time you open them. After that they work offline.';
+    else if(k==='missing')why='The reflections file was not found. It should be at assets/reflections.json.';
+    else if(k==='json')why='The reflections file has a formatting error, often a missing comma or quote.'+(err.detail?' ('+String(err.detail).replace(/[<>&]/g,'')+')':'');
+    else if(k==='shape')why='The reflections file loaded, but it has no "entries" list.';
+    else why='Reflections did not load'+(err&&err.status?' (HTTP '+err.status+')':'')+'.';
+    console.error('[LENA] reflections:',err);
+    reflNote(why+'<br><button class="btn-p" onclick="renderReflections()" style="margin-top:12px;padding:9px 18px;font-size:12px">Try again</button>');
+  });
+}
+
+// Wrap a translation in quotes unless it already contains quoted speech.
+function reflQuote(t){return /"/.test(t)?t:'"'+t+'"';}
+function openReflection(id){
+  if(!reflData)return;
+  const e=reflData.entries.find(function(x){return x.id===id;});if(!e)return;
+  document.getElementById('refl-m-tag').textContent='Quran '+e.ref;
+  document.getElementById('refl-m-title').textContent='Surah '+(e.surah_en||'')+(e.surah_ms&&e.surah_ms!==e.surah_en?' · '+e.surah_ms:'');
+  document.getElementById('refl-m-draft').style.display=e.status==='reviewed'?'none':'inline-block';
+
+  const body=document.getElementById('refl-m-body');body.innerHTML='';
+  const ar=reflEl('div','refl-ar',e.ar);ar.setAttribute('lang','ar');ar.setAttribute('dir','rtl');
+  body.appendChild(ar);
+  if(e.en)body.appendChild(reflEl('div','refl-tr',reflQuote(e.en)));
+  if(e.ms){const m=reflEl('div','refl-ms',reflQuote(e.ms));m.setAttribute('lang','ms');body.appendChild(m);}
+  if(e.translation_source)body.appendChild(reflEl('div','refl-src','Translation: '+e.translation_source));
+
+  (e.tafsir||[]).forEach(function(t){
+    body.appendChild(reflEl('div','refl-h','From '+(t.source||'tafsir')));
+    if(t.en)body.appendChild(reflEl('div','refl-p',t.en));
+    if(t.ms){const p=reflEl('div','refl-p',t.ms);p.setAttribute('lang','ms');body.appendChild(p);}
+  });
+
+  if(e.reflect_en||e.reflect_ms){
+    body.appendChild(reflEl('div','refl-h','To sit with'));
+    const box=reflEl('div','refl-box');
+    if(e.reflect_en)box.appendChild(reflEl('div','refl-p',e.reflect_en));
+    if(e.reflect_ms){const p=reflEl('div','refl-p',e.reflect_ms);p.setAttribute('lang','ms');box.appendChild(p);}
+    body.appendChild(box);
+  }
+  if(e.status==='reviewed'&&e.reviewed_by){
+    body.appendChild(reflEl('div','refl-src','Reviewed by '+e.reviewed_by+(e.reviewed_on?', '+e.reviewed_on:'')));
+  }
+  document.getElementById('refl-modal').classList.add('open');
+}
+function closeReflection(){document.getElementById('refl-modal').classList.remove('open');}
 </script>
 
 <script>
