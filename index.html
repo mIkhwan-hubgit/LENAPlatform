@@ -722,6 +722,18 @@ button:active:not(:disabled),[role="button"]:active,[role="switch"]:active,.scp:
 .qm-tag{border:1.5px solid var(--border2);background:var(--card);color:var(--text);border-radius:999px;padding:8px 13px;font:inherit;font-size:12.5px;cursor:pointer;min-height:38px}
 .qm-tag[aria-pressed="true"]{border-color:var(--primary);background:rgba(43,184,154,.14);font-weight:700}
 .qm-tag:focus-visible{outline:3px solid var(--primary);outline-offset:2px}
+/* section entrance, like Home */
+.screen.active:not(#sc-home) > :not(.grid2):not(.grid3):not(script):not(style),
+.screen.active:not(#sc-home) > .grid2 > *,
+.screen.active:not(#sc-home) > .grid3 > *{animation:fadeUp .45s ease both}
+.screen.active:not(#sc-home) > :nth-child(2),.screen.active:not(#sc-home) > .grid2 > :nth-child(2),.screen.active:not(#sc-home) > .grid3 > :nth-child(2){animation-delay:.07s}
+.screen.active:not(#sc-home) > :nth-child(3),.screen.active:not(#sc-home) > .grid3 > :nth-child(3){animation-delay:.14s}
+.screen.active:not(#sc-home) > :nth-child(4){animation-delay:.2s}
+.screen.active:not(#sc-home) > :nth-child(5){animation-delay:.26s}
+.screen.active:not(#sc-home) > :nth-child(n+6){animation-delay:.32s}
+@media (prefers-reduced-motion:reduce){
+  .screen.active > *,.screen.active > .grid2 > *,.screen.active > .grid3 > *{animation:none!important}
+}
 </style>
 </head>
 <body>
@@ -795,7 +807,7 @@ function build(){
   if(land){
     PW=Math.max(W,H*1.5); PH=PW/1.5; PX=(W-PW)/2;
     // put the far shore a little above the grass, so the water shows
-    PT=Math.max(H-PH,Math.min(0,(GT-210)-PH*.52)); SH=PT+PH*.52;
+    PT=Math.max(H-PH,Math.min(0,(GT-130)-PH*.52)); SH=PT+PH*.52;
     GX=PX+PW*.448; GY=PT+PH*.41;
   }else{
     PW=Math.max(W,H*2/3); PH=PW*1.5; PX=(W-PW)/2;
@@ -806,17 +818,7 @@ function build(){
   el('image',{id:'ls-p1',href:SRCP,x:f(PX),y:f(PT),width:f(PW),height:f(PH),preserveAspectRatio:'none'},defs);
   el('use',{href:'#ls-p1'},svg);
   el('ellipse',{'class':'glowp',cx:f(GX),cy:f(GY),rx:f(PW*(land?.3:.42)),ry:f(PH*(land?.18:.16)),fill:rgrad(defs,[[0,'#FFE2A0',.5],[.5,'#FFB070',.2],[1,'#FFB070',0]]),style:'mix-blend-mode:screen'},svg);
-  if(!reduce){
-    var wy=SH+8, wh=Math.min(PT+PH,GT+60)-wy;
-    var fl=el('filter',{id:'ls-rip',filterUnits:'userSpaceOnUse',x:0,y:f(wy),width:W,height:f(wh),'color-interpolation-filters':'sRGB'},defs);
-    var tb=el('feTurbulence',{type:'fractalNoise',baseFrequency:'0.004 0.05',numOctaves:2,seed:7,result:'n'},fl);
-    el('animate',{attributeName:'baseFrequency',dur:'16s',values:'0.002 0.06;0.003 0.09;0.002 0.06',repeatCount:'indefinite'},tb);
-    el('feDisplacementMap',{'in':'SourceGraphic',in2:'n',scale:f(PW/650),xChannelSelector:'R',yChannelSelector:'G'},fl);
-    var wm=el('mask',{id:'ls-wmask',maskUnits:'userSpaceOnUse',x:f(PX),y:f(PT),width:f(PW),height:f(PH)},defs);
-    el('image',{href:land?WM2:WM1,x:f(PX),y:f(PT),width:f(PW),height:f(PH),preserveAspectRatio:'none'},wm);
-    var wg=el('g',{mask:'url(#ls-wmask)'},svg), wf=el('g',{filter:'url(#ls-rip)'},wg);
-    el('use',{href:'#ls-p1'},wf);
-  }
+  // The lake is a still mirror. No animated shimmer (v22).
   var nz=noise(5);
   function edge(x,lift){return GT+34-lift-26*Math.sin(x/W*3.6+.5)-18*nz(x*.012);}
   function bladeMask(id,lift,seed){
@@ -831,13 +833,15 @@ function build(){
   function grass(maskId,lift,flip,shade,dur){
     var g=el('g',{mask:'url(#'+maskId+')'},svg), s=el('g',{'class':'gsway'},g); s.style.animationDuration=dur+'s';
     el('image',{href:G2,x:f((W-IW)/2),y:f(H-IH-lift*.5),width:f(IW),height:f(IH),preserveAspectRatio:'none',transform:flip?'translate('+W+' 0) scale(-1 1)':''},s);
-    el('rect',{x:-40,y:f(GT-140),width:W+80,height:f(GH+150),fill:lgrad(defs,[[0,'#05140E',shade],[.35,'#05140E',shade*.55],[1,'#030B08',Math.min(.92,shade+.12)]],0,GT-60,0,H)},s);
-    el('rect',{x:-40,y:f(GT-140),width:W+80,height:f(GH+150),fill:lgrad(defs,[[0,'#FFC070',.5],[1,'#FFC070',0]],0,GT-70-lift,0,GT+50-lift),style:'mix-blend-mode:soft-light'},s);
+    el('rect',{x:-40,y:f(GT-140),width:W+80,height:f(GH+150),fill:lgrad(defs,[[0,'#05140E',shade],[.35,'#05140E',shade*.6],[1,'#030B08',Math.min(.92,shade+.16)]],0,GT-60,0,H)},s);
+    // dusk light: warm the greens towards amber so the grass matches the sky
+    el('rect',{x:-40,y:f(GT-140),width:W+80,height:f(GH+150),fill:'#E8B888',opacity:.16,style:'mix-blend-mode:multiply'},s);
+    el('rect',{x:-40,y:f(GT-140),width:W+80,height:f(GH+150),fill:lgrad(defs,[[0,'#FFD27A',.7],[1,'#FFD27A',0]],0,GT-70-lift,0,GT+70-lift),style:'mix-blend-mode:soft-light'},s);
   }
   bladeMask('ls-m1',30,11); bladeMask('ls-m2',0,29);
   var sh='M-20 '+f(edge(-20,30)); for(x=-20;x<=W+20;x+=12)sh+='L'+f(x)+' '+f(edge(x,30)-4);
   var bl=el('filter',{id:'ls-b6',x:'-40%',y:'-80%',width:'180%',height:'260%'},defs); el('feGaussianBlur',{stdDeviation:6},bl);
-  el('path',{d:sh,fill:'none',stroke:'#041015','stroke-width':16,opacity:.4,filter:'url(#ls-b6)'},svg);
+  el('path',{d:sh,fill:'none',stroke:'#03080C','stroke-width':26,opacity:.62,filter:'url(#ls-b6)'},svg);
   grass('ls-m1',30,true,.3,7);
   grass('ls-m2',0,false,.08,5.5);
   var ff=el('g',{},svg), fglow=rgrad(defs,[[0,'#FFFBD0',1],[.3,'#F9E27A',.7],[1,'#F9E27A',0]]);
@@ -1653,7 +1657,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <p style="font-size:12px;color:var(--muted)">The sunset loading scene uses photos by Pietro De Grandi and Margo Evardson on Unsplash.</p>
 <div class="about-acts"><button class="btn-g" onclick="go('team')" style="padding:10px 18px;font-size:13px">Meet the team</button></div>
 </div>
-<div class="about-ver">LENA v1.0 · build 21 · IIUM KICT</div>
+<div class="about-ver">LENA v1.0 · build 22 · IIUM KICT</div>
 </div>
 <div class="sp"></div>
 </div>
