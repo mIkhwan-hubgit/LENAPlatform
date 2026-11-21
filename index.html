@@ -13,7 +13,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-title" content="LENA"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <style>
 /* ══ THEMES ══════════════════════════════════════════════════════════ */
 :root{
@@ -30,7 +30,7 @@
   --red:#E05C6E;--green:#34BF8A;--amber:#E5A435;--lav:#8B9DC3;
   --nav:rgba(255,255,255,0.94);--overlay:rgba(20,50,40,0.55);
   --r:14px;--r2:20px;--r3:28px;
-  --ff-d:'Playfair Display',Georgia,serif;--ff-b:'Plus Jakarta Sans',sans-serif;
+  --ff-d:'Playfair Display',Georgia,serif;--ff-b:'Lexend',system-ui,-apple-system,'Segoe UI',sans-serif;
 }
 [data-theme=ocean]{--bg:#EBF5FB;--bg2:#fff;--bg3:#D6ECF8;--bg4:#C2E3F5;--primary:#1260A8;--primary2:#0E4C88;--accent:#C05C00;--soft:#8EC8E8;--text:#061828;--text2:#12345A;--muted:#3A6A8A;--card:rgba(255,255,255,0.88);--card-b:rgba(255,255,255,0.97);--border:rgba(18,96,168,0.18);--border2:rgba(18,96,168,0.32);--shadow:rgba(18,96,168,0.14);--shadow2:rgba(0,0,0,0.08);--nav:rgba(255,255,255,0.94);--overlay:rgba(6,24,40,0.58);--primary-t:var(--primary);--fill:var(--primary);--fill2:var(--primary2);--accent-t:#A85000;--on-avatar:#fff}
 [data-theme=lavender]{--bg:#F5EEF8;--bg2:#fff;--bg3:#EBE0F5;--bg4:#DED0F0;--primary:#6A3A9E;--primary2:#522A84;--accent:#C05C00;--soft:#C8A8E8;--text:#18022E;--text2:#341258;--muted:#6A4090;--card:rgba(255,255,255,0.88);--card-b:rgba(255,255,255,0.97);--border:rgba(106,58,158,0.18);--border2:rgba(106,58,158,0.32);--shadow:rgba(106,58,158,0.14);--shadow2:rgba(0,0,0,0.08);--nav:rgba(255,255,255,0.94);--overlay:rgba(24,2,46,0.58);--primary-t:var(--primary);--fill:var(--primary);--fill2:var(--primary2);--accent-t:#A85000;--on-avatar:#fff}
@@ -828,6 +828,8 @@ button:active:not(:disabled),[role="button"]:active,[role="switch"]:active,.scp:
 .sl-ti{flex:none;width:34px;height:34px;border-radius:10px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:17px}
 .sl-foot{font-size:11.5px;color:var(--muted);line-height:1.6;margin-top:16px;padding-top:12px;border-top:1px solid var(--border)}
 @media (max-width:560px){.sl-scale{grid-template-columns:repeat(3,minmax(0,1fr))}.sl-h{font-size:19px}.sl-time input{font-size:20px}.sl-time{padding:10px 12px}.sl-stats{gap:6px}.sl-sn{font-size:15px}}
+.chat-disc{flex-shrink:0;font-size:11.5px;color:var(--muted);line-height:1.5;text-align:center;padding:8px 16px 0;background:var(--nav);border-top:1px solid var(--border)}
+.chat-disc + div{border-top:0!important;padding-top:8px!important}
 </style>
 </head>
 <body>
@@ -1773,7 +1775,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <p style="font-size:12px;color:var(--muted)">The sunset loading scene uses photos by Pietro De Grandi and Margo Evardson on Unsplash.</p>
 <div class="about-acts"><button class="btn-g" onclick="go('team')" style="padding:10px 18px;font-size:13px">Meet the team</button></div>
 </div>
-<div class="about-ver">LENA v1.0 · build 25 · IIUM KICT</div>
+<div class="about-ver">LENA v1.0 · build 26 · IIUM KICT</div>
 </div>
 <div class="sp"></div>
 </div>
@@ -1963,12 +1965,13 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <div class="chat-head" style="background:var(--card);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:12px;flex-shrink:0">
 <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0"><img alt="" src="/icon-192.png" style="width:100%;height:100%;object-fit:cover;display:block"/></div>
 <div><div style="font-size:14px;font-weight:700;color:var(--text)">LENA AI</div><div style="font-size:11px;color:var(--green-t);font-weight:600">● Online · Supportive listening</div></div>
-<button onclick="clearChat()" title="Clear this conversation" style="margin-left:auto;flex-shrink:0;padding:7px 14px;border-radius:18px;border:1px solid var(--border2);background:transparent;color:var(--text2);font-family:var(--ff-b);font-size:12px;font-weight:600;cursor:pointer">Clear chat</button><div class="chat-note" style="font-size:11px;color:var(--muted);text-align:right;line-height:1.5;max-width:240px">LENA does not diagnose and is not a replacement for professional care.<br>Chat messages are sent to an AI service to generate replies.</div>
+<button onclick="clearChat()" title="Clear this conversation" style="margin-left:auto;flex-shrink:0;padding:7px 14px;border-radius:18px;border:1px solid var(--border2);background:transparent;color:var(--text2);font-family:var(--ff-b);font-size:12px;font-weight:600;cursor:pointer">Clear chat</button>
 </div>
 <div class="chat-area" id="chatarea" style="background:var(--bg)">
-<div class="chat-bubble-wrap" style="max-width:60%;display:flex;gap:9px;align-self:flex-start"><div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0"><img alt="" src="/icon-192.png" style="width:100%;height:100%;object-fit:cover;display:block"/></div><div style="padding:12px 16px;border-radius:4px 18px 18px 18px;background:var(--card);border:1px solid var(--border);font-size:13px;color:var(--text);line-height:1.6">Assalamualaikum! I'm LENA 🌿<br/><br/>I'm here to listen and to sit with you through a difficult moment.<br><br>I'm not a therapist or a doctor, and I won't tell you what's wrong with you, because that takes a real person who can talk with you properly. But I can stay with you while it's hard. How are you feeling today?</div></div>
-<div class="chat-bubble-wrap" style="max-width:60%;display:flex;gap:9px;align-self:flex-start"><div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0"><img alt="" src="/icon-192.png" style="width:100%;height:100%;object-fit:cover;display:block"/></div><div style="padding:12px 16px;border-radius:4px 18px 18px 18px;background:var(--card);border:1px solid var(--border);font-size:13px;color:var(--text);line-height:1.6">You can talk to me about:<br/>• Anything that's weighing on you<br/>• Exam or family pressure<br/>• Feeling anxious, low, angry or alone<br/><br/>Or I can walk you through a short calming exercise.<br/><br/>If things ever feel unsafe, tell me, and I'll put the right numbers in front of you straight away.</div></div>
+<div class="chat-bubble-wrap" style="max-width:60%;display:flex;gap:9px;align-self:flex-start"><div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0"><img alt="" src="/icon-192.png" style="width:100%;height:100%;object-fit:cover;display:block"/></div><div style="padding:12px 16px;border-radius:4px 18px 18px 18px;background:var(--card);border:1px solid var(--border);font-size:14px;color:var(--text);line-height:1.6"><span id="chat-hello">Hi, I'm LENA.</span><br/><br/>I'm here to listen and to sit with you through a difficult moment.<br><br>I'm not a therapist or a doctor, and I won't tell you what's wrong with you, because that takes a real person who can talk with you properly. But I can stay with you while it's hard. How are you feeling today?</div></div>
+<div class="chat-bubble-wrap" style="max-width:60%;display:flex;gap:9px;align-self:flex-start"><div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0"><img alt="" src="/icon-192.png" style="width:100%;height:100%;object-fit:cover;display:block"/></div><div style="padding:12px 16px;border-radius:4px 18px 18px 18px;background:var(--card);border:1px solid var(--border);font-size:14px;color:var(--text);line-height:1.6">You can talk to me about:<br/>• Anything that's weighing on you<br/>• Exam or family pressure<br/>• Feeling anxious, low, angry or alone<br/><br/>Or I can walk you through a short calming exercise.<br/><br/>If things ever feel unsafe, tell me, and I'll put the right numbers in front of you straight away.</div></div>
 </div>
+<div class="chat-disc" id="chat-disc">LENA does not diagnose and is not a replacement for professional care. Your messages are sent to an AI service to write replies.</div>
 <div style="display:flex;gap:10px;padding:14px 16px;background:var(--nav);border-top:1px solid var(--border);flex-shrink:0">
 <input aria-label="Message to LENA" id="chatinp" onblur="this.style.borderColor='var(--border)'" onfocus="this.style.borderColor='var(--primary)'" onkeydown="if(event.key==='Enter')sendChat()" placeholder="Type your message…" style="flex:1;padding:12px 16px;border-radius:24px;border:1.5px solid var(--border);background:var(--bg3);font-family:var(--ff-b);font-size:14px;color:var(--text);outline:none;transition:border-color .2s"/>
 <button class="btn-p" onclick="sendChat()" style="padding:12px 24px;font-size:15px">↑ Send</button>
@@ -2346,6 +2349,7 @@ function resumeSession(){
 function setReligion(isMuslim){
   isMuslimUser=isMuslim;
   try{localStorage.setItem('lena_muslim',isMuslim?'1':'0');}catch(e){}
+  try{chatHello();}catch(e){}
   const relScreen=document.getElementById('religion-screen');
   relScreen.classList.add('gone');
   setTimeout(()=>{relScreen.classList.add('fc-hidden');relScreen.classList.remove('gone');showLoadingScreen();},400);
@@ -2430,6 +2434,7 @@ function go(id){
   if(id==='journal')setTimeout(()=>{try{renderJournal();}catch(e){}},30);
   if(id==='sleep')setTimeout(()=>{try{renderSleep();}catch(e){}},30);
   if(id==='sleep-plan')setTimeout(()=>{try{renderPlan();}catch(e){}},30);
+  if(id==='chat')try{chatHello();}catch(e){}
   if(id==='crisis')setTimeout(()=>{try{renderSafety();}catch(e){}},30);
   if(id==='islamic')setTimeout(()=>{try{renderReflections();}catch(e){}},30);
   if(id==='profile')setTimeout(()=>{try{renderProfile();renderPrefs();renderPresets();}catch(e){}},30);
@@ -3613,6 +3618,7 @@ function togglePref(which){
   if(which==='islamic'){
     isMuslimUser=!isMuslimUser;
     try{localStorage.setItem('lena_muslim',isMuslimUser?'1':'0');}catch(e){}
+    try{chatHello();}catch(e){}
     renderPrefs();
     toast(isMuslimUser?'Islamic sections are on':'Islamic sections are hidden');
     return;
@@ -5011,6 +5017,26 @@ const CRISIS_REPLY=
  'If you are with someone you trust, please tell them too. You do not have to explain it well. '+
  'Just show them this screen.';
 
+const CRISIS_REPLY_MS=
+ 'Terima kasih sebab beritahu saya. Saya nak berhenti sekejap di sini, sebab apa yang awak cakap ni '+
+ 'berat, dan ia lebih penting daripada apa-apa lagi yang kita boleh bualkan.<br><br>'+
+ 'Saya tak boleh bantu perkara ni seorang diri, tapi ada orang yang sedia membantu awak sekarang:'+
+ '<br><br>'+
+ '<b>Befrienders Malaysia</b> · 03-7627 2929 · 24 jam<br>'+
+ '<b>Talian Kasih</b> · 15999 · 24 jam<br>'+
+ '<b>MOH Mental Health Line</b> · 1800-82-0066 · 24 jam<br>'+
+ '<b>Kecemasan</b> · 999<br><br>'+
+ 'Kalau awak bersama seseorang yang awak percaya, tolong beritahu dia juga. Awak tak perlu '+
+ 'terangkan dengan sempurna. Tunjuk saja skrin ni.';
+// Two or more everyday Malay words means the person is writing in Malay
+// (or mixing), so the crisis reply comes back in Malay.
+const CRISIS_MS_WORDS=new Set(['aku','saya','kau','awak','nak','nk','tak','tk','x','dah','je','jer','ni','tu','dia','diri','bunuh','mati','hidup','rasa','lagi','sangat','dengan','untuk','semua','orang','boleh','takde','tiada','tidak','mahu','ingin','hendak','sudah','lebih','baik','kalau','bila','sebab','pun','lah','dgn','utk','sy','ak','mcm','macam','larat','penat','sakit','tolong','keluarga','mak','ayah','selamat','tinggal']);
+function crisisIsMalay(t){
+  const w=normCrisis(t).trim().split(' ');
+  let n=0;for(let i=0;i<w.length;i++){if(CRISIS_MS_WORDS.has(w[i]))n++;}
+  return n>=2;
+}
+
 // ── Model-backed replies ────────────────────────
 // The reply comes from a language model via /api/chat, which runs on
 // the server and holds the API key. The browser never sees the key.
@@ -5168,7 +5194,8 @@ async function sendChat(){
 
   // Crisis is settled here, in the browser, before any network call.
   if(isCrisis(msg)){
-    chatBubble(CRISIS_REPLY,true,{l:'Open crisis support',f:'openSOS()'});
+    const ms=crisisIsMalay(msg);
+    chatBubble(ms?CRISIS_REPLY_MS:CRISIS_REPLY,true,{l:ms?'Buka bantuan krisis':'Open crisis support',f:'openSOS()'});
     return;
   }
 
@@ -5223,9 +5250,15 @@ function restoreChatSession(){
 // No confirmation step. The point of this button is that someone can wipe the
 // screen quickly when another person walks in, and a dialog asking "are you
 // sure" defeats exactly that.
+// Salam only for someone who said they are Muslim; everyone else gets Hi.
+function chatHello(){
+  const h=document.getElementById('chat-hello');
+  if(h)h.textContent=isMuslimUser?'Assalamualaikum! I\'m LENA.':'Hi, I\'m LENA.';
+}
 function clearChat(){
   const area=document.getElementById('chatarea');
   if(area){ area.innerHTML=CHAT_SEED; area.scrollTop=0; }
+  chatHello();
   chatHistory=[];
   try{ sessionStorage.removeItem(CHAT_SKEY); }catch(e){}
   try{ toast('Chat cleared'); }catch(e){}
@@ -5246,6 +5279,7 @@ try{
   const _a=document.getElementById('chatarea');
   if(_a)CHAT_SEED=_a.innerHTML;
   restoreChatSession();
+  chatHello();
 }catch(e){}
 
 // Put the saved appearance back before anything is shown.
