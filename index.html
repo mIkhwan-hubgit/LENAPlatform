@@ -943,6 +943,108 @@ button:active:not(:disabled),[role="button"]:active,[role="switch"]:active,.scp:
 .mc-c .mc-l{font-size:10.5px;color:var(--muted)}
 .mc-c.zero{opacity:.45}
 @media (prefers-reduced-motion:reduce){.ch-tip{transition:none}}
+/* v32: grid columns may shrink, so long content wraps inside them */
+.grid2>*,.grid3>*,.grid4>*{min-width:0}
+/* journal */
+.j-title{font-family:var(--ff-d);font-size:15px;color:var(--text);margin-bottom:5px;overflow-wrap:anywhere}
+.j-title.open{font-size:17px;line-height:1.45;margin-bottom:10px}
+.j-prev{font-size:12px;color:var(--muted);line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.j-body{font-size:13px;color:var(--text2);line-height:1.75;white-space:pre-wrap;overflow-wrap:anywhere}
+.j-lab{display:block;color:var(--text);font-weight:700;font-size:12px;letter-spacing:.02em;margin-bottom:1px}
+/* screening language */
+.as-lang{margin:0 0 14px}
+/* collapsible menu (computers only) */
+.logo{position:relative}
+.sb-tog,.sb-find{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;border:1px solid var(--border);background:var(--card-b);color:var(--text2);cursor:pointer;padding:0;transition:background .15s,color .15s}
+.sb-tog:hover,.sb-find:hover{background:var(--bg3);color:var(--text)}
+.sb-tog:focus-visible,.sb-find:focus-visible{outline:3px solid var(--primary);outline-offset:2px}
+.sb-tog svg{width:20px;height:20px}.sb-find .ic{width:19px;height:19px}
+.sb-tog{position:absolute;top:-14px;right:10px}
+.sb-find{display:none}
+.sb-chev{transition:transform .25s;transform-box:fill-box;transform-origin:center}
+@media (min-width:821px){
+  .app{transition:grid-template-columns .25s ease}
+  .app.sb-mini{grid-template-columns:76px 1fr}
+  .sb-mini .sidebar{overflow-x:hidden}
+  .sb-mini .logo{padding:0 0 14px;display:flex;flex-direction:column;align-items:center;gap:10px}
+  .sb-mini .sb-tog{position:static;order:2}
+  .sb-mini .sb-find{display:inline-flex;order:3}
+  .sb-mini .sb-chev{transform:scaleX(-1)}
+  .sb-mini .logo-row{order:1}
+  .sb-mini .logo-row > div:last-child{display:none}
+  .sb-mini .search-bar,.sb-mini .search-results{display:none}
+  .sb-mini .nav-section{font-size:0;padding:10px 20px 4px}
+  .sb-mini .nav-section::after{content:'';display:block;height:1px;background:var(--border)}
+  .sb-mini .nav-link{justify-content:center;margin:2px 10px;padding:10px 0;border-radius:var(--r)}
+  .sb-mini .nav-link .ni{width:auto;font-size:19px}
+  .sb-mini .nl-t{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+  .sb-mini .sidebar-footer{padding:14px 10px}
+  .sb-mini .sidebar-footer > div{display:none}
+  .sb-mini .sos-btn{display:flex;justify-content:center;align-items:center;padding:11px 0}
+  .sb-mini .sos-btn .ic-sos{width:21px;height:21px;margin:0}
+}
+@media (max-width:820px){.sb-tog,.sb-find{display:none!important}}
+@media (prefers-reduced-motion:reduce){.app,.sb-chev{transition:none!important}}
+.gf-wrap{display:flex;justify-content:center;margin:-6px 0 14px}
+.gf-svg{width:min(210px,58vw);height:auto;display:block;overflow:visible;--fig:color-mix(in srgb,var(--primary) 52%,var(--bg2))}
+[data-theme=dark] .gf-svg{--fig:color-mix(in srgb,var(--primary) 62%,#fff)}
+.gf-s{fill:none;stroke:var(--fig);stroke-linecap:round;stroke-linejoin:round}
+.gf-f{fill:var(--fig)}
+.gf-eye{fill:var(--bg2)}
+.gf-mouth,.gf-feat{fill:none;stroke:var(--bg2);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.gf-featf{fill:var(--bg2)}
+.gf-ch{fill:none;stroke:var(--muted);stroke-linecap:round;opacity:.38}
+.gf-gnd{fill:var(--muted);opacity:.14}
+.gf-arw{fill:none;stroke:var(--accent-t);stroke-width:2.6;stroke-linecap:round}
+.gf-arwh{fill:var(--accent-t)}
+.gf-tense .gf-s{stroke:var(--amber)}.gf-tense .gf-f{fill:var(--amber)}
+.gf-free .gf-s{stroke:var(--green)}.gf-free .gf-f{fill:var(--green)}
+.gf-wv,.gf-ml{fill:none;stroke:var(--green);stroke-width:2.4;stroke-linecap:round}
+.gf-ml{stroke:var(--accent-t)}
+.gf-ring{fill:var(--primary);opacity:.07}
+.gf-glow{fill:var(--green);opacity:.09}
+.gf-heart{fill:var(--red)}
+.gf-svg g{transform-box:view-box}
+.gf-svg .gf-ring,.gf-svg .gf-glow,.gf-svg .gf-heart{transform-box:fill-box;transform-origin:center}
+@keyframes gfRoll{0%,100%{transform:translate(0,0)}25%{transform:translate(0,-7px)}50%{transform:translate(0,-4px)}75%{transform:translate(0,2px)}}
+@keyframes gfReachL{0%,12%,88%,100%{transform:rotate(0)}40%,60%{transform:rotate(166deg)}}
+@keyframes gfReachR{0%,12%,88%,100%{transform:rotate(0)}40%,60%{transform:rotate(-166deg)}}
+@keyframes gfTilt{0%,100%{transform:rotate(0)}25%{transform:rotate(-15deg)}75%{transform:rotate(15deg)}}
+@keyframes gfMarch{0%,50%,100%{transform:scaleY(1)}25%{transform:scaleY(.64)}}
+@keyframes gfSwingL{0%,100%{transform:rotate(-14deg)}50%{transform:rotate(14deg)}}
+@keyframes gfShakeL{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(7deg)}}
+@keyframes gfJig{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+@keyframes gfBreath{0%,100%{transform:scale(.9);opacity:.05}50%{transform:scale(1.06);opacity:.11}}
+@keyframes gfBeat{0%,40%,100%{transform:scale(1)}20%{transform:scale(1.22)}}
+@keyframes gfPulse{0%,100%{opacity:1}50%{opacity:.62}}
+@keyframes gfSqueeze{0%,100%{transform:scale(1)}50%{transform:scale(.84)}}
+@keyframes gfWave{0%{transform:translateX(0);opacity:0}30%{opacity:1}100%{transform:translateX(14px);opacity:0}}
+@keyframes gfFlick{0%,100%{opacity:.25}50%{opacity:1}}
+.gf-shs.a-roll{animation:gfRoll 3s ease-in-out infinite}
+.gf-armL.a-reachL{animation:gfReachL 4.5s ease-in-out infinite}
+.gf-armR.a-reachR{animation:gfReachR 4.5s ease-in-out infinite}
+.gf-head.a-tilt{animation:gfTilt 6s ease-in-out infinite}
+.gf-legL.a-marchL{animation:gfMarch 1.6s ease-in-out infinite}
+.gf-legR.a-marchR{animation:gfMarch 1.6s ease-in-out infinite -.8s}
+.gf-armL.a-swingL{animation:gfSwingL 1.6s ease-in-out infinite}
+.gf-armR.a-swingR{animation:gfSwingL 1.6s ease-in-out infinite}
+.gf-armL.a-shakeL{animation:gfShakeL .28s linear infinite}
+.gf-armR.a-shakeR{animation:gfShakeL .28s linear infinite -.14s}
+.gf-legL.a-jig{animation:gfJig .3s linear infinite}
+.gf-legR.a-jig2{animation:gfJig .3s linear infinite -.15s}
+.gf-mot{animation:gfFlick .5s linear infinite}
+.gf-ring{animation:gfBreath 6s ease-in-out infinite}
+.gf-glow{animation:gfBreath 6s ease-in-out infinite}
+.gf-heart{animation:gfBeat 1s ease-in-out infinite}
+.gf-tense{animation:gfPulse 1.4s ease-in-out infinite}
+.gf-fist{transform-box:fill-box;transform-origin:center;animation:gfSqueeze 1.4s ease-in-out infinite}
+.gf-wave{animation:gfWave 2.2s ease-out infinite}
+@media (prefers-reduced-motion:reduce){
+  .gf-svg *{animation:none!important}
+  .gf-armL.a-reachL{transform:rotate(166deg)}.gf-armR.a-reachR{transform:rotate(-166deg)}
+  .gf-head.a-tilt{transform:rotate(-15deg)}.gf-legL.a-marchL{transform:scaleY(.64)}
+  .gf-shs.a-roll{transform:translate(0,-6px)}
+}
 </style>
 </head>
 <body>
@@ -1135,17 +1237,15 @@ return {
 <div class="mover" id="res-modal" onclick="if(event.target===this)closeResModal()">
 <div class="msheet msheet-wide" style="padding:0;overflow:hidden">
 <!-- Header bar -->
-<div style="background:linear-gradient(135deg,var(--primary),var(--primary2));padding:20px 28px 0">
-<div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px">
+<div style="background:linear-gradient(135deg,var(--primary),var(--primary2));padding:20px 28px 18px">
+<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:14px">
 <div>
 <div id="res-modal-tag" style="font-size:10px;font-weight:700;color:rgba(255,255,255,.75);letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px">ARTICLE</div>
-<div id="res-modal-title" style="font-family:var(--ff-d);font-size:20px;color:#fff">Understanding Depression</div>
-<div id="res-modal-sub" style="font-size:12px;color:rgba(255,255,255,.7);margin-top:3px"></div>
+<div id="res-modal-title" style="font-family:var(--ff-d);font-size:20px;line-height:1.3;color:#fff">Understanding Depression</div>
+<div id="res-modal-sub" style="font-size:12px;line-height:1.45;color:rgba(255,255,255,.86);margin-top:5px"></div>
 </div>
 <button class="mcls" aria-label="Close" onclick="closeResModal()" style="background:rgba(255,255,255,.2);color:#fff;flex-shrink:0;margin-top:0">✕</button>
 </div>
-<!-- Mode toggle (centered) -->
-
 </div>
 <!-- READ MODE -->
 <div id="res-read-panel" style="display:none;background:var(--bg)">
@@ -1372,9 +1472,11 @@ return {
 <div class="app" id="app-layout" style="display:none">
 <h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap">LENA, Live Emotional Needs Assistant</h1>
 <!-- SIDEBAR -->
-<aside class="sidebar">
+<aside class="sidebar" id="app-sidebar">
 <div class="logo">
-<div style="display:flex;align-items:center;gap:10px">
+<button type="button" class="sb-tog" id="sb-tog" aria-label="Collapse the menu" aria-expanded="true" aria-controls="app-sidebar" onclick="toggleSidebar()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M9 4v16"/><path class="sb-chev" d="M16 9.5l-2.5 2.5 2.5 2.5"/></svg></button>
+<button type="button" class="sb-find" aria-label="Search features" onclick="toggleSidebar(false);setTimeout(function(){var i=document.getElementById('sidebar-search');if(i)i.focus();},260)"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-magnifying-glass"/></svg></button>
+<div class="logo-row" style="display:flex;align-items:center;gap:10px">
 <img alt="LENA Logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" src="assets/LENA-logo.webp" style="width:44px;height:44px;border-radius:10px;object-fit:cover;box-shadow:0 2px 8px var(--shadow)"/>
 <div style="display:none;width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--primary),var(--accent));align-items:center;justify-content:center;font-size:20px;box-shadow:0 2px 8px var(--shadow)">🌿</div>
 <div>
@@ -1390,29 +1492,29 @@ return {
 </div>
 <div class="search-results" id="search-results-panel"></div>
 <div class="nav-section">Main</div>
-<div class="nav-link act" id="nl-home" onclick="go('home')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-house"/></svg></span> Home</div>
-<div class="nav-link" id="nl-chat" onclick="go('chat')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-chat-circle-dots"/></svg></span> LENA AI Chat</div>
+<div class="nav-link act" id="nl-home" onclick="go('home')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-house"/></svg></span><span class="nl-t">Home</span></div>
+<div class="nav-link" id="nl-chat" onclick="go('chat')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-chat-circle-dots"/></svg></span><span class="nl-t">LENA AI Chat</span></div>
 <div class="nav-section">Track &amp; Reflect</div>
-<div class="nav-link" id="nl-mood" onclick="go('mood')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-chart-line-up"/></svg></span> Mood Tracker</div>
-<div class="nav-link" id="nl-sleep" onclick="go('sleep')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-moon-stars"/></svg></span> Sleep Tracker</div>
-<div class="nav-link" id="nl-journal" onclick="go('journal')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-notebook"/></svg></span> Journal</div>
-<div class="nav-link" id="nl-assess" onclick="go('assess')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-clipboard-text"/></svg></span> Screening Test</div>
+<div class="nav-link" id="nl-mood" onclick="go('mood')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-chart-line-up"/></svg></span><span class="nl-t">Mood Tracker</span></div>
+<div class="nav-link" id="nl-sleep" onclick="go('sleep')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-moon-stars"/></svg></span><span class="nl-t">Sleep Tracker</span></div>
+<div class="nav-link" id="nl-journal" onclick="go('journal')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-notebook"/></svg></span><span class="nl-t">Journal</span></div>
+<div class="nav-link" id="nl-assess" onclick="go('assess')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-clipboard-text"/></svg></span><span class="nl-t">Screening Test</span></div>
 <div class="nav-section">Self-care</div>
-<div class="nav-link" id="nl-cbt" onclick="go('cbt')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-brain"/></svg></span> Guided Tools</div>
-<div class="nav-link" id="nl-breathe" onclick="go('breathe')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-wind"/></svg></span> Breathe</div>
-<div class="nav-link" id="nl-discover" onclick="go('discover')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-music-notes"/></svg></span> Soundscapes</div>
-<div class="nav-link" id="nl-games" onclick="go('games')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-game-controller"/></svg></span> Games</div>
-<div class="nav-link isl-only" id="nl-islamic" onclick="go('islamic')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-mosque"/></svg></span> Kerohanian</div>
+<div class="nav-link" id="nl-cbt" onclick="go('cbt')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-brain"/></svg></span><span class="nl-t">Guided Tools</span></div>
+<div class="nav-link" id="nl-breathe" onclick="go('breathe')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-wind"/></svg></span><span class="nl-t">Breathe</span></div>
+<div class="nav-link" id="nl-discover" onclick="go('discover')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-music-notes"/></svg></span><span class="nl-t">Soundscapes</span></div>
+<div class="nav-link" id="nl-games" onclick="go('games')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-game-controller"/></svg></span><span class="nl-t">Games</span></div>
+<div class="nav-link isl-only" id="nl-islamic" onclick="go('islamic')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-mosque"/></svg></span><span class="nl-t">Kerohanian</span></div>
 <div class="nav-section">Help &amp; Learn</div>
-<div class="nav-link" id="nl-crisis" onclick="go('crisis')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-lifebuoy"/></svg></span> Crisis Help</div>
-<div class="nav-link" id="nl-edu" onclick="go('edu')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-books"/></svg></span> Resources</div>
+<div class="nav-link" id="nl-crisis" onclick="go('crisis')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-lifebuoy"/></svg></span><span class="nl-t">Crisis Help</span></div>
+<div class="nav-link" id="nl-edu" onclick="go('edu')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-books"/></svg></span><span class="nl-t">Resources</span></div>
 <div class="nav-section">About</div>
-<div class="nav-link" id="nl-about" onclick="go('about')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-info"/></svg></span> About LENA</div>
-<div class="nav-link" id="nl-team" onclick="go('team')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-plant"/></svg></span> LENA's Team</div>
+<div class="nav-link" id="nl-about" onclick="go('about')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-info"/></svg></span><span class="nl-t">About LENA</span></div>
+<div class="nav-link" id="nl-team" onclick="go('team')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-plant"/></svg></span><span class="nl-t">LENA's Team</span></div>
 <div class="nav-section">Account</div>
-<div class="nav-link" id="nl-profile" onclick="go('profile')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-user-circle"/></svg></span> Profile &amp; Settings</div>
+<div class="nav-link" id="nl-profile" onclick="go('profile')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-user-circle"/></svg></span><span class="nl-t">Profile &amp; Settings</span></div>
 <div class="sidebar-footer">
-<button class="sos-btn" onclick="openSOS()"><svg class="ic ic-sos" aria-hidden="true" focusable="false"><use href="#ph-siren"/></svg> Emergency SOS</button>
+<button class="sos-btn" onclick="openSOS()"><svg class="ic ic-sos" aria-hidden="true" focusable="false"><use href="#ph-siren"/></svg> <span class="nl-t">Emergency SOS</span></button>
 <div style="text-align:center;margin-top:10px;font-size:10px;color:var(--muted)"><a onclick="go('about')" style="color:inherit;cursor:pointer;text-decoration:underline">LENA v1.0 · About</a> · IIUM KICT FYP 2025</div>
 </div>
 </aside>
@@ -1724,6 +1826,7 @@ return {
 <!-- Quiz -->
 <div id="assess-quiz" style="display:none;max-width:680px;margin:0 auto">
 <div style="margin-bottom:16px">
+<div class="refl-lang as-lang" id="as-lang" role="group" aria-label="Language / Bahasa"><button type="button" id="as-l-en" aria-pressed="true" onclick="setAsLang('en')">English</button><button type="button" id="as-l-ms" aria-pressed="false" onclick="setAsLang('ms')">Bahasa Melayu</button></div>
 <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:7px"><span id="q-label">Question 1 of 9</span><span id="a-name">PHQ-9</span></div>
 <div style="height:6px;background:var(--bg3);border-radius:3px;overflow:hidden"><div id="qprog" style="height:100%;border-radius:3px;background:var(--primary);transition:width .4s"></div></div>
 </div>
@@ -1807,7 +1910,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <div style="font-size:12px;font-weight:700;color:var(--primary-t);margin-bottom:6px">The CBT Triangle</div>
 <div style="text-align:center;font-size:13px;color:var(--text2);line-height:2">Thoughts 💭<br/>↕<br/>Feelings 💗 ↔ Behaviour 🎯</div>
 </div>
-<div style="background:rgba(244,164,56,.07);border:1px solid rgba(244,164,56,.2);border-radius:var(--r);padding:13px 14px;margin-bottom:12px"><div style="font-size:12px;font-weight:700;color:var(--amber-t);margin-bottom:6px">Why there are no worksheets here</div><div style="font-size:12px;color:var(--text2);line-height:1.7">Structured CBT exercises such as thought records are built to be reviewed with a clinician, who reads what you wrote and works through it with you. Completed alone, they rarely go deep. LENA therefore offers guided tools you can finish by yourself and feel the benefit of straight away. If you want to work through a thought record properly, do it with a professional.</div><div style="font-size:12px;color:var(--primary-t);font-weight:600;margin-top:10px;cursor:pointer" onclick="go('crisis')">Find professional support ›</div></div><div style="font-size:12px;color:var(--muted);line-height:1.7">LENA's CBT tools are adapted for Malaysian Muslim users, integrating Islamic values and culturally-congruent examples.</div>
+<div style="background:rgba(244,164,56,.07);border:1px solid rgba(244,164,56,.2);border-radius:var(--r);padding:13px 14px;margin-bottom:12px"><div style="font-size:12px;font-weight:700;color:var(--amber-t);margin-bottom:6px">Why there are no worksheets here</div><div style="font-size:12px;color:var(--text2);line-height:1.7">Structured CBT exercises such as thought records are built to be reviewed with a clinician, who reads what you wrote and works through it with you. Completed alone, they rarely go deep. LENA therefore offers guided tools you can finish by yourself and feel the benefit of straight away. If you want to work through a thought record properly, do it with a professional.</div><div style="font-size:12px;color:var(--primary-t);font-weight:600;margin-top:10px;cursor:pointer" onclick="go('crisis')">Find professional support ›</div></div><div style="font-size:12px;color:var(--muted);line-height:1.7">LENA's CBT-informed tools are written for everyone, with everyday Malaysian examples. If you turn on the Islamic sections in Profile &amp; Settings, faith-based tools and reflections are added alongside them.</div>
 </div>
 </div>
 <div class="sp"></div>
@@ -1828,6 +1931,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <div id="gt-prog" style="height:100%;border-radius:3px;background:var(--primary);transition:width .4s;width:0%"></div>
 </div>
 <div id="gt-body">
+<div id="gt-fig" class="gf-wrap" style="display:none"></div>
 <div id="gt-step" style="font-family:var(--ff-d);font-size:22px;color:var(--text);line-height:1.5;margin-bottom:12px"></div>
 <div id="gt-hint" style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:26px"></div>
 <div style="display:flex;gap:10px">
@@ -1889,7 +1993,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <p style="font-size:12px;color:var(--muted)">The sunset loading scene uses photos by Pietro De Grandi and Margo Evardson on Unsplash.</p>
 <div class="about-acts"><button class="btn-g" onclick="go('team')" style="padding:10px 18px;font-size:13px">Meet the team</button></div>
 </div>
-<div class="about-ver">LENA v1.0 · build 31 · IIUM KICT</div>
+<div class="about-ver">LENA v1.0 · build 32 · IIUM KICT</div>
 </div>
 <div class="sp"></div>
 </div>
@@ -2834,7 +2938,8 @@ function pickModalMood(el,v){
 // two facts, not a correction.
 function addMood(mood,note,iv,tags){
   const all=loadMoods();
-  all.push({t:Date.now(),m:mood,i:iv||4,tags:tags||[],note:(note||'').trim()});
+  const e={t:Date.now(),m:mood,tags:tags||[],note:(note||'').trim()}; if(iv)e.i=iv;
+  all.push(e);
   all.sort((a,b)=>a.t-b.t);
   while(all.length>800)all.shift();
   saveMoods(all);
@@ -3010,17 +3115,20 @@ function renderJournal(){
   list.innerHTML=shown.map(e=>{
     const open=jOpenId===e.id;
     const tags=(e.tags||[]).map(t=>'<span class="tag tg-g">'+esc(t)+'</span>').join('');
+    // the first line is the title, so the rest is the body
+    const nl=e.x.indexOf('\n'), first=(nl<0?e.x:e.x.slice(0,nl)).trim(), rest=(nl<0?'':e.x.slice(nl+1)).replace(/^\s+/,'');
+    const restHtml=esc(rest).replace(/^(What I would tell a friend|A fairer way to see it):[ ]?/gm,'<b class="j-lab">$1</b>');
     const body=open
-      ? '<div data-noico style="font-size:12.5px;color:var(--text2);line-height:1.75;white-space:pre-wrap">'+esc(e.x)+'</div>'+
+      ? (rest?'<div data-noico class="j-body">'+restHtml+'</div>':'')+
         '<div style="display:flex;gap:8px;margin-top:12px">'+
         '<button class="btn-g" onclick="delJournalEntry('+e.id+',event)" style="padding:8px 14px;font-size:11px">Delete entry</button>'+
         '<button class="btn-g" onclick="toggleJournalEntry('+e.id+')" style="padding:8px 14px;font-size:11px">Close</button></div>'
-      : '<div style="font-size:12px;color:var(--muted);line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+esc(e.x.replace(/\s+/g,' '))+'</div>';
+      : (rest?'<div data-noico class="j-prev">'+esc(rest.replace(/\s+/g,' '))+'</div>':'');
     return '<div class="card" onclick="'+(open?'':'toggleJournalEntry('+e.id+')')+'" style="margin-bottom:10px;cursor:pointer">'+
       '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">'+
       '<div style="font-size:11px;color:var(--muted);font-weight:600">'+jWhen(e.t)+'</div>'+
       '<div style="display:flex;gap:6px;align-items:center">'+(e.m?'<span style="font-size:16px">'+e.m+'</span>':'')+tags+'</div></div>'+
-      '<div style="font-family:var(--ff-d);font-size:15px;color:var(--text);margin-bottom:5px">'+esc(jTitle(e.x))+'</div>'+
+      '<div data-noico class="j-title'+(open?' open':'')+'">'+esc(open?first:jTitle(e.x))+'</div>'+
       body+'</div>';
   }).join('');
 }
@@ -4168,7 +4276,7 @@ function saveCheckin(){
       // The check-in used to colour one face in and go no further, so a
       // mood answered on the way in never reached the log or the chart.
       const score={'😞':1,'😔':2,'😐':3,'🙂':4,'😊':5}[checkinMoodSelected]||3;
-      try{addMood(checkinMoodSelected,'',score,['Daily check-in']);}catch(e){}
+      try{addMood(score,'',null,['Daily check-in']);}catch(e){}
       try{renderProfile();}catch(e){}
     }
     toast('Check-in saved 🌿');
@@ -4278,6 +4386,19 @@ const SEARCH_INDEX=[
    screen and nothing else, which is what the search box looks like it
    promises. Clearing the box puts everything back, including the
    Kerohanian rule, which hides that link for non-Muslim users. */
+// v32: on computers the menu folds down to a strip of icons. The names
+// stay in the page for screen readers and show as tooltips.
+function toggleSidebar(force){
+  const app=document.getElementById('app-layout'); if(!app)return;
+  const mini=typeof force==='boolean'?force:!app.classList.contains('sb-mini');
+  app.classList.toggle('sb-mini',mini);
+  const b=document.getElementById('sb-tog');
+  if(b){b.setAttribute('aria-expanded',mini?'false':'true');b.setAttribute('aria-label',mini?'Expand the menu':'Collapse the menu');b.title=mini?'Expand the menu':'Collapse the menu';}
+  document.querySelectorAll('.sidebar .nav-link').forEach(l=>{const t=l.querySelector('.nl-t');if(mini&&t)l.title=t.textContent;else l.removeAttribute('title');});
+  try{localStorage.setItem('lena_sb_mini',mini?'1':'0');}catch(e){}
+  setTimeout(()=>{try{window.dispatchEvent(new Event('resize'));}catch(e){}},280);
+}
+(function(){try{if(localStorage.getItem('lena_sb_mini')==='1')toggleSidebar(true);}catch(e){}})();
 function filterNav(q){
   const lq=String(q||'').trim().toLowerCase();
   const links=document.querySelectorAll('.sidebar .nav-link');
@@ -4422,27 +4543,41 @@ function beginAssess(k){
   if(res)res.style.display='none';
   renderQ();
 }
+// v32: one language at a time, switchable any time (as in the Reflections
+// reader). The Malay wording is the one the app already carried.
+let asLang=(function(){try{const v=localStorage.getItem('lena_assess_lang');if(v==='ms'||v==='en')return v;return localStorage.getItem('lena_refl_lang')==='ms'?'ms':'en';}catch(e){return 'en';}})();
+const AS_UI={en:{q:(a,b)=>'Question '+a+' of '+b,next:'Next \u2192',back:'\u2190 Back',done:'See Results \u2713',pick:'Please select an answer'},
+             ms:{q:(a,b)=>'Soalan '+a+' daripada '+b,next:'Seterusnya \u2192',back:'\u2190 Kembali',done:'Lihat Keputusan \u2713',pick:'Sila pilih satu jawapan'}};
+function asMs(){return asLang==='ms'&&curA&&curA.qsMs&&curA.optsMs;}
+function setAsLang(l){
+  asLang=l==='ms'?'ms':'en';
+  try{localStorage.setItem('lena_assess_lang',asLang);}catch(e){}
+  if(curA)renderQ();
+}
 function renderQ(){
-  const tot=curA.qs.length;
-  document.getElementById('q-label').textContent='Question '+(curQ+1)+' of '+tot;
+  const tot=curA.qs.length, ms=asMs(), U=AS_UI[ms?'ms':'en'];
+  const lg=document.getElementById('as-lang');
+  if(lg){lg.style.display=curA.qsMs?'':'none';
+    document.getElementById('as-l-en').setAttribute('aria-pressed',ms?'false':'true');
+    document.getElementById('as-l-ms').setAttribute('aria-pressed',ms?'true':'false');}
+  const quiz=document.getElementById('assess-quiz'); if(quiz)quiz.setAttribute('lang',ms?'ms':'en');
+  document.getElementById('q-label').textContent=U.q(curQ+1,tot);
   document.getElementById('qcnt').textContent=(curQ+1)+' / '+tot;
   document.getElementById('qprog').style.width=(curQ/tot*100)+'%';
-  const _ms=curA.qsMs&&curA.qsMs[curQ];
-  document.getElementById('qtxt').innerHTML=(curQ+1)+'. '+curA.qs[curQ]+(_ms?'<div style="font-size:.86em;font-weight:400;font-style:italic;color:var(--text2);margin-top:7px;line-height:1.5">'+_ms+'</div>':'');
+  document.getElementById('qtxt').textContent=(curQ+1)+'. '+(ms?curA.qsMs[curQ]:curA.qs[curQ]);
   const _qi=document.getElementById('qinstr');
-  if(_qi&&curA.insMs)_qi.innerHTML=curA.ins+'<div style="font-size:.95em;font-style:italic;margin-top:5px;line-height:1.55">'+curA.insMs+'</div>';
+  if(_qi)_qi.textContent=ms&&curA.insMs?curA.insMs:curA.ins;
   const op=document.getElementById('qopts');op.innerHTML='';
   curA.opts.forEach((o,i)=>{
     const d=document.createElement('div');d.className='aopt'+(answers[curQ]===i?' sel':'');
-    const _om=curA.optsMs&&curA.optsMs[i];
-    d.innerHTML='<div class="opt-dot"></div><div class="opt-text">'+o+(_om?'<div style="font-size:.9em;font-style:italic;opacity:.85;margin-top:3px">'+_om+'</div>':'')+'</div>';
+    d.innerHTML='<div class="opt-dot"></div><div class="opt-text">'+(ms?curA.optsMs[i]:o)+'</div>';
     d.onclick=()=>{document.querySelectorAll('.aopt').forEach(x=>x.classList.remove('sel'));d.classList.add('sel');answers[curQ]=i;};
     op.appendChild(d);
   });
-  const bk=document.getElementById('qbk');if(bk)bk.style.display=curQ>0?'inline-flex':'none';
-  document.getElementById('qnx').textContent=curQ===tot-1?'See Results ✓':'Next →';
+  const bk=document.getElementById('qbk');if(bk){bk.style.display=curQ>0?'inline-flex':'none';bk.textContent=U.back;}
+  document.getElementById('qnx').textContent=curQ===tot-1?U.done:U.next;
 }
-function aNext(){if(answers[curQ]===null){toast('Please select an answer');return;}if(curQ<curA.qs.length-1){curQ++;renderQ();}else showResult();}
+function aNext(){if(answers[curQ]===null){toast(AS_UI[asMs()?'ms':'en'].pick);return;}if(curQ<curA.qs.length-1){curQ++;renderQ();}else showResult();}
 function aPrev(){if(curQ>0){curQ--;renderQ();}}
 function showResult(){
   const num=answers.map(a=>a||0);const res=curA.score(num);const tot=num.reduce((a,b)=>a+b,0);
@@ -4678,7 +4813,23 @@ const MOOD_FACE={1:'\uD83D\uDE1E',2:'\uD83D\uDE14',3:'\uD83D\uDE10',4:'\uD83D\uD
 const MOOD_COL={1:'#E57373',2:'#FFB74D',3:'#FFD54F',4:'#81C784',5:'#4CAF50'};
 let mlMood=null, mmMood=null;
 
-function loadMoods(){try{const r=localStorage.getItem(MKEY);return r?JSON.parse(r):[];}catch(e){return [];}}
+// v32: before v32 the morning check-in saved the face emoji as the mood
+// and the mood number as the intensity. Those entries are repaired here,
+// once, and anything still without a readable mood is left out.
+const MOOD_OF_FACE={'\uD83D\uDE1E':1,'\uD83D\uDE14':2,'\uD83D\uDE10':3,'\uD83D\uDE42':4,'\uD83D\uDE0A':5};
+function loadMoods(){
+  let a;try{const r=localStorage.getItem(MKEY);a=r?JSON.parse(r):[];}catch(e){return [];}
+  if(!Array.isArray(a))return [];
+  let fixed=false;
+  a.forEach(m=>{
+    if(m&&typeof m.m==='string'){
+      const v=MOOD_OF_FACE[m.m.replace(/\uFE0F/g,'')]||(+m.m>=1&&+m.m<=5?+m.m:0);
+      if(v){m.m=v;if((m.tags||[]).indexOf('Daily check-in')>-1)delete m.i;fixed=true;}
+    }
+  });
+  if(fixed)saveMoods(a);
+  return a.filter(m=>m&&m.m>=1&&m.m<=5);
+}
 function saveMoods(a){try{localStorage.setItem(MKEY,JSON.stringify(a));}catch(e){}}
 
 function pickMood(el,v){
@@ -4980,7 +5131,7 @@ const GT={
   steps:[
    {t:'Stand up and roll your shoulders backwards.',h:'Five or six slow rolls. Let them drop each time.',sec:30},
    {t:'Reach both arms overhead and stretch tall.',h:'Breathe in as you reach up, out as you lower.',sec:30},
-   {t:'Slow neck rolls: ear towards one shoulder, then the other.',h:'Gently. Stop if anything pinches.',sec:30},
+   {t:'Slow neck tilts: ear towards one shoulder, then the other.',h:'Gently, chin level, no need to tip your head back. Stop if anything pinches.',sec:30},
    {t:'March on the spot.',h:'Lift your knees, swing your arms. Any pace you like.',sec:60},
    {t:'Shake out your hands, then your arms, then your legs.',h:'Loose and floppy. It is meant to look silly.',sec:30},
    {t:'Stand still. Notice your breathing and your heartbeat.',h:'They may be faster than before. That is the point.',sec:30}],
@@ -5012,12 +5163,103 @@ const GT={
 
  shukr:{n:'Alhamdulillah',tag:'Islamic',
   steps:[
-   {t:'Think of one thing that went right today.',h:'However small. A good cup of teh counts.'},
+   {t:'Think of one thing that went right today.',h:'However small. A good cup of tea counts.'},
    {t:'Think of one person you are grateful for.',h:'You do not have to tell them. Just hold them in mind for a moment.'},
    {t:'Think of one thing your body did for you today.',h:'It carried you here. It kept breathing while you were not watching.'},
    {t:'Say Alhamdulillah.',h:'Out loud, if you are somewhere you can.'}],
   end:'Shukr is a practice rather than a feeling, and it still works on the days you have to look hard for something.'}
 };
+
+// v32: drawn figures for the Movement Break and Muscle Relaxation steps.
+// Steps follow NHS inform (progressive muscle relaxation: tense on the in
+// breath for a few seconds, let go on the out breath, rest, skip anything
+// painful) and SafeWork NSW desk stretches (slow, gentle neck movement,
+// stop at the first resistance, never throw the head back). Drawn here
+// rather than photos so every step matches, works offline and follows
+// the theme. Movement uses a standing figure seen from the front; muscle
+// relaxation a seated figure from the side, with the part to tense shown
+// in amber and the part letting go in green.
+const GF=(function(){
+  const P=(d,c,w)=>'<path d="'+d+'" class="'+(c||'gf-s')+'"'+(w?' stroke-width="'+w+'"':'')+'/>';
+  const C=(x,y,r,c)=>'<circle cx="'+x+'" cy="'+y+'" r="'+r+'" class="'+(c||'gf-f')+'"/>';
+  const G=(c,inner,o)=>'<g class="'+c+'"'+(o?' style="transform-origin:'+o+'"':'')+'>'+inner+'</g>';
+  const ARW=(d,both)=>'<path d="'+d+'" class="gf-arw" marker-end="url(#gfa)"'+(both?' marker-start="url(#gfa)"':'')+'/>';
+  const defs='<defs><marker id="gfa" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="gf-arwh"/></marker></defs>';
+  const ground='<ellipse cx="100" cy="197" rx="40" ry="5" class="gf-gnd"/>';
+
+  // ── standing, front view ──
+  function stand(o){
+    o=o||{};
+    const armL=G('gf-armL '+(o.aL||''),P('M86 72 L80 102 L79 128','gf-s',10)+C(79,130,6.5),'86px 72px');
+    const armR=G('gf-armR '+(o.aR||''),P('M114 72 L120 102 L121 128','gf-s',10)+C(121,130,6.5),'114px 72px');
+    const legL=G('gf-legL '+(o.lL||''),P('M94 124 L91 158 L90 188','gf-s',12)+P('M90 189 L82 191','gf-s',8),'94px 124px');
+    const legR=G('gf-legR '+(o.lR||''),P('M106 124 L109 158 L110 188','gf-s',12)+P('M110 189 L118 191','gf-s',8),'106px 124px');
+    const head=G('gf-head '+(o.h||''),P('M100 50 L100 64','gf-s',9)+C(100,36,16)+
+      '<circle cx="94" cy="35" r="1.9" class="gf-eye"/><circle cx="106" cy="35" r="1.9" class="gf-eye"/><path d="M95 43 Q100 46 105 43" class="gf-mouth"/>','100px 62px');
+    const torso='<rect x="83" y="62" width="34" height="66" rx="15" class="gf-f"/>';
+    const sh=G('gf-shs '+(o.sh||''),armL+armR+torso);
+    return ground+legL+legR+G('gf-up '+(o.up||''),sh+head)+(o.x||'');
+  }
+  // ── seated, side view facing right ──
+  function seat(o){
+    o=o||{};
+    const T=o.t||{};           // part → 'tense' | 'free'
+    const cl=k=>T[k]?' gf-'+T[k]:'';
+    const chair=P('M62 132 L124 132','gf-ch',6)+P('M64 132 L60 70','gf-ch',6)+P('M68 134 L68 192','gf-ch',5)+P('M118 134 L118 192','gf-ch',5);
+    const shY=o.shUp?60:70;
+    const legs=G('gf-part'+cl('legs'),
+      P('M90 128 L140 130','gf-s',14)+P('M140 130 L143 180','gf-s',11)+
+      (o.point?P('M143 181 L156 193','gf-s',8):P('M143 182 L161 184','gf-s',8)));
+    const torso=G('gf-part'+cl('torso'),P('M95 '+(shY+2)+' L89 124','gf-s',26));
+    const arm=G('gf-part'+cl('arm'),P('M98 '+(shY+4)+' L102 102 L124 112','gf-s',9));
+    const hand=G('gf-part'+cl('hand'),o.fist?
+      '<circle cx="128" cy="112" r="7" class="gf-f gf-fist"/>':
+      C(127,112,5.5)+P('M131 110 L139 106','gf-s',3.2)+P('M132 113 L141 112','gf-s',3.2)+P('M131 116 L139 119','gf-s',3.2));
+    const shoulder=T.shoulder?G('gf-part'+cl('shoulder'),C(97,shY+4,10.5)):'';
+    let face;
+    if(o.face==='scrunch')face=P('M104 37 L110 40 L104 42','gf-feat',2.2)+P('M101 31 L111 34','gf-feat',2.4)+P('M106 50 L112 50','gf-feat',2.4);
+    else if(o.face==='loose')face=P('M104 39 Q107 41 110 39','gf-feat',2)+'<ellipse cx="109" cy="51" rx="2.6" ry="3.2" class="gf-featf"/>';
+    else face='<circle cx="108" cy="39" r="2" class="gf-eye"/>'+P('M106 49 Q109 51 112 49','gf-feat',2);
+    const head=G('gf-part'+cl('head'),P('M97 54 L96 '+(shY+2),'gf-s',9)+C(101,40,16))+G('gf-facef',face);
+    return ground.replace('cx="100"','cx="104"')+chair+legs+torso+arm+hand+head+shoulder+(o.x||'');
+  }
+  const waves=(x,y)=>'<g class="gf-wave"><path d="M'+x+' '+y+' q6 -6 12 0 t12 0" class="gf-wv"/><path d="M'+x+' '+(y+9)+' q6 -6 12 0 t12 0" class="gf-wv"/></g>';
+  const glow=(x,y,r)=>'<circle cx="'+x+'" cy="'+y+'" r="'+r+'" class="gf-glow"/>';
+  const F={
+    move:[
+      {d:'Both shoulders lifting up, back and down in a slow circle',
+       s:()=>stand({sh:'a-roll',x:ARW('M70 74 A14 14 0 1 1 78 56')+ARW('M130 74 A14 14 0 1 0 122 56')})},
+      {d:'Both arms reaching straight up overhead, then lowering',
+       s:()=>stand({aL:'a-reachL',aR:'a-reachR',x:ARW('M100 14 L100 2')})},
+      {d:'Head tilting gently so one ear moves towards the shoulder, then the other way. Chin stays level',
+       s:()=>stand({h:'a-tilt',x:ARW('M76 24 Q100 4 124 24',1)})},
+      {d:'Marching on the spot, knees lifting in turn and arms swinging',
+       s:()=>stand({lL:'a-marchL',lR:'a-marchR',aL:'a-swingL',aR:'a-swingR'})},
+      {d:'Shaking out loose hands, arms and legs',
+       s:()=>stand({aL:'a-shakeL',aR:'a-shakeR',lL:'a-jig',lR:'a-jig2',x:'<g class="gf-mot"><path d="M62 128 l-8 -4 M62 136 l-9 1 M138 128 l8 -4 M138 136 l9 1" class="gf-ml"/></g>'})},
+      {d:'Standing still, breathing, with the heartbeat shown on the chest',
+       s:()=>stand({x:'<circle cx="100" cy="100" r="54" class="gf-ring"/><path d="M106 84 c0 -4 6 -4 6 0 c0 3 -6 7 -6 7 c0 0 -6 -4 -6 -7 c0 -4 6 -4 6 0z" class="gf-heart"/>'})}
+    ],
+    muscle:[
+      {d:'Sitting, both hands clenched into tight fists (shown in amber)', s:()=>seat({t:{hand:'tense'},fist:1})},
+      {d:'Sitting, hands opening and going loose (shown in green)', s:()=>seat({t:{hand:'free',arm:'free'},x:waves(136,124)})},
+      {d:'Sitting, shoulders pulled up towards the ears (shown in amber)', s:()=>seat({t:{shoulder:'tense'},shUp:1,x:ARW('M80 72 L80 54')})},
+      {d:'Sitting, shoulders dropping back down (shown in green)', s:()=>seat({t:{shoulder:'free'},x:ARW('M80 52 L80 72')})},
+      {d:'Sitting, whole face scrunched up: eyes, forehead and jaw (shown in amber)', s:()=>seat({t:{head:'tense'},face:'scrunch'})},
+      {d:'Sitting, face soft, jaw hanging loose with lips slightly apart (shown in green)', s:()=>seat({t:{head:'free'},face:'loose'})},
+      {d:'Sitting, stomach muscles tightened (shown in amber)', s:()=>seat({t:{torso:'tense'},x:ARW('M128 92 L112 92')})},
+      {d:'Sitting, stomach softening as the breath moves it again (shown in green)', s:()=>seat({t:{torso:'free'},x:waves(112,86)})},
+      {d:'Sitting, legs straight and tense with toes pointed (shown in amber)', s:()=>seat({t:{legs:'tense'},point:1})},
+      {d:'Sitting, legs heavy and loose, resting on the floor (shown in green)', s:()=>seat({t:{legs:'free'},x:ARW('M168 150 L168 172')})},
+      {d:'Sitting, whole body soft and resting', s:()=>seat({t:{legs:'free',torso:'free',arm:'free',hand:'free',shoulder:'free',head:'free'},face:'loose',x:glow(104,110,70)})}
+    ]
+  };
+  return {
+    has:k=>!!F[k],
+    svg:(k,i)=>{const f=F[k]&&F[k][i];if(!f)return '';
+      return '<svg viewBox="0 0 200 205" class="gf-svg" role="img" aria-label="'+f.d+'">'+defs+f.s()+'</svg>';}
+  };
+})();
 
 let gtKey=null,gtStep=0,gtTimer=null,gtLeft=0;
 
@@ -5053,6 +5295,8 @@ function renderGT(){
   if(cnt)cnt.textContent='Step '+(gtStep+1)+' of '+tot;
   if(prog)prog.style.width=(gtStep/tot*100)+'%';
   const sx=document.getElementById('gt-step'); if(sx)sx.textContent=st.t;
+  const fg=document.getElementById('gt-fig');
+  if(fg){const f=GF.has(gtKey)?GF.svg(gtKey,gtStep):'';fg.innerHTML=f;fg.style.display=f?'flex':'none';}
   const h=document.getElementById('gt-hint');
   if(h){h.textContent=st.h||'';h.style.display=st.h?'block':'none';}
   if(tm){
