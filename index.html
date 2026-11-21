@@ -391,6 +391,11 @@ a.scall{padding:9px 16px}
     z-index:60;
   }
   .sidebar::-webkit-scrollbar{display:none}
+  /* SOS sits in the bar like the other items: icon above the label */
+  .sidebar-footer{margin:0;padding:6px 10px;border-top:none;display:flex;align-items:center;flex:0 0 auto}
+  .sidebar-footer > div{display:none}
+  .sos-btn{width:auto;height:50px;padding:4px 14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:10.5px;line-height:1.15;white-space:nowrap;border-radius:14px}
+  .sos-btn .ic-sos{width:19px;height:19px;margin:0;vertical-align:0}
   .sidebar .logo,
   .sidebar .nav-section,
   .sidebar .search-bar,
@@ -901,6 +906,10 @@ button:active:not(:disabled),[role="button"]:active,[role="switch"]:active,.scp:
 .lcat.still *{animation:none!important}
 @media (prefers-reduced-motion:reduce){.lcat *{animation:none!important;transition:none!important}}
 #islamic-quote-ar:lang(ar){font-family:var(--ff-ar);font-size:29px!important}
+.chat-count{flex-shrink:0;font-size:11.5px;color:var(--muted);text-align:right;padding:0 18px;background:var(--nav)}
+.chat-count:empty{display:none}
+.chat-count.full{color:var(--red-t);font-weight:700}
+#sc-chat .btn-p:disabled{opacity:.55;cursor:default}
 </style>
 </head>
 <body>
@@ -1846,7 +1855,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <p style="font-size:12px;color:var(--muted)">The sunset loading scene uses photos by Pietro De Grandi and Margo Evardson on Unsplash.</p>
 <div class="about-acts"><button class="btn-g" onclick="go('team')" style="padding:10px 18px;font-size:13px">Meet the team</button></div>
 </div>
-<div class="about-ver">LENA v1.0 · build 29 · IIUM KICT</div>
+<div class="about-ver">LENA v1.0 · build 30 · IIUM KICT</div>
 </div>
 <div class="sp"></div>
 </div>
@@ -2042,9 +2051,10 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <div class="chat-bubble-wrap" style="max-width:60%;display:flex;gap:9px;align-self:flex-start"><div class="cat-av" aria-hidden="true"></div><div style="padding:12px 16px;border-radius:4px 18px 18px 18px;background:var(--card);border:1px solid var(--border);font-size:14px;color:var(--text);line-height:1.6"><span id="chat-hello">Hi, I'm LENA.</span><br/><br/>I'm here to listen and to sit with you through a difficult moment.<br><br>I'm not a therapist or a doctor, and I won't tell you what's wrong with you, because that takes a real person who can talk with you properly. But I can stay with you while it's hard. How are you feeling today?</div></div>
 <div class="chat-bubble-wrap" style="max-width:60%;display:flex;gap:9px;align-self:flex-start"><div class="cat-av" aria-hidden="true"></div><div style="padding:12px 16px;border-radius:4px 18px 18px 18px;background:var(--card);border:1px solid var(--border);font-size:14px;color:var(--text);line-height:1.6">You can talk to me about:<br/>• Anything that's weighing on you<br/>• Exam or family pressure<br/>• Feeling anxious, low, angry or alone<br/><br/>Or I can walk you through a short calming exercise.<br/><br/>If things ever feel unsafe, tell me, and I'll put the right numbers in front of you straight away.</div></div>
 </div>
+<div class="chat-count" id="chat-count" aria-live="polite"></div>
 <div class="chat-disc" id="chat-disc">LENA does not diagnose and is not a replacement for professional care. Your messages are sent to an AI service to write replies.</div>
 <div style="display:flex;gap:10px;padding:14px 16px;background:var(--nav);border-top:1px solid var(--border);flex-shrink:0">
-<input aria-label="Message to LENA" oninput="if(!this.disabled&&catState!=='thinking'&&catState!=='talking')setCat(this.value.trim()?'listening':'idle')" id="chatinp" onblur="this.style.borderColor='var(--border)'" onfocus="this.style.borderColor='var(--primary)'" onkeydown="if(event.key==='Enter')sendChat()" placeholder="Type your message…" style="flex:1;padding:12px 16px;border-radius:24px;border:1.5px solid var(--border);background:var(--bg3);font-family:var(--ff-b);font-size:14px;color:var(--text);outline:none;transition:border-color .2s"/>
+<input aria-label="Message to LENA" oninput="chatCount(this);if(!chatBusy&&catState!=='thinking'&&catState!=='talking')setCat(this.value.trim()?'listening':'idle')" id="chatinp" maxlength="1200" aria-describedby="chat-count" onblur="this.style.borderColor='var(--border)'" onfocus="this.style.borderColor='var(--primary)'" onkeydown="if(event.key==='Enter')sendChat()" placeholder="Type your message…" style="flex:1;padding:12px 16px;border-radius:24px;border:1.5px solid var(--border);background:var(--bg3);font-family:var(--ff-b);font-size:14px;color:var(--text);outline:none;transition:border-color .2s"/>
 <button class="btn-p" onclick="sendChat()" style="padding:12px 24px;font-size:15px">↑ Send</button>
 </div>
 </div>
@@ -5097,7 +5107,24 @@ const CRISIS_PATTERNS = [
   /\bputus\s+asa\s+dengan\s+hidup\b/,
   /\b(?:semua\s+orang|orang\s+lain|family|keluarga|dorang|diorang|mak\s+ayah)(?:\s+(?:aku|saya|i))?\s+(?:akan\s+)?(?:lagi\s+|lebih\s+)?(?:senang|lega|baik|bahagia|happy|tenang|aman)\s+(?:kalau|bila|tanpa)\s+(?:aku|saya)?\s*(?:takde|tak\s+ada|tiada|mati|hilang|pergi)?\b/,
   /\btakde\s+(?:sapa|siapa)\s+(?:pun\s+)?(?:akan\s+)?(?:rindu|kisah|peduli)\s+(?:kalau\s+)?(?:aku|saya)\s+(?:takde|mati|hilang)\b/,
-  /\bselamat\s+tinggal\s+(?:semua|selamanya)\b/
+  /\bselamat\s+tinggal\s+(?:semua|selamanya)\b/,
+
+  // v30: slang, typos and indirect ways of saying it (found by testing)
+  /\b(?:what'?s|whats|what\s+is)\s+the\s+point\s+(?:of|in)\s+(?:living|life|being\s+alive|going\s+on|me\s+living)\b/,
+  /\btired\s+of\s+(?:living|being\s+alive|life|existing)\b/,
+  /\b(?:kill|killing|hurt|hurting|harm|harming|cut|cutting)\s+(?:myslf|mysef|mysel|myselg|myseld|mself|meself|mysself|myselfe|myslef)\b/,
+  /\b(?:wanna|want\s+to|wants\s+to|gonna|going\s+to|gna|gunna|might|should|just|i'?ll|ima|imma|about\s+to|tryna|need\s+to)\s+kms\b/,
+  /^ kms $/,
+  /\bunalive\s+(?:my\s*self|myself|me)\b/,
+  /\b(?:wanna|want\s+to|gonna|going\s+to|thinking\s+of|thinking\s+about)\s+unalive\b/,
+  /\b(?:goodbye|farewell|suicide)\s+(?:letter|note)s?\b/,
+  /\b(?:last|final)\s+(?:letter|note)s?\s+(?:to|for)\s+(?:my|everyone|you|the)\b/,
+  /\b(?:don'?t|dont|do\s+not|can'?t|cant|cannot)\s+see\s+(?:the\s+|any\s+)?point\s+(?:of|in)\s+(?:life|living|being\s+alive|going\s+on)\b/,
+  /\b(?:want\s+to|wanna|just\s+want\s+to)\s+sleep\s+(?:forever|and\s+never\s+wake\s+up)\b/,
+  /\bb[u]?nuh\s*(?:diri|dri|dr|diriku)\b/,
+  /\bsurat\s+(?:terakhir|perpisahan|selamat\s+tinggal|wasiat)\b/,
+  /\b(?:penat|letih|bosan|muak|jemu|serik)\s+(?:nak\s+|dengan\s+)?hidup\b/,
+  /\bnak\s+tidur\s+(?:selamanya|terus\s+tak\s+bangun|tak\s+bangun\s+lagi)\b/
 ];
 
 function normCrisis(t){
@@ -5365,8 +5392,19 @@ function chatBubble(html,crisis,act,animate){
 }
 function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
+// One message at a time. The box stays open while LENA replies, so the
+// next message can be written (and the phone keyboard stays up); only
+// sending waits.
+let chatBusy=false;
+function chatCount(inp){
+  const c=document.getElementById('chat-count');if(!c)return;
+  const n=inp.value.length;
+  c.textContent=n>=1000?n.toLocaleString()+' / 1,200 characters':'';
+  c.classList.toggle('full',n>=1200);
+}
 async function sendChat(){
   const inp=document.getElementById('chatinp');
+  if(chatBusy)return;
   const msg=inp.value.trim(); if(!msg)return;
   finishTyping();
   const btn=document.querySelector('#sc-chat .btn-p');
@@ -5376,7 +5414,7 @@ async function sendChat(){
   um.className='chat-bubble-wrap';
   um.style.cssText='max-width:70%;display:flex;gap:8px;align-self:flex-end;flex-direction:row-reverse';
   um.innerHTML='<div style="padding:12px 16px;border-radius:18px 4px 18px 18px;background:var(--fill);color:var(--on-fill);font-size:14px;line-height:1.6">'+esc(msg)+'</div>';
-  area.appendChild(um); inp.value=''; area.scrollTop=area.scrollHeight;
+  area.appendChild(um); inp.value=''; chatCount(inp); area.scrollTop=area.scrollHeight;
   try{ document.getElementById('chat-clear').classList.add('has'); }catch(e){}
   try{saveChatSession();}catch(e){}
 
@@ -5387,7 +5425,7 @@ async function sendChat(){
     return;
   }
 
-  inp.disabled=true; if(btn)btn.disabled=true;
+  chatBusy=true; if(btn)btn.disabled=true;
   const ty=document.createElement('div');
   ty.className='chat-bubble-wrap';
   ty.style.cssText='max-width:60%;display:flex;gap:9px;align-self:flex-start';
@@ -5403,7 +5441,8 @@ async function sendChat(){
   if(r&&r.fail)catNext='idle';
   chatBubble(r.t,false,r.act,!r.fail);
   if(!r.fail){ pushHistory('user',msg); pushHistory('assistant',r.t.replace(/<[^>]+>/g,' ')); }
-  inp.disabled=false; if(btn)btn.disabled=false; inp.focus();
+  chatBusy=false; if(btn)btn.disabled=false;
+  if(document.activeElement===document.body)inp.focus();
 }
 
 // ── Conversation persistence ─────────────────────────
