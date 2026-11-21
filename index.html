@@ -910,6 +910,39 @@ button:active:not(:disabled),[role="button"]:active,[role="switch"]:active,.scp:
 .chat-count:empty{display:none}
 .chat-count.full{color:var(--red-t);font-weight:700}
 #sc-chat .btn-p:disabled{opacity:.55;cursor:default}
+.ch-box{position:relative;width:100%}
+.ch-svg{display:block;overflow:visible;font-family:var(--ff-b)}
+.ch-grid{stroke:var(--border);stroke-width:1;stroke-dasharray:2 4}
+.ch-axis{stroke:var(--border);stroke-width:1}
+.ch-tick{fill:var(--muted);opacity:.55}
+.ch-lab{fill:var(--muted);font-size:10.5px}
+.ch-lab.sm{font-size:9.5px;opacity:.9}
+.ch-band{fill:var(--text2);font-size:10px;font-weight:600;opacity:.62}
+.ch-line{stroke:var(--primary);stroke-width:2;stroke-linecap:round;opacity:.5}
+.ch-line.gap{stroke-dasharray:3 5;opacity:.38}
+.ch-range{stroke:currentColor;stroke-width:7;stroke-linecap:round;opacity:.22}
+.ch-disc{fill:var(--bg2)}
+.mc-pt,.tr-pt{cursor:pointer;outline:none}
+.mc-pt:focus-visible .ch-disc{stroke:var(--text);stroke-width:2}
+.tr-pt:focus-visible circle{stroke:var(--text);stroke-width:2.5}
+.ch-tline{fill:none;stroke:var(--primary);stroke-width:2;stroke-linejoin:round;stroke-linecap:round;opacity:.7}
+.tr-pt circle{fill:var(--bg2);stroke:var(--primary);stroke-width:2}
+.tr-pt.last circle{stroke-width:3}
+.tr-pt text{fill:var(--text);font-size:11px;font-weight:700;pointer-events:none}
+.ch-tip{position:absolute;left:0;top:0;z-index:3;pointer-events:none;opacity:0;transform:translateY(3px);transition:opacity .15s,transform .15s;
+  background:var(--bg2);color:var(--text);border:1px solid var(--border);border-radius:10px;box-shadow:0 6px 18px var(--shadow2);
+  padding:7px 10px;font-size:12px;line-height:1.45;max-width:220px;width:max-content}
+.ch-tip.show{opacity:1;transform:none}
+.ch-tip-sub{color:var(--text2);font-size:11.5px}
+.tr-key{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:8px;font-size:11px;color:var(--text2)}
+.tr-key i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.mc-counts{display:flex;justify-content:space-between;gap:4px;margin-top:12px;padding-top:10px;border-top:1px solid var(--border)}
+.mc-c{display:flex;flex-direction:column;align-items:center;gap:1px;flex:1;min-width:0}
+.mc-c .emo-face .ic{width:22px;height:22px}
+.mc-c b{font-size:14px;color:var(--text);line-height:1.2}
+.mc-c .mc-l{font-size:10.5px;color:var(--muted)}
+.mc-c.zero{opacity:.45}
+@media (prefers-reduced-motion:reduce){.ch-tip{transition:none}}
 </style>
 </head>
 <body>
@@ -1558,13 +1591,14 @@ return {
 <div class="shd" style="margin:0 0 4px"><h2>Last 14 Days</h2><span id="ml-trend-note" style="font-size:12px;color:var(--primary-t);font-weight:700"></span></div>
 <div id="ml-chart-empty" style="padding:22px 6px;text-align:center;color:var(--muted);font-size:13px;line-height:1.6"></div>
 <div id="ml-chart-wrap" style="display:none;margin-top:10px">
-<canvas id="ml-canvas" style="width:100%;height:150px;display:block"></canvas>
+<div id="ml-chart" class="ch-box"></div>
+<div id="ml-counts" class="mc-counts" role="list" aria-label="How often each mood was logged in the last 14 days"></div>
 <div id="ml-insight" style="margin-top:12px;font-size:12px;color:var(--text2);line-height:1.6"></div>
 </div>
 </div>
 <div class="card">
 <div class="shd" style="margin:0 0 14px"><h2>Recent Entries</h2></div>
-<div id="ml-entries" style="display:flex;flex-direction:column;gap:10px;max-height:330px;overflow-y:auto"></div>
+<div id="ml-entries" tabindex="0" role="region" aria-label="Recent mood entries" style="display:flex;flex-direction:column;gap:10px;max-height:330px;overflow-y:auto"></div>
 </div>
 </div>
 <div class="sp"></div>
@@ -1680,8 +1714,8 @@ return {
 <div id="trend-tabs" style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap"></div>
 <div id="trend-empty" style="padding:26px 14px;text-align:center;color:var(--muted);font-size:13px;line-height:1.6"></div>
 <div id="trend-wrap" style="display:none">
-<canvas id="trend-canvas" style="width:100%;height:190px;display:block"></canvas>
-<div id="trend-legend" style="display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:11px;color:var(--text2)"></div>
+<div id="trend-chart" class="ch-box"></div>
+<div id="trend-legend" style="margin-top:8px;font-size:11.5px;color:var(--muted);line-height:1.55"></div>
 <div id="trend-latest" style="margin-top:12px;font-size:12px;color:var(--text2);line-height:1.6"></div>
 </div>
 </div>
@@ -1855,7 +1889,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <p style="font-size:12px;color:var(--muted)">The sunset loading scene uses photos by Pietro De Grandi and Margo Evardson on Unsplash.</p>
 <div class="about-acts"><button class="btn-g" onclick="go('team')" style="padding:10px 18px;font-size:13px">Meet the team</button></div>
 </div>
-<div class="about-ver">LENA v1.0 · build 30 · IIUM KICT</div>
+<div class="about-ver">LENA v1.0 · build 31 · IIUM KICT</div>
 </div>
 <div class="sp"></div>
 </div>
@@ -3222,6 +3256,7 @@ function renderSleep(){
 // the old calculator is gone; anything still calling it just refreshes the screen
 function calcSleep(){renderSleep();}
 let slRz=null;
+let chRz;window.addEventListener('resize',function(){clearTimeout(chRz);chRz=setTimeout(function(){const m=document.getElementById('sc-mood'),a=document.getElementById('sc-assess');if(m&&m.classList.contains('active'))try{renderMood();}catch(e){}if(a&&a.classList.contains('active'))try{renderTrend();}catch(e){}},200);});
 window.addEventListener('resize',function(){clearTimeout(slRz);slRz=setTimeout(function(){const sc=document.getElementById('sc-sleep');if(sc&&sc.classList.contains('active'))try{renderSleep();}catch(e){}},200);});
 
 // ── The evening plan ────────────────────────────────
@@ -4495,7 +4530,7 @@ const BANDS={
                 {k:'depression',n:'Depression',c:'#F44336',cut:[5,7,10,14]}],
         lab:['Normal','Mild','Moderate','Severe','Extremely Severe']}
 };
-const BANDCOL=['rgba(76,175,80,.13)','rgba(212,201,58,.15)','rgba(240,173,26,.15)','rgba(214,120,60,.16)','rgba(230,57,53,.16)'];
+const BANDCOL=['rgba(76,175,80,.11)','rgba(212,201,58,.12)','rgba(240,173,26,.12)','rgba(214,120,60,.12)','rgba(230,57,53,.12)'];
 let trendKey='phq9', trendSub='stress';
 
 function loadHistory(){
@@ -4547,78 +4582,89 @@ function renderTrend(){
 
   const last=rows[rows.length-1], prev=rows.length>1?rows[rows.length-2]:null;
   const lg=document.getElementById('trend-legend'), lt=document.getElementById('trend-latest');
+  // Plain change, no direction words that judge it.
+  const chg=(a,b)=>{const d=a-b;return d===0?' The same score as the time before.'
+    :' That is '+Math.abs(d)+' point'+(Math.abs(d)===1?'':'s')+' '+(d>0?'higher':'lower')+' than the time before.';};
+  const wl=r=>{const x=trendWhen(r,rows);return x.d+(x.tm?', '+x.tm:'');};
+  lg.textContent='The shaded bands are the score ranges the questionnaire uses. Lower scores mean fewer symptoms.'
+    +(rows.length>TREND_SHOW?' Showing your last '+TREND_SHOW+' of '+rows.length+' results.':'');
   if(trendKey==='phq9'){
-    lg.innerHTML=BANDS.phq9.lab.map((l,i)=>'<span><span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:'+BANDCOL[i].replace(/[\d.]+\)$/,'.55)')+';margin-right:5px"></span>'+l+'</span>').join('');
-    let msg='Latest: '+last.total+'/27, '+last.band+' \u00b7 '+fmtD(last.t);
-    if(prev){const dl=last.total-prev.total;msg+=' ('+(dl===0?'unchanged':(dl>0?'up '+dl:'down '+Math.abs(dl)))+' since '+fmtD(prev.t)+').';}
-    else{msg+='. Take it again to see how your score changes over time.';}
+    let msg='Latest: '+last.total+' out of 27 ('+last.band+'), '+wl(last)+'.';
+    if(prev){msg+=chg(last.total,prev.total);}
+    else{msg+=' Take it again to see how your score changes over time.';}
     lt.textContent=msg;
   }else{
     const S=BANDS.dass21.series.find(x=>x.k===trendSub);
-    lg.innerHTML=BANDS.dass21.lab.map((l,i)=>'<span><span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:'+BANDCOL[i].replace(/[\d.]+\)$/,'.55)')+';margin-right:5px"></span>'+l+'</span>').join('');
     const bk={stress:'sB',anxiety:'aB',depression:'dB'}[trendSub];
-    let msg='Latest '+S.n.toLowerCase()+': '+last[trendSub]+'/21, '+last[bk]+' \u00b7 '+fmtD(last.t);
-    if(prev){const dl=last[trendSub]-prev[trendSub];msg+=' ('+(dl===0?'unchanged':(dl>0?'up '+dl:'down '+Math.abs(dl)))+' since '+fmtD(prev.t)+').';}
-    else{msg+='. Take it again to see how your score changes over time.';}
+    let msg='Latest '+S.n.toLowerCase()+': '+last[trendSub]+' out of 21 ('+last[bk]+'), '+wl(last)+'.';
+    if(prev){msg+=chg(last[trendSub],prev[trendSub]);}
+    else{msg+=' Take it again to see how your score changes over time.';}
     lt.textContent=msg;
   }
 }
 function setTrend(k){trendKey=k;renderTrend();}
 function setTrendSub(k){trendSub=k;renderTrend();}
 
-function drawTrend(rows){
-  const cv=document.getElementById('trend-canvas'); if(!cv)return;
-  const dpr=window.devicePixelRatio||1;
-  const w=cv.clientWidth||480, h=190;
-  cv.width=w*dpr; cv.height=h*dpr;
-  const x=cv.getContext('2d'); x.setTransform(dpr,0,0,dpr,0,0); x.clearRect(0,0,w,h);
-
+// Each result is a bubble holding its score, on the questionnaire's own
+// score bands. Evenly spaced by test, last 10 shown. No faces: a face on a
+// symptom score would read as a verdict on the person.
+const TREND_SHOW=10;
+function trendWhen(r,rows){
+  const d=new Date(r.t); d.setHours(0,0,0,0); const k=d.getTime();
+  const same=rows.some(o=>o!==r&&(()=>{const e=new Date(o.t);e.setHours(0,0,0,0);return e.getTime()===k;})());
+  return {d:fmtD(r.t),tm:same?mTime(r.t):''};
+}
+function drawTrend(all){
+  const box=document.getElementById('trend-chart'); if(!box)return;
+  const rows=all.slice(-TREND_SHOW);
   const isP=trendKey==='phq9';
   const S=isP?BANDS.phq9.series[0]:BANDS.dass21.series.find(s=>s.k===trendSub);
   const max=isP?BANDS.phq9.max:BANDS.dass21.max;
   const cut=isP?BANDS.phq9.cut:S.cut;
-  const key=isP?'total':trendSub;
-
-  const PL=34,PR=10,PT=10,PB=24;
-  const cw=w-PL-PR, ch=h-PT-PB;
+  const lab=isP?BANDS.phq9.lab:BANDS.dass21.lab;
+  const key=isP?'total':trendSub, bk=isP?'band':{stress:'sB',anxiety:'aB',depression:'dB'}[trendSub];
+  const n=rows.length;
+  const whens=rows.map(r=>trendWhen(r,rows)), twoLine=whens.some(x=>x.tm);
+  const w=Math.max(260,box.clientWidth||480), h=twoLine?218:206;
+  const PL=28,PR=8,PT=10,PB=twoLine?40:28, cw=w-PL-PR, ch=h-PT-PB, IN=24;
+  // Wide: band names sit inside the chart on the left and the results
+  // start after them. Narrow: the names go in a key under the chart.
+  const wide=cw>=440, LIN=wide?112:IN;
   const Y=v=>PT+ch-(v/max)*ch;
-  const X=i=>rows.length===1?PL+cw/2:PL+(i/(rows.length-1))*cw;
-
-  // severity bands
+  const X=i=>n===1?PL+LIN+(cw-LIN-IN)/2:PL+LIN+i*(cw-LIN-IN)/(n-1);
+  let g='<svg class="ch-svg" width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'" role="group" aria-label="'+chEsc((isP?'PHQ-9':'DASS-21 '+S.n.toLowerCase())+' scores, oldest to newest')+'">';
+  // bands, named inside
   const edges=[0,...cut,max];
-  for(let i=0;i<edges.length-1;i++){
-    const y1=Y(edges[i+1]), y2=Y(edges[i]);
-    x.fillStyle=BANDCOL[i]; x.fillRect(PL,y1,cw,y2-y1);
+  for(let b=0;b<edges.length-1;b++){
+    const y1=Y(edges[b+1]), y2=Y(b===0?0:edges[b]);
+    g+='<rect x="'+PL+'" y="'+y1+'" width="'+cw+'" height="'+(y2-y1)+'" fill="'+BANDCOL[b]+'" aria-hidden="true"/>';
+    if(wide&&y2-y1>=13)g+='<text x="'+(PL+8)+'" y="'+((y1+y2)/2+3.5)+'" class="ch-band" aria-hidden="true">'+lab[b]+'</text>';
   }
-  // axis
-  x.strokeStyle='rgba(128,128,128,.35)'; x.lineWidth=1;
-  x.beginPath(); x.moveTo(PL,PT); x.lineTo(PL,PT+ch); x.lineTo(PL+cw,PT+ch); x.stroke();
-  x.fillStyle='rgba(128,128,128,.85)'; x.font='10px system-ui,sans-serif'; x.textAlign='right';
-  [0,max].concat(cut).forEach(v=>{x.fillText(v,PL-6,Y(v)+3);});
-
+  edges.forEach(v=>{g+='<text x="'+(PL-6)+'" y="'+(Y(v)+3.5)+'" text-anchor="end" class="ch-lab" aria-hidden="true">'+v+'</text>';});
+  g+='<line x1="'+PL+'" x2="'+(PL+cw)+'" y1="'+(PT+ch)+'" y2="'+(PT+ch)+'" class="ch-axis" aria-hidden="true"/>';
   // line
-  x.strokeStyle=S.c; x.lineWidth=2; x.lineJoin='round'; x.beginPath();
-  rows.forEach((r,i)=>{const px=X(i),py=Y(r[key]); i?x.lineTo(px,py):x.moveTo(px,py);});
-  x.stroke();
-  // points
-  const single=rows.length===1;
-  rows.forEach((r,i)=>{
-    const px=X(i),py=Y(r[key]);
-    x.fillStyle=S.c; x.beginPath(); x.arc(px,py,single?6:3.5,0,7); x.fill();
-    x.fillStyle='#fff'; x.beginPath(); x.arc(px,py,single?2.5:1.5,0,7); x.fill();
-  });
-  if(single){
-    const px=X(0),py=Y(rows[0][key]);
-    x.fillStyle=S.c; x.font='600 12px system-ui,sans-serif'; x.textAlign='center';
-    x.fillText(rows[0][key]+'/'+max, px, py-12);
-  }
-  // date labels (first, last, and middle if room)
-  x.fillStyle='rgba(128,128,128,.85)'; x.font='10px system-ui,sans-serif';
-  const marks=rows.length<=4?rows.map((_,i)=>i):[0,Math.floor((rows.length-1)/2),rows.length-1];
+  if(n>1)g+='<polyline points="'+rows.map((r,i)=>X(i)+','+Y(r[key])).join(' ')+'" class="ch-tline" aria-hidden="true"/>';
+  // dates: under every result when there is room, else first, middle, last
+  const room=(cw-LIN-IN)/Math.max(1,n-1)>=(twoLine?40:44);
+  const marks=(n<=2||room)?rows.map((_,i)=>i):[0,Math.floor((n-1)/2),n-1];
   marks.forEach(i=>{
-    x.textAlign=i===0?'left':(i===rows.length-1?'right':'center');
-    x.fillText(fmtD(rows[i].t),X(i),h-7);
+    const a=n===1?'middle':(i===0&&!room?'start':i===n-1&&!room?'end':'middle');
+    const xx=(a==='start'?X(i)-12:a==='end'?X(i)+12:X(i));
+    g+='<text x="'+xx+'" y="'+(PT+ch+15)+'" text-anchor="'+a+'" class="ch-lab" aria-hidden="true">'+whens[i].d+'</text>';
+    if(whens[i].tm)g+='<text x="'+xx+'" y="'+(PT+ch+28)+'" text-anchor="'+a+'" class="ch-lab sm" aria-hidden="true">'+whens[i].tm+'</text>';
   });
+  // bubbles
+  rows.forEach((r,i)=>{
+    const v=r[key], px=X(i), py=Y(v), wn=whens[i], last=i===n-1;
+    const when=wn.d+(wn.tm?', '+wn.tm:'');
+    const tip='<b>'+chEsc(when)+'</b><br>'+v+' out of '+max+(r[bk]?', '+chEsc(r[bk]):'');
+    g+='<g class="tr-pt'+(last?' last':'')+'" tabindex="0" role="button" aria-label="'+chEsc(when+': '+v+' out of '+max+(r[bk]?', '+r[bk]:''))+'" data-tip="'+chEsc(tip)+'">'
+      +'<circle cx="'+px+'" cy="'+py+'" r="12.5"/>'
+      +'<text x="'+px+'" y="'+(py+4)+'" text-anchor="middle">'+v+'</text></g>';
+  });
+  g+='</svg><div class="ch-tip" aria-hidden="true"></div>';
+  if(!wide)g+='<div class="tr-key" aria-hidden="true">'+lab.map((l,b)=>'<span><i style="background:'+BANDCOL[b].replace(/[\d.]+\)$/,'.5)')+'"></i>'+l+'</span>').join('')+'</div>';
+  box.innerHTML=g; chBind(box);
 }
 
 
@@ -4755,7 +4801,8 @@ function renderMood(){
       :'Logged '+c+' times today. Every entry is kept.';
   }
 
-  const cut=Date.now()-14*864e5;
+  const c0=new Date();c0.setHours(0,0,0,0);
+  const cut=c0.getTime()-13*864e5;
   const recent=all.filter(m=>m.t>=cut);
   if(recent.length===0){
     wrap.style.display='none'; empty.style.display='block';
@@ -4763,7 +4810,8 @@ function renderMood(){
   }else{
     empty.style.display='none'; wrap.style.display='block';
     const days=groupByDay(recent);
-    drawMood(days);
+    drawMood(days,recent);
+    drawMoodCounts(recent);
     const tn=document.getElementById('ml-trend-note');
     const ins=document.getElementById('ml-insight');
     const avg=a=>a.reduce((x,y)=>x+y.m,0)/a.length;
@@ -4816,40 +4864,99 @@ function renderMood(){
   }).join('');
 }
 
-function drawMood(days){
-  const cv=document.getElementById('ml-canvas'); if(!cv)return;
-  const dpr=window.devicePixelRatio||1, w=cv.clientWidth||460, h=150;
-  cv.width=w*dpr; cv.height=h*dpr;
-  const x=cv.getContext('2d'); x.setTransform(dpr,0,0,dpr,0,0); x.clearRect(0,0,w,h);
-  const PL=26,PR=8,PT=10,PB=22, cw=w-PL-PR, ch=h-PT-PB;
-  const Y=v=>PT+ch-((v-1)/4)*ch;
-  const X=i=>days.length===1?PL+cw/2:PL+(i/(days.length-1))*cw;
-  const COL=v=>MOOD_COL[Math.max(1,Math.min(5,Math.round(v)))];
-  // gridlines
-  x.strokeStyle='rgba(128,128,128,.18)'; x.lineWidth=1;
-  x.fillStyle='rgba(128,128,128,.8)'; x.font='10px system-ui,sans-serif'; x.textAlign='right';
-  [1,3,5].forEach(v=>{const y=Y(v);x.beginPath();x.moveTo(PL,y);x.lineTo(PL+cw,y);x.stroke();x.fillText(v,PL-5,y+3);});
-  // within-day range, where a day holds more than one entry
-  days.forEach((d,i)=>{
-    if(d.n<2||d.min===d.max)return;
-    const px=X(i);
-    x.strokeStyle=COL(d.avg); x.globalAlpha=.42; x.lineWidth=3; x.lineCap='round';
-    x.beginPath(); x.moveTo(px,Y(d.min)); x.lineTo(px,Y(d.max)); x.stroke();
-    x.globalAlpha=1; x.lineCap='butt';
+// v31: both charts are SVG. Points carry data-tip; one tooltip per chart
+// shows on hover, focus or tap.
+const WD=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+function chEsc(t){return String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function chBind(box){
+  const tip=box.querySelector('.ch-tip'); if(!tip)return;
+  let on=null,at=0;
+  const hide=()=>{tip.classList.remove('show');on=null;};
+  const show=p=>{
+    on=p; at=Date.now(); tip.innerHTML=p.getAttribute('data-tip'); tip.classList.add('show');
+    const b=box.getBoundingClientRect(), r=p.getBoundingClientRect();
+    const tw=tip.offsetWidth, th=tip.offsetHeight;
+    let l=r.left-b.left+r.width/2-tw/2; l=Math.max(0,Math.min(b.width-tw,l));
+    let t=r.top-b.top-th-8; if(t<0)t=r.bottom-b.top+8;
+    tip.style.left=l+'px'; tip.style.top=t+'px';
+  };
+  box.querySelectorAll('[data-tip]').forEach(p=>{
+    p.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')show(p);});
+    p.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse')hide();});
+    p.addEventListener('focus',()=>show(p));
+    p.addEventListener('blur',hide);
+    p.addEventListener('click',e=>{e.stopPropagation();(on===p&&e.pointerType!=='mouse'&&Date.now()-at>400)?hide():show(p);});
+    p.addEventListener('keydown',e=>{if(e.key==='Escape'){hide();p.blur();}});
   });
-  // trend line across day averages
-  x.strokeStyle='#2BB89A'; x.lineWidth=2; x.lineJoin='round';
-  x.beginPath(); days.forEach((d,i)=>{const px=X(i),py=Y(d.avg);i?x.lineTo(px,py):x.moveTo(px,py);}); x.stroke();
-  // day points, ringed when any entry that day carried a note
-  days.forEach((d,i)=>{
-    const px=X(i),py=Y(d.avg);
-    if(d.note){x.strokeStyle=COL(d.avg);x.lineWidth=1.5;x.beginPath();x.arc(px,py,6.5,0,7);x.stroke();}
-    x.fillStyle=COL(d.avg); x.beginPath(); x.arc(px,py,days.length===1?6:4,0,7); x.fill();
+  if(!box._chOut){box._chOut=1;document.addEventListener('click',e=>{if(!box.contains(e.target))box.querySelectorAll('.ch-tip.show').forEach(t=>t.classList.remove('show'));});}
+}
+function faceUse(v,x,y,sz){return '<use href="#face-'+v+'" x="'+x+'" y="'+y+'" width="'+sz+'" height="'+sz+'"/>';}
+
+// 14 day slots, today at the right. Each logged day is its mood face (the
+// day's average, rounded), a soft bar shows the day's range when it held
+// different moods, and the line is dashed across days with no entry.
+function drawMood(days,recent){
+  const box=document.getElementById('ml-chart'); if(!box)return;
+  const w=Math.max(260,box.clientWidth||460), h=184;
+  const PL=30,PR=8,PT=14,PB=28, cw=w-PL-PR, ch=h-PT-PB, N=14;
+  const t0=new Date();t0.setHours(0,0,0,0);
+  const start=t0.getTime()-(N-1)*864e5;
+  const slot=t=>Math.round((t-start)/864e5);
+  const X=i=>PL+(i+.5)*cw/N, Y=v=>PT+(5-v)/4*ch;
+  const R=v=>Math.max(1,Math.min(5,Math.round(v)));
+  const tags={};
+  (recent||[]).forEach(r=>{const d=new Date(r.t);d.setHours(0,0,0,0);const k=d.getTime();(r.tags||[]).forEach(t=>{(tags[k]=tags[k]||{})[t]=1;});});
+  let g='<svg class="ch-svg" width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'" role="group" aria-label="Your mood each day over the last 14 days">';
+  // levels: a face on the side, a faint line across
+  for(let v=1;v<=5;v++){
+    const y=Y(v);
+    g+='<line x1="'+PL+'" x2="'+(PL+cw)+'" y1="'+y+'" y2="'+y+'" class="ch-grid" aria-hidden="true"/>';
+    g+='<g class="emo-face f'+v+'" aria-hidden="true">'+faceUse(v,4,y-9,18)+'</g>';
+  }
+  // a small tick for every day, dates under three of them
+  const narrow=w<360;
+  for(let i=0;i<N;i++){
+    g+='<circle cx="'+X(i)+'" cy="'+(PT+ch+6)+'" r="1.6" class="ch-tick" aria-hidden="true"/>';
+    let lab='';
+    if(i===N-1)lab='Today';
+    else if(i===0)lab=mDay(start);
+    else if(!narrow&&i===Math.floor(N/2)-1)lab=mDay(start+i*864e5);
+    if(lab)g+='<text x="'+X(i)+'" y="'+(h-5)+'" text-anchor="'+(i===N-1?'end':i===0?'start':'middle')+'" class="ch-lab" aria-hidden="true">'+lab+'</text>';
+  }
+  const pts=days.map(d=>({d:d,i:slot(d.t)})).filter(p=>p.i>=0&&p.i<N);
+  // line between logged days
+  for(let k=1;k<pts.length;k++){
+    const a=pts[k-1],b=pts[k];
+    g+='<line x1="'+X(a.i)+'" y1="'+Y(a.d.avg)+'" x2="'+X(b.i)+'" y2="'+Y(b.d.avg)+'" class="ch-line'+(b.i-a.i>1?' gap':'')+'" aria-hidden="true"/>';
+  }
+  // the day's range
+  pts.forEach(p=>{
+    if(p.d.n<2||p.d.min===p.d.max)return;
+    g+='<g class="emo-face f'+R(p.d.avg)+'" aria-hidden="true"><line x1="'+X(p.i)+'" x2="'+X(p.i)+'" y1="'+Y(p.d.max)+'" y2="'+Y(p.d.min)+'" class="ch-range"/></g>';
   });
-  // dates
-  x.fillStyle='rgba(128,128,128,.8)'; x.font='10px system-ui,sans-serif';
-  const marks=days.length<=3?days.map((_,i)=>i):[0,days.length-1];
-  marks.forEach(i=>{x.textAlign=i===0?'left':'right';x.fillText(mDay(days[i].t),X(i),h-6);});
+  // the faces
+  const sz=Math.min(24,Math.max(18,cw/N-4));
+  pts.forEach(p=>{
+    const d=p.d, v=R(d.avg), px=X(p.i), py=Y(d.avg);
+    const dt=new Date(d.t), when=(p.i===N-1?'Today':WD[dt.getDay()]+' '+mDay(d.t));
+    const tg=Object.keys(tags[d.t]||{});
+    const tip='<b>'+chEsc(when)+'</b><br>'+MOOD_LBL[v]+(d.n>1?' on average ('+d.n+' entries'+(d.min!==d.max?', from '+MOOD_LBL[d.min]+' to '+MOOD_LBL[d.max]:'')+')':'')
+      +(tg.length?'<br><span class="ch-tip-sub">'+chEsc(tg.join(', '))+'</span>':'');
+    const al=when+': '+MOOD_LBL[v]+(d.n>1?', average of '+d.n+' entries':'')+(tg.length?'. Tags: '+tg.join(', '):'');
+    g+='<g class="mc-pt emo-face f'+v+'" tabindex="0" role="button" aria-label="'+chEsc(al)+'" data-tip="'+chEsc(tip)+'">'
+      +'<circle cx="'+px+'" cy="'+py+'" r="'+(sz/2+2)+'" class="ch-disc"/>'
+      +faceUse(v,px-sz/2,py-sz/2,sz)+'</g>';
+  });
+  g+='</svg><div class="ch-tip" aria-hidden="true"></div>';
+  box.innerHTML=g; chBind(box);
+}
+// How many times each mood was logged, in the same order as the picker.
+function drawMoodCounts(recent){
+  const el=document.getElementById('ml-counts'); if(!el)return;
+  const c={1:0,2:0,3:0,4:0,5:0}; recent.forEach(r=>{if(c[r.m]!=null)c[r.m]++;});
+  el.innerHTML=[1,2,3,4,5].map(v=>'<div class="mc-c'+(c[v]?'':' zero')+'" role="listitem">'
+    +'<span class="emo-face f'+v+'"><svg class="ic" aria-hidden="true" focusable="false"><use href="#face-'+v+'"/></svg></span>'
+    +'<b>'+c[v]+'</b><span class="mc-l">'+MOOD_LBL[v]+'</span></div>').join('');
 }
 
 
