@@ -29,7 +29,7 @@
    previous build. This is the one way a service worker commonly goes wrong.
    ────────────────────────────────────────────────────────────────────── */
 
-const CACHE_VERSION = 'v27';
+const CACHE_VERSION = 'v28';
 const CACHE = 'lena-' + CACHE_VERSION;
 
 // Everything needed for a cold, offline start.
@@ -42,14 +42,12 @@ const PRECACHE = [
   '/icon-maskable-512.png',
   '/apple-touch-icon.png',
   '/favicon-32.png',
-  '/assets/LENA-logo.png',
+  '/assets/LENA-logo.webp',
   // Quranic reflections content. Bump CACHE_VERSION whenever this file
   // changes, or returning users keep the old verses.
   '/assets/reflections.json',
   '/assets/loading/mountain.webp',
   '/assets/loading/mountain-wide.webp',
-  '/assets/loading/water-mask.png',
-  '/assets/loading/water-mask-wide.png',
   '/assets/loading/grass.webp',
   '/assets/loading/mark-dim.webp',
   '/assets/loading/mark-lit.webp',
@@ -70,8 +68,18 @@ self.addEventListener('install', (event) => {
     // addAll fails the whole install if any single item 404s, which would
     // leave the app with no offline support at all. Add them individually
     // and tolerate the ones that are missing.
+    // Pictures and icons rarely change, so an update reuses the copies
+    // already on the phone instead of downloading about 1.4 MB again.
+    // The page and the reflections file are always fetched fresh. If a
+    // picture is ever changed, give it a new file name (or add it to
+    // ALWAYS_FRESH) so phones pick up the new one.
+    const ALWAYS_FRESH = ['/', '/index.html', '/manifest.json', '/assets/reflections.json'];
     await Promise.all(PRECACHE.map(async (url) => {
       try {
+        if (!ALWAYS_FRESH.includes(url)) {
+          const old = await caches.match(url);
+          if (old && old.status === 200) { await cache.put(url, old.clone()); return; }
+        }
         const resp = await fetch(url, { cache: 'reload' });
         if (resp && resp.status === 200) await cache.put(url, resp.clone());
       } catch (e) { /* this asset simply will not be available offline */ }
