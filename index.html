@@ -533,8 +533,9 @@ button:active:not(:disabled),[role="button"]:active,[role="switch"]:active,.scp:
    The scene keeps its own painted colours in every theme, so the text on
    it uses fixed light colours on a dark frosted panel, not theme tokens. */
 .ls-scene,.ls-mark,.ls-tag{display:none}
-#loading-screen.ls-sunset{background:#28225F!important;justify-content:flex-start;overflow:hidden;
-  padding-top:max(4.5vh,calc(env(safe-area-inset-top,0px) + 14px))}
+#loading-screen.ls-sunset{background:#28225F!important;justify-content:center;overflow:hidden;
+  padding-top:calc(env(safe-area-inset-top,0px) + 14px);padding-bottom:7vh}
+@media (max-height:620px){#loading-screen.ls-sunset{justify-content:flex-start;padding-bottom:0}}
 .ls-sunset .ls-scene{display:block;position:absolute;inset:0;width:100%;height:100%}
 .ls-sunset .ls-panel{position:relative;z-index:1;box-sizing:border-box;width:auto;max-width:min(500px,calc(100vw - 32px))!important;
   padding:24px 26px 22px!important;border-radius:30px;background:rgba(14,12,34,.6);border:1px solid rgba(246,223,174,.28);
@@ -840,33 +841,38 @@ function build(){
   // The lake is a still mirror. No animated shimmer (v22).
   var nz=noise(5);
   function edge(x,lift){return GT+34-lift-26*Math.sin(x/W*3.6+.5)-18*nz(x*.012);}
-  function bladeMask(id,lift,seed){
+  function bladeMask(id,lift,seed,hs,soft){
     var rr=rng(seed), m=el('mask',{id:id,maskUnits:'userSpaceOnUse',x:-20,y:f(GT-120-lift),width:W+40,height:f(GH+140+lift)},defs), d='M-20 '+(H+10), xx;
     for(xx=-20;xx<=W+20;xx+=8)d+='L'+f(xx)+' '+f(edge(xx,lift));
     d+='L'+(W+20)+' '+(H+10)+'Z';
-    for(xx=-20;xx<W+20;xx+=1.6+rr()*3.4){var y=edge(xx,lift)+6, h=7+rr()*rr()*52, lean=(rr()-.5)*h*.7, w=1.1+rr()*1.9;
+    for(xx=-20;xx<W+20;xx+=1.6+rr()*3.4){var y=edge(xx,lift)+6, h=(7+rr()*rr()*52)*hs, lean=(rr()-.5)*h*.7, w=1.1+rr()*1.9;
       d+='M'+f(xx-w)+' '+f(y)+'Q'+f(xx+lean*.3)+' '+f(y-h*.6)+' '+f(xx+lean)+' '+f(y-h)+'Q'+f(xx+lean*.5+w)+' '+f(y-h*.5)+' '+f(xx+w)+' '+f(y)+'Z';}
-    el('path',{d:d,fill:'#fff'},m);
+    el('path',{d:d,fill:'#fff',filter:soft?'url(#ls-bs)':'none'},m);
   }
   var IH=Math.max((GH+70)*1.12,W*1.06/5.65), IW=IH*5.65;
   function grass(maskId,lift,flip,shade,dur){
     var g=el('g',{mask:'url(#'+maskId+')'},svg), s=el('g',{'class':'gsway'},g); s.style.animationDuration=dur+'s';
+    var kk=1-.6*wide; shade*=kk;
     el('image',{href:G2,x:f((W-IW)/2),y:f(H-IH-lift*.5),width:f(IW),height:f(IH),preserveAspectRatio:'none',transform:flip?'translate('+W+' 0) scale(-1 1)':''},s);
-    el('rect',{x:-40,y:f(GT-140),width:W+80,height:f(GH+150),fill:lgrad(defs,[[0,'#05140E',shade],[.35,'#05140E',shade*.6],[1,'#030B08',Math.min(.92,shade+.16)]],0,GT-60,0,H)},s);
+    el('rect',{x:-40,y:f(GT-140),width:W+80,height:f(GH+150),fill:lgrad(defs,[[0,'#05140E',shade],[.35,'#05140E',shade*.6],[1,'#030B08',Math.min(.92,shade+.16*kk)]],0,GT-60,0,H)},s);
     // dusk light: warm the greens towards amber so the grass matches the sky
-    el('rect',{x:-40,y:f(GT-140),width:W+80,height:f(GH+150),fill:'#E8B888',opacity:.16,style:'mix-blend-mode:multiply'},s);
+    el('rect',{x:-40,y:f(GT-140),width:W+80,height:f(GH+150),fill:'#E8B888',opacity:f(.16*(1-.5*wide)),style:'mix-blend-mode:multiply'},s);
     el('rect',{x:-40,y:f(GT-140),width:W+80,height:f(GH+150),fill:lgrad(defs,[[0,'#FFD27A',.7],[1,'#FFD27A',0]],0,GT-70-lift,0,GT+70-lift),style:'mix-blend-mode:soft-light'},s);
+    if(wide>0)el('rect',{x:-40,y:f(GT-140),width:W+80,height:f(GH+150),fill:'#C8F08A',opacity:f(.22*wide),style:'mix-blend-mode:soft-light'},s);
+    // dusk haze on the far edge of each row, stronger on the back row
+    el('rect',{x:-40,y:f(GT-140),width:W+80,height:f(GH+150),fill:lgrad(defs,[[0,'#5A4650',lift?.42:.2],[1,'#5A4650',0]],0,GT-60-lift,0,GT+(lift?40:20)-lift)},s);
   }
-  bladeMask('ls-m1',30,11); bladeMask('ls-m2',0,29);
-  var sh='M-20 '+f(edge(-20,30)); for(x=-20;x<=W+20;x+=12)sh+='L'+f(x)+' '+f(edge(x,30)-4);
+  var bs=el('filter',{id:'ls-bs',x:'-5%',y:'-20%',width:'110%',height:'140%'},defs); el('feGaussianBlur',{stdDeviation:.55},bs);
+  bladeMask('ls-m1',30,11,.82,true); bladeMask('ls-m2',0,29,.85,false);
+  var sh='M-20 '+f(edge(-20,30)); for(x=-20;x<=W+20;x+=12)sh+='L'+f(x)+' '+f(edge(x,30)+12);
   var bl=el('filter',{id:'ls-b6',x:'-40%',y:'-80%',width:'180%',height:'260%'},defs); el('feGaussianBlur',{stdDeviation:6},bl);
-  el('path',{d:sh,fill:'none',stroke:'#03080C','stroke-width':26,opacity:.62,filter:'url(#ls-b6)'},svg);
+  el('path',{d:sh,fill:'none',stroke:'#03080C','stroke-width':22,opacity:.4,filter:'url(#ls-b6)'},svg);
   grass('ls-m1',30,true,.3,7);
   grass('ls-m2',0,false,.08,5.5);
   var ff=el('g',{},svg), fglow=rgrad(defs,[[0,'#FFFBD0',1],[.3,'#F9E27A',.7],[1,'#F9E27A',0]]);
   for(i=0;i<Math.max(9,Math.round(W/95));i++){var a2=el('g',{'class':'fly'},ff), b2=el('circle',{cx:f(R()*W),cy:f(GT-30+R()*(GH-10)),r:f(4+R()*5),fill:fglow,'class':'pulse'},a2);
     a2.style.animationDelay=(-R()*12)+'s'; a2.style.animationDuration=(9+R()*8)+'s'; b2.style.animationDelay=(-R()*3)+'s';}
-  el('rect',{width:W,height:H,fill:lgrad(defs,[[0,'#0C0A2A',.5],[.3,'#0C0A2A',0],[.8,'#020A10',0],[1,'#020A10',.18]],0,0,0,H)},svg);
+  el('rect',{width:W,height:H,fill:lgrad(defs,[[0,'#0C0A2A',.5],[.3,'#0C0A2A',0],[.8,'#020A10',0],[1,'#020A10',f(.18*(1-.6*wide))]],0,0,0,H)},svg);
   el('rect',{width:W,height:H,fill:lgrad(defs,[[0,'#020A10',.34],[.18,'#020A10',0],[.82,'#020A10',0],[1,'#020A10',.34]],0,0,W,0)},svg);
 }
 function onResize(){if(Math.abs(innerWidth-lastW)<2&&innerWidth<700)return;lastW=innerWidth;clearTimeout(to);to=setTimeout(build,250);}
@@ -1185,30 +1191,32 @@ return {
 </div>
 </div>
 </div>
-<div class="nav-section">Main</div>
 <!-- Search Bar -->
 <div class="search-bar">
 <span style="font-size:13px;color:var(--muted)">🔍</span>
 <input aria-label="Search features" id="sidebar-search" onblur="setTimeout(()=&gt;document.getElementById('search-results-panel').style.display='none',200)" onfocus="if(this.value.length&gt;0)document.getElementById('search-results-panel').style.display='block'" oninput="doSidebarSearch(this.value)" onkeydown="if(event.key==='Enter'){const panel=document.getElementById('search-results-panel');const r=panel._results&amp;&amp;panel._results[0];if(r){panel.style.display='none';this.value='';filterNav('');if(r.action)r.action();if(r.screen)go(r.screen);}}" placeholder="Search features…" type="text"/>
 </div>
 <div class="search-results" id="search-results-panel"></div>
+<div class="nav-section">Main</div>
 <div class="nav-link act" id="nl-home" onclick="go('home')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-house"/></svg></span> Home</div>
+<div class="nav-link" id="nl-chat" onclick="go('chat')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-chat-circle-dots"/></svg></span> LENA AI Chat</div>
+<div class="nav-section">Track &amp; Reflect</div>
 <div class="nav-link" id="nl-mood" onclick="go('mood')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-chart-line-up"/></svg></span> Mood Tracker</div>
 <div class="nav-link" id="nl-sleep" onclick="go('sleep')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-moon-stars"/></svg></span> Sleep Tracker</div>
-<div class="nav-link" id="nl-chat" onclick="go('chat')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-chat-circle-dots"/></svg></span> LENA AI Chat</div>
-<div class="nav-section">Tools</div>
+<div class="nav-link" id="nl-journal" onclick="go('journal')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-notebook"/></svg></span> Journal</div>
 <div class="nav-link" id="nl-assess" onclick="go('assess')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-clipboard-text"/></svg></span> Screening Test</div>
+<div class="nav-section">Self-care</div>
 <div class="nav-link" id="nl-cbt" onclick="go('cbt')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-brain"/></svg></span> Guided Tools</div>
 <div class="nav-link" id="nl-breathe" onclick="go('breathe')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-wind"/></svg></span> Breathe</div>
-<div class="nav-link" id="nl-games" onclick="go('games')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-game-controller"/></svg></span> Games</div>
-<div class="nav-link" id="nl-journal" onclick="go('journal')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-notebook"/></svg></span> Journal</div>
-<div class="nav-link isl-only" id="nl-islamic" onclick="go('islamic')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-mosque"/></svg></span> Kerohanian</div>
-<div class="nav-section">Wellness</div>
 <div class="nav-link" id="nl-discover" onclick="go('discover')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-music-notes"/></svg></span> Soundscapes</div>
-<div class="nav-link" id="nl-edu" onclick="go('edu')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-books"/></svg></span> Resources</div>
+<div class="nav-link" id="nl-games" onclick="go('games')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-game-controller"/></svg></span> Games</div>
+<div class="nav-link isl-only" id="nl-islamic" onclick="go('islamic')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-mosque"/></svg></span> Kerohanian</div>
+<div class="nav-section">Help &amp; Learn</div>
 <div class="nav-link" id="nl-crisis" onclick="go('crisis')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-lifebuoy"/></svg></span> Crisis Help</div>
-<div class="nav-link" id="nl-team" onclick="go('team')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-plant"/></svg></span> LENA's Team</div>
+<div class="nav-link" id="nl-edu" onclick="go('edu')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-books"/></svg></span> Resources</div>
+<div class="nav-section">About</div>
 <div class="nav-link" id="nl-about" onclick="go('about')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-info"/></svg></span> About LENA</div>
+<div class="nav-link" id="nl-team" onclick="go('team')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-plant"/></svg></span> LENA's Team</div>
 <div class="nav-section">Account</div>
 <div class="nav-link" id="nl-profile" onclick="go('profile')"><span class="ni"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-user-circle"/></svg></span> Profile &amp; Settings</div>
 <div class="sidebar-footer">
@@ -1677,7 +1685,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <p style="font-size:12px;color:var(--muted)">The sunset loading scene uses photos by Pietro De Grandi and Margo Evardson on Unsplash.</p>
 <div class="about-acts"><button class="btn-g" onclick="go('team')" style="padding:10px 18px;font-size:13px">Meet the team</button></div>
 </div>
-<div class="about-ver">LENA v1.0 · build 23 · IIUM KICT</div>
+<div class="about-ver">LENA v1.0 · build 24 · IIUM KICT</div>
 </div>
 <div class="sp"></div>
 </div>
