@@ -358,7 +358,9 @@ const dict={
 'Save Feedback':'Simpan Maklum Balas','Saved on this device. Export your data to send it on.':'Disimpan dalam peranti ini. Eksport data awak untuk menghantarnya.','This browser would not save it, sorry':'Maaf, pelayar ini tak benarkan ia disimpan',
 'Sign out of LENA?':'Log keluar dari LENA?',
 'Your mood, journal, sleep and screening history stay on this device. Sign in again with the same email to see them.':'Mood, jurnal, tidur dan sejarah saringan awak kekal dalam peranti ini. Log masuk semula dengan e-mel yang sama untuk melihatnya.',
-'Aina':'Aina'
+'Aina':'Aina',
+  // v35 breathing chime
+  'Chime on':'Loceng hidup','Chime off':'Loceng mati','Soft chime at each breath':'Bunyi loceng lembut pada setiap nafas',
 };
 
 // patterns for text that has numbers or names in it
@@ -367,7 +369,7 @@ const rules=[
   [/^(\d+) days ago · (.+)$/,(m)=>m[1]+' hari lepas · '+m[2]],[/^Yesterday · (.+)$/,'Semalam · $1'],[/^Today · (.+)$/,'Hari ini · $1'],
   [/^No (PHQ-9|DASS-21) results yet\. Complete the screening test to start tracking\.$/,'Belum ada keputusan $1. Lengkapkan ujian saringan untuk mula menjejak.'],
   [/^(.+) · no mood logged yet$/,'$1 · belum ada mood direkod'],
-  [/^for (\d+)(s?)(\.?)$/,'selama $1$2$3'],[/^Hold (\d+)(s?)$/,'Tahan $1$2'],
+  [/^for (\d+)(s?)(\.?)$/,'selama $1$2$3'],[/^Hold (\d+)(s?)$/,'Tahan $1$2'],[/^(Inhale|Exhale) (\d+)$/,(m)=>(m[1]==='Inhale'?'Tarik nafas ':'Hembus nafas ')+m[2]],
   [/^(.+) Technique$/,(m,L)=>{const t=L(m[1]);return t==null&&!/^[\d-]+$/.test(m[1])?null:'Teknik '+(t||m[1]);}],
   [/^Read · (\d+) min$/,'Baca · $1 min'],
   [/^Notifications, (\d+) unread$/,'Notifikasi, $1 belum dibaca'],

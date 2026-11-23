@@ -232,6 +232,27 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 @keyframes breathe{0%,100%{transform:scale(.8);opacity:.7}50%{transform:scale(1.1);opacity:1}}
 .borb{border-radius:50%;background:radial-gradient(circle,var(--fill) 0%,rgba(43,184,154,.3) 60%,transparent 100%);animation:breathe 8s ease-in-out infinite;animation-play-state:paused;display:flex;align-items:center;justify-content:center}
 .brng{border-radius:50%;border:2px solid rgba(43,184,154,.25);animation:breathe 8s ease-in-out infinite;animation-delay:.5s;animation-play-state:paused}
+/* v34: the orb follows each phase instead of a fixed loop. It grows over
+   the whole in-breath, stays still on a hold, and shrinks over the whole
+   out-breath. The outer ring fills once per phase so the time left is
+   visible, coloured by phase: teal in, amber hold, green out. */
+.bprog{position:absolute;inset:-26px;width:calc(100% + 52px);height:calc(100% + 52px);transform:rotate(-90deg);pointer-events:none;overflow:visible}
+.bprog-bg{fill:none;stroke:var(--bg4);stroke-width:2.2;opacity:.6}
+.bprog-c{fill:none;stroke:var(--primary);stroke-width:3.2;stroke-linecap:round;stroke-dasharray:295.3;stroke-dashoffset:295.3}
+#borb-wrap.b-holding .brng{border-color:var(--amber);border-width:3px}
+#sc-breathe #borb-wrap{margin:14px 0 8px}
+.bsteps{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:-8px}
+.bstep{font-size:12px;font-weight:700;padding:5px 11px;border-radius:14px;background:var(--bg3);color:var(--muted);transition:background .3s,color .3s,transform .3s}
+.bstep.on{color:#fff;transform:scale(1.06)}
+.bstep.on.k-in{background:var(--primary)}.bstep.on.k-hold{background:var(--amber)}.bstep.on.k-out{background:var(--lav)}
+/* v35: exhale is lavender, so in, hold and out read as three different colours */
+#sc-breathe .borb{transition-property:transform,filter;filter:none}
+#borb-wrap.b-out .borb{filter:hue-rotate(48deg) saturate(.85)}
+#borb-wrap.b-out .brng{border-color:color-mix(in srgb,var(--lav) 55%,transparent)}
+.bchime{display:inline-flex;align-items:center;gap:7px;margin-top:-6px;padding:8px 16px;border-radius:20px;border:1.5px solid var(--border);background:var(--bg2);color:var(--text2);font-family:var(--ff-b);font-size:12.5px;font-weight:700;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.bchime[aria-pressed=false] .bchime-i{opacity:.45}
+.bchime[aria-pressed=true]{background:rgba(43,184,154,.12);border-color:var(--primary);color:var(--primary-t)}
+.bchime:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
 
 /* ══ CHAT ═════════════════════════════════════════════════════════════ */
 .chat-area{flex:1;min-height:0;overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column;gap:12px;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
@@ -2040,7 +2061,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <p style="font-size:12px;color:var(--muted)">The sunset loading scene uses photos by Pietro De Grandi and Margo Evardson on Unsplash.</p>
 <div class="about-acts"><button class="btn-g" onclick="go('team')" style="padding:10px 18px;font-size:13px">Meet the team</button></div>
 </div>
-<div class="about-ver">LENA v1.0 · build 34 · IIUM KICT</div>
+<div class="about-ver">LENA v1.0 · build 35 · IIUM KICT</div>
 </div>
 <div class="sp"></div>
 </div>
@@ -2053,12 +2074,15 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <div id="borb-wrap" onclick="toggleBreath()" style="position:relative;width:200px;height:200px;cursor:pointer;touch-action:none;-webkit-user-select:none;user-select:none">
 <div class="borb" id="borb" style="width:200px;height:200px"><div id="bphase" style="font-family:var(--ff-d);font-size:19px;color:var(--on-fill);text-align:center">Inhale</div></div>
 <div class="brng" style="position:absolute;inset:-14px"></div>
+<svg class="bprog" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="47" class="bprog-bg"/><circle id="bprog-c" cx="50" cy="50" r="47" class="bprog-c"/></svg>
 </div>
 <div id="bcnt" style="font-size:56px;font-family:var(--ff-d);color:var(--primary-t);line-height:1">4</div>
+<div id="bsteps" class="bsteps" aria-hidden="true"></div>
 <div id="bdots" aria-hidden="true" style="display:none;gap:8px"></div>
 <div id="hold-live" class="sr-only" aria-live="polite"></div>
 <div id="bdesc-t" style="font-size:14px;color:var(--text2);text-align:center;max-width:320px;line-height:1.7"><strong>Breathe in</strong> for 4 → Hold 7 → <strong>Breathe out</strong> for 8.<br/>Click the orb to begin.</div>
 <button id="bbtn" onclick="toggleBreath()" style="padding:14px 42px;border-radius:30px;border:none;background:linear-gradient(135deg,var(--fill),var(--fill2));color:var(--on-fill);font-family:var(--ff-b);font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 6px 20px var(--shadow);transition:all .2s">▶ Begin</button>
+<button id="bchime" class="bchime" type="button" onclick="toggleChime()" aria-pressed="false" aria-label="Soft chime at each breath"><span class="bchime-i" aria-hidden="true">🔔</span><span id="bchime-t">Chime off</span></button>
 </div>
 <div>
 <div class="card" style="margin-bottom:14px">
@@ -3805,6 +3829,100 @@ function prevPage(){if(curPage>0){curPage--;renderReadPage();}}
 // BREATHING
 // ════════════════════════════════════════════════════
 let bActive=false,bTimer=null,bStep=0,bTech='478';
+
+// ── v34: phase-driven orb ──────────────────────────────
+// The old orb ran one looping CSS animation and only changed its speed,
+// so it kept growing and shrinking through holds and could be shrinking
+// during an in-breath. Now each phase sets the orb's size directly with a
+// transition as long as the phase. Same inline approach as Hold to breathe.
+const BR_BIG=1.15, BR_SMALL=.72, BR_CIRC=295.3;
+function brReduced(){try{return matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){return false;}}
+function brKind(l){return l==='Inhale'?'in':l==='Exhale'?'out':'hold';}
+function brTarget(i,ps){
+  const k=brKind(ps[i].l);
+  if(k==='in')return BR_BIG; if(k==='out')return BR_SMALL;
+  return brKind(ps[(i-1+ps.length)%ps.length].l)==='in'?BR_BIG:BR_SMALL;
+}
+function brOrbs(){return[document.getElementById('borb'),document.querySelector('#sc-breathe .brng')];}
+function brScale(sc,ms){
+  brOrbs().forEach(x=>{if(!x)return;x.style.animation='none';
+    x.style.transition=(!ms||brReduced())?'none':'transform '+ms+'ms ease-in-out, filter 1.2s ease';
+    x.style.transform='scale('+sc+')';});
+}
+function brRing(ms,kind){
+  const c=document.getElementById('bprog-c'); if(!c)return;
+  c.style.transition='none'; c.style.strokeDashoffset=BR_CIRC;
+  c.style.stroke=kind==='in'?'var(--primary)':kind==='out'?'var(--lav)':'var(--amber)';
+  void c.getBoundingClientRect();
+  if(ms){c.style.transition='stroke-dashoffset '+ms+'ms linear'; c.style.strokeDashoffset=0;}
+}
+function brSteps(cur){
+  const el=document.getElementById('bsteps'); if(!el)return;
+  if(bTech==='hold'){el.style.display='none';return;}
+  el.style.display='flex';
+  const ps=BT[bTech].p;
+  el.innerHTML=ps.map((p,i)=>'<span class="bstep k-'+brKind(p.l)+(i===cur?' on':'')+'">'+p.l+' '+p.d+'</span>').join('');
+}
+function brPhase(i,ps){
+  const p=ps[i], k=brKind(p.l), ms=p.d*1000;
+  brScale(brTarget(i,ps),k==='hold'?400:ms);
+  brRing(ms,k);
+  brSteps(i);
+  const w=document.getElementById('borb-wrap'); if(w){w.classList.toggle('b-holding',k==='hold');w.classList.toggle('b-out',k==='out');}
+  brChimePlay(k);
+}
+function brFreeze(){
+  // Pause where it is: keep the orb's current size and the ring's progress.
+  brOrbs().forEach(x=>{if(!x)return;const t=getComputedStyle(x).transform;x.style.transition='none';x.style.transform=t==='none'?'':t;});
+  const c=document.getElementById('bprog-c');
+  if(c){const o=getComputedStyle(c).strokeDashoffset;c.style.transition='none';c.style.strokeDashoffset=o;}
+}
+function brIdle(){
+  const w=document.getElementById('borb-wrap'); if(w)w.classList.remove('b-holding','b-out');
+  const svg=document.querySelector('#sc-breathe .bprog'); if(svg)svg.style.display=bTech==='hold'?'none':'';
+  brRing(0,'in');
+  if(bTech!=='hold')brScale(BR_SMALL,500);
+  brSteps(-1);
+}
+
+// ── v35: soft chime at each phase ──────────────────────
+// Optional and off by default: LENA gets used in class and on the bus.
+// The choice is remembered. Tones are made here with Web Audio, so there
+// is nothing to download and it works offline. Three shapes, so someone
+// with their eyes closed can tell them apart: in rises, hold is one note,
+// out falls. Quiet, slow attack, long fade, well under the soundscapes.
+let brChime=(function(){try{return localStorage.getItem('lena_breath_chime')==='1';}catch(e){return false;}})();
+function chimeUI(){
+  const b=document.getElementById('bchime'); if(!b)return;
+  b.setAttribute('aria-pressed',brChime?'true':'false');
+  const t=document.getElementById('bchime-t'); if(t)t.textContent=brChime?'Chime on':'Chime off';
+}
+function toggleChime(){
+  brChime=!brChime;
+  try{localStorage.setItem('lena_breath_chime',brChime?'1':'0');}catch(e){}
+  chimeUI();
+  if(brChime)brChimePlay('in');   // a sample, so they hear the volume
+}
+function brTone(f,t,dur,peak){
+  const o=Actx.createOscillator(), o2=Actx.createOscillator(), g=Actx.createGain(), g2=Actx.createGain();
+  o.type='sine'; o.frequency.value=f;
+  o2.type='sine'; o2.frequency.value=f*2; g2.gain.value=.16;   // a little shimmer
+  g.gain.setValueAtTime(.0001,t);
+  g.gain.exponentialRampToValueAtTime(peak,t+.04);
+  g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+  o.connect(g); o2.connect(g2); g2.connect(g); g.connect(Actx.destination);
+  o.start(t); o2.start(t); o.stop(t+dur+.05); o2.stop(t+dur+.05);
+}
+function brChimePlay(kind){
+  if(!brChime)return;
+  try{
+    if(Actx.state==='suspended')Actx.resume();
+    const t=Actx.currentTime+.03;
+    if(kind==='in'){brTone(392,t,1.9,.06);brTone(587.33,t+.2,2.1,.05);}        // G4 up to D5
+    else if(kind==='out'){brTone(440,t,1.9,.055);brTone(293.66,t+.24,2.4,.055);} // A4 down to D4
+    else brTone(523.25,t,1.4,.045);                                              // C5, one note
+  }catch(e){}
+}
 const BT={'478':{n:'4-7-8',p:[{l:'Inhale',d:4},{l:'Hold',d:7},{l:'Exhale',d:8}],desc:'Developed by Dr. Andrew Weil. Activates the parasympathetic nervous system, reducing anxiety and promoting sleep onset within minutes.'},box:{n:'Box Breathing',p:[{l:'Inhale',d:4},{l:'Hold',d:4},{l:'Exhale',d:4},{l:'Hold',d:4}],desc:'Used by Navy SEALs. Regulates the autonomic nervous system and improves focus under pressure.'},hold:{n:'Hold to breathe',p:[{l:'Hold me',d:4}],desc:'You set the pace. Hold the orb while you breathe in, and let go to breathe out. A long, slow out-breath is what calms the body, so the out-breath here is longer than the in-breath.'},deep:{n:'Deep Calm',p:[{l:'Inhale',d:5},{l:'Hold',d:2},{l:'Exhale',d:7}],desc:'The extended exhale activates the vagal brake, rapidly lowering heart rate.'},coherent:{n:'Coherent',p:[{l:'Inhale',d:5},{l:'Exhale',d:5}],desc:'5-6 breaths per minute synchronises heart rate variability, reducing anxiety.'}};
 function setBT(el,key){
   ['btt1','btt2','btt3','btt4','btt5'].forEach(id=>{
@@ -3816,6 +3934,7 @@ function setBT(el,key){
   if(bActive){bActive=false;clearTimeout(bTimer);}
   holdOff();
   bTech=key;bStep=0;
+  brIdle();
   if(key==='hold'){holdOn();toast(BT.hold.n+' selected');return;}
   document.getElementById('bbtn').textContent='▶ Begin';
   const t=BT[key];
@@ -3823,14 +3942,6 @@ function setBT(el,key){
   document.getElementById('bcnt').textContent=t.p[0].d;
   document.getElementById('btname').textContent=t.n+' Technique';
   document.getElementById('btdesc-t').textContent=t.desc;
-  // Reset animation on orb
-  const borb=document.getElementById('borb');
-  if(borb){
-    // Choose animation speed based on first phase duration
-    const totalCycle=t.p.reduce((s,p)=>s+p.d,0);
-    borb.style.animationDuration=totalCycle+'s';
-    borb.style.animationPlayState='paused';
-  }
   // Update breath description text
   const phases=t.p.map(p=>p.l+' '+p.d+'s').join(' → ');
   const descEl=document.getElementById('bdesc-t');
@@ -3852,9 +3963,7 @@ function toggleBreath(){
   if(bTech==='hold')return;
   bActive=!bActive;
   document.getElementById('bbtn').textContent=bActive?'⏸ Pause':'▶ Begin';
-  const borb=document.getElementById('borb');
-  if(borb)borb.style.animationPlayState=bActive?'running':'paused';
-  if(bActive)runBreath();else clearTimeout(bTimer);
+  if(bActive)runBreath();else{clearTimeout(bTimer);brFreeze();}
 }
 function runBreath(){
   if(!bActive)return;
@@ -3863,11 +3972,7 @@ function runBreath(){
   document.getElementById('bphase').textContent=ph.l;
   let c=ph.d;
   document.getElementById('bcnt').textContent=c;
-  // Update orb animation speed based on phase duration
-  const borb=document.getElementById('borb');
-  const brng=document.querySelector('.brng');
-  if(borb){borb.style.animationDuration=(ph.d*2)+'s';borb.style.animationPlayState='running';}
-  if(brng){brng.style.animationDuration=(ph.d*2)+'s';brng.style.animationPlayState='running';}
+  brPhase(bStep%phases.length,phases);
   const tick2=()=>{
     if(!bActive)return;
     c--;
@@ -6985,6 +7090,9 @@ function openGames(mode){gamesWant=mode||null;go('games');}
 </script>
 
 <script>
+try{brIdle();chimeUI();}catch(e){}
+</script>
+<script>
 /* ══ HOLD TO BREATHE ═══════════════════════════════════════════════════
    Hold the orb while breathing in. After 4 seconds it says let go.
    Let go and breathe out while it shrinks for 6 seconds. Six breaths.
@@ -7049,8 +7157,9 @@ function holdPress(){
   try{if(Actx.state==='suspended')Actx.resume();}catch(e){}
   hold.state='in';hold.t0=Date.now();
   holdScale(1.15,HOLD.IN);
+  try{brChimePlay('in');}catch(e){}
   holdSay('Breathe in','','Breathe in slowly. Keep holding the orb.');
-  holdCount(HOLD.IN,()=>{if(hold.state==='in'){holdSay('Let go','','Let go of the orb, and breathe out.');try{navigator.vibrate&&navigator.vibrate(15);}catch(e){}}});
+  holdCount(HOLD.IN,()=>{if(hold.state==='in'){holdSay('Let go','','Let go of the orb, and breathe out.');try{brChimePlay('hold');}catch(e){}try{navigator.vibrate&&navigator.vibrate(15);}catch(e){}}});
 }
 function holdRelease(){
   if(!hold.on||hold.state!=='in')return;
@@ -7062,6 +7171,7 @@ function holdRelease(){
   }
   hold.state='out';hold.n++;holdDots();
   holdScale(.8,HOLD.OUT);
+  try{brChimePlay('out');}catch(e){}
   holdSay('Breathe out','','Breathe out slowly, a little longer than you breathed in.');
   holdCount(HOLD.OUT);
   hold.end=setTimeout(()=>{
