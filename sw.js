@@ -29,7 +29,7 @@
    previous build. This is the one way a service worker commonly goes wrong.
    ────────────────────────────────────────────────────────────────────── */
 
-const CACHE_VERSION = 'v33';
+const CACHE_VERSION = 'v34';
 const CACHE = 'lena-' + CACHE_VERSION;
 
 // Everything needed for a cold, offline start.
@@ -46,6 +46,8 @@ const PRECACHE = [
   // Quranic reflections content. Bump CACHE_VERSION whenever this file
   // changes, or returning users keep the old verses.
   '/assets/reflections.json',
+  // Malay words (v34). Always fetched fresh on update, it will grow.
+  '/assets/i18n-ms.js',
   '/assets/loading/mountain.webp',
   '/assets/loading/mountain-wide.webp',
   '/assets/loading/grass.webp',
@@ -73,7 +75,7 @@ self.addEventListener('install', (event) => {
     // The page and the reflections file are always fetched fresh. If a
     // picture is ever changed, give it a new file name (or add it to
     // ALWAYS_FRESH) so phones pick up the new one.
-    const ALWAYS_FRESH = ['/', '/index.html', '/manifest.json', '/assets/reflections.json'];
+    const ALWAYS_FRESH = ['/', '/index.html', '/manifest.json', '/assets/reflections.json', '/assets/i18n-ms.js'];
     await Promise.all(PRECACHE.map(async (url) => {
       try {
         if (!ALWAYS_FRESH.includes(url)) {
