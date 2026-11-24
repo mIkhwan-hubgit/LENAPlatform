@@ -1103,6 +1103,12 @@ button .emo:not(.emo-face):not(.emo-heart):not(.emo-warm):not(.emo-warn){color:i
 .btn-danger{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:none;border-radius:var(--r);background:var(--red-fill);color:#fff;font-family:var(--ff-b);font-size:14px;font-weight:700;cursor:pointer;transition:filter .15s,transform .1s}
 .btn-danger:hover{filter:brightness(1.08)}.btn-danger:active{transform:scale(.97)}
 .btn-danger:focus-visible{outline:3px solid var(--red-fill);outline-offset:2px}
+/* v36: Continue with Google */
+.g-wrap{margin:0 0 18px}
+.g-wrap[hidden]{display:none}
+.g-btn{display:flex;justify-content:center;min-height:44px}
+.g-or{display:flex;align-items:center;gap:10px;margin-top:16px;font-size:12px;color:var(--muted)}
+.g-or::before,.g-or::after{content:'';flex:1;height:1px;background:var(--border)}
 </style>
 </head>
 <body>
@@ -1126,6 +1132,10 @@ button .emo:not(.emo-face):not(.emo-heart):not(.emo-warm):not(.emo-warn){color:i
 <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r3);padding:36px 40px;width:420px;box-shadow:0 16px 50px var(--shadow2);backdrop-filter:blur(12px)">
 <h2 style="font-family:var(--ff-d);font-size:24px;color:var(--text);margin-bottom:4px">Welcome back</h2>
 <p style="font-size:13px;color:var(--muted);margin-bottom:24px">Your safe space for mental wellbeing</p>
+<div class="g-wrap" id="g-wrap" hidden>
+<div class="g-btn" id="g-btn" data-i18n-skip></div>
+<div class="g-or" aria-hidden="true"><span>or use email</span></div>
+</div>
 <div id="auth-tabs" style="display:flex;background:var(--bg3);border-radius:10px;padding:4px;margin-bottom:22px">
 <div id="tab-si" onclick="switchAuthTab('si')" style="flex:1;padding:9px;text-align:center;border-radius:8px;background:var(--fill);color:var(--on-fill);font-size:14px;font-weight:700;cursor:pointer">Sign In</div>
 <div id="tab-re" onclick="switchAuthTab('re')" style="flex:1;padding:9px;text-align:center;border-radius:8px;color:var(--muted);font-size:14px;font-weight:700;cursor:pointer">Register</div>
@@ -1139,7 +1149,7 @@ button .emo:not(.emo-face):not(.emo-heart):not(.emo-warm):not(.emo-warn){color:i
 <button class="btn-p" id="auth-btn" onclick="doLogin()" style="width:100%;padding:14px;margin-top:16px;font-size:14px">Sign In →</button>
 <div style="text-align:center;margin-top:14px;font-size:12px;color:var(--muted)">or</div>
 <div onclick="currentAuthTab='si';document.getElementById('auth-email').value='guest@lena.app';document.getElementById('auth-pw').value='guest';doLogin()" style="text-align:center;margin-top:12px;font-size:12px;color:var(--primary-t);cursor:pointer;font-weight:600">Continue as Guest</div>
-<div style="text-align:center;margin-top:18px;font-size:11px;color:var(--muted)">Protected by PDPA 2010 · Mood and screening data stay on your device. Chat messages are sent to an AI service.</div>
+<div style="text-align:center;margin-top:18px;font-size:11px;color:var(--muted)">Protected by PDPA 2010 · As a guest, your entries stay on this device. With Google, they are backed up to your LENA account. Chat messages are sent to an AI service. <a href="/privacy.html" target="_blank" rel="noopener" style="color:var(--primary-t);font-weight:600">Privacy policy</a></div>
 </div>
 </div>
 <script>
@@ -2051,7 +2061,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 </div>
 <div class="card about-card">
 <h3><span aria-hidden="true">🔒</span> Your data</h3>
-<p>What you log stays in this browser, on this device. Your mood, sleep, journal, screening results and safety plan are never uploaded.</p>
+<p>If you continue as a guest, what you log stays in this browser, on this device. If you sign in with Google, it is also backed up to your LENA account, so it is there on any device you sign in on. You can delete it all at any time in Privacy &amp; Data.</p>
 <p>There are two exceptions. Messages you send to LENA AI go to an AI service so it can write a reply, and so do the items in a plan when you tap Help me order.</p>
 <div class="about-acts"><button class="btn-g" onclick="openPrivacy()" style="padding:10px 18px;font-size:13px">See what is stored</button></div>
 </div>
@@ -2061,7 +2071,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <p style="font-size:12px;color:var(--muted)">The sunset loading scene uses photos by Pietro De Grandi and Margo Evardson on Unsplash.</p>
 <div class="about-acts"><button class="btn-g" onclick="go('team')" style="padding:10px 18px;font-size:13px">Meet the team</button></div>
 </div>
-<div class="about-ver">LENA v1.0 · build 35 · IIUM KICT</div>
+<div class="about-ver">LENA v1.0 · build 36 · IIUM KICT</div>
 </div>
 <div class="sp"></div>
 </div>
@@ -2228,7 +2238,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:14px">📋 My Safety Plan</div>
 <div id="sp-view"></div>
 <div id="sp-edit" style="display:none">
-<div style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:14px">This stays on your device. Write it in your own words, for yourself.</div>
+<div style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:14px">This stays on your device, and in your LENA account if you signed in with Google. Write it in your own words, for yourself.</div>
 <div class="time-lbl" style="margin-bottom:6px">1. My warning signs</div>
 <textarea aria-label="My warning signs, one per line" id="sp-warn" placeholder="What does it look like when things are starting to slip? One per line." style="width:100%;min-height:70px;background:var(--bg3);border:1.5px solid var(--border);border-radius:var(--r);padding:11px;font-family:var(--ff-b);font-size:12.5px;color:var(--text);outline:none;resize:none;line-height:1.6;margin-bottom:14px"></textarea>
 <div class="time-lbl" style="margin-bottom:6px">2. What helps me</div>
@@ -2306,7 +2316,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <button class="btn-p" onclick="saveJournalEntry()" style="flex:1;padding:12px">Save Entry ✓</button>
 <button class="btn-g" onclick="closeJournalComposer()" style="flex:none;padding:12px 18px">Cancel</button>
 </div>
-<div style="font-size:11px;color:var(--muted);margin-top:10px;line-height:1.5">Journal entries are saved on this device only. They are not sent anywhere and nobody else can read them.</div>
+<div style="font-size:11px;color:var(--muted);margin-top:10px;line-height:1.5">Journal entries are saved on this device. If you signed in with Google, they are also backed up to your LENA account. They are never shown to anyone else.</div>
 </div>
 </div>
 </div>
@@ -2622,7 +2632,7 @@ function doLogin(){
   // With a backend available the server decides whether these
   // credentials are good. Without one, the old on-device behaviour
   // stands, so the app still works with no network and no database.
-  if(window.LENA_BACKEND && LENA_BACKEND.available){
+  if(window.LENA_BACKEND && LENA_BACKEND.available && LENA_BACKEND.emailAccounts){
     LENA_BACKEND.authenticate(email,pw,currentAuthTab==='re');
     return;
   }
@@ -4076,6 +4086,7 @@ const DATA_ITEMS=[
   {k:'lena_safety_plan',label:'Safety plan',           count:v=>1},
   {k:'lena_sleep_plan', label:'Evening plan',          count:v=>1},
   {k:'lena_user',       label:'Your name and email',   count:v=>1},
+  {k:'lena_auth',       label:'Signed in with Google', count:v=>1},
   {k:'lena_prefs',      label:'Your settings',         count:v=>1},
   {k:'lena_feedback',   label:'Feedback you wrote',    count:v=>v.length},
   {k:'lena_muslim',     label:'Islamic sections on or off',count:v=>1},
@@ -4124,8 +4135,12 @@ function renderPrivacy(){
     '<div style="font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">On this device</div>'+
     list+
     '<div style="font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin:16px 0 6px">Sent off this device</div>'+
-    '<div style="font-size:12.5px;color:var(--text2);line-height:1.7">Chat messages are sent to an AI service to generate a reply. When you tap Help me order on a plan, just those plan items are sent too. Nothing else leaves this device. Your mood entries, sleep log, journal, screening results and safety plan are never uploaded.</div>'+
+    '<div style="font-size:12.5px;color:var(--text2);line-height:1.7">Chat messages are sent to an AI service to generate a reply. When you tap Help me order on a plan, just those plan items are sent too.</div>'+
+    '<div style="font-size:12.5px;color:var(--text2);line-height:1.7;margin-top:8px">'+((window.LENA_BACKEND&&LENA_BACKEND.user)
+      ?'You signed in with Google, so your mood entries, sleep log, journal, screening results, safety plan and settings are also backed up to your LENA account on LENA\'s server. That is how they reach your other devices. They are never shown to anyone else. Delete everything below removes them there too.'
+      :'You are not signed in with Google, so nothing else leaves this device. Your mood entries, sleep log, journal, screening results and safety plan are not uploaded.')+'</div>'+
     '<div style="font-size:12.5px;color:var(--text2);line-height:1.7;margin-top:8px">The current chat: '+chat+'. It is cleared when you close the tab or sign out.</div>'+
+    '<div style="font-size:12.5px;line-height:1.7;margin-top:8px"><a href="/privacy.html" target="_blank" rel="noopener" style="color:var(--primary-t);font-weight:600">Read the full privacy policy</a></div>'+
     '<div style="font-size:12.5px;color:var(--text2);line-height:1.7;margin-top:8px">Because everything is kept in this browser, anyone else using this device and browser can open LENA and see it. Clearing your browser data also deletes it.</div>';
 }
 function openPrivacy(){renderPrivacy();document.getElementById('privacy-modal').classList.add('open');}
@@ -4159,16 +4174,32 @@ let wipeArmed=false,wipeTimer=null;
 function wipeData(){
   // Deleting a mood history and a safety plan is not undoable, so it
   // takes two taps. No browser dialog: a confirm() box blocks the page.
+  const acct=!!(window.LENA_BACKEND&&LENA_BACKEND.available&&LENA_BACKEND.user);
   if(!wipeArmed){
     wipeArmed=true;
-    toast('Tap Delete everything again to confirm. This cannot be undone.');
+    toast(acct?'Tap Delete everything again to delete it all, on this device and your LENA account. This cannot be undone.'
+              :'Tap Delete everything again to confirm. This cannot be undone.');
     clearTimeout(wipeTimer);
     wipeTimer=setTimeout(()=>{wipeArmed=false;},6000);
     return;
   }
   wipeArmed=false;
   clearTimeout(wipeTimer);
+  if(acct){
+    // The account goes first. If that fails, nothing is deleted here,
+    // or the server copy would come back at the next sign-in.
+    LENA_BACKEND.deleteAccount('').then(r=>{
+      if(r.status!==200){toast('Your LENA account could not be deleted right now. Nothing was deleted. Try again when you are online.');return;}
+      try{LENA_BACKEND.clearSynced();}catch(e){}
+      wipeLocal();
+    }).catch(()=>toast('Your LENA account could not be deleted right now. Nothing was deleted. Try again when you are online.'));
+    return;
+  }
+  wipeLocal();
+}
+function wipeLocal(){
   DATA_ITEMS.forEach(it=>{try{localStorage.removeItem(it.k);}catch(e){}});
+  ['lena_sync_since','lena_sync_ids','lena_sync_stamps','lena_sync_owner','lena_auth'].forEach(k=>{try{localStorage.removeItem(k);}catch(e){}});
   try{sessionStorage.removeItem(CHAT_SKEY);}catch(e){}
   toast('Everything deleted. Reloading.');
   setTimeout(()=>location.reload(),900);
@@ -4388,6 +4419,15 @@ function signOut(){
   // The saved profile is kept, so mood, journal and screening history
   // survive, but the resume is suppressed until the next sign-in.
   try{localStorage.setItem('lena_signed_out','1');}catch(e){}
+  if(window.LENA_BACKEND && LENA_BACKEND.available && LENA_BACKEND.user){
+    // v36: an account backs up, then its entries leave this device.
+    toast('Signing out…');
+    LENA_BACKEND.signOutAccount().then(clear=>{
+      toast(clear?'Signed out. Your entries are safe in your LENA account.':'Signed out. You are offline, so your latest entries stay on this device for now.');
+      setTimeout(()=>location.reload(),1300);
+    });
+    return;
+  }
   if(window.LENA_BACKEND && LENA_BACKEND.available){
     // Fire and forget. A failure here must not keep the person
     // apparently signed in on this device.
@@ -6086,6 +6126,7 @@ window.LENA_BACKEND = (function(){
 
   var available = false;
   var me = null;
+  var emailAccounts = false, googleClientId = null, gisLoad = null;
 
   /* A uuid derived from a string, so the same local record always maps
      to the same server id. Without this, every sync would insert
@@ -6147,6 +6188,21 @@ window.LENA_BACKEND = (function(){
              updated_at:new Date(t||Date.now()).toISOString(), deleted:false };
   }
 
+  function knownIds(){ var v=readJSON('lena_sync_ids',{}); return (v&&typeof v==='object'&&!Array.isArray(v))?v:{}; }
+  function setKnown(list){
+    var o={}; list.forEach(function(r){ if(!r.deleted) o[r.id]=r.kind; });
+    try{ localStorage.setItem('lena_sync_ids',JSON.stringify(o)); }catch(e){}
+  }
+  /* Synced before, gone from this device now: deleted here. */
+  function tombstones(current){
+    var have={}, out=[], known=knownIds();
+    current.forEach(function(r){ have[r.id]=1; });
+    Object.keys(known).forEach(function(id){
+      if(!have[id]) out.push({ id:id, kind:known[id], payload:{}, updated_at:new Date().toISOString(), deleted:true });
+    });
+    return out;
+  }
+
   /* Everything on this device, in the shape /api/sync expects. */
   function localRecords(){
     var out=[];
@@ -6172,6 +6228,13 @@ window.LENA_BACKEND = (function(){
 
     function mergeArray(key,kind,idOf){
       var list=arr(key), seen={}, changed=false;
+      // deleted on another device: remove it here too
+      var gone={};
+      (byKind[kind]||[]).forEach(function(r){ if(r.deleted) gone[r.id]=1; });
+      if(Object.keys(gone).length){
+        var keep=list.filter(function(x){ return !gone[uuidFrom(kind+':'+String(idOf(x)))]; });
+        if(keep.length!==list.length){ list=keep; changed=true; }
+      }
       list.forEach(function(x){ seen[String(idOf(x))]=true; });
       (byKind[kind]||[]).forEach(function(r){
         if(r.deleted) return;
@@ -6240,7 +6303,9 @@ window.LENA_BACKEND = (function(){
       return api('/api/sync?since='+encodeURIComponent(since||'1970-01-01T00:00:00.000Z'));
     };
     var push = function(){
-      return api('/api/sync',{method:'PUT',body:JSON.stringify({records:localRecords()})});
+      var cur=localRecords();
+      return api('/api/sync',{method:'PUT',body:JSON.stringify({records:cur.concat(first?[]:tombstones(cur))})})
+        .then(function(r){ if(r.status===200) setKnown(cur); return r; });
     };
 
     return (first ? Promise.resolve() : push())
@@ -6256,6 +6321,7 @@ window.LENA_BACKEND = (function(){
         if(r.status!==200) return false;
         applyRemote(r.body.records||[]);
         try{ localStorage.setItem('lena_sync_since',r.body.now); }catch(e){}
+        setKnown(localRecords());
         ['renderMood','renderJournal','renderSleep','renderTrend','renderHomeStats','renderPrefs']
           .forEach(function(fn){ try{ window[fn] && window[fn](); }catch(e){} });
         return true;
@@ -6301,7 +6367,82 @@ window.LENA_BACKEND = (function(){
 
   function deleteAccount(password){
     return api('/api/account/delete',
-      {method:'POST',body:JSON.stringify({password:password,confirm:'DELETE'})});
+      {method:'POST',body:JSON.stringify({password:password||'',confirm:'DELETE'})});
+  }
+
+  /* ── Continue with Google ────────────────────────────────────────
+     Google's own button and script. The button only appears once the
+     server says Google sign-in is set up, so a copy of LENA without the
+     backend (Live Server, or before the Vercel settings are in) shows
+     the sign-in screen exactly as before. */
+  var SYNC_KEYS=['lena_mood_log','lena_journal','lena_assess_history','lena_sleep_log','lena_safety_plan',
+                 'lena_sync_since','lena_sync_ids','lena_sync_stamps','lena_sync_owner','lena_auth'];
+  function loadGis(){
+    if(window.google&&google.accounts&&google.accounts.id) return Promise.resolve();
+    if(gisLoad) return gisLoad;
+    gisLoad=new Promise(function(ok,fail){
+      var sc=document.createElement('script'); sc.src='https://accounts.google.com/gsi/client'; sc.async=true; sc.defer=true;
+      sc.onload=function(){ ok(); }; sc.onerror=function(){ gisLoad=null; fail(new Error('gis')); };
+      document.head.appendChild(sc);
+    });
+    return gisLoad;
+  }
+  var gisReady=false;
+  function renderGoogle(){
+    var wrap=document.getElementById('g-wrap'), box=document.getElementById('g-btn');
+    if(!wrap||!box||!googleClientId) return;
+    loadGis().then(function(){
+      if(!gisReady){
+        google.accounts.id.initialize({ client_id:googleClientId, callback:onGoogle, auto_select:false,
+          cancel_on_tap_outside:true, ux_mode:'popup', itp_support:true, use_fedcm_for_button:true });
+        gisReady=true;
+      }
+      box.innerHTML='';
+      var w=Math.max(220,Math.min(360,Math.round(box.getBoundingClientRect().width)||340));
+      google.accounts.id.renderButton(box,{ type:'standard', theme:'outline', size:'large', text:'continue_with',
+        shape:'pill', logo_alignment:'left', width:w, locale:(window.LENA_LANG==='ms'?'ms':'en') });
+      wrap.hidden=false;
+    }).catch(function(){ wrap.hidden=true; });
+  }
+  function onGoogle(resp){
+    authError('');
+    api('/api/auth/google',{method:'POST',body:JSON.stringify({credential:resp&&resp.credential})})
+      .then(function(r){
+        if(r.status!==200||!r.body||!r.body.user){
+          authError((r.body&&r.body.message)||'Google sign-in did not work. Please try again.');
+          return;
+        }
+        me=r.body.user;
+        // This device last synced someone else's account: their entries
+        // stay with their account, not this one.
+        var owner=null; try{ owner=localStorage.getItem('lena_sync_owner'); }catch(e){}
+        if(owner&&owner!==me.id) clearSynced();
+        try{
+          localStorage.setItem('lena_sync_owner',me.id);
+          localStorage.setItem('lena_auth','google');
+          localStorage.removeItem('lena_signed_out');
+        }catch(e){}
+        try{ saveUser({name:me.displayName||'',email:me.email}); }catch(e){}
+        currentAuthTab='si';
+        proceedAfterAuth(me.email);
+        syncNow();
+      })
+      .catch(function(){ authError('Could not reach LENA. Check your connection and try again.'); });
+  }
+  function clearSynced(){ SYNC_KEYS.forEach(function(k){ try{ localStorage.removeItem(k); }catch(e){} }); }
+  /* Sign out of an account: back up first, then take the backed-up
+     entries off this device. If the backup fails (offline), they stay
+     here, so nothing is lost. Resolves true when this device is clear. */
+  function signOutAccount(){
+    var t=new Promise(function(r){ setTimeout(function(){ r(false); },5000); });
+    return Promise.race([syncNow(),t]).then(function(ok){
+      return logout().then(function(){
+        try{ if(window.google&&google.accounts&&google.accounts.id) google.accounts.id.disableAutoSelect(); }catch(e){}
+        if(ok){ clearSynced(); return true; }
+        try{ localStorage.removeItem('lena_auth'); }catch(e){}
+        return false;
+      });
+    });
   }
 
   /* One probe on boot. Anything other than a clean JSON answer means
@@ -6314,12 +6455,30 @@ window.LENA_BACKEND = (function(){
   function probe(){
     if(!navigator.onLine) return Promise.resolve(false);
     try{ if(sessionStorage.getItem('lena_api_absent')==='1') return Promise.resolve(false); }catch(e){}
+    // What this server offers. A copy without the backend has no
+    // /api/config, and the sign-in screen stays as it was.
+    api('/api/config').then(function(r){
+      if(r.status!==200) return;
+      emailAccounts=!!r.body.emailAccounts;
+      googleClientId=r.body.googleClientId||null;
+      if(googleClientId) renderGoogle();
+    }).catch(function(){});
     return api('/api/auth/me')
       .then(function(r){
         if(r.status!==200||r.body.degraded) return false;
         available=true;
         me=r.body.user||null;
         if(me){ syncNow(); }
+        else{
+          // Signed in with Google on this device, but the session has
+          // ended (30 days, or signed out elsewhere). Ask again.
+          var a=null,out=null; try{ a=localStorage.getItem('lena_auth'); out=localStorage.getItem('lena_signed_out'); }catch(e){}
+          if(a==='google'&&out!=='1'){
+            try{ localStorage.removeItem('lena_auth'); localStorage.setItem('lena_signed_out','1'); }catch(e){}
+            try{ toast('Please sign in with Google again'); }catch(e){}
+            setTimeout(function(){ location.reload(); },1600);
+          }
+        }
         return true;
       })
       .catch(function(){
@@ -6331,6 +6490,8 @@ window.LENA_BACKEND = (function(){
   return {
     get available(){ return available; },
     get user(){ return me; },
+    get emailAccounts(){ return emailAccounts; },
+    renderGoogle:renderGoogle, signOutAccount:signOutAccount, clearSynced:clearSynced,
     probe:probe, authenticate:authenticate, logout:logout,
     deleteAccount:deleteAccount, syncNow:syncNow,
     localRecords:localRecords, applyRemote:applyRemote, uuidFrom:uuidFrom
@@ -6670,9 +6831,9 @@ const CBT_Q=[
  why:'A message sent in the middle of the night often gets no replies simply because people are asleep.',
  tip:'Silence has many causes, and most of them are not about you.'},
 {id:45,k:'evidence',s:'Arjun thinks, "I will panic in the exam hall like last time, and it will ruin everything."',
- q:'Which of these is real evidence against his thought?',o:['He remembers how bad last time felt','He has practised slow breathing this month, and it has calmed him in class','He feels tense thinking about it','His friend also gets nervous'],a:1,
- why:'He now has a skill that has already worked for him, which he did not have last time.',
- tip:'Notice what is different this time, not only what went wrong before.'},
+ q:'Which of these is real evidence against his thought?',o:['He remembers how bad last time felt','Last time, he calmed down after a few minutes and still passed the paper','He feels tense thinking about it','His friend also gets nervous'],a:1,
+ why:'Last time he did panic, and it still did not ruin everything: he settled and passed. That is what actually happened, not a feeling.',
+ tip:'When a thought says "it will ruin everything", check what really happened last time.'},
 {id:46,k:'evidence',s:'Zara thinks, "My best friend has a new friend, so she does not care about me any more."',
  q:'Which of these is real evidence against her thought?',o:['Zara feels jealous','Her friend still walks home with her every day','Zara thinks the new friend is more fun','They did not sit together today'],a:1,
  why:'Walking home together every day is ongoing evidence that the friendship is still there. People can have more than one close friend.',
@@ -7054,7 +7215,7 @@ function closeReflection(){document.getElementById('refl-modal').classList.remov
    The game lives in assets/games.js and is fetched the first time the
    Games screen opens, so it costs nothing for people who never play.
    The service worker keeps it after that, so it works offline. */
-const GAMES_SRC='/assets/games.js?v=15';
+const GAMES_SRC='/assets/games.js?v=36';
 let gamesLoad=null, gamesHandle=null, gamesWant=null;
 function loadGames(){
   if(window.LenaPop)return Promise.resolve();
@@ -7907,6 +8068,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     try{if(typeof reflLang!=='undefined'){reflLang=l;const rm=document.getElementById('refl-modal');if(rm&&rm.classList.contains('open')&&typeof setReflLang==='function')setReflLang(l);}}catch(e){}
     document.querySelectorAll('[data-lang-btn]').forEach(b=>b.setAttribute('aria-pressed',b.getAttribute('data-lang-btn')===l?'true':'false'));
     if(l==='ms')window.i18nLoad(apply); else apply();
+    try{if(window.LENA_BACKEND&&LENA_BACKEND.renderGoogle)LENA_BACKEND.renderGoogle();}catch(e){}
   };
   document.querySelectorAll('[data-lang-btn]').forEach(b=>b.setAttribute('aria-pressed',b.getAttribute('data-lang-btn')===window.LENA_LANG?'true':'false'));
   mo.observe(document.body,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:ATTRS});

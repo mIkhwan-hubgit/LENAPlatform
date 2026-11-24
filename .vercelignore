@@ -1,0 +1,4 @@
+tests/
+db/
+BACKEND_SETUP.md
+test_chat.mjs

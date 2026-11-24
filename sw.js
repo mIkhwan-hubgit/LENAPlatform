@@ -29,7 +29,7 @@
    previous build. This is the one way a service worker commonly goes wrong.
    ────────────────────────────────────────────────────────────────────── */
 
-const CACHE_VERSION = 'v35';
+const CACHE_VERSION = 'v36';
 const CACHE = 'lena-' + CACHE_VERSION;
 
 // Everything needed for a cold, offline start.
@@ -123,6 +123,10 @@ self.addEventListener('fetch', (event) => {
 
   const url = new URL(req.url);
 
+  // Google's sign-in script and pages are Google's to update. Never keep
+  // a copy (v36).
+  if (url.hostname === 'accounts.google.com' || url.hostname.endsWith('.gstatic.com') && url.pathname.includes('/gsi/')) return;
+
   // The chatbot endpoint. Always live, never cached. When offline, hand back
   // a JSON error with the right shape so the app shows its own message
   // rather than an unhandled rejection.
@@ -138,6 +142,16 @@ self.addEventListener('fetch', (event) => {
 
   // Page loads. Network first, so a deploy is visible straight away; the
   // saved copy if offline or if the network is slow to answer.
+  // Other pages (the privacy policy) are plain network pages. Only the app
+  // itself is saved as the offline copy, so opening /privacy.html never
+  // replaces it.
+  if (req.mode === 'navigate' && url.origin === self.location.origin &&
+      url.pathname !== '/' && url.pathname !== '/index.html') {
+    event.respondWith(fetch(req).catch(async () =>
+      (await caches.match('/index.html')) || Response.error()));
+    return;
+  }
+
   if (req.mode === 'navigate') {
     event.respondWith((async () => {
       const cache = await caches.open(CACHE);

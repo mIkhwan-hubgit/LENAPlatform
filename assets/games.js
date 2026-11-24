@@ -507,7 +507,11 @@ function thoughts(stage, ui){
     const x = (W() - d) * (lanes === 1 ? .5 : lane / (lanes - 1));
     const it = { b, trap, label, d, x, y: H() + 10, sp: (22 + Math.random() * 10) * pace(), ph: Math.random() * 6, gone: false };
     if (reduced()) it.y = Math.random() * (H() - d - 60) + 50;
-    b.onclick = () => hit(it);
+    // Pop on press, not on click: the bubbles keep moving, and a click
+    // only counts if the pointer is still on the bubble when it is let go.
+    // Enter or Space (a click with no pointer, detail 0) still pops it.
+    b.addEventListener('pointerdown', (e) => { if (e.button > 0) return; e.preventDefault(); hit(it); });
+    b.onclick = (e) => { if (e.detail === 0) hit(it); };
     field.appendChild(b); items.push(it); place(it, 0);
     if (reduced()) it.timer = setTimeout(() => escape(it), Math.max(4500, 9000 / pace()));
   }
