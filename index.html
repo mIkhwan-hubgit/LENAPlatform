@@ -536,6 +536,18 @@ button.cbt-cat.act{background:rgba(43,184,154,.12)}
 .scp.loading::after{content:'';display:inline-block;width:10px;height:10px;margin-left:6px;border-radius:50%;
   border:2px solid currentColor;border-right-color:transparent;animation:spin .8s linear infinite;vertical-align:-1px}
 @keyframes spin{to{transform:rotate(360deg)}}
+/* v37: signing in / signing out screen */
+.busy-cover{position:fixed;inset:0;z-index:3000;display:flex;align-items:center;justify-content:center;background:var(--overlay);backdrop-filter:blur(6px);animation:fi .2s ease}
+.busy-cover[hidden]{display:none}
+.busy-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r3);padding:30px 32px 28px;width:330px;max-width:88vw;text-align:center;box-shadow:0 20px 60px var(--shadow2);outline:none}
+.busy-ring{width:46px;height:46px;margin:0 auto 16px;border-radius:50%;border:4px solid var(--bg4);border-top-color:var(--primary);animation:spin 1s linear infinite;display:flex;align-items:center;justify-content:center}
+.busy-ring .ic{display:none;width:22px;height:22px;color:var(--on-fill)}
+.busy-cover.done .busy-ring{animation:none;border-color:var(--fill);background:var(--fill)}
+.busy-cover.done .busy-ring .ic{display:block}
+.busy-t{font-family:var(--ff-d);font-size:20px;color:var(--text);margin-bottom:6px}
+.busy-s{font-size:13px;color:var(--text2);line-height:1.6;min-height:1px}
+@keyframes busy-breathe{0%,100%{opacity:.45}50%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.busy-ring{animation:busy-breathe 1.8s ease-in-out infinite}}
 
 .tk-opt{text-align:left;padding:12px 14px;border-radius:var(--r);border:1.5px solid var(--border2);background:var(--card);
   color:var(--text);font-family:var(--ff-b);font-size:14px;line-height:1.5;cursor:pointer;transition:border-color .15s,background .15s}
@@ -1504,6 +1516,7 @@ return {
 <div id="refl-m-foot" style="margin-top:18px;padding-top:12px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);line-height:1.6"></div>
 </div>
 </div>
+<div class="busy-cover" id="busy-cover" hidden><div class="busy-card" tabindex="-1" role="status" aria-live="polite"><div class="busy-ring" aria-hidden="true"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-check"/></svg></div><div class="busy-t" id="busy-t"></div><div class="busy-s" id="busy-s"></div></div></div>
 <div class="mover" id="signout-modal" role="dialog" aria-modal="true" aria-labelledby="so-title" onclick="if(event.target===this)closeSignOut()">
 <div class="msheet so-sheet">
 <button class="mcls" aria-label="Close" onclick="closeSignOut()">✕</button>
@@ -2071,7 +2084,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <p style="font-size:12px;color:var(--muted)">The sunset loading scene uses photos by Pietro De Grandi and Margo Evardson on Unsplash.</p>
 <div class="about-acts"><button class="btn-g" onclick="go('team')" style="padding:10px 18px;font-size:13px">Meet the team</button></div>
 </div>
-<div class="about-ver">LENA v1.0 · build 36 · IIUM KICT</div>
+<div class="about-ver">LENA v1.0 · build 37 · IIUM KICT</div>
 </div>
 <div class="sp"></div>
 </div>
@@ -2347,7 +2360,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 </div>
 <button id="pf-editbtn" class="btn-p" onclick="openProfileEdit()" style="margin-top:14px;width:100%;padding:11px">Edit Profile</button>
 </div>
-<div class="pi" onclick="togglePref('checkin')"><span class="pi-ico"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-sun"/></svg></span><span class="pi-txt">Ask how I am when I open LENA</span><div class="tsw" id="tsw-checkin" onclick="event.stopPropagation();togglePref('checkin')"><div class="tk"></div></div></div>
+<div class="pi" onclick="togglePref('checkin')"><span class="pi-ico"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-sun"/></svg></span><span class="pi-txt">Ask how I am once a day when I open LENA</span><div class="tsw" id="tsw-checkin" onclick="event.stopPropagation();togglePref('checkin')"><div class="tk"></div></div></div>
 <div class="pi" onclick="togglePref('quiz')"><span class="pi-ico"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-brain"/></svg></span><span class="pi-txt">Daily thinking check when I open LENA</span><div class="tsw" id="tsw-quiz" onclick="event.stopPropagation();togglePref('quiz')"><div class="tk"></div></div></div>
 <div class="pi" onclick="go('about')"><span class="pi-ico"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-info"/></svg></span><span class="pi-txt">About LENA</span><span class="pi-arr">›</span></div>
 <div class="pi" onclick="openPrivacy()"><span class="pi-ico"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-lock-key"/></svg></span><span class="pi-txt">Privacy &amp; Data</span><span class="pi-arr">›</span></div>
@@ -2641,6 +2654,20 @@ function doLogin(){
 
 /* Everything that happens once the person is through the door,
    whether that was decided locally or by the server. */
+function lenaSettled(ms){
+  try{if(window.LENA_BACKEND&&LENA_BACKEND.settled)return LENA_BACKEND.settled(ms);}catch(e){}
+  return Promise.resolve();
+}
+// v37: a screen that says what is happening while signing in or out.
+function showBusy(t,s,done){
+  const c=document.getElementById('busy-cover');if(!c)return;
+  document.getElementById('busy-t').textContent=t;
+  document.getElementById('busy-s').textContent=s||'';
+  c.classList.toggle('done',!!done);
+  c.hidden=false;
+  try{c.querySelector('.busy-card').focus();}catch(e){}
+}
+function hideBusy(){const c=document.getElementById('busy-cover');if(c)c.hidden=true;}
 function proceedAfterAuth(email){
   const nameEl=document.getElementById('auth-name');
   const typedName=(currentAuthTab==='re'&&nameEl)?(nameEl.value||'').trim():'';
@@ -2737,7 +2764,7 @@ function showLoadingScreen(preview){
     document.getElementById('islamic-quote-tr').textContent='';
     document.getElementById('islamic-quote-src').textContent=q.src;
   }
-  setTimeout(()=>{
+  setTimeout(()=>{lenaSettled(preview?0:2500).then(()=>{
     ls.classList.add('gone');
     setTimeout(()=>{
       ls.classList.add('fc-hidden');
@@ -2746,7 +2773,7 @@ function showLoadingScreen(preview){
       if(!preview)showDailyCheckin();
       try{lenaNotes.make();renderPlanCard();}catch(e){}
     },500);
-  },preview?4500:3500);
+  });},preview?4500:3500);
 }
 
 // ════════════════════════════════════════════════════
@@ -4105,7 +4132,8 @@ const DATA_ITEMS=[
   {k:'lena_reframe_n', label:'Game progress and scores', count:v=>1},
   {k:'lena_plan', label:'Your plan for today and tomorrow', count:v=>1},
   {k:'lena_notes', label:'Notifications', count:v=>v.length},
-  {k:'lena_notes_day', label:'Notifications', count:v=>1}
+  {k:'lena_notes_day', label:'Notifications', count:v=>1},
+  {k:'lena_checkin_day', label:'Your settings', count:v=>1}
 ];
 function dataSummary(){
   const rows=[];
@@ -4419,22 +4447,27 @@ function signOut(){
   // The saved profile is kept, so mood, journal and screening history
   // survive, but the resume is suppressed until the next sign-in.
   try{localStorage.setItem('lena_signed_out','1');}catch(e){}
+  const t0=Date.now();
+  // Long enough to read, short enough not to feel slow.
+  const finish=(msg)=>setTimeout(()=>{
+    showBusy('Signed out',msg,true);
+    setTimeout(()=>location.reload(),1400);
+  },Math.max(0,900-(Date.now()-t0)));
   if(window.LENA_BACKEND && LENA_BACKEND.available && LENA_BACKEND.user){
     // v36: an account backs up, then its entries leave this device.
-    toast('Signing out…');
+    showBusy('Signing you out…','Backing up your entries first.');
     LENA_BACKEND.signOutAccount().then(clear=>{
-      toast(clear?'Signed out. Your entries are safe in your LENA account.':'Signed out. You are offline, so your latest entries stay on this device for now.');
-      setTimeout(()=>location.reload(),1300);
+      finish(clear?'Your entries are safe in your LENA account.':'You are offline, so your latest entries stay on this device for now.');
     });
     return;
   }
+  showBusy('Signing you out…','');
   if(window.LENA_BACKEND && LENA_BACKEND.available){
     // Fire and forget. A failure here must not keep the person
     // apparently signed in on this device.
     try{ LENA_BACKEND.logout(); }catch(e){}
   }
-  toast('Signed out');
-  setTimeout(()=>location.reload(),700);
+  finish('See you soon.');
 }
 
 // ════════════════════════════════════════════════════
@@ -4442,8 +4475,16 @@ function signOut(){
 // ════════════════════════════════════════════════════
 let checkinMoodSelected=null;
 
+// v37: once a day. A mood already logged today (on any device, once
+// the account has synced) or a check-in skipped today means no ask.
+function checkinDayKey(){const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
+function checkinDoneToday(){
+  try{if(todayCount()>0)return true;}catch(e){}
+  try{return localStorage.getItem('lena_checkin_day')===checkinDayKey();}catch(e){return false;}
+}
+function markCheckinDay(){try{localStorage.setItem('lena_checkin_day',checkinDayKey());}catch(e){}}
 function showDailyCheckin(){
-  if(!loadPrefs().checkin){
+  if(!loadPrefs().checkin||checkinDoneToday()){
     const al=document.getElementById('app-layout');
     if(al)al.style.display='grid';
     return;
@@ -4466,6 +4507,12 @@ function pickCheckinMood(el,emoji,label){
 }
 
 function saveCheckin(){
+  // v37: the note typed here used to be dropped; only the face was saved.
+  const nEl=document.getElementById('checkin-note');
+  const note=((nEl&&nEl.value)||'').trim().slice(0,500);
+  if(!checkinMoodSelected&&note){toast('Pick a face first so your note is saved');return;}
+  if(!checkinMoodSelected){skipCheckin();return;}
+  markCheckinDay();
   const screen=document.getElementById('daily-checkin-screen');
   screen.classList.add('gone');
   setTimeout(()=>{
@@ -4479,7 +4526,9 @@ function saveCheckin(){
       // The check-in used to colour one face in and go no further, so a
       // mood answered on the way in never reached the log or the chart.
       const score={'😞':1,'😔':2,'😐':3,'🙂':4,'😊':5}[checkinMoodSelected]||3;
-      try{addMood(score,'',null,['Daily check-in']);}catch(e){}
+      try{addMood(score,note,null,['Daily check-in']);}catch(e){}
+      if(nEl)nEl.value='';
+      checkinMoodSelected=null;
       try{renderProfile();}catch(e){}
     }
     toast('Check-in saved 🌿');
@@ -4487,6 +4536,7 @@ function saveCheckin(){
 }
 
 function skipCheckin(){
+  markCheckinDay();
   const screen=document.getElementById('daily-checkin-screen');
   screen.classList.add('gone');
   setTimeout(()=>{screen.classList.add('fc-hidden');screen.classList.remove('gone');document.getElementById('app-layout').style.display='grid';},400);
@@ -6285,7 +6335,14 @@ window.LENA_BACKEND = (function(){
     });
   }
 
-  function syncNow(){
+  /* v37: what is still on its way from the server. The loading screen
+     waits on this (briefly) so the check-in and the religion question
+     see entries made on another device. */
+  var settledP=Promise.resolve();
+  function track(p){ settledP=Promise.all([settledP,p]).then(function(){},function(){}); return p; }
+  function settled(ms){ return Promise.race([settledP,new Promise(function(r){ setTimeout(r,ms||0); })]); }
+  function syncNow(){ return track(syncOnce()); }
+  function syncOnce(){
     if(!available||!me) return Promise.resolve(false);
     var since=null;
     try{ since=localStorage.getItem('lena_sync_since'); }catch(e){}
@@ -6376,7 +6433,7 @@ window.LENA_BACKEND = (function(){
      backend (Live Server, or before the Vercel settings are in) shows
      the sign-in screen exactly as before. */
   var SYNC_KEYS=['lena_mood_log','lena_journal','lena_assess_history','lena_sleep_log','lena_safety_plan',
-                 'lena_sync_since','lena_sync_ids','lena_sync_stamps','lena_sync_owner','lena_auth'];
+                 'lena_sync_since','lena_sync_ids','lena_sync_stamps','lena_sync_owner','lena_auth','lena_checkin_day'];
   function loadGis(){
     if(window.google&&google.accounts&&google.accounts.id) return Promise.resolve();
     if(gisLoad) return gisLoad;
@@ -6406,9 +6463,12 @@ window.LENA_BACKEND = (function(){
   }
   function onGoogle(resp){
     authError('');
+    var t0=Date.now();
+    showBusy('Signing you in…','Bringing your entries from your LENA account.');
     api('/api/auth/google',{method:'POST',body:JSON.stringify({credential:resp&&resp.credential})})
       .then(function(r){
         if(r.status!==200||!r.body||!r.body.user){
+          hideBusy();
           authError((r.body&&r.body.message)||'Google sign-in did not work. Please try again.');
           return;
         }
@@ -6424,10 +6484,17 @@ window.LENA_BACKEND = (function(){
         }catch(e){}
         try{ saveUser({name:me.displayName||'',email:me.email}); }catch(e){}
         currentAuthTab='si';
-        proceedAfterAuth(me.email);
-        syncNow();
+        // v37: bring the account's entries in first (at most 6 seconds),
+        // so a second device does not ask the religion question or the
+        // check-in again.
+        var t=new Promise(function(r){ setTimeout(r,6000); });
+        var least=new Promise(function(r){ setTimeout(r,Math.max(0,700-(Date.now()-t0))); });
+        Promise.race([syncNow(),t]).then(function(){ return least; }).then(function(){
+          hideBusy();
+          proceedAfterAuth(me.email);
+        });
       })
-      .catch(function(){ authError('Could not reach LENA. Check your connection and try again.'); });
+      .catch(function(){ hideBusy(); authError('Could not reach LENA. Check your connection and try again.'); });
   }
   function clearSynced(){ SYNC_KEYS.forEach(function(k){ try{ localStorage.removeItem(k); }catch(e){} }); }
   /* Sign out of an account: back up first, then take the backed-up
@@ -6463,12 +6530,12 @@ window.LENA_BACKEND = (function(){
       googleClientId=r.body.googleClientId||null;
       if(googleClientId) renderGoogle();
     }).catch(function(){});
-    return api('/api/auth/me')
+    return track(api('/api/auth/me')
       .then(function(r){
         if(r.status!==200||r.body.degraded) return false;
         available=true;
         me=r.body.user||null;
-        if(me){ syncNow(); }
+        if(me){ return syncNow().then(function(){ return true; }); }
         else{
           // Signed in with Google on this device, but the session has
           // ended (30 days, or signed out elsewhere). Ask again.
@@ -6484,7 +6551,7 @@ window.LENA_BACKEND = (function(){
       .catch(function(){
         try{ sessionStorage.setItem('lena_api_absent','1'); }catch(e){}
         return false;
-      });
+      }));
   }
 
   return {
@@ -6493,7 +6560,7 @@ window.LENA_BACKEND = (function(){
     get emailAccounts(){ return emailAccounts; },
     renderGoogle:renderGoogle, signOutAccount:signOutAccount, clearSynced:clearSynced,
     probe:probe, authenticate:authenticate, logout:logout,
-    deleteAccount:deleteAccount, syncNow:syncNow,
+    deleteAccount:deleteAccount, syncNow:syncNow, settled:settled,
     localRecords:localRecords, applyRemote:applyRemote, uuidFrom:uuidFrom
   };
 })();
