@@ -158,9 +158,12 @@ Gmail allows about 500 emails a day from one account.
     instead of locking the account; 30 misses from anywhere in an hour
     pause the address for 15 minutes.
   - After a reset every device is signed out and the owner is emailed.
-  - Registering with an address that has a Google account adds a
-    password to it after the code; Google sign-in on an email account
-    keeps its password.
+  - Registering never changes an existing account. An address that
+    already has one gets an email saying so, with no code; for a Google
+    account it says to use Continue with Google. "Forgot password?" on
+    a Google account explains it has no LENA password, with no code.
+    Google sign-in on an email account joins them and keeps its
+    password.
 
 ## Tests
 
@@ -175,10 +178,10 @@ node tests/test_auth.mjs
 `test_google.mjs` stands in for Google with its own key pair and checks
 36 things, including tokens for other websites, expired, forged and
 altered tokens, account joining, sync, sign-out and deletion.
-`test_email.mjs` stands in for Gmail and checks 84 things: password
+`test_email.mjs` stands in for Gmail and checks 88 things: password
 rules, codes (wrong, used up, expired, resent), the same answers for
 known and unknown addresses, slowing down guessing, forgot and reset,
-joining with Google both ways, and deleting.
+Google accounts not taken over by register or forgot, and deleting.
 
 ## Before real students use it
 

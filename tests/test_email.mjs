@@ -259,22 +259,39 @@ ok('new password works', r.status === 200);
 cookie = cookieFrom(r);
 
 // ── one email, one account ───────────────────────────────────────────
-// (a) Google first, then register with the same address
+// (a) Google first, then register with the same address: not allowed
 await query("INSERT INTO users (email, email_norm, google_sub, display_name, email_verified) VALUES ('Nur@test.my','nur@test.my','g-nur','Nur',true)");
 const nurId = (await query("SELECT id FROM users WHERE email_norm='nur@test.my'")).rows[0].id;
 await query(`INSERT INTO records (id, user_id, kind, payload, updated_at) VALUES (gen_random_uuid(), $1, 'mood', '{"m":4}', now())`, [nurId]);
 outbox.length = 0;
 r = await E({ action: 'register', email: 'nur@test.my', password: PW, lang: 'en' });
 m = mailsTo('nur@test.my').pop();
-ok('Google account + register: same answer, email explains it', r.status === 200 && J(r.body) === firstAnswer &&
-   m && /made with Continue with Google/.test(m.text), m && m.text);
-r = await E({ action: 'verify', email: 'nur@test.my', code: lastCode('nur@test.my') });
-ok('after the code: the same account, now with a password', r.status === 200 && r.body.created === false && r.body.user.id === nurId && r.body.user.hasPassword && r.body.user.provider === 'google', J(r.body));
-ok('its entries are still there', (await query('SELECT count(*)::int n FROM records WHERE user_id = $1', [nurId])).rows[0].n === 1);
+ok('Google account + register: same answer on the page', r.status === 200 && J(r.body) === firstAnswer);
+ok('…the email says to use Continue with Google, and has no code', m && m.subject === 'You already have a LENA account' &&
+   /made with Continue with Google/.test(m.text) && /choose Continue with Google/.test(m.text) && !/\b\d{6}\b/.test(m.text), m && m.text);
+ok('…no code is made', (await query("SELECT 1 FROM email_codes WHERE email_norm='nur@test.my'")).rows.length === 0);
+r = await E({ action: 'verify', email: 'nur@test.my', code: '123456' });
+ok('…so nothing can be confirmed', r.status === 400);
 r = await E({ action: 'login', email: 'nur@test.my', password: PW });
-ok('email + password now opens it', r.status === 200 && r.body.user.id === nurId);
+ok('…and the Google account still has no password', r.status === 401 &&
+   (await query('SELECT pw_hash FROM users WHERE id = $1', [nurId])).rows[0].pw_hash === null);
+// a code made before this change cannot add a password either
+await query(`INSERT INTO email_codes (email_norm, purpose, code_hash, pw_hash, expires_at) VALUES ('nur@test.my','signup',$1,$2, now() + interval '10 minutes')`,
+  [crypto.createHash('sha256').update('nur@test.my|signup|424242').digest('hex'), await A.hashPassword(PW)]);
+r = await E({ action: 'verify', email: 'nur@test.my', code: '424242' });
+ok('an older code for a Google account is refused', r.status === 409 && r.body.error === 'already_registered' &&
+   (await query('SELECT pw_hash FROM users WHERE id = $1', [nurId])).rows[0].pw_hash === null, J(r.body));
+outbox.length = 0;
+r = await E({ action: 'forgot', email: 'nur@test.my', lang: 'en' });
+m = mailsTo('nur@test.my').pop();
+ok('Forgot password on a Google account: same answer, email explains, no code', r.status === 200 && J(r.body) === forgotNone &&
+   m && m.subject === 'About your LENA password' && !/\b\d{6}\b/.test(m.text) &&
+   (await query("SELECT 1 FROM email_codes WHERE email_norm='nur@test.my' AND purpose='reset'")).rows.length === 0, m && m.subject);
+r = await E({ action: 'forgot', email: 'nur@test.my', lang: 'ms' });
+await query("UPDATE email_codes SET created_at = now() - interval '2 minutes' WHERE email_norm='nur@test.my'");
+ok('its entries are untouched', (await query('SELECT count(*)::int n FROM records WHERE user_id = $1', [nurId])).rows[0].n === 1);
 r = await call(google, { body: { credential: gtoken({ sub: 'g-nur', email: 'nur@test.my', name: 'Nur' }) } });
-ok('and Continue with Google still opens it', r.status === 200 && r.body.user.id === nurId);
+ok('Continue with Google still opens it', r.status === 200 && r.body.user.id === nurId);
 // (b) register first, then Google with the same address keeps the password
 r = await call(google, { body: { credential: gtoken({ sub: 'g-aina', email: 'aina@test.my', name: 'Aina' }) } });
 const ainaId = (await query("SELECT id FROM users WHERE email_norm='aina@test.my'")).rows[0].id;
@@ -300,7 +317,7 @@ ok('and it can no longer sign in', r.status === 401);
 
 // ── the email templates ──────────────────────────────────────────────
 let allOk = true, bad = '';
-for (const lang of ['en', 'ms']) for (const kind of ['signup_code', 'add_password', 'already', 'reset_code', 'pw_changed']) {
+for (const lang of ['en', 'ms']) for (const kind of ['signup_code', 'google_register', 'google_forgot', 'already', 'reset_code', 'pw_changed']) {
   const x = build(kind, lang, { code: '123456', name: 'Ali <b>' });
   if (/[–—]/.test(x.text + x.html + x.subject) || x.html.includes('Ali <b>') || !x.html.includes('Ali &lt;b&gt;') || /https?:\/\//.test(x.text + x.html)) { allOk = false; bad = lang + ' ' + kind; }
 }

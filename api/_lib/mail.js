@@ -54,13 +54,17 @@ const T = {
       after: ['Type it into LENA. It works for 15 minutes.',
               'If you did not try to make a LENA account, ignore this email. Nothing will happen.']
     }),
-    add_password: (v) => ({
-      subject: 'Your LENA code: ' + v.code,
-      lines: [hi('en', v.name), 'You already have a LENA account with this email, made with Continue with Google.',
-              'To also sign in with an email and password, type this code into LENA:'],
-      code: v.code,
-      after: ['It works for 15 minutes. Your entries stay the same, and Continue with Google keeps working.',
-              'If this was not you, ignore this email. Your account stays as it is.']
+    google_register: (v) => ({
+      subject: 'You already have a LENA account',
+      lines: [hi('en', v.name), 'Someone, hopefully you, tried to register on LENA with this email, but you already have a LENA account made with Continue with Google.',
+              'To get in, open LENA and choose Continue with Google, using this same Google account.'],
+      after: ['If this was not you, you can ignore this email. Nobody can get into your account with it.']
+    }),
+    google_forgot: (v) => ({
+      subject: 'About your LENA password',
+      lines: [hi('en', v.name), 'Someone, hopefully you, asked to reset the LENA password for this email.',
+              'Your LENA account was made with Continue with Google, so it has no LENA password to reset. To get in, open LENA and choose Continue with Google.'],
+      after: ['If this was not you, you can ignore this email. Nothing has changed.']
     }),
     already: (v) => ({
       subject: 'You already have a LENA account',
@@ -91,13 +95,17 @@ const T = {
       after: ['Taip kod ini dalam LENA. Ia sah selama 15 minit.',
               'Jika awak tidak cuba membuat akaun LENA, abaikan e-mel ini. Tiada apa-apa akan berlaku.']
     }),
-    add_password: (v) => ({
-      subject: 'Kod LENA awak: ' + v.code,
-      lines: [hi('ms', v.name), 'Awak sudah ada akaun LENA dengan e-mel ini, yang dibuat dengan Teruskan dengan Google.',
-              'Untuk log masuk dengan e-mel dan kata laluan juga, taip kod ini dalam LENA:'],
-      code: v.code,
-      after: ['Ia sah selama 15 minit. Catatan awak kekal sama, dan Teruskan dengan Google masih boleh digunakan.',
-              'Jika ini bukan awak, abaikan e-mel ini. Akaun awak kekal seperti biasa.']
+    google_register: (v) => ({
+      subject: 'Awak sudah ada akaun LENA',
+      lines: [hi('ms', v.name), 'Seseorang, harapnya awak, cuba mendaftar di LENA dengan e-mel ini, tetapi awak sudah ada akaun LENA yang dibuat dengan Teruskan dengan Google.',
+              'Untuk masuk, buka LENA dan pilih Teruskan dengan Google, menggunakan akaun Google yang sama.'],
+      after: ['Jika ini bukan awak, abaikan sahaja e-mel ini. Tiada sesiapa boleh masuk ke akaun awak dengannya.']
+    }),
+    google_forgot: (v) => ({
+      subject: 'Tentang kata laluan LENA awak',
+      lines: [hi('ms', v.name), 'Seseorang, harapnya awak, meminta untuk menetapkan semula kata laluan LENA bagi e-mel ini.',
+              'Akaun LENA awak dibuat dengan Teruskan dengan Google, jadi ia tiada kata laluan LENA untuk ditetapkan semula. Untuk masuk, buka LENA dan pilih Teruskan dengan Google.'],
+      after: ['Jika ini bukan awak, abaikan sahaja e-mel ini. Tiada apa-apa yang berubah.']
     }),
     already: (v) => ({
       subject: 'Awak sudah ada akaun LENA',

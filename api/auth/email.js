@@ -21,9 +21,12 @@
 //   classmate cannot lock somebody out on purpose.
 // - After a reset every session is ended, the person is told by email,
 //   and they sign in again with the new password.
-// - One email, one account. Registering with an address that already
-//   has a Google account adds a password to that same account once the
-//   code is typed. The other way round is in google.js.
+// - One email, one account, and registering never changes an existing
+//   account. An address that already has an account (Google or email)
+//   gets an email saying so, with no code. An account made with Google
+//   has no LENA password, so "forgot password" for it explains that
+//   instead of sending a reset code: it signs in with Google only.
+//   (Google sign-in on an email account joins them: see google.js.)
 import crypto from 'node:crypto';
 import { query, json, methodNotAllowed, readBody, publicUser, startSession, sameOrigin } from '../_lib/db.js';
 import * as A from '../_lib/auth.js';
@@ -144,15 +147,16 @@ async function register(req, res, b, ip) {
 
   const u = (await query(`SELECT ${USER_FIELDS} FROM users WHERE email_norm = $1`, [email])).rows[0];
   try {
-    if (u && u.pw_hash) {
-      // Already registered. The page says the same as always; the email
-      // tells the owner, and nobody else learns anything.
-      await sendMail(email, 'already', langOf(b), { name: u.display_name });
+    if (u) {
+      // Already has an account. The page says the same as always; the
+      // email tells the owner how to get in, with no code, and nobody
+      // else learns anything.
+      await sendMail(email, u.pw_hash ? 'already' : 'google_register', langOf(b), { name: u.display_name });
       return done();
     }
     if (await freshCode(email, 'signup')) return done();
     const code = await storeCode(email, 'signup', pwHash, name, String(b.email).trim().slice(0, 254));
-    await sendMail(email, u ? 'add_password' : 'signup_code', langOf(b), { code, name: name || (u && u.display_name) });
+    await sendMail(email, 'signup_code', langOf(b), { code, name });
     return done();
   } catch (e) {
     console.error('register email failed', e && e.message);
@@ -181,14 +185,8 @@ async function verify(req, res, b, ip) {
       u = (await query(`SELECT ${USER_FIELDS} FROM users WHERE email_norm = $1`, [email])).rows[0];
     }
   }
-  if (!created) {
-    if (u.pw_hash) return json(res, 409, { error: 'already_registered' });
-    // A Google account: the code proves the inbox, so it gets a password too.
-    u = (await query(
-      `UPDATE users SET pw_hash = $2, email_verified = true, last_login_at = now(),
-              display_name = COALESCE(display_name, $3)
-        WHERE id = $1 RETURNING ${USER_FIELDS}`, [u.id, row.pw_hash, row.display_name])).rows[0];
-  }
+  // Made in the meantime (another tab, or Google): never changed here.
+  if (!created) return json(res, 409, { error: 'already_registered' });
   await query('DELETE FROM auth_throttle WHERE key = $1 OR key LIKE $2', ['la:' + email, 'lf:' + email + ':%']);
   await startSession(req, res, u.id);
   return json(res, 200, { user: userOut(u), created });
@@ -232,6 +230,12 @@ async function forgot(req, res, b, ip) {
   const u = (await query(`SELECT ${USER_FIELDS} FROM users WHERE email_norm = $1`, [email])).rows[0];
   if (!u) { await sleep(700 + Math.floor(Math.random() * 800)); return done(); }  // about as long as sending
   if (!may || await freshCode(email, 'reset')) return done();
+  if (!u.pw_hash) {
+    // Google-only: no LENA password to reset. Say so by email.
+    try { await sendMail(email, 'google_forgot', langOf(b), { name: u.display_name }); }
+    catch (e) { console.error('google-forgot email failed', e && e.message); return json(res, 503, { error: 'email_unavailable' }); }
+    return done();
+  }
   try {
     const code = await storeCode(email, 'reset', null, null);
     await sendMail(email, 'reset_code', langOf(b), { code, name: u.display_name });
@@ -251,7 +255,7 @@ async function reset(req, res, b, ip) {
   const row = await checkCode(email, 'reset', b.code, ip, res);
   if (!row) return;
   const u = (await query(`SELECT ${USER_FIELDS} FROM users WHERE email_norm = $1`, [email])).rows[0];
-  if (!u) return json(res, 400, { error: 'code_expired' });
+  if (!u || !u.pw_hash) return json(res, 400, { error: 'code_expired' });
   const pwHash = await A.hashPassword(String(b.password));
   await query(`UPDATE users SET pw_hash = $2, email_verified = true, failed_logins = 0, locked_until = NULL WHERE id = $1`, [u.id, pwHash]);
   await query('DELETE FROM sessions WHERE user_id = $1', [u.id]);
