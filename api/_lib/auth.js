@@ -115,18 +115,62 @@ function validEmail(email) {
   return e.length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e);
 }
 
-// Length only. Composition rules push people towards predictable
-// substitutions and towards writing the password down, and current
-// guidance favours length with a blocklist over character classes.
-function passwordProblem(pw) {
-  const s = String(pw || '');
-  if (s.length < 8)   return 'Your password needs to be at least 8 characters.';
-  if (s.length > 200) return 'That password is too long.';
-  const common = ['password', '12345678', 'qwertyui', 'password1', 'iloveyou',
-                  'abc12345', '11111111', 'lenalena'];
-  if (common.indexOf(s.toLowerCase()) > -1) {
-    return 'That password is too easy to guess. Please choose another.';
-  }
+// ── choosing a password ─────────────────────────────────────────────
+// Length plus a blocklist, no "must contain a symbol" rules. This is
+// what NIST SP 800-63B asks for: composition rules push people towards
+// predictable swaps (Passw0rd!) without making passwords harder to
+// guess, while a long password and a check against passwords already
+// known to attackers do. Spaces and any language are fine.
+const MIN_PW = 10, MAX_PW = 200;
+
+// Common choices of 10 or more characters. The leaked-password check
+// below catches far more; this list still works when that check cannot
+// be reached.
+const COMMON = new Set([
+  '1234567890','0123456789','0987654321','1111111111','0000000000','1212121212',
+  '1122334455','1234512345','1234554321','1q2w3e4r5t','q1w2e3r4t5','qwertyuiop',
+  'asdfghjkl1','asdfghjkl;','zxcvbnm123','qwerty1234','qwerty12345','1qaz2wsx3edc',
+  'password12','password123','password1234','passw0rd12','p@ssw0rd12','iloveyou12',
+  'iloveyou123','abcdefghij','abc1234567','abcd123456','abcde12345','12345abcde',
+  'football12','sayangku123','sayangkuu1','malaysia123','malaysia12','iiumiium12',
+  'letmein123','welcome123','admin12345','loveyou123','princess12','sunshine12',
+  'lenalena12','lena123456','lenaplatform'
+]);
+
+async function leaked(pw, fetchImpl) {
+  // Have I Been Pwned's range search. Only the first 5 characters of the
+  // password's SHA-1 leave the server; the full password and the full
+  // hash never do (k-anonymity). If the service cannot be reached in
+  // 2.5 seconds the check is skipped rather than blocking sign-up.
+  if (process.env.LENA_HIBP === 'off') return false;
+  try {
+    const sha = crypto.createHash('sha1').update(pw, 'utf8').digest('hex').toUpperCase();
+    const r = await (fetchImpl || fetch)('https://api.pwnedpasswords.com/range/' + sha.slice(0, 5),
+      { headers: { 'Add-Padding': 'true' }, signal: AbortSignal.timeout(2500) });
+    if (!r.ok) return false;
+    const body = await r.text();
+    const tail = sha.slice(5);
+    return body.split('\n').some((line) => {
+      const [suffix, count] = line.trim().split(':');
+      return suffix === tail && parseInt(count, 10) > 0;
+    });
+  } catch (e) { return false; }
+}
+
+/* null when the password is fine, otherwise a short code the page turns
+   into a message: pw_short, pw_long, pw_common, pw_email, pw_breached. */
+async function passwordProblem(pw, email, fetchImpl) {
+  const s = String(pw == null ? '' : pw);
+  if ([...s].length < MIN_PW) return 'pw_short';
+  if (s.length > MAX_PW) return 'pw_long';
+  const low = s.toLowerCase();
+  if (COMMON.has(low)) return 'pw_common';
+  if (/^(.)\1+$/u.test(s)) return 'pw_common';                       // aaaaaaaaaa
+  if ('01234567890123456789'.includes(low) || '98765432109876543210'.includes(low) ||
+      'abcdefghijklmnopqrstuvwxyz'.includes(low)) return 'pw_common';  // runs
+  const local = normaliseEmail(email).split('@')[0] || '';
+  if (local.length >= 4 && low.includes(local) && low.replace(local, '').length < 6) return 'pw_email';
+  if (await leaked(s, fetchImpl)) return 'pw_breached';
   return null;
 }
 
@@ -135,5 +179,5 @@ export {
   hashPassword, verifyPassword,
   newSessionToken, hashToken,
   sessionCookie, clearedCookie, readCookie,
-  normaliseEmail, validEmail, passwordProblem
+  normaliseEmail, validEmail, passwordProblem, MIN_PW
 };

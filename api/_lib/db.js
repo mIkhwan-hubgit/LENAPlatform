@@ -102,7 +102,8 @@ async function currentUser(req) {
 /* What the page is told about the signed-in person. */
 function publicUser(u) {
   return { id: u.id, email: u.email, displayName: u.display_name || null,
-           picture: u.picture || null, provider: u.google ? 'google' : 'email' };
+           picture: u.picture || null, provider: u.google ? 'google' : 'email',
+           hasPassword: !!u.has_password };
 }
 
 /* A new session row and its cookie. The cookie holds a random token;

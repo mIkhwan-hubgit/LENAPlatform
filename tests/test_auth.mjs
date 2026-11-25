@@ -100,12 +100,13 @@ await t('email validation', () => {
   assert.strictEqual(A.normaliseEmail(' IKHWAN@IIUM.EDU.MY '), 'ikhwan@iium.edu.my');
 });
 
-await t('password rules', () => {
-  assert.ok(A.passwordProblem('short'), 'should reject 5 chars');
-  assert.ok(A.passwordProblem('password'), 'should reject a common password');
-  assert.ok(A.passwordProblem('PASSWORD'), 'common check is case insensitive');
-  assert.strictEqual(A.passwordProblem('a-reasonable-one'), null);
-  assert.ok(A.passwordProblem('x'.repeat(201)), 'should reject absurd length');
+await t('password rules (v39: 10 characters, common and leaked passwords refused)', async () => {
+  process.env.LENA_HIBP = 'off';
+  assert.strictEqual(await A.passwordProblem('short9char'.slice(0, 9)), 'pw_short');
+  assert.strictEqual(await A.passwordProblem('password123'), 'pw_common');
+  assert.strictEqual(await A.passwordProblem('PASSWORD123'), 'pw_common', 'common check is case insensitive');
+  assert.strictEqual(await A.passwordProblem('a-reasonable-one'), null);
+  assert.strictEqual(await A.passwordProblem('x'.repeat(201) + 'y'), 'pw_long');
 });
 
 // The sync module must load without a live database, since the pool

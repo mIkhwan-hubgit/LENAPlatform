@@ -6,14 +6,16 @@
 // keeping it in a Vercel setting rather than in index.html means the
 // page does not have to change if the ID ever does.
 //   GOOGLE_CLIENT_ID   from Google Cloud Console, see BACKEND_SETUP.md
-// Email sign-up is not switched on yet: until it is, the email form
-// keeps working on this device only, as before.
+// Email accounts (v39) switch on once LENA can send emails, that is when
+// GMAIL_USER and GMAIL_APP_PASSWORD are set (see BACKEND_SETUP.md).
+// Until then the email form keeps working on this device only.
+import { mailConfigured } from './_lib/mail.js';
 export default function handler(req, res) {
   if (req.method !== 'GET') { res.setHeader('Allow', 'GET'); return res.status(405).json({ error: 'method_not_allowed' }); }
   res.setHeader('Cache-Control', 'public, max-age=300');
   const id = process.env.GOOGLE_CLIENT_ID || '';
   return res.status(200).json({
     googleClientId: /^[\w.-]+\.apps\.googleusercontent\.com$/.test(id) ? id : null,
-    emailAccounts: false
+    emailAccounts: mailConfigured() && !!process.env.DATABASE_URL
   });
 }

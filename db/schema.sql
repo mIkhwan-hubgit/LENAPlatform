@@ -85,3 +85,39 @@ ALTER TABLE users ALTER COLUMN pw_hash DROP NOT NULL;
 ALTER TABLE users ADD COLUMN IF NOT EXISTS google_sub text;
 ALTER TABLE users ADD COLUMN IF NOT EXISTS picture text;
 CREATE UNIQUE INDEX IF NOT EXISTS users_google_sub_idx ON users(google_sub) WHERE google_sub IS NOT NULL;
+
+-- ── Email accounts (v39) ─────────────────────────────────────────────
+-- An email account only exists once its owner has typed the code sent
+-- to that address, so every account's email is checked. Accounts made
+-- with Google are checked by Google.
+ALTER TABLE users ADD COLUMN IF NOT EXISTS email_verified boolean NOT NULL DEFAULT false;
+UPDATE users SET email_verified = true WHERE google_sub IS NOT NULL AND email_verified = false;
+
+-- The 6-digit codes. Only a hash of each code is kept. A sign-up code
+-- also carries the password the person chose (already scrypt-hashed),
+-- so the account can be made the moment the code is typed. One live
+-- code per address and purpose: asking again replaces the old one.
+CREATE TABLE IF NOT EXISTS email_codes (
+  email_norm   text NOT NULL,
+  email        text,                    -- as typed at sign-up, for display
+  purpose      text NOT NULL CHECK (purpose IN ('signup','reset')),
+  code_hash    text NOT NULL,
+  pw_hash      text,
+  display_name text,
+  attempts     int  NOT NULL DEFAULT 0,
+  created_at   timestamptz NOT NULL DEFAULT now(),
+  expires_at   timestamptz NOT NULL,
+  PRIMARY KEY (email_norm, purpose)
+);
+ALTER TABLE email_codes ADD COLUMN IF NOT EXISTS email text;
+
+-- Counters that slow down guessing and stop inboxes being flooded.
+-- key is, for example, 'lf:<email>:<ip>' for wrong passwords from one
+-- connection, 'la:<email>' for wrong passwords from anywhere,
+-- 'send:<email>' and 'ip-send:<ip>' for emails sent.
+CREATE TABLE IF NOT EXISTS auth_throttle (
+  key           text PRIMARY KEY,
+  hits          int  NOT NULL DEFAULT 0,
+  window_start  timestamptz NOT NULL DEFAULT now(),
+  blocked_until timestamptz
+);

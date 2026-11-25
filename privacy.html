@@ -43,7 +43,7 @@ a{color:var(--primary)}
   </header>
 
   <h1>Privacy Policy</h1>
-  <div class="date">Last updated 24 November 2026</div>
+  <div class="date">Last updated 25 November 2026</div>
 
   <div class="lead">
     <p>LENA (Live Emotional Needs Assistant) is a mental wellbeing website for young people in Malaysia, built as a Final Year Project at the Kulliyyah of Information and Communication Technology, International Islamic University Malaysia (IIUM). This page explains, in plain words, what LENA keeps, where it is kept, who can see it and how to delete it. We follow the Personal Data Protection Act 2010 (PDPA).</p>
@@ -52,7 +52,7 @@ a{color:var(--primary)}
   <h2>The short version</h2>
   <ul>
     <li><strong>As a guest</strong>, everything you enter stays in your browser on your own device. It is not sent to us.</li>
-    <li><strong>If you continue with Google</strong>, your entries are also backed up to your LENA account so they appear on your other devices.</li>
+    <li><strong>If you make a LENA account</strong>, with Continue with Google or with your email and a password, your entries are also backed up to it so they appear on your other devices.</li>
     <li><strong>Chat messages</strong> are sent to an AI service to write the reply. LENA does not save your chats on its server.</li>
     <li>We never sell your information, show it to other users, or use it for advertising.</li>
     <li>You can delete everything at any time from <strong>Profile &amp; Settings → Privacy &amp; Data → Delete everything</strong>.</li>
@@ -62,9 +62,15 @@ a{color:var(--primary)}
   <p>Your mood check-ins, sleep log, journal, screening results (PHQ-9, GAD-7 and others), safety plan, settings, game scores and the name you type are saved in your browser's storage on your device only. LENA's team cannot see them.</p>
   <p>Because they live in that browser, anyone else who uses the same device and browser can open LENA and see them, and clearing your browser data deletes them.</p>
 
-  <h2>2. If you continue with Google</h2>
-  <h3>What we get from Google</h3>
+  <h2>2. If you make a LENA account</h2>
+  <p>There are two ways in, and both lead to the same kind of account. One email address has one LENA account, whichever way you use.</p>
+  <h3>With Google: what we get from Google</h3>
   <p>When you choose Continue with Google, Google tells LENA your name, email address, profile picture and a permanent account number Google uses for you. We ask for nothing else: no contacts, no Drive, no Gmail.</p>
+  <h3>With your email: what we keep</h3>
+  <p>Your email address, the name you type, and your password. The password is stored only in a scrambled form (scrypt) that nobody, including the LENA team, can turn back into your password.</p>
+  <p>To check that the address is yours, LENA emails you a 6-digit code, and the account is made only once you type it. If you forget your password, LENA emails you a code to choose a new one. Codes are stored scrambled, work for 15 minutes and are deleted once used. LENA never asks for your password by email.</p>
+  <p>When you choose a password, LENA checks that it has not appeared in a data leak on another website, using the Have I Been Pwned service. Only the first 5 characters of a scrambled version of the password are sent to it, never the password itself.</p>
+  <p>To slow down anyone guessing passwords, LENA counts wrong tries for each address and each internet connection for up to a day.</p>
   <h3>What is backed up to your LENA account</h3>
   <ul>
     <li>Mood check-ins and notes</li>
@@ -89,15 +95,16 @@ a{color:var(--primary)}
   <ul>
     <li><strong>Vercel</strong> hosts the website and its server code.</li>
     <li><strong>Neon</strong> hosts LENA's database, in Singapore.</li>
-    <li><strong>Google</strong> provides sign-in and the AI chat.</li>
+    <li><strong>Google</strong> provides Continue with Google, the AI chat, and Gmail, which sends LENA's emails from lena.platform.iium@gmail.com.</li>
+    <li><strong>Have I Been Pwned</strong> checks new passwords against known data leaks, as described above.</li>
   </ul>
   <p>These services act for LENA and may process data outside Malaysia. Data travels to and from LENA over an encrypted connection (HTTPS). Access to the database is limited to the LENA project team.</p>
 
   <h2>5. Health and religious information</h2>
-  <p>Mood, screening results, your safety plan and the choice to see Islamic content can say something about your health or beliefs, which the PDPA treats as sensitive. By continuing with Google you agree to LENA keeping these in your account for the purpose above. You can stay a guest instead, and LENA works the same way without an account.</p>
+  <p>Mood, screening results, your safety plan and the choice to see Islamic content can say something about your health or beliefs, which the PDPA treats as sensitive. By making a LENA account you agree to LENA keeping these in your account for the purpose above. You can stay a guest instead, and LENA works the same way without an account.</p>
 
   <h2>6. Young people</h2>
-  <p>LENA is meant for young people, including school students. If you are under 18, please talk to a parent, guardian or teacher before continuing with Google. Using LENA as a guest keeps everything on your device.</p>
+  <p>LENA is meant for young people, including school students. If you are under 18, please talk to a parent, guardian or teacher before making a LENA account. Using LENA as a guest keeps everything on your device.</p>
 
   <h2>7. How long we keep it</h2>
   <p>We keep your account and backed-up entries until you delete them. Sessions end after 30 days, or when you sign out. Deleting an entry in LENA deletes it from your account too.</p>
@@ -106,12 +113,13 @@ a{color:var(--primary)}
   <ul>
     <li><strong>See what is stored:</strong> Profile &amp; Settings → Privacy &amp; Data lists everything LENA keeps on your device.</li>
     <li><strong>Delete everything:</strong> the Delete everything button in Privacy &amp; Data removes your LENA account and all its entries from our server, then everything on your device.</li>
+    <li><strong>Change your password:</strong> sign out, then choose Forgot password? on the sign-in screen. LENA emails you a code.</li>
     <li><strong>Remove LENA from your Google account:</strong> at <a href="https://myaccount.google.com/connections" rel="noopener">myaccount.google.com/connections</a>.</li>
     <li><strong>Ask us</strong> for a copy of your data, a correction, or deletion, using the contact below.</li>
   </ul>
 
   <h2>9. Cookies</h2>
-  <p>LENA uses one cookie, only after you continue with Google, to keep you signed in. It is not used for tracking or advertising. LENA has no analytics or advertising trackers. Google's sign-in button may set its own cookies, covered by Google's privacy policy.</p>
+  <p>LENA uses one cookie, only after you sign in to a LENA account, to keep you signed in. It is not used for tracking or advertising. LENA has no analytics or advertising trackers. Google's sign-in button may set its own cookies, covered by Google's privacy policy.</p>
 
   <h2>10. Changes</h2>
   <p>If this policy changes, we will update the date at the top. Big changes will also be shown inside LENA.</p>

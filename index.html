@@ -536,6 +536,28 @@ button.cbt-cat.act{background:rgba(43,184,154,.12)}
 .scp.loading::after{content:'';display:inline-block;width:10px;height:10px;margin-left:6px;border-radius:50%;
   border:2px solid currentColor;border-right-color:transparent;animation:spin .8s linear infinite;vertical-align:-1px}
 @keyframes spin{to{transform:rotate(360deg)}}
+/* v39: email accounts */
+.pw-wrap{position:relative}
+.pw-wrap .inp-field{padding-right:48px}
+.pw-eye{position:absolute;right:5px;top:50%;transform:translateY(-50%);width:38px;height:38px;border:none;background:transparent;color:var(--muted);border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.pw-eye:hover,.pw-eye:focus-visible{color:var(--primary-t);background:var(--bg4)}
+.pw-eye svg{width:20px;height:20px}
+.pw-eye .slash{display:none}
+.pw-eye[aria-pressed="true"] .slash{display:inline}
+.pw-hint{font-size:11.5px;color:var(--muted);line-height:1.5;margin-top:6px}
+.auth-forgot-row{text-align:right;margin-top:4px}
+.linkish{background:none;border:none;padding:6px 2px;font-family:var(--ff-b);font-size:12.5px;font-weight:600;color:var(--primary-t);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.linkish:hover{color:var(--text)}
+.linkish:disabled{color:var(--muted);cursor:default;text-decoration:none}
+.auth-note{background:color-mix(in srgb,var(--primary) 12%,transparent);border:1px solid var(--border2);color:var(--text);border-radius:10px;padding:10px 12px;font-size:12.5px;line-height:1.55;margin-bottom:14px}
+.auth-panel .ap-lead{font-size:14px;color:var(--text);line-height:1.6;margin-bottom:6px;overflow-wrap:anywhere}
+.auth-panel .ap-sub{font-size:12.5px;color:var(--muted);line-height:1.6;margin-bottom:16px}
+.code-inp{font-size:24px;letter-spacing:.35em;text-align:center;font-weight:700;padding:12px 10px}
+.code-inp::placeholder{letter-spacing:.35em;opacity:.35}
+.auth-perr{margin-top:8px;font-size:12px;color:var(--red-t);line-height:1.45}
+.ap-links{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:14px}
+.btn-wide{width:100%;padding:14px;margin-top:16px;font-size:14px}
+#auth-screen.ap-on .g-wrap{display:none!important}
 /* v37: signing in / signing out screen */
 .busy-cover{position:fixed;inset:0;z-index:3000;display:flex;align-items:center;justify-content:center;background:var(--overlay);backdrop-filter:blur(6px);animation:fi .2s ease}
 .busy-cover[hidden]{display:none}
@@ -1143,26 +1165,60 @@ button .emo:not(.emo-face):not(.emo-heart):not(.emo-warm):not(.emo-warn){color:i
 <button class="pre-help" onclick="openSOS()">🆘 Need help right now? Helplines, no account needed</button>
 </div>
 <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r3);padding:36px 40px;width:420px;box-shadow:0 16px 50px var(--shadow2);backdrop-filter:blur(12px)">
-<h2 style="font-family:var(--ff-d);font-size:24px;color:var(--text);margin-bottom:4px">Welcome back</h2>
-<p style="font-size:13px;color:var(--muted);margin-bottom:24px">Your safe space for mental wellbeing</p>
+<h2 id="auth-h" style="font-family:var(--ff-d);font-size:24px;color:var(--text);margin-bottom:4px">Welcome back</h2>
+<p id="auth-sub" style="font-size:13px;color:var(--muted);margin-bottom:24px">Your safe space for mental wellbeing</p>
 <div class="g-wrap" id="g-wrap" hidden>
 <div class="g-btn" id="g-btn" data-i18n-skip></div>
 <div class="g-or" aria-hidden="true"><span>or use email</span></div>
 </div>
+<div id="auth-main">
 <div id="auth-tabs" style="display:flex;background:var(--bg3);border-radius:10px;padding:4px;margin-bottom:22px">
 <div id="tab-si" onclick="switchAuthTab('si')" style="flex:1;padding:9px;text-align:center;border-radius:8px;background:var(--fill);color:var(--on-fill);font-size:14px;font-weight:700;cursor:pointer">Sign In</div>
 <div id="tab-re" onclick="switchAuthTab('re')" style="flex:1;padding:9px;text-align:center;border-radius:8px;color:var(--muted);font-size:14px;font-weight:700;cursor:pointer">Register</div>
 </div>
-<div style="margin-bottom:14px"><label class="inp-label">Email Address</label><input aria-label="Email address" class="inp-field" id="auth-email" placeholder="you@email.com" type="email"/></div>
-<div style="margin-bottom:6px"><label class="inp-label">Password</label><input aria-label="Password" class="inp-field" id="auth-pw" placeholder="••••••••" type="password"/></div>
-<div aria-live="polite" id="auth-err" role="alert" style="display:none;margin-top:8px;font-size:12px;color:#C2410C;line-height:1.4"></div>
-<div id="reg-fields" style="display:none;margin-top:12px">
-<div style="margin-bottom:14px"><label class="inp-label">Full Name</label><input aria-label="Your name" class="inp-field" id="auth-name" placeholder="Your name"/></div>
-</div>
+<div class="auth-note" id="auth-note" role="status" hidden></div>
+<div id="reg-fields" style="display:none;margin-bottom:14px"><label class="inp-label" for="auth-name">Full Name</label><input aria-label="Your name" class="inp-field" id="auth-name" placeholder="Your name" autocomplete="name" maxlength="80"/></div>
+<div style="margin-bottom:14px"><label class="inp-label" for="auth-email">Email Address</label><input aria-label="Email address" class="inp-field" id="auth-email" placeholder="you@email.com" type="email" autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false"/></div>
+<div style="margin-bottom:6px"><label class="inp-label" for="auth-pw">Password</label><div class="pw-wrap"><input aria-label="Password" class="inp-field" id="auth-pw" placeholder="••••••••" type="password" autocomplete="current-password"/><button type="button" class="pw-eye" aria-label="Show password" title="Show password" aria-pressed="false" onclick="togglePw(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path class="slash" d="M4 4l16 16"/></svg></button></div></div>
+<div class="pw-hint" id="pw-hint" hidden>At least 10 characters. A short sentence you will remember works well, and spaces are fine.</div>
+<div class="auth-forgot-row" id="forgot-row" hidden><button type="button" class="linkish" onclick="openForgot()">Forgot password?</button></div>
+<div aria-live="polite" id="auth-err" role="alert" style="display:none;margin-top:8px;font-size:12px;color:var(--red-t);line-height:1.4"></div>
 <button class="btn-p" id="auth-btn" onclick="doLogin()" style="width:100%;padding:14px;margin-top:16px;font-size:14px">Sign In →</button>
 <div style="text-align:center;margin-top:14px;font-size:12px;color:var(--muted)">or</div>
-<div onclick="currentAuthTab='si';document.getElementById('auth-email').value='guest@lena.app';document.getElementById('auth-pw').value='guest';doLogin()" style="text-align:center;margin-top:12px;font-size:12px;color:var(--primary-t);cursor:pointer;font-weight:600">Continue as Guest</div>
-<div style="text-align:center;margin-top:18px;font-size:11px;color:var(--muted)">Protected by PDPA 2010 · As a guest, your entries stay on this device. With Google, they are backed up to your LENA account. Chat messages are sent to an AI service. <a href="/privacy.html" target="_blank" rel="noopener" style="color:var(--primary-t);font-weight:600">Privacy policy</a></div>
+<div style="text-align:center;margin-top:8px"><button type="button" class="linkish guest-link" onclick="continueAsGuest()">Continue as Guest</button></div>
+</div>
+<div class="auth-panel" id="auth-code" hidden>
+<p class="ap-lead">We sent a 6-digit code to <strong id="code-to" data-i18n-skip></strong>.</p>
+<p class="ap-sub">It can take a minute. Check your spam or junk folder too. The code works for 15 minutes.</p>
+<div class="auth-note" id="code-note" role="status" hidden></div>
+<label class="inp-label" for="code-inp">6-digit code</label>
+<input class="inp-field code-inp" id="code-inp" inputmode="numeric" autocomplete="one-time-code" maxlength="7" placeholder="123456" oninput="this.value=this.value.replace(/[^0-9 ]/g,'').slice(0,7)"/>
+<div class="auth-perr" id="code-err" role="alert" hidden></div>
+<button class="btn-p btn-wide" id="code-btn" onclick="LENA_BACKEND.verifyCode()">Confirm</button>
+<div class="ap-links"><button type="button" class="linkish" id="code-resend" onclick="LENA_BACKEND.resendCode()">Send a new code</button><button type="button" class="linkish" onclick="authPanel('main')">Use a different email</button></div>
+</div>
+<div class="auth-panel" id="auth-forgot" hidden>
+<p class="ap-sub">Type the email you registered with. If it has a LENA account, we will send it a code to choose a new password.</p>
+<label class="inp-label" for="forgot-email">Email Address</label>
+<input class="inp-field" id="forgot-email" type="email" autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false" placeholder="you@email.com"/>
+<div class="auth-perr" id="forgot-err" role="alert" hidden></div>
+<button class="btn-p btn-wide" id="forgot-btn" onclick="LENA_BACKEND.forgot()">Send code</button>
+<div class="ap-links"><button type="button" class="linkish" onclick="authPanel('main')">Back to sign in</button></div>
+</div>
+<div class="auth-panel" id="auth-reset" hidden>
+<p class="ap-lead">If <strong id="reset-to" data-i18n-skip></strong> has a LENA account, we sent it a code.</p>
+<p class="ap-sub">It can take a minute. Check your spam or junk folder too. The code works for 15 minutes.</p>
+<div class="auth-note" id="reset-note" role="status" hidden></div>
+<label class="inp-label" for="reset-code">6-digit code</label>
+<input class="inp-field code-inp" id="reset-code" inputmode="numeric" autocomplete="one-time-code" maxlength="7" placeholder="123456" oninput="this.value=this.value.replace(/[^0-9 ]/g,'').slice(0,7)"/>
+<label class="inp-label" for="reset-pw" style="margin-top:14px">New password</label>
+<div class="pw-wrap"><input class="inp-field" id="reset-pw" type="password" autocomplete="new-password" placeholder="••••••••" aria-label="New password"/><button type="button" class="pw-eye" aria-label="Show password" title="Show password" aria-pressed="false" onclick="togglePw(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path class="slash" d="M4 4l16 16"/></svg></button></div>
+<div class="pw-hint">At least 10 characters. A short sentence you will remember works well, and spaces are fine.</div>
+<div class="auth-perr" id="reset-err" role="alert" hidden></div>
+<button class="btn-p btn-wide" id="reset-btn" onclick="LENA_BACKEND.doReset()">Change password</button>
+<div class="ap-links"><button type="button" class="linkish" id="reset-resend" onclick="LENA_BACKEND.resendReset()">Send a new code</button><button type="button" class="linkish" onclick="authPanel('main')">Back to sign in</button></div>
+</div>
+<div style="text-align:center;margin-top:18px;font-size:11px;color:var(--muted)">Protected by PDPA 2010 · <span id="auth-foot-t">As a guest, your entries stay on this device. With Google, they are backed up to your LENA account.</span> Chat messages are sent to an AI service. <a href="/privacy.html" target="_blank" rel="noopener" style="color:var(--primary-t);font-weight:600">Privacy policy</a></div>
 </div>
 </div>
 <script>
@@ -1518,6 +1574,17 @@ return {
 </div>
 </div>
 <div class="busy-cover" id="busy-cover" hidden><div class="busy-card" tabindex="-1" role="status" aria-live="polite"><div class="busy-ring" aria-hidden="true"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-check"/></svg></div><div class="busy-t" id="busy-t"></div><div class="busy-s" id="busy-s"></div></div></div>
+<div class="mover" id="delpw-modal" role="dialog" aria-modal="true" aria-labelledby="dp-title" onclick="if(event.target===this)closeDelPw()">
+<div class="msheet so-sheet">
+<button class="mcls" aria-label="Close" onclick="closeDelPw()">✕</button>
+<div class="so-ico" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16"/><path d="M9 7V4.8c0-.4.4-.8.8-.8h4.4c.4 0 .8.4.8.8V7"/><path d="M6.5 7l.9 12.2c0 .5.5.8 1 .8h7.2c.5 0 1-.3 1-.8L17.5 7"/><path d="M10 11v5.5M14 11v5.5"/></svg></div>
+<div class="so-title" id="dp-title">Delete your LENA account?</div>
+<p class="so-body">This deletes your account and every entry in it, on this device and on LENA's server. It cannot be undone. Type your LENA password to confirm.</p>
+<div class="pw-wrap" style="text-align:left"><input class="inp-field" id="dp-pw" type="password" autocomplete="current-password" aria-label="Your LENA password" placeholder="Your LENA password"/><button type="button" class="pw-eye" aria-label="Show password" title="Show password" aria-pressed="false" onclick="togglePw(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path class="slash" d="M4 4l16 16"/></svg></button></div>
+<div class="auth-perr" id="dp-err" role="alert" hidden style="text-align:left"></div>
+<div class="so-btns" style="margin-top:18px"><button type="button" class="btn-g" onclick="closeDelPw()">Cancel</button><button type="button" class="btn-danger" id="dp-yes" onclick="confirmDelPw()">Delete everything</button></div>
+</div>
+</div>
 <div class="mover" id="signout-modal" role="dialog" aria-modal="true" aria-labelledby="so-title" onclick="if(event.target===this)closeSignOut()">
 <div class="msheet so-sheet">
 <button class="mcls" aria-label="Close" onclick="closeSignOut()">✕</button>
@@ -2075,7 +2142,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 </div>
 <div class="card about-card">
 <h3><span aria-hidden="true">🔒</span> Your data</h3>
-<p>If you continue as a guest, what you log stays in this browser, on this device. If you sign in with Google, it is also backed up to your LENA account, so it is there on any device you sign in on. You can delete it all at any time in Privacy &amp; Data.</p>
+<p>If you continue as a guest, what you log stays in this browser, on this device. If you sign in to a LENA account, with Google or with your email, it is also backed up to that account, so it is there on any device you sign in on. You can delete it all at any time in Privacy &amp; Data.</p>
 <p>There are two exceptions. Messages you send to LENA AI go to an AI service so it can write a reply, and so do the items in a plan when you tap Help me order.</p>
 <div class="about-acts"><button class="btn-g" onclick="openPrivacy()" style="padding:10px 18px;font-size:13px">See what is stored</button></div>
 </div>
@@ -2085,7 +2152,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <p style="font-size:12px;color:var(--muted)">The sunset loading scene uses photos by Pietro De Grandi and Margo Evardson on Unsplash.</p>
 <div class="about-acts"><button class="btn-g" onclick="go('team')" style="padding:10px 18px;font-size:13px">Meet the team</button></div>
 </div>
-<div class="about-ver">LENA v1.0 · build 38 · IIUM KICT</div>
+<div class="about-ver">LENA v1.0 · build 39 · IIUM KICT</div>
 </div>
 <div class="sp"></div>
 </div>
@@ -2252,7 +2319,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:14px">📋 My Safety Plan</div>
 <div id="sp-view"></div>
 <div id="sp-edit" style="display:none">
-<div style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:14px">This stays on your device, and in your LENA account if you signed in with Google. Write it in your own words, for yourself.</div>
+<div style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:14px">This stays on your device, and in your LENA account if you are signed in to one. Write it in your own words, for yourself.</div>
 <div class="time-lbl" style="margin-bottom:6px">1. My warning signs</div>
 <textarea aria-label="My warning signs, one per line" id="sp-warn" placeholder="What does it look like when things are starting to slip? One per line." style="width:100%;min-height:70px;background:var(--bg3);border:1.5px solid var(--border);border-radius:var(--r);padding:11px;font-family:var(--ff-b);font-size:12.5px;color:var(--text);outline:none;resize:none;line-height:1.6;margin-bottom:14px"></textarea>
 <div class="time-lbl" style="margin-bottom:6px">2. What helps me</div>
@@ -2330,7 +2397,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <button class="btn-p" onclick="saveJournalEntry()" style="flex:1;padding:12px">Save Entry ✓</button>
 <button class="btn-g" onclick="closeJournalComposer()" style="flex:none;padding:12px 18px">Cancel</button>
 </div>
-<div style="font-size:11px;color:var(--muted);margin-top:10px;line-height:1.5">Journal entries are saved on this device. If you signed in with Google, they are also backed up to your LENA account. They are never shown to anyone else.</div>
+<div style="font-size:11px;color:var(--muted);margin-top:10px;line-height:1.5">Journal entries are saved on this device. If you are signed in to a LENA account, they are also backed up to it. They are never shown to anyone else.</div>
 </div>
 </div>
 </div>
@@ -2593,8 +2660,54 @@ function showLoadingQuote(){
 // AUTH
 // ════════════════════════════════════════════════════
 let currentAuthTab='si';
+// v39: email accounts are on once the server can send emails.
+let emailMode=false;
+function authEmailMode(on){
+  emailMode=!!on;
+  const f=document.getElementById('auth-foot-t');
+  if(f)f.textContent=on?'As a guest, your entries stay on this device. With a LENA account (Google or email), they are backed up to it.'
+                       :'As a guest, your entries stay on this device. With Google, they are backed up to your LENA account.';
+  if(authPanelNow==='main')switchAuthTab(currentAuthTab);
+}
+function togglePw(btn){
+  const inp=btn.parentElement.querySelector('input');if(!inp)return;
+  const show=inp.type==='password';
+  inp.type=show?'text':'password';
+  btn.setAttribute('aria-pressed',show?'true':'false');
+  btn.setAttribute('aria-label',show?'Hide password':'Show password');
+  btn.title=show?'Hide password':'Show password';
+  try{inp.focus({preventScroll:true});}catch(e){}
+}
+function panelError(id,msg){const el=document.getElementById(id);if(!el)return;el.textContent=msg||'';el.hidden=!msg;}
+function authNote(msg,id){const el=document.getElementById(id||'auth-note');if(!el)return;el.textContent=msg||'';el.hidden=!msg;}
+let authPanelNow='main';
+function authPanel(name){
+  authPanelNow=name;
+  ['main','code','forgot','reset'].forEach(k=>{const el=document.getElementById('auth-'+k);if(el)el.hidden=(k!==name);});
+  const scr=document.getElementById('auth-screen');if(scr)scr.classList.toggle('ap-on',name!=='main');
+  const sub=document.getElementById('auth-sub');if(sub)sub.hidden=(name!=='main');
+  ['code-err','forgot-err','reset-err'].forEach(id=>panelError(id,''));
+  ['code-note','reset-note'].forEach(id=>authNote('',id));
+  if(name==='main'){switchAuthTab(currentAuthTab);try{LENA_BACKEND.clearPending();}catch(e){}}
+  else{const h=document.getElementById('auth-h');if(h)h.textContent={code:'Check your email',forgot:'Forgot your password?',reset:'Choose a new password'}[name];}
+  const first={code:'code-inp',forgot:'forgot-email',reset:'reset-code'}[name];
+  if(first)setTimeout(()=>{const el=document.getElementById(first);if(el)try{el.focus();}catch(e){}},60);
+}
+function openForgot(){
+  const e=document.getElementById('auth-email'),f=document.getElementById('forgot-email');
+  if(e&&f)f.value=e.value.trim();
+  authPanel('forgot');
+}
+function continueAsGuest(){
+  currentAuthTab='si';authError('');authNote('');
+  try{localStorage.removeItem('lena_signed_out');}catch(e){}
+  proceedAfterAuth('guest@lena.app');
+}
 function switchAuthTab(t){
   currentAuthTab=t;
+  const pwEl=document.getElementById('auth-pw');if(pwEl)pwEl.setAttribute('autocomplete',t==='re'?'new-password':'current-password');
+  const hint=document.getElementById('pw-hint');if(hint)hint.hidden=!(emailMode&&t==='re');
+  const fr=document.getElementById('forgot-row');if(fr)fr.hidden=!(emailMode&&t==='si');
   document.getElementById('tab-si').style.background=t==='si'?'var(--fill)':'transparent';
   document.getElementById('tab-si').style.color=t==='si'?'var(--on-fill)':'var(--muted)';
   document.getElementById('tab-re').style.background=t==='re'?'var(--fill)':'transparent';
@@ -2603,6 +2716,7 @@ function switchAuthTab(t){
   document.getElementById('auth-btn').textContent=t==='re'?'Create Account →':'Sign In →';
   const wt=document.querySelector('#auth-screen h2');
   if(wt)wt.textContent=t==='re'?'Create your account':'Welcome back';
+  authError('');
 }
 
 const NON_ISLAMIC_QUOTES=[
@@ -2633,7 +2747,8 @@ function validEmail(v){
 
 function doLogin(){
   const email=document.getElementById('auth-email').value.trim();
-  const pw=document.getElementById('auth-pw').value.trim();
+  const rawPw=document.getElementById('auth-pw').value;
+  const pw=rawPw.trim();
   if(!email||!pw){authError('Please enter your email and password.');return;}
   if(!validEmail(email)){
     authError('That email address does not look right. Check for a typo.');
@@ -2647,7 +2762,9 @@ function doLogin(){
   // credentials are good. Without one, the old on-device behaviour
   // stands, so the app still works with no network and no database.
   if(window.LENA_BACKEND && LENA_BACKEND.available && LENA_BACKEND.emailAccounts){
-    LENA_BACKEND.authenticate(email,pw,currentAuthTab==='re');
+    // A real account: the password is sent exactly as typed (spaces are allowed).
+    if(currentAuthTab==='re'&&[...rawPw].length<10){authError('Your password needs at least 10 characters.');return;}
+    LENA_BACKEND.authenticate(email,rawPw,currentAuthTab==='re');
     return;
   }
   proceedAfterAuth(email);
@@ -4114,7 +4231,7 @@ const DATA_ITEMS=[
   {k:'lena_safety_plan',label:'Safety plan',           count:v=>1},
   {k:'lena_sleep_plan', label:'Evening plan',          count:v=>1},
   {k:'lena_user',       label:'Your name and email',   count:v=>1},
-  {k:'lena_auth',       label:'Signed in with Google', count:v=>1},
+  {k:'lena_auth',       label:'Signed in to a LENA account', count:v=>1},
   {k:'lena_prefs',      label:'Your settings',         count:v=>1},
   {k:'lena_feedback',   label:'Feedback you wrote',    count:v=>v.length},
   {k:'lena_muslim',     label:'Islamic sections on or off',count:v=>1},
@@ -4166,8 +4283,8 @@ function renderPrivacy(){
     '<div style="font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin:16px 0 6px">Sent off this device</div>'+
     '<div style="font-size:12.5px;color:var(--text2);line-height:1.7">Chat messages are sent to an AI service to generate a reply. When you tap Help me order on a plan, just those plan items are sent too.</div>'+
     '<div style="font-size:12.5px;color:var(--text2);line-height:1.7;margin-top:8px">'+((window.LENA_BACKEND&&LENA_BACKEND.user)
-      ?'You signed in with Google, so your mood entries, sleep log, journal, screening results, safety plan and settings are also backed up to your LENA account on LENA\'s server. That is how they reach your other devices. They are never shown to anyone else. Delete everything below removes them there too.'
-      :'You are not signed in with Google, so nothing else leaves this device. Your mood entries, sleep log, journal, screening results and safety plan are not uploaded.')+'</div>'+
+      ?'You are signed in to a LENA account, so your mood entries, sleep log, journal, screening results, safety plan and settings are also backed up to your LENA account on LENA\'s server. That is how they reach your other devices. They are never shown to anyone else. Delete everything below removes them there too.'
+      :'You are not signed in to a LENA account, so nothing else leaves this device. Your mood entries, sleep log, journal, screening results and safety plan are not uploaded.')+'</div>'+
     '<div style="font-size:12.5px;color:var(--text2);line-height:1.7;margin-top:8px">The current chat: '+chat+'. It is cleared when you close the tab or sign out.</div>'+
     '<div style="font-size:12.5px;line-height:1.7;margin-top:8px"><a href="/privacy.html" target="_blank" rel="noopener" style="color:var(--primary-t);font-weight:600">Read the full privacy policy</a></div>'+
     '<div style="font-size:12.5px;color:var(--text2);line-height:1.7;margin-top:8px">Because everything is kept in this browser, anyone else using this device and browser can open LENA and see it. Clearing your browser data also deletes it.</div>';
@@ -4200,10 +4317,30 @@ function exportData(){
 }
 
 let wipeArmed=false,wipeTimer=null;
+function openDelPw(){
+  document.getElementById('dp-pw').value='';panelError('dp-err','');
+  document.getElementById('delpw-modal').classList.add('open');
+  setTimeout(()=>{try{document.getElementById('dp-pw').focus();}catch(e){}},60);
+}
+function closeDelPw(){document.getElementById('delpw-modal').classList.remove('open');}
+function confirmDelPw(){
+  const pw=document.getElementById('dp-pw').value;
+  if(!pw){panelError('dp-err','Type your LENA password.');return;}
+  const b=document.getElementById('dp-yes');b.disabled=true;
+  const failed='Your LENA account could not be deleted right now. Nothing was deleted. Try again when you are online.';
+  LENA_BACKEND.deleteAccount(pw).then(r=>{
+    b.disabled=false;
+    if(r.status===200){closeDelPw();try{LENA_BACKEND.clearSynced();}catch(e){}wipeLocal();return;}
+    if(r.status===401&&r.body&&r.body.error==='bad_password'){panelError('dp-err','That password is not right. Forgot it? Sign out, then choose Forgot password? on the sign-in screen.');return;}
+    panelError('dp-err',failed);
+  }).catch(()=>{b.disabled=false;panelError('dp-err',failed);});
+}
 function wipeData(){
   // Deleting a mood history and a safety plan is not undoable, so it
   // takes two taps. No browser dialog: a confirm() box blocks the page.
   const acct=!!(window.LENA_BACKEND&&LENA_BACKEND.available&&LENA_BACKEND.user);
+  // v39: an account with a password confirms with the password instead.
+  if(acct&&LENA_BACKEND.user.hasPassword){openDelPw();return;}
   if(!wipeArmed){
     wipeArmed=true;
     toast(acct?'Tap Delete everything again to delete it all, on this device and your LENA account. This cannot be undone.'
@@ -6387,36 +6524,184 @@ window.LENA_BACKEND = (function(){
       .catch(function(){ return false; });   // never block the app on sync
   }
 
+  /* ── Email accounts (v39) ──────────────────────────────────────────
+     Register sends a code; the account exists once the code is typed.
+     The chosen password is kept in memory only, so "Send a new code"
+     can ask again without making the person retype it. */
+  var pending=null, resetEmail='', timers={};
+  function emailApi(body){
+    body.lang=(window.LENA_LANG==='ms'?'ms':'en');
+    return api('/api/auth/email',{method:'POST',body:JSON.stringify(body)});
+  }
+  var MSG={
+    pw_short:'Your password needs at least 10 characters.',
+    pw_long:'That password is too long. Please use fewer than 200 characters.',
+    pw_common:'That password is too easy to guess. Try a short sentence instead.',
+    pw_email:'That password is too close to your email. Please choose another.',
+    pw_breached:'That password has appeared in a data leak on another website, so it is not safe. Please choose another.',
+    bad_email:'That email address does not look right. Check for a typo.',
+    bad_credentials:'That email or password is not right. Signed up with Google? Use Continue with Google.',
+    wrong_code:'That code is not right. Check the newest email from LENA.',
+    code_expired:'That code has expired or was tried too many times. Send a new code.',
+    email_unavailable:'LENA could not send the email right now. Please try again in a few minutes.',
+    already_registered:'This email already has a LENA account. Sign in instead.',
+    not_configured:'Email accounts are not available right now. You can continue with Google or as a guest.'
+  };
+  function msgFor(r){
+    var b=(r&&r.body)||{}, e=b.error||'';
+    if(e==='slow_down'){
+      var s=b.retryAfter||60;
+      return s<=60?'Too many tries. Please wait a minute and try again.':'Too many tries. Please wait '+Math.ceil(s/60)+' minutes and try again.';
+    }
+    if(e==='wrong_code'&&b.triesLeft) return MSG.wrong_code+' '+(b.triesLeft===1?'1 try left.':b.triesLeft+' tries left.');
+    return MSG[e]||'Something went wrong. Please try again.';
+  }
+  var OFFLINE='Could not reach LENA. Check your connection and try again.';
+  function busyBtn(id,on){
+    var b=document.getElementById(id); if(!b) return;
+    if(on){ b.dataset.label=b.innerHTML; b.disabled=true; b.textContent='Please wait…'; }
+    else{ b.disabled=false; if(b.dataset.label) b.innerHTML=b.dataset.label; }
+  }
+  function cooldown(id){
+    var b=document.getElementById(id); if(!b) return;
+    clearInterval(timers[id]); var left=60;
+    var tick=function(){
+      if(left<=0){ clearInterval(timers[id]); b.disabled=false; b.textContent='Send a new code'; return; }
+      b.disabled=true; b.textContent='Send a new code in '+left+'s'; left--;
+    };
+    tick(); timers[id]=setInterval(tick,1000);
+  }
+  function clearPending(){ pending=null; }
+
   function authenticate(email,password,isRegister){
+    authError(''); authNote('');
     var nameEl=document.getElementById('auth-name');
     var displayName=(isRegister&&nameEl)?(nameEl.value||'').trim():'';
-    var btn=document.getElementById('auth-btn');
-    var label=btn?btn.textContent:'';
-    if(btn){ btn.disabled=true; btn.textContent='Please wait…'; }
-
-    return api(isRegister?'/api/auth/register':'/api/auth/login',
-      {method:'POST',body:JSON.stringify({email:email,password:password,displayName:displayName})})
+    busyBtn('auth-btn',true);
+    if(isRegister){
+      return emailApi({action:'register',email:email,password:password,displayName:displayName})
+        .then(function(r){
+          busyBtn('auth-btn',false);
+          if(r.status===200){
+            authPanel('code');
+            pending={email:email,password:password,displayName:displayName};
+            document.getElementById('code-to').textContent=email;
+            document.getElementById('code-inp').value='';
+            cooldown('code-resend');
+            return true;
+          }
+          authError(msgFor(r)); return false;
+        })
+        .catch(function(){ busyBtn('auth-btn',false); authError(OFFLINE); return false; });
+    }
+    var t0=Date.now();
+    return emailApi({action:'login',email:email,password:password})
       .then(function(r){
-        if(btn){ btn.disabled=false; btn.textContent=label; }
-        if(r.status===200||r.status===201){
-          me=r.body.user;
-          try{ saveUser({name:me.displayName||'',email:me.email}); }catch(e){}
-          proceedAfterAuth(email);
-          syncNow();
-          return true;
-        }
-        authError((r.body&&r.body.message)||'That did not work. Please try again.');
-        return false;
+        busyBtn('auth-btn',false);
+        if(r.status===200&&r.body&&r.body.user){ finishSignIn(r.body.user,'email',false,t0); return true; }
+        authError(msgFor(r)); return false;
       })
       .catch(function(){
-        if(btn){ btn.disabled=false; btn.textContent=label; }
+        busyBtn('auth-btn',false);
         // The server became unreachable mid-attempt. Rather than
         // stranding somebody who may be in distress, let them in and
-        // keep their data on the device.
+        // keep their data on the device, as before.
         available=false;
         proceedAfterAuth(email);
         return false;
       });
+  }
+  function verifyCode(){
+    if(!pending){ authPanel('main'); return; }
+    var c=(document.getElementById('code-inp').value||'').replace(/\D/g,'');
+    if(c.length!==6){ panelError('code-err','Type the 6 digits from the email.'); return; }
+    panelError('code-err',''); busyBtn('code-btn',true);
+    var t0=Date.now(), who=pending;
+    emailApi({action:'verify',email:who.email,code:c}).then(function(r){
+      busyBtn('code-btn',false);
+      if(r.status===200&&r.body&&r.body.user){ pending=null; finishSignIn(r.body.user,'email',!!r.body.created,t0); return; }
+      panelError('code-err',msgFor(r));
+    }).catch(function(){ busyBtn('code-btn',false); panelError('code-err',OFFLINE); });
+  }
+  function resendCode(){
+    if(!pending) return;
+    authNote('','code-note'); panelError('code-err','');
+    emailApi({action:'register',email:pending.email,password:pending.password,displayName:pending.displayName}).then(function(r){
+      if(r.status===200){ authNote('We sent a new code. Use the one in the newest email.','code-note'); document.getElementById('code-inp').value=''; cooldown('code-resend'); }
+      else panelError('code-err',msgFor(r));
+    }).catch(function(){ panelError('code-err',OFFLINE); });
+  }
+  function forgot(){
+    var e=(document.getElementById('forgot-email').value||'').trim();
+    if(!validEmail(e)){ panelError('forgot-err','That email address does not look right. Check for a typo.'); return; }
+    panelError('forgot-err',''); busyBtn('forgot-btn',true);
+    emailApi({action:'forgot',email:e}).then(function(r){
+      busyBtn('forgot-btn',false);
+      if(r.status===200){
+        resetEmail=e;
+        authPanel('reset');
+        document.getElementById('reset-to').textContent=e;
+        document.getElementById('reset-code').value=''; document.getElementById('reset-pw').value='';
+        cooldown('reset-resend');
+        return;
+      }
+      panelError('forgot-err',msgFor(r));
+    }).catch(function(){ busyBtn('forgot-btn',false); panelError('forgot-err',OFFLINE); });
+  }
+  function resendReset(){
+    if(!resetEmail) return;
+    authNote('','reset-note'); panelError('reset-err','');
+    emailApi({action:'forgot',email:resetEmail}).then(function(r){
+      if(r.status===200){ authNote('We sent a new code. Use the one in the newest email.','reset-note'); cooldown('reset-resend'); }
+      else panelError('reset-err',msgFor(r));
+    }).catch(function(){ panelError('reset-err',OFFLINE); });
+  }
+  function doReset(){
+    var c=(document.getElementById('reset-code').value||'').replace(/\D/g,'');
+    var pw=document.getElementById('reset-pw').value;
+    if(c.length!==6){ panelError('reset-err','Type the 6 digits from the email.'); return; }
+    if([...pw].length<10){ panelError('reset-err','Your new password needs at least 10 characters.'); return; }
+    panelError('reset-err',''); busyBtn('reset-btn',true);
+    emailApi({action:'reset',email:resetEmail,code:c,password:pw}).then(function(r){
+      busyBtn('reset-btn',false);
+      if(r.status===200){
+        authPanel('main'); switchAuthTab('si');
+        document.getElementById('auth-email').value=resetEmail;
+        document.getElementById('auth-pw').value='';
+        authNote('Your password is changed, and LENA signed you out on your other devices. Sign in with your new password.');
+        setTimeout(function(){ try{ document.getElementById('auth-pw').focus(); }catch(e){} },80);
+        return;
+      }
+      panelError('reset-err',msgFor(r));
+    }).catch(function(){ busyBtn('reset-btn',false); panelError('reset-err',OFFLINE); });
+  }
+
+  /* Through the door with an account, whichever way: Google or email. */
+  function finishSignIn(user,how,isNew,t0){
+    me=user; available=true;
+    // This device last synced someone else's account: their entries
+    // stay with their account, not this one.
+    var owner=null; try{ owner=localStorage.getItem('lena_sync_owner'); }catch(e){}
+    if(owner&&owner!==me.id) clearSynced();
+    try{
+      localStorage.setItem('lena_sync_owner',me.id);
+      localStorage.setItem('lena_auth',how);
+      localStorage.removeItem('lena_signed_out');
+    }catch(e){}
+    try{ saveUser({name:me.displayName||'',email:me.email}); }catch(e){}
+    currentAuthTab=isNew?'re':'si';
+    showBusy('Signing you in…',isNew?'Setting up your LENA account.':'Bringing your entries from your LENA account.');
+    // v37: bring the account's entries in first (at most 6 seconds),
+    // so a second device does not ask the religion question or the
+    // check-in again.
+    var start=t0||Date.now();
+    var t=new Promise(function(r){ setTimeout(r,6000); });
+    var least=new Promise(function(r){ setTimeout(r,Math.max(0,700-(Date.now()-start))); });
+    Promise.race([syncNow(),t]).then(function(){ return least; }).then(function(){
+      hideBusy();
+      try{ authPanel('main'); }catch(e){}
+      proceedAfterAuth(me.email);
+    });
   }
 
   function logout(){
@@ -6473,27 +6758,7 @@ window.LENA_BACKEND = (function(){
           authError((r.body&&r.body.message)||'Google sign-in did not work. Please try again.');
           return;
         }
-        me=r.body.user;
-        // This device last synced someone else's account: their entries
-        // stay with their account, not this one.
-        var owner=null; try{ owner=localStorage.getItem('lena_sync_owner'); }catch(e){}
-        if(owner&&owner!==me.id) clearSynced();
-        try{
-          localStorage.setItem('lena_sync_owner',me.id);
-          localStorage.setItem('lena_auth','google');
-          localStorage.removeItem('lena_signed_out');
-        }catch(e){}
-        try{ saveUser({name:me.displayName||'',email:me.email}); }catch(e){}
-        currentAuthTab='si';
-        // v37: bring the account's entries in first (at most 6 seconds),
-        // so a second device does not ask the religion question or the
-        // check-in again.
-        var t=new Promise(function(r){ setTimeout(r,6000); });
-        var least=new Promise(function(r){ setTimeout(r,Math.max(0,700-(Date.now()-t0))); });
-        Promise.race([syncNow(),t]).then(function(){ return least; }).then(function(){
-          hideBusy();
-          proceedAfterAuth(me.email);
-        });
+        finishSignIn(r.body.user,'google',false,t0);
       })
       .catch(function(){ hideBusy(); authError('Could not reach LENA. Check your connection and try again.'); });
   }
@@ -6528,6 +6793,7 @@ window.LENA_BACKEND = (function(){
     api('/api/config').then(function(r){
       if(r.status!==200) return;
       emailAccounts=!!r.body.emailAccounts;
+      if(available) try{ authEmailMode(emailAccounts); }catch(e){}
       googleClientId=r.body.googleClientId||null;
       if(googleClientId) renderGoogle();
     }).catch(function(){});
@@ -6535,15 +6801,17 @@ window.LENA_BACKEND = (function(){
       .then(function(r){
         if(r.status!==200||r.body.degraded) return false;
         available=true;
+        if(emailAccounts) try{ authEmailMode(true); }catch(e){}
         me=r.body.user||null;
         if(me){ return syncNow().then(function(){ return true; }); }
         else{
-          // Signed in with Google on this device, but the session has
-          // ended (30 days, or signed out elsewhere). Ask again.
+          // Signed in to an account on this device, but the session has
+          // ended (30 days, signed out elsewhere, or the password was
+          // reset). Ask again.
           var a=null,out=null; try{ a=localStorage.getItem('lena_auth'); out=localStorage.getItem('lena_signed_out'); }catch(e){}
-          if(a==='google'&&out!=='1'){
+          if((a==='google'||a==='email')&&out!=='1'){
             try{ localStorage.removeItem('lena_auth'); localStorage.setItem('lena_signed_out','1'); }catch(e){}
-            try{ toast('Please sign in with Google again'); }catch(e){}
+            try{ toast(a==='google'?'Please sign in with Google again':'Please sign in again'); }catch(e){}
             setTimeout(function(){ location.reload(); },1600);
           }
         }
@@ -6561,6 +6829,7 @@ window.LENA_BACKEND = (function(){
     get emailAccounts(){ return emailAccounts; },
     renderGoogle:renderGoogle, signOutAccount:signOutAccount, clearSynced:clearSynced,
     probe:probe, authenticate:authenticate, logout:logout,
+    verifyCode:verifyCode, resendCode:resendCode, forgot:forgot, resendReset:resendReset, doReset:doReset, clearPending:clearPending,
     deleteAccount:deleteAccount, syncNow:syncNow, settled:settled,
     localRecords:localRecords, applyRemote:applyRemote, uuidFrom:uuidFrom
   };
@@ -7042,6 +7311,9 @@ setInterval(function(){
   // Enter submits these single-line fields, like a form.
   const ENTER={
     'auth-email':function(){click('auth-btn');},'auth-pw':function(){click('auth-btn');},'auth-name':function(){click('auth-btn');},
+    'code-inp':function(){click('code-btn');},'forgot-email':function(){click('forgot-btn');},
+    'reset-code':function(){const p=document.getElementById('reset-pw');if(p)p.focus();},'reset-pw':function(){click('reset-btn');},
+    'dp-pw':function(){click('dp-yes');},
     'pf-name-input':function(){saveProfileName();},
     'sp-n1':function(){saveSafety();},'sp-p1':function(){saveSafety();},'sp-n2':function(){saveSafety();},
     'sp-p2':function(){saveSafety();},'sp-n3':function(){saveSafety();},'sp-p3':function(){saveSafety();}

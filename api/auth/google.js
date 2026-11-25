@@ -9,17 +9,17 @@
 // account. The email is only used once, to join an existing LENA
 // account with the same address the first time someone uses Google.
 //
-// Joining is careful. Email sign-up on LENA does not check that people
-// own the address they type, so an account with this email could have
-// been made by someone else. Google has checked the address, so the
-// Google user is the real owner: on joining, any password on the old
-// account is removed and its other sessions are ended, so whoever made
-// it can no longer get in.
+// Joining. Since v39 an email account only exists once its owner typed
+// the code sent to that address, so it is the same person: Google is
+// added and the password keeps working too. An older account whose
+// address was never checked could have been made by someone else, so
+// for those the password is removed and their other sessions ended,
+// and only the Google owner can get in.
 import { query, json, methodNotAllowed, readBody, publicUser, startSession, sameOrigin } from '../_lib/db.js';
 import { normaliseEmail } from '../_lib/auth.js';
 import { verifyGoogleIdToken, GoogleTokenError } from '../_lib/google.js';
 
-const FIELDS = 'id, email, display_name, picture, google_sub';
+const FIELDS = 'id, email, display_name, picture, google_sub, email_verified, (pw_hash IS NOT NULL) AS has_password';
 
 async function findOrCreate(g) {
   const email = normaliseEmail(g.email);
@@ -40,9 +40,15 @@ async function findOrCreate(g) {
       // Already joined to a different Google account. Do not take it over.
       const e = new Error('email_in_use'); e.code = 'email_in_use'; throw e;
     }
+    if (u.email_verified) {
+      const up = await query(
+        `UPDATE users SET google_sub = $2, picture = $3, display_name = COALESCE(display_name, $4), last_login_at = now()
+          WHERE id = $1 RETURNING ${FIELDS}`, [u.id, g.sub, g.picture, g.name]);
+      return up.rows[0];
+    }
     await query('DELETE FROM sessions WHERE user_id = $1', [u.id]);
     const up = await query(
-      `UPDATE users SET google_sub = $2, picture = $3, pw_hash = NULL, display_name = COALESCE(display_name, $4),
+      `UPDATE users SET google_sub = $2, picture = $3, pw_hash = NULL, email_verified = true, display_name = COALESCE(display_name, $4),
               failed_logins = 0, locked_until = NULL, last_login_at = now()
         WHERE id = $1 RETURNING ${FIELDS}`, [u.id, g.sub, g.picture, g.name]);
     return up.rows[0];
@@ -50,8 +56,8 @@ async function findOrCreate(g) {
   // 3. Someone new.
   try {
     const ins = await query(
-      `INSERT INTO users (email, email_norm, pw_hash, display_name, google_sub, picture, last_login_at)
-       VALUES ($1, $2, NULL, $3, $4, $5, now()) RETURNING ${FIELDS}`,
+      `INSERT INTO users (email, email_norm, pw_hash, display_name, google_sub, picture, email_verified, last_login_at)
+       VALUES ($1, $2, NULL, $3, $4, $5, true, now()) RETURNING ${FIELDS}`,
       [g.email, email, g.name, g.sub, g.picture]);
     return ins.rows[0];
   } catch (e) {

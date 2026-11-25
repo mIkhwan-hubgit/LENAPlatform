@@ -1,14 +1,20 @@
-# LENA backend: Continue with Google (v36)
+# LENA backend: accounts (Google v36, email v39)
 
-Signing in with Google gives each person a LENA account. Their mood,
-sleep, journal, screening results, safety plan and settings are backed
-up to it, so they are there on any device they sign in on. Guests and
-the email form keep working on the device only, as before. Email
-accounts are the next step.
+A LENA account backs up a person's mood, sleep, journal, screening
+results, safety plan and settings, so they are there on any device they
+sign in on. There are two ways to have one:
 
-Until the three settings below are in place, the app looks and works
-exactly as it did: the Google button only appears once the server says
-Google sign-in is set up.
+- **Continue with Google** (steps 1 to 4), and
+- **email and password** (step 5), with a 6-digit code emailed to check
+  the address, and "Forgot password?".
+
+One email address is one account, whichever way is used. Guests keep
+everything on their device, as before.
+
+Until the settings are in place the app works exactly as it did: the
+Google button appears once Google is set up, and the email form makes
+real accounts once Gmail is set up. Before that, the email form keeps
+working on the device only.
 
 **Keep every key and connection string out of GitHub and out of chats.**
 They go in Vercel's Environment Variables only, like `LENA_API_KEY`.
@@ -78,6 +84,48 @@ Then redeploy (Deployments → ⋯ → Redeploy). `package.json` now lists
 Live Server on your laptop has no `/api`, so the Google button does not
 appear there. That is expected. Test sign-in on the Vercel address.
 
+## 5. Email accounts (v39, about 10 minutes)
+
+### 5a. Gmail App password (on the team account)
+1. Sign in to Google as **lena.platform.iium@gmail.com**.
+2. Go to <https://myaccount.google.com/security> and turn on
+   **2-Step Verification** (it needs a phone number).
+3. Go to <https://myaccount.google.com/apppasswords>, type `LENA` as the
+   app name, and click **Create**.
+4. Google shows a 16-letter password **once**. Keep the window open for
+   the next step. If it ever leaks, delete it on the same page and make
+   a new one.
+
+### 5b. Vercel settings
+Settings -> Environment Variables -> Add New, ticking Production and Preview:
+
+| Name | Value |
+|---|---|
+| `GMAIL_USER` | `lena.platform.iium@gmail.com` |
+| `GMAIL_APP_PASSWORD` | the 16 letters (spaces or no spaces both work) |
+
+### 5c. Database
+Neon -> SQL Editor -> paste all of `db/schema.sql` again -> Run. It adds
+the tables for codes and for slowing down password guessing, and leaves
+everything already there alone.
+
+### 5d. Redeploy and check
+1. Commit and push (this adds `nodemailer`, the email library, to
+   `package.json`), wait for **Ready**, then Deployments -> ⋯ -> Redeploy
+   so the new settings are read.
+2. `https://lenaplatform.vercel.app/api/config` should now show
+   `"emailAccounts":true`.
+3. In an Incognito window: **Register** with a real email you can open,
+   a name and a password of 10+ characters. A code arrives from LENA
+   (check spam the first time and mark it "Not spam"). Type it in: you
+   are in.
+4. Sign out, then **Forgot password?** with the same email: a code
+   arrives, choose a new password, sign in with it.
+
+If the code never arrives: check both Gmail settings, that 2-Step
+Verification is still on, and Vercel -> Logs for `register email failed`.
+Gmail allows about 500 emails a day from one account.
+
 ---
 
 ## What it does, briefly
@@ -94,7 +142,25 @@ appear there. That is expected. Test sign-in on the Vercel address.
 - Sign Out backs up first, then removes the backed-up entries from that
   device, so the next person on a shared phone does not see them.
 - Delete everything (Privacy & Data) deletes the LENA account and all of
-  its entries on the server, then everything on the device.
+  its entries on the server, then everything on the device. Accounts
+  with a password type it to confirm.
+- `api/auth/email.js` (one file, because Vercel's free plan allows 12
+  server functions and LENA now has 9) does register, code, sign in,
+  forgot and reset, following the OWASP cheat sheets and NIST SP 800-63B:
+  - Passwords: at least 10 characters, no symbol rules, common and
+    leaked passwords refused (Have I Been Pwned, only 5 characters of
+    the hash leave the server), stored with scrypt.
+  - Codes: 6 random digits, only a hash stored, 15 minutes, 5 tries, a
+    new one at most once a minute, no links in the emails.
+  - The screens never say whether an email has an account; the email
+    to that address does.
+  - Wrong passwords slow down (30 s, growing to 5 min) per connection
+    instead of locking the account; 30 misses from anywhere in an hour
+    pause the address for 15 minutes.
+  - After a reset every device is signed out and the owner is emailed.
+  - Registering with an address that has a Google account adds a
+    password to it after the code; Google sign-in on an email account
+    keeps its password.
 
 ## Tests
 
@@ -102,12 +168,17 @@ With a throwaway Postgres (never the live one):
 
 ```
 DATABASE_URL=postgres://user@127.0.0.1:5432/lenatest node tests/test_google.mjs
+DATABASE_URL=postgres://user@127.0.0.1:5432/lenatest node tests/test_email.mjs
 node tests/test_auth.mjs
 ```
 
 `test_google.mjs` stands in for Google with its own key pair and checks
 36 things, including tokens for other websites, expired, forged and
 altered tokens, account joining, sync, sign-out and deletion.
+`test_email.mjs` stands in for Gmail and checks 84 things: password
+rules, codes (wrong, used up, expired, resent), the same answers for
+known and unknown addresses, slowing down guessing, forgot and reset,
+joining with Google both ways, and deleting.
 
 ## Before real students use it
 
