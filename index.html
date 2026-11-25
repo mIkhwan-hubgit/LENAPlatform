@@ -375,7 +375,7 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 /* FINAL LENA TEAM + AUTH FIXES */
 #auth-screen{overflow-y:auto;min-height:100vh;height:100vh;padding:60px 20px;justify-content:flex-start!important;}
 #sc-team{min-height:100%;}
-.team-screen{padding-bottom:60px;padding-top:10px;} .team-screen .team-grid2{align-items:start;} .team-card2 img{display:block!important;visibility:visible!important;opacity:1!important;}
+.team-screen{padding-bottom:60px;padding-top:10px;} .team-screen .team-grid2{align-items:start;} .team-card2 img{display:block!important;visibility:visible!important;opacity:1!important;margin-left:auto;margin-right:auto;}
 .team-card2{opacity:1!important;visibility:visible!important;}
 .team-card2 img{display:block!important;opacity:1!important;}
 .team-card2 h3,.team-card2 p{opacity:1!important;visibility:visible!important;}
@@ -845,7 +845,7 @@ button:active:not(:disabled),[role="button"]:active,[role="switch"]:active,.scp:
 .sl-more-btn{display:block;margin:16px 0 0;background:none;border:0;padding:6px 0;font:inherit;font-size:13px;font-weight:700;color:var(--primary-t);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 .sl-save{width:100%;padding:13px;margin-top:18px;font-size:14.5px}
 .sl-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:12px}
-.sl-stat{background:var(--bg3);border-radius:var(--r);padding:12px 10px;text-align:center}
+.sl-stat{background:var(--bg3);border-radius:var(--r);padding:12px 10px;text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center}
 .sl-sn{font-family:var(--ff-d);font-size:18px;color:var(--lav-t);font-weight:700;line-height:1.25}
 .sl-sn span{font-family:var(--ff-b);font-size:11px;color:var(--muted);font-weight:600}
 .sl-sl{font-size:11px;color:var(--muted);font-weight:600;margin-top:3px}
@@ -1004,7 +1004,8 @@ button:active:not(:disabled),[role="button"]:active,[role="switch"]:active,.scp:
 @media (min-width:821px){
   .app{transition:grid-template-columns .25s ease}
   .app.sb-mini{grid-template-columns:76px 1fr}
-  .sb-mini .sidebar{overflow-x:hidden}
+  .sb-mini .sidebar{overflow-x:hidden;position:relative}
+  .sb-mini .nav-link{position:relative}
   .sb-mini .logo{padding:0 0 14px;display:flex;flex-direction:column;align-items:center;gap:10px}
   .sb-mini .sb-tog{position:static;order:2}
   .sb-mini .sb-find{display:inline-flex;order:3}
@@ -1710,7 +1711,7 @@ return {
 <div class="atxt" lang="ar" dir="rtl">﴿ وَلَا تَيْأَسُوا مِن رَّوْحِ اللَّهِ ﴾</div>
 <div class="atrans">"And despair not of relief from Allah."</div>
 <div class="aref">Surah Yusuf (12:87)</div>
-<div style="display:flex;gap:10px;margin-top:16px">
+<div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:16px">
 <button class="btn-p" onclick="openResModal('Quranic Reflection','Surah Yusuf 12:87 · 5 min','📖','Islamic')" style="padding:9px 18px;font-size:12px">📖 Read</button>
 <button class="btn-g" onclick="go('islamic')" style="padding:9px 18px;font-size:12px">More reflections ›</button>
 </div>
@@ -2084,7 +2085,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <p style="font-size:12px;color:var(--muted)">The sunset loading scene uses photos by Pietro De Grandi and Margo Evardson on Unsplash.</p>
 <div class="about-acts"><button class="btn-g" onclick="go('team')" style="padding:10px 18px;font-size:13px">Meet the team</button></div>
 </div>
-<div class="about-ver">LENA v1.0 · build 37 · IIUM KICT</div>
+<div class="about-ver">LENA v1.0 · build 38 · IIUM KICT</div>
 </div>
 <div class="sp"></div>
 </div>
@@ -2103,7 +2104,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <div id="bsteps" class="bsteps" aria-hidden="true"></div>
 <div id="bdots" aria-hidden="true" style="display:none;gap:8px"></div>
 <div id="hold-live" class="sr-only" aria-live="polite"></div>
-<div id="bdesc-t" style="font-size:14px;color:var(--text2);text-align:center;max-width:320px;line-height:1.7"><strong>Breathe in</strong> for 4 → Hold 7 → <strong>Breathe out</strong> for 8.<br/>Click the orb to begin.</div>
+<div id="bdesc-t" style="font-size:14px;color:var(--text2);text-align:center;width:100%;max-width:420px;line-height:1.7;text-wrap:balance"><strong>Breathe in</strong> for 4 → Hold 7 → <strong>Breathe out</strong> for 8.<br/>Click the orb to begin.</div>
 <button id="bbtn" onclick="toggleBreath()" style="padding:14px 42px;border-radius:30px;border:none;background:linear-gradient(135deg,var(--fill),var(--fill2));color:var(--on-fill);font-family:var(--ff-b);font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 6px 20px var(--shadow);transition:all .2s">▶ Begin</button>
 <button id="bchime" class="bchime" type="button" onclick="toggleChime()" aria-pressed="false" aria-label="Soft chime at each breath"><span class="bchime-i" aria-hidden="true">🔔</span><span id="bchime-t">Chime off</span></button>
 </div>
