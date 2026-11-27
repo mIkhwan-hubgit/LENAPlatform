@@ -2,8 +2,9 @@
    LENA Pop & Squeeze
 
    Five sections:
-     Free Pop         pop-it (Easy, Medium, Hard) and bubble wrap with
-                      four pop sounds.
+     Free Pop         jelly pop-it (Easy, Medium, Hard), squishy bubble
+                      wrap with five pop sounds, and floating soap
+                      bubbles that never run out.
      Thought Pop      pop the thinking traps, let balanced thoughts float
                       away. Three lives.
      Word Hunt        tap the giveaway words in a trap sentence.
@@ -49,30 +50,55 @@ const CSS = `
 /* ── pop-it ── */
 .lp-popit-wrap{display:flex;justify-content:center;align-items:center;padding:22px;perspective:1100px;min-height:420px}
 .lp-round~.lp-popit-wrap,.lp-popit-wrap.hard{padding-top:54px}
-.lp-board{display:grid;gap:9px;padding:18px;border-radius:30px;background:#EEF4F2;
+.lp-board{display:grid;gap:9px;padding:18px;border-radius:30px;background:#F7EEF3;
   box-shadow:0 10px 30px rgba(0,0,0,.10),inset 0 2px 0 rgba(255,255,255,.8),inset 0 -3px 0 rgba(0,0,0,.05);
   transform-style:preserve-3d;transition:transform .7s cubic-bezier(.45,.05,.3,1.2)}
 .lp-board.flip{transform:rotateY(180deg)}
+/* v41: jelly. Glossy, light glows through the bottom, squashes under a
+   finger and wobbles back; a popped one leaves a wet mark. */
 .lp-b{--c:#9CC9F0;width:var(--s,48px);height:var(--s,48px);border-radius:50%;border:none;padding:0;cursor:pointer;position:relative;
-  background:radial-gradient(circle at 34% 30%,color-mix(in srgb,var(--c) 45%,#fff) 0%,var(--c) 52%,color-mix(in srgb,var(--c) 78%,#000) 100%);
-  box-shadow:0 4px 0 color-mix(in srgb,var(--c) 70%,#000),0 6px 10px rgba(0,0,0,.14);
-  transform:translateY(0) scale(1);transition:transform .32s cubic-bezier(.34,1.8,.5,1),box-shadow .2s,background .2s}
-.lp-b.press{transform:translateY(3px) scale(.92);box-shadow:0 1px 0 color-mix(in srgb,var(--c) 70%,#000),0 2px 4px rgba(0,0,0,.12);transition-duration:.07s}
-.lp-b.down{background:radial-gradient(circle at 50% 58%,color-mix(in srgb,var(--c) 78%,#000) 0%,color-mix(in srgb,var(--c) 88%,#000) 45%,var(--c) 78%,color-mix(in srgb,var(--c) 55%,#fff) 100%);
-  box-shadow:inset 0 6px 10px rgba(0,0,0,.28),inset 0 -3px 4px rgba(255,255,255,.45),0 1px 0 rgba(255,255,255,.6);transform:translateY(3px) scale(.94)}
+  background:
+    radial-gradient(ellipse 24% 13% at 30% 25%,rgba(255,255,255,.95) 0 55%,rgba(255,255,255,0) 100%),
+    radial-gradient(circle at 45% 15%,rgba(255,255,255,.8) 0 3%,rgba(255,255,255,0) 4.5%),
+    radial-gradient(ellipse 45% 32% at 60% 80%,rgba(255,255,255,.38) 0,rgba(255,255,255,0) 100%),
+    radial-gradient(circle at 36% 32%,color-mix(in srgb,var(--c) 52%,#fff) 0%,var(--c) 60%,color-mix(in srgb,var(--c) 80%,#000) 100%);
+  box-shadow:0 7px 7px -5px rgba(120,70,110,.35);
+  transform:none;transition:transform .5s cubic-bezier(.3,1.9,.45,1),box-shadow .2s}
+.lp-b.press{transform:translateY(2px) scale(1.13,.84);transition:transform .12s ease-out}
+.lp-b.jig{animation:lpJig .55s ease-out}
+@keyframes lpJig{0%{transform:scale(1.1,.88)}30%{transform:scale(.94,1.07)}55%{transform:scale(1.04,.97)}80%{transform:scale(.99,1.01)}100%{transform:none}}
+.lp-b.down{background:radial-gradient(circle,color-mix(in srgb,var(--c) 24%,#F7EEF3) 0 46%,color-mix(in srgb,var(--c) 46%,#F7EEF3) 60%,color-mix(in srgb,var(--c) 16%,#F7EEF3) 68%,rgba(247,238,243,0) 71%);
+  box-shadow:inset 0 2px 4px rgba(120,70,110,.16);transform:scale(.92);animation:lpSplat .32s ease-out}
+@keyframes lpSplat{0%{transform:scale(1.35,.55);opacity:.5}100%{transform:scale(.92);opacity:1}}
 .lp-b:focus-visible{outline:3px solid var(--lp-fill);outline-offset:3px}
 
 /* ── bubble wrap ── */
-.lp-wrap-sheet{position:relative;margin:18px auto;padding:16px 10px;border-radius:16px;
-  background:linear-gradient(160deg,rgba(225,240,248,.9),rgba(205,228,240,.9));box-shadow:0 8px 24px rgba(0,0,0,.08)}
-.lp-wrow{display:flex;justify-content:center;gap:6px}
-.lp-wrow+.lp-wrow{margin-top:-4px}
-.lp-wrow.odd{transform:translateX(calc(var(--s,44px) / 2 + 3px))}
-.lp-w{width:var(--s,44px);height:var(--s,44px);border-radius:50%;border:none;padding:0;cursor:pointer;
-  background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.98) 0 12%,rgba(255,255,255,.35) 32%,rgba(170,205,225,.45) 70%,rgba(120,165,195,.55) 100%);
-  box-shadow:inset -3px -4px 8px rgba(80,130,165,.25),0 2px 4px rgba(60,100,130,.18);transition:transform .25s cubic-bezier(.34,1.7,.5,1),opacity .25s}
-.lp-w.pop{transform:scale(.82) rotate(8deg);opacity:.55;cursor:default;border-radius:46% 54% 40% 60%/55% 42% 58% 45%;
-  background:radial-gradient(circle at 50% 50%,rgba(255,255,255,.3),rgba(150,190,210,.35));box-shadow:inset 0 1px 3px rgba(80,130,165,.3)}
+.lp-wrap-sheet{position:relative;margin:18px auto;padding:18px 12px;border-radius:18px;
+  background:repeating-linear-gradient(135deg,rgba(150,130,175,.14) 0 1px,transparent 1px 18px),linear-gradient(160deg,#EEE8F4,#E2DAEC);
+  box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.lp-wrow{display:flex;justify-content:center;gap:8px}
+.lp-wrow+.lp-wrow{margin-top:-2px}
+.lp-wrow.odd{transform:translateX(calc(var(--s,64px) / 2 + 4px))}
+/* v41: clear plastic domes over a printed sheet. Pressing bulges and
+   creases them; popped ones stay crumpled with a tear. */
+.lp-w{position:relative;width:var(--s,64px);height:var(--s,64px);border-radius:50%;border:none;padding:0;cursor:pointer;
+  background:
+    radial-gradient(ellipse 25% 14% at 31% 26%,rgba(255,255,255,.95) 0 55%,rgba(255,255,255,0) 100%),
+    radial-gradient(circle at 73% 72%,rgba(255,255,255,.5) 0 5%,rgba(255,255,255,0) 6.5%),
+    radial-gradient(circle at 34% 32%,rgba(255,255,255,.62) 0%,rgba(255,255,255,.14) 42%,rgba(205,228,236,.16) 82%,rgba(110,150,170,.45) 100%);
+  box-shadow:inset 1px 1.5px 0 rgba(255,255,255,.75),inset -1px -2px 0 rgba(80,120,140,.28),4px 7px 10px -3px rgba(40,50,70,.25);
+  transition:transform .5s cubic-bezier(.3,1.9,.45,1),opacity .25s}
+.lp-w::before{content:'';position:absolute;inset:18% 10%;border-radius:50%;opacity:0;transition:opacity .12s;pointer-events:none;
+  background:linear-gradient(172deg,transparent 30%,rgba(255,255,255,.75) 31% 33%,transparent 34% 60%,rgba(255,255,255,.6) 61% 63%,transparent 64%)}
+.lp-w.press{transform:scale(1.15,.8);transition:transform .2s ease-out}
+.lp-w.press::before{opacity:1}
+.lp-w.pop{cursor:default;transform:scale(.9) rotate(var(--rot,8deg));border-radius:46% 54% 40% 60%/55% 42% 58% 45%;
+  background:linear-gradient(var(--a1,30deg),transparent 46%,rgba(255,255,255,.6) 47% 49%,rgba(60,90,105,.2) 50% 51%,transparent 52%),
+    linear-gradient(var(--a2,110deg),transparent 46%,rgba(255,255,255,.5) 47% 48.5%,rgba(60,90,105,.18) 49.5% 50.5%,transparent 51.5%),
+    rgba(255,255,255,.12);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.55);animation:lpDeflate .3s ease-out}
+.lp-w.pop::after{content:'';position:absolute;left:22%;right:22%;top:38%;height:22%;border-top:1.6px solid rgba(40,70,85,.45);border-radius:50%;transform:rotate(var(--a3,-12deg));pointer-events:none}
+@keyframes lpDeflate{0%{transform:scale(1.18,.72)}100%{transform:scale(.9) rotate(var(--rot,8deg))}}
 .lp-w:focus-visible{outline:3px solid var(--lp-fill);outline-offset:2px}
 .lp-sheet-in{animation:lpSheet .55s cubic-bezier(.3,1.4,.5,1)}
 @keyframes lpSheet{from{transform:translateY(40px) scale(.96);opacity:0}to{transform:none;opacity:1}}
@@ -120,15 +146,33 @@ const CSS = `
 .lp-card .lp-tab{margin-top:12px;background:var(--lp-fill);border-color:var(--lp-fill);color:var(--lp-on);padding:10px 22px}
 /* hard pop-it */
 .lp-b.dbl::after{content:'';position:absolute;inset:22%;border-radius:50%;border:2.5px dashed rgba(255,255,255,.85)}
-.lp-b.half{filter:saturate(1.5) brightness(.93)}
+.lp-b.half{filter:saturate(1.35) brightness(.95);transform:scale(.9)}
 .lp-b.half::after{border-style:solid;inset:30%}
 .lp-b.refill{animation:lpRefill .45s cubic-bezier(.34,1.8,.5,1)}
-@keyframes lpRefill{0%{transform:translateY(3px) scale(.9)}60%{transform:translateY(-2px) scale(1.08)}100%{transform:none}}
+@keyframes lpRefill{0%{transform:scale(.15);opacity:.4}55%{transform:scale(1.14,.9);opacity:1}75%{transform:scale(.95,1.05)}100%{transform:none}}
 .lp-round{position:absolute;left:12px;top:10px;z-index:3;background:var(--lp-card);padding:6px 12px;border-radius:999px;
   font-weight:700;font-size:13px;box-shadow:0 2px 10px rgba(0,0,0,.08);font-variant-numeric:tabular-nums}
 
+/* ── soap bubbles (v41) ── */
+.lp-soap{position:relative;height:440px;overflow:hidden;background:linear-gradient(180deg,#16424A,#0B2630)}
+.lp-soap .lp-glow{position:absolute;border-radius:50%;background:rgba(159,227,214,.08);pointer-events:none}
+.lp-s{position:absolute;left:0;top:0;width:var(--d,70px);height:var(--d,70px);border-radius:50%;border:none;padding:0;cursor:pointer;background:transparent;will-change:transform}
+/* thin-film colours: gold where the film is thin at the top, magenta,
+   blue and green lower down, clear in the middle and slowly turning */
+.lp-s::before{content:'';position:absolute;inset:0;border-radius:50%;pointer-events:none;
+  background:linear-gradient(var(--ang,170deg),hsla(45,90%,66%,.6),hsla(30,90%,66%,.38) 18%,hsla(320,90%,66%,.5) 34%,hsla(275,90%,66%,.38) 50%,hsla(200,90%,66%,.5) 64%,hsla(150,90%,66%,.45) 80%,hsla(55,90%,66%,.55));
+  -webkit-mask:radial-gradient(circle closest-side,rgba(0,0,0,.18) 0,rgba(0,0,0,.45) 70%,#000 93%,rgba(0,0,0,.85) 100%);
+  mask:radial-gradient(circle closest-side,rgba(0,0,0,.18) 0,rgba(0,0,0,.45) 70%,#000 93%,rgba(0,0,0,.85) 100%);
+  filter:hue-rotate(var(--hue,0deg));animation:lpSwirl var(--sw,12s) linear infinite}
+.lp-s::after{content:'';position:absolute;inset:0;border-radius:50%;pointer-events:none;
+  background:radial-gradient(ellipse 22% 9% at 30% 21%,rgba(255,255,255,.72) 0 55%,rgba(255,255,255,0) 100%),
+    radial-gradient(ellipse 7% 4% at 76% 77%,rgba(255,255,255,.35) 0 55%,rgba(255,255,255,0) 100%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.5)}
+@keyframes lpSwirl{to{transform:rotate(360deg)}}
+.lp-s:focus-visible{outline:3px solid #9FE3D6;outline-offset:3px}
 @media (prefers-reduced-motion:reduce){
   .lp-board,.lp-b,.lp-w,.lp-tab{transition-duration:.01s!important}
+  .lp-s::before,.lp-b.jig,.lp-b.down,.lp-w.pop,.lp-b.refill{animation:none!important}
   .lp-sheet-in,.lp-label{animation-duration:.01s}
 }`;
 
@@ -152,6 +196,7 @@ function noiseBuf(){
   return (noiseBuf.b = b);
 }
 const vary = (v, p) => v * (1 + (Math.random() * 2 - 1) * p);
+const rnd = (a, b) => a + Math.random() * (b - a);
 function tone(f0, f1, dur, vol, type){
   const t = ac.currentTime, o = ac.createOscillator(), g = ac.createGain();
   o.type = type || 'sine'; o.frequency.setValueAtTime(f0, t); o.frequency.exponentialRampToValueAtTime(f1, t + dur);
@@ -167,19 +212,29 @@ function burst(freq, q, dur, vol, type){
 // Bubble wrap pop styles. Each pop also varies a little in pitch, so a
 // row of pops never sounds like the same sample repeated.
 const WRAP_SOUNDS = {
+  // v41 default: a deep pop, then the plastic crackles as it tears
+  squishy: { name: 'Squishy', play(){ burst(vary(1900, .15), .7, .055, .85); tone(vary(120, .12), 44, .1, .55);
+    for (let i = 0; i < 3; i++) setTimeout(() => { if (ac) burst(vary(3600, .25), 3, .012, rnd(.08, .15)); }, rnd(15, 75)); } },
   crisp: { name: 'Crisp', play(){ burst(vary(3200, .2), .9, .045, .55); burst(900, .7, .03, .2); tone(vary(140, .1), 70, .04, .25); } },
   soft:  { name: 'Soft',  play(){ burst(vary(1100, .2), .7, .07, .4, 'lowpass'); tone(vary(190, .1), 90, .06, .22); } },
   deep:  { name: 'Deep',  play(){ tone(vary(170, .1), 55, .13, .6); burst(vary(650, .15), .8, .07, .25); } },
   bloop: { name: 'Bloop', play(){ tone(vary(300, .1), vary(1150, .08), .085, .32); burst(2500, 1.5, .012, .06); } }
 };
-let wrapSound = 'crisp';
+let wrapSound = 'squishy';
 const SND = {
-  // silicone pop-it: a soft low "thock" with a little click on top
-  popit(){ if (muted || !audio()) return; tone(vary(300, .12), 120, .09, .55); burst(vary(2400, .2), 1.2, .018, .18); },
+  // jelly pop-it: a rising bloop and a few droplets landing
+  popit(){ if (muted || !audio()) return; tone(vary(280, .12), vary(980, .1), .09, .34); burst(800, .7, .05, .16, 'lowpass');
+    for (let i = 0; i < 3; i++) setTimeout(() => { if (!muted && ac) tone(rnd(1700, 2700), rnd(1200, 1700), .03, .035); }, rnd(60, 160)); },
+  // bubble wrap being squeezed: a little plastic creak
+  creak(){ if (muted || !audio()) return; burst(vary(4200, .2), 4, .06, .035); setTimeout(() => { if (!muted && ac) burst(vary(5600, .2), 5, .04, .025); }, 50); },
+  // soap bubble: a tiny high tip and a fine spray
+  soap(){ if (muted || !audio()) return; tone(vary(2300, .2), 1400, .02, .13, 'triangle'); burst(6500, .7, .012, .11, 'highpass');
+    setTimeout(() => { if (!muted && ac) burst(vary(9000, .1), 1, .05, .03); }, 6); },
   wrap(style){ if (muted || !audio()) return; (WRAP_SOUNDS[style || wrapSound] || WRAP_SOUNDS.crisp).play(); },
-  // hard pop-it: a bubble filling back up
-  refill(){ if (muted || !audio()) return; tone(vary(180, .1), vary(420, .05), .12, .16, 'triangle'); },
-  half(){ if (muted || !audio()) return; tone(vary(420, .1), 260, .06, .3); },
+  // hard pop-it: a jelly growing back
+  refill(){ if (muted || !audio()) return; tone(vary(240, .1), vary(520, .1), .12, .1, 'triangle'); },
+  // double bubble, first press: a squish without the pop
+  half(){ if (muted || !audio()) return; tone(vary(240, .1), vary(420, .08), .07, .22); burst(700, .7, .04, .08, 'lowpass'); },
   // thought pop
   right(){ if (muted || !audio()) return; tone(660, 660, .12, .14, 'triangle'); setTimeout(() => tone(990, 990, .22, .12, 'triangle'), 80); burst(2400, 1.2, .02, .1); },
   wrong(){ if (muted || !audio()) return; tone(220, 150, .28, .22, 'sawtooth'); tone(233, 156, .28, .12, 'square'); },
@@ -194,33 +249,77 @@ const SND = {
 const buzz = (ms) => { try { if (!muted && navigator.vibrate) navigator.vibrate(ms); } catch (e) {} };
 const reduced = () => { try { return matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; } };
 
-/* ── little burst ring on the effects canvas ──────────────────────── */
+/* ── effects canvas: rings, splashes, puffs, soap film ─────────────── */
+// Calm by design: a handful of particles per pop, nothing that flashes,
+// no screen shake. With reduce motion on there are no effects at all.
 function Fx(stage){
   const c = document.createElement('canvas'); c.className = 'lp-fx'; stage.appendChild(c);
-  const ctx = c.getContext('2d'); let rings = [], raf = 0;
+  const ctx = c.getContext('2d'); let rings = [], parts = [], films = [], raf = 0, last = 0;
   function size(){ const r = stage.getBoundingClientRect(), d = devicePixelRatio || 1; c.width = r.width * d; c.height = r.height * d; ctx.setTransform(d, 0, 0, d, 0, 0); }
   size(); window.addEventListener('resize', size);
-  function frame(){
+  function frame(now){
+    const dt = last ? Math.min(1 / 30, (now - last) / 1000) : 1 / 60; last = now;
     const r = stage.getBoundingClientRect(); ctx.clearRect(0, 0, r.width, r.height);
-    rings.forEach(g => { g.t = Math.min(1, g.t + 1 / 22); });
+    rings.forEach(g => { g.t = Math.min(1, g.t + dt / g.dur); });
     rings = rings.filter(g => g.t < 1);
     rings.forEach(g => {
       const e = 1 - Math.pow(1 - g.t, 3);
-      ctx.globalAlpha = (1 - g.t) * .55; ctx.strokeStyle = g.col; ctx.lineWidth = Math.max(.5, 2.5 * (1 - g.t) + .5);
-      ctx.beginPath(); ctx.arc(g.x, g.y, g.r0 + e * g.r0 * .9, 0, 7); ctx.stroke();
+      ctx.globalAlpha = (1 - g.t) * g.a; ctx.strokeStyle = g.col; ctx.lineWidth = Math.max(.5, g.w * (1 - g.t) + .5);
+      ctx.beginPath(); ctx.arc(g.x, g.y, g.r0 + e * (g.r1 - g.r0), 0, 7); ctx.stroke();
       g.dots.forEach(d => { ctx.fillStyle = g.col; ctx.beginPath(); ctx.arc(g.x + Math.cos(d) * (g.r0 + e * g.r0 * 1.3), g.y + Math.sin(d) * (g.r0 + e * g.r0 * 1.3), Math.max(0, 2.2 * (1 - g.t)), 0, 7); ctx.fill(); });
     });
+    films.forEach(f => { f.t = Math.min(1, f.t + dt / .07); });
+    films = films.filter(f => f.t < 1);
+    films.forEach(f => { // the film snapping back from where it was touched
+      const span = Math.PI * (1 - f.t);
+      ctx.globalAlpha = .8 * (1 - f.t); ctx.strokeStyle = 'hsl(' + f.hue + ',90%,80%)'; ctx.lineWidth = 1 + f.t * 3; ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.arc(f.x, f.y, f.r * (1 - f.t * .15), f.ang + Math.PI - span, f.ang + Math.PI + span); ctx.stroke();
+    });
+    for (let i = parts.length - 1; i >= 0; i--) {
+      const p = parts[i]; p.life += dt; if (p.life >= p.max) { parts.splice(i, 1); continue; }
+      const u = p.life / p.max;
+      p.vy += (p.g || 0) * dt; if (p.drag) { p.vx *= 1 - p.drag * dt; p.vy *= 1 - p.drag * dt; }
+      p.x += p.vx * dt; p.y += p.vy * dt;
+      ctx.globalAlpha = p.a * (1 - u); ctx.fillStyle = p.col;
+      ctx.beginPath(); ctx.arc(p.x, p.y, Math.max(.3, p.r * (p.shrink ? 1 - u * .7 : 1)), 0, 7); ctx.fill();
+    }
     ctx.globalAlpha = 1;
-    raf = rings.length ? requestAnimationFrame(frame) : 0;
+    raf = (rings.length || parts.length || films.length) ? requestAnimationFrame(frame) : (last = 0, 0);
   }
+  const at = (el) => { const s = stage.getBoundingClientRect(), b = el.getBoundingClientRect(); return { x: b.left - s.left + b.width / 2, y: b.top - s.top + b.height / 2, r: b.width / 2 }; };
+  const go = () => { if (!raf) raf = requestAnimationFrame(frame); };
+  const ring = (p, r0, r1, col, dur, w, a, dots) => rings.push({ x: p.x, y: p.y, r0, r1, col, dur, w, a, t: 0, dots: dots || [] });
   return {
     ring(el, col){
       if (reduced()) return;
-      const s = stage.getBoundingClientRect(), b = el.getBoundingClientRect();
-      const n = 6, base = Math.random() * 6;
-      rings.push({ x: b.left - s.left + b.width / 2, y: b.top - s.top + b.height / 2, r0: b.width * .42, t: 0, col: col || 'rgba(31,132,111,.9)',
-        dots: Array.from({ length: n }, (_, i) => base + i * (Math.PI * 2 / n)) });
-      if (!raf) raf = requestAnimationFrame(frame);
+      const p = at(el), n = 6, base = Math.random() * 6, r0 = p.r * .84;
+      ring(p, r0, r0 * 1.9, col || 'rgba(31,132,111,.9)', .37, 2, .55, Array.from({ length: n }, (_, i) => base + i * (Math.PI * 2 / n)));
+      go();
+    },
+    // jelly: a coloured ring and droplets that fall
+    splash(el, col){
+      if (reduced()) return;
+      const p = at(el); col = col || '#E28FA8';
+      ring(p, p.r * .6, p.r * 1.8, col, .3, 3, .5);
+      for (let i = 0; i < 12; i++) { const a = rnd(0, Math.PI * 2), v = rnd(80, 220); parts.push({ x: p.x, y: p.y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 60, g: 520, r: rnd(2, 4.5), col, a: .95, life: 0, max: rnd(.45, .75) }); }
+      go();
+    },
+    // bubble wrap: air rushing out
+    puff(el){
+      if (reduced()) return;
+      const p = at(el);
+      ring(p, p.r * .8, p.r * 1.9, 'rgba(255,255,255,.9)', .25, 3, .6);
+      for (let i = 0; i < 16; i++) { const a = rnd(0, Math.PI * 2), v = rnd(60, 190); parts.push({ x: p.x, y: p.y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, r: rnd(1.6, 3.6), col: '#fff', a: .8, life: 0, max: rnd(.3, .55), drag: 3.2, shrink: true }); }
+      go();
+    },
+    // soap: the film pulls back from the touch, then a fine spray
+    soap(el, ang, hue){
+      if (reduced()) return;
+      const p = at(el);
+      films.push({ x: p.x, y: p.y, r: p.r, ang, hue: ((hue || 0) + 300) % 360, t: 0 });
+      const n = Math.floor(rnd(12, 18));
+      for (let i = 0; i < n; i++) { const a = ang + Math.PI + rnd(-1.6, 1.6), v = rnd(60, 170); parts.push({ x: p.x + Math.cos(a) * p.r, y: p.y + Math.sin(a) * p.r, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 30, g: 420, r: rnd(.8, 2), col: 'rgb(235,250,255)', a: .95, life: 0, max: rnd(.35, .7) }); }
+      go();
     },
     resize: size
   };
@@ -262,6 +361,7 @@ function popit(stage, ui, level){
   let side = 0, left = 0, flipping = false, round = 1, alive = true;
   let best = 1; try { if (L) best = +localStorage.getItem(L.key) || 1; } catch (e) {}
   const bubbles = [];
+  const jiggle = (b) => { if (reduced()) return; b.classList.remove('jig'); void b.offsetWidth; b.classList.add('jig'); };
   for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
     const b = document.createElement('button'); b.type = 'button'; b.className = 'lp-b';
     b.style.setProperty('--s', s + 'px'); b.dataset.r = r;
@@ -281,7 +381,7 @@ function popit(stage, ui, level){
     bubbles.forEach((b, i) => {
       clearTimeout(b._t);
       b.style.setProperty('--c', pal[+b.dataset.r]);
-      b.classList.remove('down', 'press', 'half', 'dbl', 'refill');
+      b.classList.remove('down', 'press', 'half', 'dbl', 'refill', 'jig');
       b.dataset.need = dbl.has(i) ? '2' : '1'; b.dataset.hits = '0';
       if (dbl.has(i)) b.classList.add('dbl');
       b.setAttribute('aria-pressed', 'false'); label(b);
@@ -303,10 +403,10 @@ function popit(stage, ui, level){
     b.classList.remove('press');
     // a double bubble takes two presses
     if (b.dataset.need === '2' && b.dataset.hits === '0') {
-      b.dataset.hits = '1'; b.classList.add('half'); SND.half(); buzz(5); label(b); return;
+      b.dataset.hits = '1'; b.classList.add('half'); SND.half(); buzz(5); jiggle(b); label(b); return;
     }
-    b.classList.remove('half', 'dbl'); b.classList.add('down'); b.setAttribute('aria-pressed', 'true'); label(b);
-    SND.popit(); buzz(8); fx.ring(b, getComputedStyle(b).getPropertyValue('--c'));
+    b.classList.remove('half', 'dbl', 'jig'); b.classList.add('down'); b.setAttribute('aria-pressed', 'true'); label(b);
+    SND.popit(); buzz(10); fx.splash(b, getComputedStyle(b).getPropertyValue('--c').trim());
     if (--left === 0) { bubbles.forEach(x => clearTimeout(x._t)); setTimeout(flip, 420); return; }
     if (hard) b._t = setTimeout(() => refill(b), refillMs());
   }
@@ -322,18 +422,30 @@ function popit(stage, ui, level){
     setTimeout(() => { side ^= 1; paint(); }, 330);
     setTimeout(() => { flipping = false; if (!hard) ui.say(''); }, 720);
   }
-  let pressed = null;
+  // v41: press and the jelly squashes. Hold a moment and it bursts by
+  // itself; let go sooner and it bursts on release. Slide off to change
+  // your mind, and it wobbles back.
+  let pressed = null, holdT = 0;
   board.addEventListener('pointerdown', (e) => {
     const b = e.target.closest('.lp-b'); if (!b || b.classList.contains('down') || flipping) return;
-    audio(); pressed = b; b.classList.add('press');
+    audio(); pressed = b; b.classList.remove('jig'); b.classList.add('press');
+    clearTimeout(holdT); holdT = setTimeout(() => { if (pressed === b) { pressed = null; pop(b); } }, rnd(140, 200));
   });
+  // watched on the whole page, so sliding right off the board cancels too
+  const slide = (e) => {
+    if (!pressed) return;
+    const over = document.elementFromPoint(e.clientX, e.clientY);
+    if (!over || over.closest('.lp-b') !== pressed) { clearTimeout(holdT); pressed.classList.remove('press'); jiggle(pressed); pressed = null; }
+  };
+  window.addEventListener('pointermove', slide);
   const release = (e) => {
+    clearTimeout(holdT);
     if (!pressed) return;
     const b = pressed; pressed = null;
     const over = document.elementFromPoint(e.clientX, e.clientY);
-    if (over && over.closest('.lp-b') === b) pop(b); else b.classList.remove('press');
+    if (over && over.closest('.lp-b') === b) pop(b); else { b.classList.remove('press'); jiggle(b); }
   };
-  const cancel = () => { if (pressed) pressed.classList.remove('press'); pressed = null; };
+  const cancel = () => { clearTimeout(holdT); if (pressed) pressed.classList.remove('press'); pressed = null; };
   window.addEventListener('pointerup', release); window.addEventListener('pointercancel', cancel);
   board.addEventListener('keydown', (e) => {
     if ((e.key === ' ' || e.key === 'Enter') && e.target.classList.contains('lp-b')) { e.preventDefault(); if (!e.repeat) e.target.classList.add('press'); }
@@ -342,59 +454,137 @@ function popit(stage, ui, level){
     if ((e.key === ' ' || e.key === 'Enter') && e.target.classList.contains('lp-b')) { e.preventDefault(); pop(e.target); }
   });
   gridKeys(board, cols);
-  ui.say(level === 'hard' ? 'Pop them all before they fill back up. Dashed bubbles need two presses.' : hard ? 'Pop them all before they fill back up. No rush, you have time.' : 'Press a bubble, then let go.');
-  return () => { alive = false; bubbles.forEach(b => clearTimeout(b._t)); window.removeEventListener('pointerup', release); window.removeEventListener('pointercancel', cancel); };
+  ui.say(level === 'hard' ? 'Pop them all before they fill back up. Dashed bubbles need two presses.' : hard ? 'Pop them all before they fill back up. No rush, you have time.' : 'Press a bubble. Hold it, or let go, to pop it.');
+  return () => { alive = false; clearTimeout(holdT); window.removeEventListener('pointermove', slide); bubbles.forEach(b => clearTimeout(b._t)); window.removeEventListener('pointerup', release); window.removeEventListener('pointercancel', cancel); };
 }
 
 /* ════ FREE POP: bubble wrap ═══════════════════════════════════════ */
+// v41: bigger bubbles that bulge and creak when pressed, then pop with a
+// deep pop and a crackle. Hold one and it pops by itself; let go sooner
+// and it pops on release. Drag across a row and each one you roll off
+// pops as you go.
 function wrapMode(stage, ui){
   const fx = Fx(stage);
-  const w = stage.clientWidth, cols = w < 420 ? 6 : 9, rows = w < 420 ? 8 : 7;
-  const s = Math.max(38, Math.min(52, Math.floor((Math.min(w, 620) - 60 - cols * 6) / (cols + .5))));
-  let sheet = null, left = 0, dragging = false;
+  const w = stage.clientWidth, cols = w < 420 ? 4 : 6, rows = w < 420 ? 6 : 4;
+  const s = Math.max(54, Math.min(84, Math.floor((Math.min(w, 640) - 60 - cols * 8) / (cols + .5))));
+  let sheet = null, left = 0, dragging = false, cur = null, timer = 0;
   function newSheet(){
     if (sheet) sheet.remove();
     sheet = document.createElement('div'); sheet.className = 'lp-wrap-sheet lp-sheet-in';
-    sheet.style.width = (cols * (s + 6) + s / 2 + 20) + 'px'; sheet.style.maxWidth = 'calc(100% - 20px)';
+    sheet.style.width = (cols * (s + 8) + s / 2 + 24) + 'px'; sheet.style.maxWidth = 'calc(100% - 20px)';
     for (let r = 0; r < rows; r++) {
       const row = document.createElement('div'); row.className = 'lp-wrow' + (r % 2 ? ' odd' : '');
       row.style.setProperty('--s', s + 'px');
       for (let c = 0; c < cols; c++) {
         const b = document.createElement('button'); b.type = 'button'; b.className = 'lp-w'; b.style.setProperty('--s', s + 'px');
+        // each one crumples its own way
+        b.style.setProperty('--rot', Math.round(rnd(-14, 14)) + 'deg'); b.style.setProperty('--a1', Math.round(rnd(0, 180)) + 'deg');
+        b.style.setProperty('--a2', Math.round(rnd(0, 180)) + 'deg'); b.style.setProperty('--a3', Math.round(rnd(-25, 25)) + 'deg');
         b.setAttribute('aria-label', 'Bubble'); row.appendChild(b);
       }
       sheet.appendChild(row);
     }
     stage.insertBefore(sheet, stage.firstChild);
-    left = rows * cols;
+    left = rows * cols; cur = null;
     gridKeys(sheet, cols);
     fx.resize();
   }
   function pop(b){
     if (!b || b.classList.contains('pop')) return;
-    b.classList.add('pop'); b.setAttribute('aria-label', 'Popped'); b.disabled = false;
-    SND.wrap(); buzz(6); fx.ring(b, 'rgba(90,150,190,.9)');
+    b.classList.remove('press'); b.classList.add('pop'); b.setAttribute('aria-label', 'Popped'); b.disabled = false;
+    SND.wrap(); buzz(16); fx.puff(b);
     if (--left === 0) { ui.say('Fresh sheet coming…'); setTimeout(() => { newSheet(); ui.say(''); }, 900); }
   }
+  function press(b){
+    if (!b || b.classList.contains('pop') || b === cur) return;
+    clearTimeout(timer);
+    if (reduced()) { pop(b); return; }
+    cur = b; b.classList.add('press'); SND.creak();
+    timer = setTimeout(() => { if (cur === b) { cur = null; pop(b); } }, rnd(170, 240));
+  }
+  function letGo(){ clearTimeout(timer); if (cur) { const b = cur; cur = null; pop(b); } }
   newSheet();
   // A drag can start anywhere on the sheet, even between bubbles.
   stage.addEventListener('pointerdown', (e) => {
     if (!e.target.closest('.lp-wrap-sheet')) return;
     audio(); dragging = true; try { stage.setPointerCapture(e.pointerId); } catch (x) {}
-    pop(e.target.closest('.lp-w')); e.preventDefault();
+    press(e.target.closest('.lp-w')); e.preventDefault();
   });
   stage.addEventListener('pointermove', (e) => {
     if (!dragging) return;
     const el = document.elementFromPoint(e.clientX, e.clientY);
-    if (el && el.classList.contains('lp-w')) pop(el);
+    const b = el && el.closest ? el.closest('.lp-w') : null;
+    if (b !== cur && (!b || !b.classList.contains('pop') || cur)) { letGo(); if (b) press(b); }
   });
-  const end = () => { dragging = false; };
-  stage.addEventListener('pointerup', end); stage.addEventListener('pointercancel', end);
+  stage.addEventListener('pointerup', () => { dragging = false; letGo(); });
+  stage.addEventListener('pointercancel', () => { dragging = false; clearTimeout(timer); if (cur) cur.classList.remove('press'); cur = null; });
   stage.addEventListener('keydown', (e) => {
-    if ((e.key === ' ' || e.key === 'Enter') && e.target.classList.contains('lp-w')) { e.preventDefault(); pop(e.target); }
+    if ((e.key === ' ' || e.key === 'Enter') && e.target.classList.contains('lp-w')) { e.preventDefault(); audio(); pop(e.target); }
   });
-  ui.say('Tap a bubble, or drag your finger across a row.');
-  return () => {};
+  ui.say('Press a bubble, or drag your finger across a row.');
+  return () => { clearTimeout(timer); };
+}
+
+/* ════ FREE POP: soap bubbles ══════════════════════════════════════ */
+// v41: bubbles float up for ever. Touch one and its film snaps back and
+// sprays. No score and no end. Each is a real button: Space or Enter
+// pops the focused one and focus moves to another.
+function soapMode(stage, ui){
+  const field = document.createElement('div'); field.className = 'lp-soap'; stage.appendChild(field);
+  [[12, 18, 90], [62, 40, 70], [30, 75, 110], [82, 82, 60]].forEach(([x, y, d]) => {
+    const g = document.createElement('div'); g.className = 'lp-glow';
+    g.style.cssText = 'left:' + x + '%;top:' + y + '%;width:' + d + 'px;height:' + d + 'px;transform:translate(-50%,-50%)';
+    field.appendChild(g);
+  });
+  const fx = Fx(stage);
+  const W = () => field.clientWidth, H = () => field.clientHeight;
+  const small = W() < 420, N = small ? 6 : 8;
+  let items = [], raf = 0, last = 0, alive = true, popped = 0;
+  function place(it, t){ const sway = reduced() ? 0 : Math.sin(t / 1100 + it.ph) * 8; it.b.style.transform = 'translate(' + (it.x + sway) + 'px,' + it.y + 'px)'; }
+  function make(first){
+    const d = Math.round(rnd(small ? 44 : 50, small ? 78 : 92));
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'lp-s'; b.setAttribute('aria-label', 'Soap bubble');
+    b.style.setProperty('--d', d + 'px'); b.style.setProperty('--hue', Math.round(rnd(-40, 40)) + 'deg');
+    b.style.setProperty('--ang', Math.round(rnd(150, 200)) + 'deg'); b.style.setProperty('--sw', rnd(9, 16).toFixed(1) + 's');
+    const it = { b, d, x: rnd(6, Math.max(8, W() - d - 6)), y: (first || reduced()) ? rnd(10, Math.max(12, H() - d - 10)) : H() + rnd(10, 80), vy: rnd(16, 30), ph: rnd(0, 7), gone: false };
+    field.appendChild(b); place(it, performance.now()); items.push(it); return it;
+  }
+  function pop(it, cx, cy){
+    if (it.gone) return; it.gone = true;
+    const r = it.b.getBoundingClientRect();
+    const ang = cx == null ? -Math.PI / 2 : Math.atan2(cy - (r.top + r.height / 2), cx - (r.left + r.width / 2));
+    SND.soap(); buzz(4); fx.soap(it.b, ang, parseFloat(it.b.style.getPropertyValue('--hue')) || 0);
+    const hadFocus = document.activeElement === it.b;
+    it.b.remove(); items = items.filter(x => x !== it); popped++;
+    if (hadFocus && items.length) items[0].b.focus({ preventScroll: true });
+    if (popped === 1) ui.say('Pop. There are always more.'); else if (popped % 25 === 0) ui.say(popped + ' popped.');
+    setTimeout(() => { if (alive) make(false); }, reduced() ? 400 : 650);
+  }
+  const find = (el) => items.find(x => x.b === el);
+  field.addEventListener('pointerdown', (e) => {
+    const b = e.target.closest('.lp-s'); if (!b) return;
+    e.preventDefault(); audio(); const it = find(b); if (it) pop(it, e.clientX, e.clientY);
+  });
+  field.addEventListener('click', (e) => { // screen readers press buttons with a click
+    const b = e.target.closest('.lp-s'); if (!b || e.detail !== 0) return; audio(); const it = find(b); if (it) pop(it);
+  });
+  field.addEventListener('keydown', (e) => {
+    if ((e.key === ' ' || e.key === 'Enter') && e.target.classList.contains('lp-s')) { e.preventDefault(); audio(); const it = find(e.target); if (it) pop(it); }
+  });
+  for (let i = 0; i < N; i++) make(true);
+  function frame(t){
+    if (!alive) return;
+    const dt = last ? Math.min(.05, (t - last) / 1000) : 0; last = t;
+    if (!reduced()) for (const it of items) {
+      it.y -= it.vy * dt;
+      if (it.y < -it.d - 10) { it.y = H() + rnd(10, 60); it.x = rnd(6, Math.max(8, W() - it.d - 6)); }
+      place(it, t);
+    }
+    raf = requestAnimationFrame(frame);
+  }
+  raf = requestAnimationFrame(frame);
+  ui.say('Touch a bubble to pop it. New ones keep floating up.');
+  return () => { alive = false; cancelAnimationFrame(raf); };
 }
 
 /* ════ THOUGHT POP ═════════════════════════════════════════════════ */
@@ -1060,8 +1250,9 @@ function reframe(stage, ui){
 /* ════ shell ═══════════════════════════════════════════════════════ */
 // What each section is, in one or two short sentences.
 function introFor(mode, free, level, hstyle){
-  if (mode === 'free' && free === 'wrap') return ['#6C9BD2', '\uD83E\uDEE7', 'Bubble wrap', 'Tap a bubble, or <b>drag your finger</b> across a row. Pick the pop sound you like best.'];
-  if (mode === 'free') return ['#E28FA8', '\uD83D\uDFE3', 'Pop-it', 'Press a bubble and let go to pop it. Pop them all to flip the board. ' +
+  if (mode === 'free' && free === 'wrap') return ['#6C9BD2', '\uD83E\uDEE7', 'Bubble wrap', 'Press a bubble and it <b>squishes</b>, then pops. Or <b>drag your finger</b> across a row. Pick the pop sound you like best.'];
+  if (mode === 'free' && free === 'soap') return ['#3FA7B8', '\uD83C\uDF08', 'Soap bubbles', 'Touch a bubble to pop it. They <b>keep floating up</b>, so there is no end and no score.'];
+  if (mode === 'free') return ['#E28FA8', '\uD83D\uDFE3', 'Pop-it', 'Press a jelly bubble and it <b>squashes</b>, then bursts. Pop them all to flip the board. ' +
     ({ easy: '<b>Easy:</b> no rush at all.', medium: '<b>Medium:</b> popped bubbles fill back up if you\u2019re slow.', hard: '<b>Hard:</b> they refill faster, and dashed bubbles need <b>two presses</b>.' })[level]];
   if (mode === 'thought') return ['#9B85D6', '\uD83D\uDCAD', 'Thought Pop', '<b>Pop the thinking traps</b> before they float away. Let the balanced thoughts go. You have three lives.'];
   if (mode === 'words') return ['#E3A04F', '\uD83D\uDD0E', 'Word Hunt', 'Tap the words that give a thinking trap away, like <b>always</b>, <b>never</b> or <b>should</b>.' +
@@ -1086,7 +1277,7 @@ function mount(root, opts){
     '<button type="button" class="lp-tab" data-m="reframe">Reframe Builder</button>' +
     '<span class="lp-sp"></span><button type="button" class="lp-mute"></button></div>' +
     '<div class="lp-sub" role="group" aria-label="Free Pop style">' +
-    '<button type="button" class="lp-tab" data-f="popit">Pop-it</button><button type="button" class="lp-tab" data-f="wrap">Bubble wrap</button></div>' +
+    '<button type="button" class="lp-tab" data-f="popit">Pop-it</button><button type="button" class="lp-tab" data-f="wrap">Bubble wrap</button><button type="button" class="lp-tab" data-f="soap">Soap bubbles</button></div>' +
     '<div class="lp-row2 lp-level" role="group" aria-label="Pop-it level"><span class="lp-lbl">Level</span>' +
     '<button type="button" class="lp-tab" data-l="easy">Easy</button><button type="button" class="lp-tab" data-l="medium">Medium</button><button type="button" class="lp-tab" data-l="hard">Hard</button></div>' +
     '<div class="lp-row2 lp-hunt" role="group" aria-label="Word Hunt style"><span class="lp-lbl">Style</span>' +
@@ -1101,7 +1292,7 @@ function mount(root, opts){
   let stage = root.querySelector('.lp-stage');
   let mode = 'free', free = 'popit', level = 'easy', hstyle = 'relaxed', stop = null;
   const MODES = ['free', 'thought', 'words', 'court', 'reframe'];
-  try { const s = JSON.parse(localStorage.getItem('lena_pop_mode') || 'null'); if (s) { mode = MODES.includes(s.m) ? s.m : 'free'; hstyle = s.h === 'timed' ? 'timed' : 'relaxed'; free = s.f === 'wrap' ? 'wrap' : 'popit'; level = ['medium', 'hard'].includes(s.l) ? s.l : 'easy'; } } catch (e) {}
+  try { const s = JSON.parse(localStorage.getItem('lena_pop_mode') || 'null'); if (s) { mode = MODES.includes(s.m) ? s.m : 'free'; hstyle = s.h === 'timed' ? 'timed' : 'relaxed'; free = ['wrap', 'soap'].includes(s.f) ? s.f : 'popit'; level = ['medium', 'hard'].includes(s.l) ? s.l : 'easy'; } } catch (e) {}
   // opts.mode opens a particular section, e.g. from a shortcut elsewhere in LENA
   if (opts.mode && MODES.includes(opts.mode)) mode = opts.mode;
   function paintMute(){ mute.textContent = muted ? '\uD83D\uDD07' : '\uD83D\uDD0A'; mute.setAttribute('aria-label', muted ? 'Sound off. Turn sound on.' : 'Sound on. Turn sound off.'); }
@@ -1120,7 +1311,7 @@ function mount(root, opts){
     intro.style.setProperty('--tint', tint);
     intro.querySelector('.ic').textContent = icon; intro.querySelector('h4').textContent = title; intro.querySelector('p').innerHTML = text;
     intro.classList.remove('in'); void intro.offsetWidth; intro.classList.add('in');
-    stop = mode === 'thought' ? thoughts(stage, ui) : mode === 'words' ? wordHunt(stage, ui, hstyle) : mode === 'court' ? court(stage, ui) : mode === 'reframe' ? reframe(stage, ui) : free === 'wrap' ? wrapMode(stage, ui) : popit(stage, ui, level);
+    stop = mode === 'thought' ? thoughts(stage, ui) : mode === 'words' ? wordHunt(stage, ui, hstyle) : mode === 'court' ? court(stage, ui) : mode === 'reframe' ? reframe(stage, ui) : free === 'soap' ? soapMode(stage, ui) : free === 'wrap' ? wrapMode(stage, ui) : popit(stage, ui, level);
     try { localStorage.setItem('lena_pop_mode', JSON.stringify({ m: mode, f: free, l: level, h: hstyle })); } catch (e) {}
   }
   root.querySelectorAll('[data-m]').forEach(b => b.onclick = () => { mode = b.dataset.m; start(); });
