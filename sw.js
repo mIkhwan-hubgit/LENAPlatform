@@ -29,7 +29,7 @@
    previous build. This is the one way a service worker commonly goes wrong.
    ────────────────────────────────────────────────────────────────────── */
 
-const CACHE_VERSION = 'v41';
+const CACHE_VERSION = 'v42';
 const CACHE = 'lena-' + CACHE_VERSION;
 
 // Everything needed for a cold, offline start.

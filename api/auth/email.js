@@ -12,9 +12,12 @@
 //
 // What this follows (OWASP Authentication and Forgot Password cheat
 // sheets, NIST SP 800-63B):
-// - The answers never say whether an address has an account. Register
-//   and forgot always answer "check your email"; what the email says is
-//   what differs. Sign-in failures all read the same.
+// - v42: the page says when an address already has an account, as most
+//   sites do, so people are not left waiting for an email: register
+//   answers "already registered" (and whether it signs in with Google),
+//   and an account made with Google says so on sign-in and on forgot
+//   password. A wrong password and an unknown address still read the
+//   same, and every lookup counts towards the per-connection limit.
 // - Codes: 6 random digits, only a hash stored, 15 minutes, 5 tries,
 //   one live code per address, a new one at most once a minute.
 // - Wrong passwords slow down rather than lock the account, so a
@@ -22,11 +25,9 @@
 // - After a reset every session is ended, the person is told by email,
 //   and they sign in again with the new password.
 // - One email, one account, and registering never changes an existing
-//   account. An address that already has an account (Google or email)
-//   gets an email saying so, with no code. An account made with Google
-//   has no LENA password, so "forgot password" for it explains that
-//   instead of sending a reset code: it signs in with Google only.
-//   (Google sign-in on an email account joins them: see google.js.)
+//   account. An account made with Google has no LENA password until its
+//   owner adds one while signed in (PATCH /api/auth/me). Google sign-in
+//   on an email account joins them: see google.js.
 import crypto from 'node:crypto';
 import { query, json, methodNotAllowed, readBody, publicUser, startSession, sameOrigin } from '../_lib/db.js';
 import * as A from '../_lib/auth.js';
@@ -138,22 +139,16 @@ async function register(req, res, b, ip) {
   const problem = await A.passwordProblem(b.password, email);
   if (problem) return json(res, 400, { error: problem });
   const name = String(b.displayName || '').trim().slice(0, 80) || null;
-  const pwHash = await A.hashPassword(String(b.password));
 
   const may = await mayEmail(email, ip, res);
   if (may === null) return;
   const done = () => json(res, 200, { ok: true, next: 'code' });
-  if (!may) return done();
-
   const u = (await query(`SELECT ${USER_FIELDS} FROM users WHERE email_norm = $1`, [email])).rows[0];
+  // Already has an account: say so here, and how it signs in. No email.
+  if (u) return json(res, 409, { error: 'already_registered', via: u.pw_hash ? 'email' : 'google' });
+  if (!may) return done();
+  const pwHash = await A.hashPassword(String(b.password));
   try {
-    if (u) {
-      // Already has an account. The page says the same as always; the
-      // email tells the owner how to get in, with no code, and nobody
-      // else learns anything.
-      await sendMail(email, u.pw_hash ? 'already' : 'google_register', langOf(b), { name: u.display_name });
-      return done();
-    }
     if (await freshCode(email, 'signup')) return done();
     const code = await storeCode(email, 'signup', pwHash, name, String(b.email).trim().slice(0, 254));
     await sendMail(email, 'signup_code', langOf(b), { code, name });
@@ -202,8 +197,11 @@ async function login(req, res, b, ip) {
   if (wait > 0) return json(res, 429, { error: 'slow_down', retryAfter: wait });
 
   const u = (await query(`SELECT ${USER_FIELDS} FROM users WHERE email_norm = $1`, [email])).rows[0];
-  // Same work whether or not the account exists, or has no password
-  // (Google only), so timing gives nothing away.
+  // Made with Google and no LENA password yet: say so, so the person
+  // knows to use the Google button (or add a password once inside).
+  if (u && !u.pw_hash) return json(res, 401, { error: 'google_account' });
+  // Same work whether or not the account exists, so a wrong password
+  // and an unknown address cannot be told apart by timing.
   const good = await A.verifyPassword(pw, (u && u.pw_hash) || DUMMY_HASH) && !!(u && u.pw_hash);
   if (!good) {
     // From one connection: after 5 misses, wait 30 s, then 1, 2, 4,
@@ -229,13 +227,9 @@ async function forgot(req, res, b, ip) {
   if (may === null) return;
   const u = (await query(`SELECT ${USER_FIELDS} FROM users WHERE email_norm = $1`, [email])).rows[0];
   if (!u) { await sleep(700 + Math.floor(Math.random() * 800)); return done(); }  // about as long as sending
+  // Made with Google: there is no LENA password to reset. Say so here.
+  if (!u.pw_hash) return json(res, 409, { error: 'google_account' });
   if (!may || await freshCode(email, 'reset')) return done();
-  if (!u.pw_hash) {
-    // Google-only: no LENA password to reset. Say so by email.
-    try { await sendMail(email, 'google_forgot', langOf(b), { name: u.display_name }); }
-    catch (e) { console.error('google-forgot email failed', e && e.message); return json(res, 503, { error: 'email_unavailable' }); }
-    return done();
-  }
   try {
     const code = await storeCode(email, 'reset', null, null);
     await sendMail(email, 'reset_code', langOf(b), { code, name: u.display_name });

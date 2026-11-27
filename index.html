@@ -42,6 +42,9 @@ if(window.LENA_LANG==='ms'){document.documentElement.lang='ms';var _l=document.c
 [data-theme=lavender]{--bg:#F5EEF8;--bg2:#fff;--bg3:#EBE0F5;--bg4:#DED0F0;--primary:#6A3A9E;--primary2:#522A84;--accent:#C05C00;--soft:#C8A8E8;--text:#18022E;--text2:#341258;--muted:#6A4090;--card:rgba(255,255,255,0.88);--card-b:rgba(255,255,255,0.97);--border:rgba(106,58,158,0.18);--border2:rgba(106,58,158,0.32);--shadow:rgba(106,58,158,0.14);--shadow2:rgba(0,0,0,0.08);--nav:rgba(255,255,255,0.94);--overlay:rgba(24,2,46,0.58);--primary-t:var(--primary);--fill:var(--primary);--fill2:var(--primary2);--accent-t:#A85000;--on-avatar:#fff}
 [data-theme=sunrise]{--bg:#FFF8EE;--bg2:#fff;--bg3:#FDEFD8;--bg4:#FAE0B8;--primary:#B04A00;--primary2:#903800;--accent:#1060B0;--soft:#F5C880;--text:#200800;--text2:#4A1800;--muted:#804010;--card:rgba(255,255,255,0.88);--card-b:rgba(255,255,255,0.97);--border:rgba(176,74,0,0.18);--border2:rgba(176,74,0,0.32);--shadow:rgba(176,74,0,0.14);--shadow2:rgba(0,0,0,0.08);--nav:rgba(255,255,255,0.94);--overlay:rgba(32,8,0,0.58);--primary-t:var(--primary);--fill:var(--primary);--fill2:var(--primary2);--accent-t:var(--accent);--on-avatar:#fff}
 [data-theme=forest]{--bg:#EEF7EE;--bg2:#fff;--bg3:#DDF0DD;--bg4:#C8E8C8;--primary:#145C14;--primary2:#0A4A0A;--accent:#7A5600;--soft:#90D090;--text:#061006;--text2:#122A12;--muted:#385A38;--card:rgba(255,255,255,0.88);--card-b:rgba(255,255,255,0.97);--border:rgba(20,92,20,0.18);--border2:rgba(20,92,20,0.32);--shadow:rgba(20,92,20,0.14);--shadow2:rgba(0,0,0,0.08);--nav:rgba(255,255,255,0.94);--overlay:rgba(6,16,6,0.58);--primary-t:var(--primary);--fill:var(--primary);--fill2:var(--primary2);--accent-t:var(--accent);--on-avatar:#fff}
+[data-theme=dark][data-tint=nightsky]{--bg:#0D0819;--bg2:#140D24;--bg3:#1C1430;--bg4:#271C42;--primary:#A98BE6;--primary2:#BBA2EE;--accent:#E3B860;--soft:#C9B3F2;--text:#ECE5F7;--text2:#C9BCE3;--muted:#A797C6;--border:rgba(200,175,255,0.12);--border2:rgba(169,139,230,0.4);--shadow:rgba(169,139,230,0.2);--nav:rgba(20,12,38,0.96);--on-fill:#160B2B;--on-avatar:#160B2B}
+[data-theme=dark][data-tint=deepwater]{--bg:#041633;--bg2:#07203F;--bg3:#0B2B52;--bg4:#123766;--primary:#4CB4F0;--primary2:#6CC4F5;--accent:#E3C26A;--soft:#8FD3FA;--text:#DCEEFB;--text2:#A9CDE8;--muted:#86AFCE;--border:rgba(140,200,255,0.12);--border2:rgba(76,180,240,0.38);--shadow:rgba(76,180,240,0.2);--nav:rgba(6,28,62,0.96);--on-fill:#021426;--on-avatar:#021426}
+[data-tint] .nav-link.act{background:color-mix(in srgb,var(--primary) 15%,transparent);border-color:color-mix(in srgb,var(--primary) 32%,transparent)}
 [data-theme=dark]{--bg:#07101A;--bg2:#0C1924;--bg3:#12202E;--bg4:#1A2D40;--primary:#1FADA0;--primary2:#28C4B5;--accent:#C9A84C;--soft:#4FD9CB;--text:#D8EDF5;--text2:#A0C8D8;--muted:#7AAABA;--card:rgba(255,255,255,0.06);--card-b:rgba(255,255,255,0.09);--border:rgba(255,255,255,0.1);--border2:rgba(31,173,160,0.35);--shadow:rgba(31,173,160,0.18);--shadow2:rgba(0,0,0,0.3);--nav:rgba(7,16,26,0.96);--overlay:rgba(0,0,0,0.72);--primary-t:var(--primary);--fill:var(--primary);--fill2:var(--primary2);--on-fill:#04131A;--green-t:var(--green);--red-t:#F08090;--amber-t:var(--amber);--lav-t:var(--lav);--accent-t:var(--accent);--on-avatar:#04131A}
 
 /* ══ RESET & BASE ═══════════════════════════════════════════════════ */
@@ -193,7 +196,7 @@ body{background:var(--bg);color:var(--text);transition:background .4s,color .4s}
 .aopt.sel .opt-dot{border-color:var(--primary);background:var(--primary)}
 
 /* ══ ISLAMIC CARD ═════════════════════════════════════════════════════ */
-.icard{border-radius:var(--r2);padding:24px;background:linear-gradient(135deg,rgba(43,184,154,.1),rgba(244,164,56,.07));border:1px solid var(--border);box-shadow:0 4px 20px var(--shadow)}
+.icard{display:flex;flex-direction:column;justify-content:center;border-radius:var(--r2);padding:24px;background:linear-gradient(135deg,rgba(43,184,154,.1),rgba(244,164,56,.07));border:1px solid var(--border);box-shadow:0 4px 20px var(--shadow)}
 .atxt{font-family:var(--ff-ar);font-size:28px;text-align:center;line-height:2.2;color:var(--text);margin-bottom:8px;direction:rtl}
 .atrans{font-size:13px;color:var(--text2);text-align:center;font-style:italic;line-height:1.6;margin-bottom:8px}
 .aref{font-size:11px;color:var(--muted);text-align:center;font-weight:700}
@@ -538,6 +541,8 @@ button.cbt-cat.act{background:rgba(43,184,154,.12)}
 @keyframes spin{to{transform:rotate(360deg)}}
 /* v39: email accounts */
 .pw-wrap{position:relative}
+/* v42: a button that cannot be used looks faded and does nothing */
+#pg-prev-btn:disabled,#pg-next-btn:disabled,.btn-p:disabled,.btn-g:disabled{opacity:.38;cursor:default;box-shadow:none;transform:none;pointer-events:none}
 .pw-wrap .inp-field{padding-right:48px}
 .pw-eye{position:absolute;right:5px;top:50%;transform:translateY(-50%);width:38px;height:38px;border:none;background:transparent;color:var(--muted);border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .pw-eye:hover,.pw-eye:focus-visible{color:var(--primary-t);background:var(--bg4)}
@@ -1190,7 +1195,6 @@ button .emo:not(.emo-face):not(.emo-heart):not(.emo-warm):not(.emo-warn){color:i
 <div class="auth-panel" id="auth-code" hidden>
 <p class="ap-lead">We sent a 6-digit code to <strong id="code-to" data-i18n-skip></strong>.</p>
 <p class="ap-sub">It can take a minute. Check your spam or junk folder too. The code works for 15 minutes.</p>
-<p class="ap-sub" style="margin-top:-8px">Already have a LENA account with this email? Then the email has no code. It tells you how to sign in instead.</p>
 <div class="auth-note" id="code-note" role="status" hidden></div>
 <label class="inp-label" for="code-inp">6-digit code</label>
 <input class="inp-field code-inp" id="code-inp" inputmode="numeric" autocomplete="one-time-code" maxlength="7" placeholder="123456" oninput="this.value=this.value.replace(/[^0-9 ]/g,'').slice(0,7)"/>
@@ -1575,6 +1579,18 @@ return {
 </div>
 </div>
 <div class="busy-cover" id="busy-cover" hidden><div class="busy-card" tabindex="-1" role="status" aria-live="polite"><div class="busy-ring" aria-hidden="true"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-check"/></svg></div><div class="busy-t" id="busy-t"></div><div class="busy-s" id="busy-s"></div></div></div>
+<div class="mover" id="setpw-modal" role="dialog" aria-modal="true" aria-labelledby="sp-title" onclick="if(event.target===this)closeSetPw()">
+<div class="msheet so-sheet">
+<button class="mcls" aria-label="Close" onclick="closeSetPw()">✕</button>
+<div class="so-ico" aria-hidden="true"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-lock-key"/></svg></div>
+<div class="so-title" id="sp-title">Add a password</div>
+<p class="so-body">Your account was made with Google. Add a LENA password and you can also sign in with your email and this password. Google keeps working too.</p>
+<div class="pw-wrap" style="text-align:left"><input class="inp-field" id="sp-pw" type="password" autocomplete="new-password" aria-label="New LENA password" placeholder="New LENA password"/><button type="button" class="pw-eye" aria-label="Show password" title="Show password" aria-pressed="false" onclick="togglePw(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path class="slash" d="M4 4l16 16"/></svg></button></div>
+<div class="pw-hint" style="text-align:left">At least 10 characters. A short sentence you will remember works well, and spaces are fine.</div>
+<div class="auth-perr" id="sp-err" role="alert" hidden style="text-align:left"></div>
+<div class="so-btns" style="margin-top:18px"><button type="button" class="btn-g" onclick="closeSetPw()">Cancel</button><button type="button" class="btn-p" id="sp-yes" onclick="confirmSetPw()">Add password</button></div>
+</div>
+</div>
 <div class="mover" id="delpw-modal" role="dialog" aria-modal="true" aria-labelledby="dp-title" onclick="if(event.target===this)closeDelPw()">
 <div class="msheet so-sheet">
 <button class="mcls" aria-label="Close" onclick="closeDelPw()">✕</button>
@@ -1684,8 +1700,8 @@ return {
 <div class="topbar">
 <div class="topbar-title" id="page-title">Home</div>
 <div class="topbar-right">
-<button type="button" class="tb-bell" id="tb-bell" aria-label="Notifications" aria-haspopup="dialog" aria-expanded="false" onclick="openNotes()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span class="tb-bell-n" id="tb-bell-n" hidden>0</span></button>
 <div class="tb-clock" id="tb-clock">9:41 AM</div>
+<button type="button" class="tb-bell" id="tb-bell" aria-label="Notifications" aria-haspopup="dialog" aria-expanded="false" onclick="openNotes()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span class="tb-bell-n" id="tb-bell-n" hidden>0</span></button>
 <div class="tb-avatar" id="tb-avatar" onclick="go('profile')">🌿</div>
 </div>
 </div>
@@ -2153,7 +2169,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <p style="font-size:12px;color:var(--muted)">The sunset loading scene uses photos by Pietro De Grandi and Margo Evardson on Unsplash.</p>
 <div class="about-acts"><button class="btn-g" onclick="go('team')" style="padding:10px 18px;font-size:13px">Meet the team</button></div>
 </div>
-<div class="about-ver">LENA v1.0 · build 41 · IIUM KICT</div>
+<div class="about-ver">LENA v1.0 · build 42 · IIUM KICT</div>
 </div>
 <div class="sp"></div>
 </div>
@@ -2239,7 +2255,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <div class="atxt" lang="ar" dir="rtl">﴿ أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ ﴾</div>
 <div class="atrans">"Verily, in the remembrance of Allah do hearts find rest."</div>
 <div class="aref">Surah Ar-Ra'd (13:28)</div>
-<div style="display:flex;gap:10px;margin-top:16px">
+<div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:16px">
 <button class="btn-p" onclick="openResModal('Quranic Reflection','Surah Ar-Ra\'d 13:28 · Tafsir · 5 min','📖','Islamic')" style="padding:10px 20px;font-size:13px">📖 Read tafsir</button>
 <button class="btn-g" onclick="openResModal('Quran &amp; Healing','How the Quran calms the mind, an Islamic perspective','📖','Islamic Psychoeducation')" style="padding:10px 20px;font-size:13px">📖 Quran &amp; Healing</button>
 </div>
@@ -2433,6 +2449,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <div class="pi" onclick="togglePref('quiz')"><span class="pi-ico"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-brain"/></svg></span><span class="pi-txt">Daily thinking check when I open LENA</span><div class="tsw" id="tsw-quiz" onclick="event.stopPropagation();togglePref('quiz')"><div class="tk"></div></div></div>
 <div class="pi" onclick="go('about')"><span class="pi-ico"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-info"/></svg></span><span class="pi-txt">About LENA</span><span class="pi-arr">›</span></div>
 <div class="pi" onclick="openPrivacy()"><span class="pi-ico"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-lock-key"/></svg></span><span class="pi-txt">Privacy &amp; Data</span><span class="pi-arr">›</span></div>
+<div class="pi" id="pi-setpw" hidden onclick="openSetPw()"><span class="pi-ico"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-lock-key"/></svg></span><span class="pi-txt">Add a password, to sign in with your email too</span><span class="pi-arr">›</span></div>
 <div class="pi" onclick="go('assess')"><span class="pi-ico"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-clipboard-text"/></svg></span><span class="pi-txt">Screening History</span><span class="pi-arr">›</span></div>
 <div class="pi" onclick="openInstall()"><span class="pi-ico"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-device-mobile"/></svg></span><span class="pi-txt">Install LENA on your phone</span><span class="pi-arr">›</span></div>
 <div class="pi" onclick="openDocSummary()"><span class="pi-ico"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-stethoscope"/></svg></span><span class="pi-txt">Summary for your doctor</span><span class="pi-arr">›</span></div>
@@ -2756,8 +2773,8 @@ function doLogin(){
     return;
   }
   authError('');
-  // A successful sign-in cancels any earlier sign-out.
-  try{localStorage.removeItem('lena_signed_out');}catch(e){}
+  // v42: the earlier sign-out stands until someone is actually in
+  // (proceedAfterAuth), so a refresh mid-way never opens the app.
 
   // With a backend available the server decides whether these
   // credentials are good. Without one, the old on-device behaviour
@@ -2788,6 +2805,8 @@ function showBusy(t,s,done){
 }
 function hideBusy(){const c=document.getElementById('busy-cover');if(c)c.hidden=true;}
 function proceedAfterAuth(email){
+  // Through the door: only now does an earlier sign-out stop applying.
+  try{localStorage.removeItem('lena_signed_out');}catch(e){}
   const nameEl=document.getElementById('auth-name');
   const typedName=(currentAuthTab==='re'&&nameEl)?(nameEl.value||'').trim():'';
   const prev=loadUser();
@@ -2989,20 +3008,23 @@ const PRESETS=[
   {id:'ocean',     name:'Ocean',      theme:'ocean',   bg:'ocean',  ico:'🌊', c:['#1260A8','#C05C00']},
   {id:'monsoon',   name:'Monsoon',    theme:'ocean',   bg:'rain',   ico:'⛈', c:['#1260A8','#3A6A8A']},
   {id:'sakura',    name:'Sakura',     theme:'lavender',bg:'sakura', ico:'🌸', c:['#6A3A9E','#C8A8E8']},
-  {id:'nightsky',  name:'Night Sky',  theme:'dark',    bg:'violetstars', bgl:'violet stars', ico:'✨', c:['#2A1844','#9B7FD4']},
+  {id:'nightsky',  name:'Night Sky',  theme:'dark',    tint:'nightsky', bg:'violetstars', bgl:'violet stars', ico:'✨', c:['#2A1844','#A98BE6']},
   {id:'sunrise',   name:'Sunrise',    theme:'sunrise', bg:'desert', ico:'🌅', c:['#B04A00','#1060B0']},
   {id:'forest',    name:'Forest',     theme:'forest',  bg:'forest', ico:'🌲', c:['#145C14','#7A5600']},
   {id:'midnight',  name:'Midnight',   theme:'dark',    bg:'stars',  ico:'🌙', c:['#1FADA0','#C9A84C']},
-  {id:'deepwater', name:'Deep Water', theme:'dark',    bg:'deepocean', bgl:'deep ocean', ico:'🌌', c:['#0B3A52','#1FADA0']}
+  {id:'deepwater', name:'Deep Water', theme:'dark',    tint:'deepwater', bg:'deepocean', bgl:'deep ocean', ico:'🌌', c:['#0A2540','#4CB4F0']}
 ];
-function applyThemeName(n){
-  document.body.setAttribute('data-theme',n);
+function applyThemeName(n,tint){
+  // v42: a tint gives a dark preset its own colours (Night Sky purple,
+  // Deep Water blue) while keeping everything dark mode already fixes.
+  const set=(el)=>{el.setAttribute('data-theme',n);if(tint)el.setAttribute('data-tint',tint);else el.removeAttribute('data-tint');};
+  set(document.body);
   const al=document.getElementById('app-layout');
-  if(al)al.setAttribute('data-theme',n);
-  document.documentElement.setAttribute('data-theme',n);
+  if(al)set(al);
+  set(document.documentElement);
   // the sign-in, loading and modal layers sit outside the app grid
-  document.querySelectorAll('.full-cover').forEach(el=>el.setAttribute('data-theme',n));
-  document.querySelectorAll('.mover').forEach(el=>el.setAttribute('data-theme',n));
+  document.querySelectorAll('.full-cover').forEach(set);
+  document.querySelectorAll('.mover').forEach(set);
 }
 function currentPresetId(){
   let id=null;
@@ -3025,7 +3047,7 @@ function renderPresets(){
 }
 function applyPreset(id,quiet){
   const p=PRESETS.find(x=>x.id===id)||PRESETS[0];
-  applyThemeName(p.theme);
+  applyThemeName(p.theme,p.tint);
   bgMode=p.bg;
   try{initParticles();}catch(e){}
   try{localStorage.setItem(THEMEKEY,p.id);}catch(e){}
@@ -4233,6 +4255,7 @@ const DATA_ITEMS=[
   {k:'lena_sleep_plan', label:'Evening plan',          count:v=>1},
   {k:'lena_user',       label:'Your name and email',   count:v=>1},
   {k:'lena_auth',       label:'Signed in to a LENA account', count:v=>1},
+  {k:'lena_name_pending', label:'Your profile', count:v=>1},
   {k:'lena_prefs',      label:'Your settings',         count:v=>1},
   {k:'lena_feedback',   label:'Feedback you wrote',    count:v=>v.length},
   {k:'lena_muslim',     label:'Islamic sections on or off',count:v=>1},
@@ -4553,6 +4576,7 @@ function renderProfile(){
     bits.push(st>0?st+'-day streak 🔥':'no mood logged yet');
     m.textContent=bits.join(' · ');
   }
+  paintSetPw();
 }
 function openProfileEdit(){
   const i=document.getElementById('pf-name-input');
@@ -4572,6 +4596,31 @@ function saveProfileName(){
   renderProfile();
   closeProfileEdit();
   toast('LENA will call you '+v);
+  // v42: with an account, the name is kept on the account too, so it
+  // is still there after signing out and in, on any device.
+  try{if(window.LENA_BACKEND)LENA_BACKEND.setName(v);}catch(e){}
+}
+function paintSetPw(){
+  const el=document.getElementById('pi-setpw');if(!el)return;
+  let show=false;
+  try{show=!!(window.LENA_BACKEND&&LENA_BACKEND.available&&LENA_BACKEND.user&&!LENA_BACKEND.user.hasPassword&&LENA_BACKEND.emailAccounts);}catch(e){}
+  el.hidden=!show;
+}
+function openSetPw(){
+  document.getElementById('sp-pw').value='';panelError('sp-err','');
+  document.getElementById('setpw-modal').classList.add('open');
+  setTimeout(()=>{try{document.getElementById('sp-pw').focus();}catch(e){}},60);
+}
+function closeSetPw(){document.getElementById('setpw-modal').classList.remove('open');}
+function confirmSetPw(){
+  const pw=document.getElementById('sp-pw').value;
+  if([...pw].length<10){panelError('sp-err','Your password needs at least 10 characters.');return;}
+  const b=document.getElementById('sp-yes');b.disabled=true;
+  LENA_BACKEND.setPassword(pw).then(r=>{
+    b.disabled=false;
+    if(r.status===200){closeSetPw();paintSetPw();toast('Password added. You can sign in with your email too.');return;}
+    panelError('sp-err',LENA_BACKEND.msgFor(r));
+  }).catch(()=>{b.disabled=false;panelError('sp-err','Could not reach LENA. Check your connection and try again.');});
 }
 // v34: a confirmation first, so a stray tap does not sign anyone out.
 function askSignOut(){
@@ -6546,6 +6595,10 @@ window.LENA_BACKEND = (function(){
     code_expired:'That code has expired or was tried too many times. Send a new code.',
     email_unavailable:'LENA could not send the email right now. Please try again in a few minutes.',
     already_registered:'This email already has a LENA account. Sign in instead.',
+    google_account:'This email signs in with Google. Use the Continue with Google button above.',
+    has_password:'This account already has a password.',
+    signed_out:'You are signed out. Sign in again and try once more.',
+    name_empty:'Type a name first.',
     not_configured:'Email accounts are not available right now. You can continue with Google or as a guest.'
   };
   function msgFor(r){
@@ -6573,6 +6626,24 @@ window.LENA_BACKEND = (function(){
     tick(); timers[id]=setInterval(tick,1000);
   }
   function clearPending(){ pending=null; }
+  /* v42: the name LENA calls you lives on the account. If the server
+     cannot be reached it is remembered and sent next time. */
+  function patchMe(body){ return api('/api/auth/me',{method:'PATCH',body:JSON.stringify(body)}); }
+  function setName(v){
+    if(!available||!me) return Promise.resolve(false);
+    try{ localStorage.setItem('lena_name_pending',JSON.stringify({id:me.id,name:v})); }catch(e){}
+    return patchMe({displayName:v}).then(function(r){
+      if(r.status===200&&r.body&&r.body.user){ me=r.body.user; try{ localStorage.removeItem('lena_name_pending'); }catch(e){} return true; }
+      return false;
+    }).catch(function(){ return false; });
+  }
+  function flushName(){
+    var p=null; try{ p=JSON.parse(localStorage.getItem('lena_name_pending')||'null'); }catch(e){}
+    if(p&&me&&p.id===me.id&&p.name) setName(p.name);
+  }
+  function setPassword(pw){
+    return patchMe({password:pw}).then(function(r){ if(r.status===200&&r.body&&r.body.user) me=r.body.user; return r; });
+  }
 
   function authenticate(email,password,isRegister){
     authError(''); authNote('');
@@ -6583,6 +6654,15 @@ window.LENA_BACKEND = (function(){
       return emailApi({action:'register',email:email,password:password,displayName:displayName})
         .then(function(r){
           busyBtn('auth-btn',false);
+          if(r.status===409&&r.body&&r.body.error==='already_registered'){
+            // v42: already has an account. Say so here and get them in.
+            switchAuthTab('si');
+            document.getElementById('auth-pw').value='';
+            authNote(r.body.via==='google'
+              ?'This email already has a LENA account, made with Google. Use the Continue with Google button above.'
+              :'This email already has a LENA account. Sign in with your password, or choose Forgot password? if you need a new one.');
+            return false;
+          }
           if(r.status===200){
             authPanel('code');
             pending={email:email,password:password,displayName:displayName};
@@ -6638,6 +6718,10 @@ window.LENA_BACKEND = (function(){
     panelError('forgot-err',''); busyBtn('forgot-btn',true);
     emailApi({action:'forgot',email:e}).then(function(r){
       busyBtn('forgot-btn',false);
+      if(r.status===409&&r.body&&r.body.error==='google_account'){
+        panelError('forgot-err','This email\'s LENA account was made with Google, so it has no LENA password to reset. Go back and use Continue with Google.');
+        return;
+      }
       if(r.status===200){
         resetEmail=e;
         authPanel('reset');
@@ -6690,6 +6774,7 @@ window.LENA_BACKEND = (function(){
       localStorage.removeItem('lena_signed_out');
     }catch(e){}
     try{ saveUser({name:me.displayName||'',email:me.email}); }catch(e){}
+    try{ paintSetPw(); }catch(e){}
     currentAuthTab=isNew?'re':'si';
     showBusy('Signing you in…',isNew?'Setting up your LENA account.':'Bringing your entries from your LENA account.');
     // v37: bring the account's entries in first (at most 6 seconds),
@@ -6804,7 +6889,8 @@ window.LENA_BACKEND = (function(){
         available=true;
         if(emailAccounts) try{ authEmailMode(true); }catch(e){}
         me=r.body.user||null;
-        if(me){ return syncNow().then(function(){ return true; }); }
+        try{ paintSetPw(); }catch(e){}
+        if(me){ flushName(); return syncNow().then(function(){ return true; }); }
         else{
           // Signed in to an account on this device, but the session has
           // ended (30 days, signed out elsewhere, or the password was
@@ -6831,6 +6917,7 @@ window.LENA_BACKEND = (function(){
     renderGoogle:renderGoogle, signOutAccount:signOutAccount, clearSynced:clearSynced,
     probe:probe, authenticate:authenticate, logout:logout,
     verifyCode:verifyCode, resendCode:resendCode, forgot:forgot, resendReset:resendReset, doReset:doReset, clearPending:clearPending,
+    setName:setName, setPassword:setPassword, msgFor:msgFor,
     deleteAccount:deleteAccount, syncNow:syncNow, settled:settled,
     localRecords:localRecords, applyRemote:applyRemote, uuidFrom:uuidFrom
   };
@@ -7314,7 +7401,7 @@ setInterval(function(){
     'auth-email':function(){click('auth-btn');},'auth-pw':function(){click('auth-btn');},'auth-name':function(){click('auth-btn');},
     'code-inp':function(){click('code-btn');},'forgot-email':function(){click('forgot-btn');},
     'reset-code':function(){const p=document.getElementById('reset-pw');if(p)p.focus();},'reset-pw':function(){click('reset-btn');},
-    'dp-pw':function(){click('dp-yes');},
+    'dp-pw':function(){click('dp-yes');},'sp-pw':function(){click('sp-yes');},
     'pf-name-input':function(){saveProfileName();},
     'sp-n1':function(){saveSafety();},'sp-p1':function(){saveSafety();},'sp-n2':function(){saveSafety();},
     'sp-p2':function(){saveSafety();},'sp-n3':function(){saveSafety();},'sp-p3':function(){saveSafety();}

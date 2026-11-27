@@ -152,18 +152,21 @@ Gmail allows about 500 emails a day from one account.
     the hash leave the server), stored with scrypt.
   - Codes: 6 random digits, only a hash stored, 15 minutes, 5 tries, a
     new one at most once a minute, no links in the emails.
-  - The screens never say whether an email has an account; the email
-    to that address does.
+  - Since v42 the page says when an email already has an account, and
+    whether it signs in with Google, as most sites do. A wrong password
+    and an unknown email still read the same, and every lookup counts
+    towards the per-connection limit.
   - Wrong passwords slow down (30 s, growing to 5 min) per connection
     instead of locking the account; 30 misses from anywhere in an hour
     pause the address for 15 minutes.
   - After a reset every device is signed out and the owner is emailed.
-  - Registering never changes an existing account. An address that
-    already has one gets an email saying so, with no code; for a Google
-    account it says to use Continue with Google. "Forgot password?" on
-    a Google account explains it has no LENA password, with no code.
-    Google sign-in on an email account joins them and keeps its
+  - Registering never changes an existing account. An account made
+    with Google can add a LENA password from Profile & Settings while
+    signed in (`PATCH /api/auth/me`), and then email + password works
+    too. Google sign-in on an email account joins them and keeps its
     password.
+  - The name you set in Profile is kept on the account, so it follows
+    you to every device.
 
 ## Tests
 
@@ -178,7 +181,7 @@ node tests/test_auth.mjs
 `test_google.mjs` stands in for Google with its own key pair and checks
 36 things, including tokens for other websites, expired, forged and
 altered tokens, account joining, sync, sign-out and deletion.
-`test_email.mjs` stands in for Gmail and checks 88 things: password
+`test_email.mjs` stands in for Gmail and checks 97 things: password
 rules, codes (wrong, used up, expired, resent), the same answers for
 known and unknown addresses, slowing down guessing, forgot and reset,
 Google accounts not taken over by register or forgot, and deleting.
