@@ -1266,6 +1266,93 @@ button .emo:not(.emo-face):not(.emo-heart):not(.emo-warm):not(.emo-warn){color:i
 .ph-end{text-align:center;padding:46px 0 10px}
 .ph-end p{font-size:14.5px;color:var(--muted);margin:0 0 18px}
 .ph-end .ph-ctas{justify-content:center}
+
+/* ── v45: Home polish ─────────────────────────────────────────────── */
+#pre-home{position:relative;overflow:hidden}
+.ph-wrap{position:relative;z-index:1}
+.ph-aurora{position:absolute;left:0;right:0;top:0;height:780px;pointer-events:none;z-index:0;overflow:hidden;
+  -webkit-mask-image:linear-gradient(#000 50%,transparent);mask-image:linear-gradient(#000 50%,transparent)}
+.ph-aurora span{position:absolute;border-radius:50%;filter:blur(72px);opacity:.5;will-change:transform}
+.ph-aurora span:nth-child(1){width:540px;height:460px;left:-140px;top:-170px;background:color-mix(in srgb,var(--primary) 60%,transparent);animation:ph-d1 28s ease-in-out infinite alternate}
+.ph-aurora span:nth-child(2){width:500px;height:420px;right:-160px;top:-110px;background:color-mix(in srgb,var(--accent) 42%,transparent);animation:ph-d2 34s ease-in-out infinite alternate}
+.ph-aurora span:nth-child(3){width:460px;height:300px;left:34%;top:230px;background:color-mix(in srgb,var(--lav) 45%,transparent);animation:ph-d3 40s ease-in-out infinite alternate}
+[data-theme=dark] .ph-aurora span{opacity:.32}
+.ph-aurora::after{content:"";position:absolute;inset:0;background-image:radial-gradient(color-mix(in srgb,var(--text) 16%,transparent) 1px,transparent 1.5px);background-size:22px 22px;
+  -webkit-mask-image:radial-gradient(ellipse 70% 62% at 50% 28%,#000 20%,transparent 75%);mask-image:radial-gradient(ellipse 70% 62% at 50% 28%,#000 20%,transparent 75%)}
+@keyframes ph-d1{to{transform:translate(90px,70px) scale(1.1)}}
+@keyframes ph-d2{to{transform:translate(-80px,90px) scale(.92)}}
+@keyframes ph-d3{to{transform:translate(-120px,-40px) scale(1.12)}}
+.ph-badge{display:inline-flex;align-items:center;gap:9px;padding:6px 14px 6px 10px;margin:0 0 18px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.02em;
+  color:var(--text2);background:color-mix(in srgb,var(--card-b) 72%,transparent);border:1px solid var(--border2);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.ph-badge-dot{width:7px;height:7px;border-radius:50%;background:var(--primary);box-shadow:0 0 0 4px color-mix(in srgb,var(--primary) 22%,transparent)}
+.ph-hero h1{background:linear-gradient(100deg,var(--text) 0%,var(--text) 40%,var(--primary-t) 78%,var(--accent-t) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;padding-bottom:4px}
+.ph-cta.btn-p{background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.26) 50%,transparent 65%) 130% 0/250% 100% no-repeat,linear-gradient(135deg,var(--fill),var(--fill2));
+  box-shadow:0 8px 24px color-mix(in srgb,var(--primary) 30%,transparent),inset 0 1px 0 rgba(255,255,255,.18);transition:background-position .9s ease,transform .2s,box-shadow .2s}
+.ph-cta.btn-p:hover{background-position:-30% 0,0 0}
+.ph-cta.btn-g{background:color-mix(in srgb,var(--card-b) 70%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+/* the preview card: a slow light travels round its edge */
+@property --ph-a{syntax:'<angle>';initial-value:0deg;inherits:false}
+.ph-mock::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1.5px;pointer-events:none;
+  background:conic-gradient(from var(--ph-a),transparent 0 72%,var(--primary) 86%,var(--accent) 93%,transparent 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);
+  animation:ph-beam 10s linear infinite}
+@keyframes ph-beam{to{--ph-a:360deg}}
+.ph-mock{backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:color-mix(in srgb,var(--card-b) 82%,transparent)}
+/* bento grid */
+.ph-feats{grid-template-columns:repeat(4,1fr)}
+.ph-feat,.ph-box{position:relative;overflow:hidden;transition:border-color .25s,transform .25s,box-shadow .25s}
+.ph-feat::after,.ph-box::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .3s;
+  background:radial-gradient(260px circle at var(--mx,50%) var(--my,0%),color-mix(in srgb,var(--primary) 14%,transparent),transparent 65%)}
+.ph-feat:hover::after,.ph-box:hover::after{opacity:1}
+.ph-feat:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:0 10px 30px var(--shadow)}
+.ph-big{grid-column:span 2;display:grid;grid-template-columns:1fr 150px;gap:16px;align-items:center}
+.ph-ft{min-width:0}
+.ph-vis{height:110px;border-radius:16px;background:var(--bg3);border:1px solid var(--border);padding:12px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.ph-vis-check b{display:block;height:7px;border-radius:4px;background:color-mix(in srgb,var(--text) 22%,transparent);width:88%}
+.ph-vis-check b.s{width:60%;opacity:.6}
+.ph-vis-check div{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:4px}
+.ph-vis-check i{height:18px;border-radius:7px;background:var(--card-b);border:1px solid var(--border2)}
+.ph-vis-check i.on{background:color-mix(in srgb,var(--primary) 30%,var(--card-b));border-color:var(--primary)}
+.ph-vis-mood svg{width:100%;height:84px;display:block}
+.ph-vis-mood rect{fill:color-mix(in srgb,var(--lav) 38%,transparent)}
+.ph-vis-mood polyline{fill:none;stroke:var(--primary);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.ph-vis-chat span{display:block;height:20px;border-radius:12px;max-width:78%}
+.ph-vis-chat .l{background:var(--card-b);border:1px solid var(--border2);border-bottom-left-radius:4px;width:72%}
+.ph-vis-chat .r{align-self:flex-end;background:color-mix(in srgb,var(--primary) 32%,var(--card-b));border-bottom-right-radius:4px;width:58%}
+.ph-vis-chat .s{width:46%}
+/* how it works: steps joined by a line */
+.ph-steps li{position:relative}
+.ph-steps li:not(:last-child)::after{content:"";position:absolute;top:34px;left:60px;right:-14px;height:2px;border-radius:2px;
+  background:linear-gradient(90deg,color-mix(in srgb,var(--primary) 55%,transparent),transparent)}
+/* last call: a soft glow card */
+.ph-end{margin-top:44px;padding:52px 24px;border-radius:28px;border:1px solid var(--border2);position:relative;overflow:hidden;
+  background:radial-gradient(90% 130% at 50% 0%,color-mix(in srgb,var(--primary) 18%,transparent),transparent 62%),var(--card)}
+/* scroll reveal */
+.ph-rev{opacity:0;transform:translateY(16px);transition-property:opacity,transform;transition-duration:.7s;transition-timing-function:cubic-bezier(.2,.7,.2,1)}
+.ph-rev.in{opacity:1;transform:none}
+.ph-feat.ph-rev.in:hover{transform:translateY(-2px)}
+/* team heading with the logo */
+.team-h{display:flex;align-items:center;justify-content:center;gap:12px}
+.team-logo{width:44px;height:44px;border-radius:12px;object-fit:cover;box-shadow:0 4px 14px var(--shadow)}
+/* a heading focused by the page switch shows no box */
+#auth-screen h1[tabindex="-1"]:focus,#auth-screen h2[tabindex="-1"]:focus{outline:none}
+@media(max-width:860px){
+  .ph-feats{grid-template-columns:1fr 1fr}
+  .ph-big{grid-column:span 2}
+  .ph-steps li::after{display:none}
+}
+@media(max-width:640px){
+  .ph-feats{grid-template-columns:1fr}
+  .ph-big{grid-column:auto;grid-template-columns:1fr 112px}
+  .ph-vis{height:96px;padding:10px}
+  .ph-aurora{height:620px}
+  .ph-aurora span{filter:blur(56px)}
+}
+@media (prefers-reduced-motion:reduce){
+  .ph-aurora span,.ph-mock::before{animation:none!important}
+  .ph-feat,.ph-feat:hover{transition:none;transform:none}
+  .ph-cta.btn-p{transition:none}
+}
 @media(max-width:860px){
   .ph-hero{grid-template-columns:1fr;gap:34px}
   .ph-art{padding:0 14px 10px}
@@ -1358,10 +1445,11 @@ button .emo:not(.emo-face):not(.emo-heart):not(.emo-warm):not(.emo-warn){color:i
 </div>
 </header>
 <main class="pre-page" id="pre-home" aria-labelledby="ph-h" hidden>
+<div class="ph-aurora" aria-hidden="true"><span></span><span></span><span></span></div>
 <div class="ph-wrap">
 <section class="ph-hero">
 <div class="ph-copy">
-<p class="ph-kick">Free · English and Bahasa Melayu</p>
+<p class="ph-badge"><span class="ph-badge-dot" aria-hidden="true"></span>Free · English and Bahasa Melayu</p>
 <h1 id="ph-h">A calm place to check in with yourself</h1>
 <p class="ph-lead">LENA helps young people in Malaysia notice how they feel, practise skills from cognitive behavioural therapy, and reach real support when it matters.</p>
 <div class="ph-ctas"><button type="button" class="btn-p ph-cta" onclick="continueAsGuest()">Try LENA now, no account needed</button><button type="button" class="btn-g ph-cta" onclick="prePage('login',true)">Sign in or create an account</button></div>
@@ -1385,7 +1473,7 @@ button .emo:not(.emo-face):not(.emo-heart):not(.emo-warm):not(.emo-warn){color:i
 <section class="ph-sec" aria-labelledby="ph-f-h">
 <h2 id="ph-f-h">What you can do in LENA</h2>
 <p class="ph-sub">Nine tools in one place. Use the ones that help and skip the rest.</p>
-<div class="ph-feats"><div class="ph-feat"><span class="ph-fi ph-a" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-clipboard-text"/></svg></span><h3>Self-check</h3><p>PHQ-9 and DASS-21, two widely used questionnaires. Your past results stay in one place.</p></div><div class="ph-feat"><span class="ph-fi ph-b" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-chart-line-up"/></svg></span><h3>Mood and sleep</h3><p>A quick daily check-in and a sleep log show your patterns over the weeks.</p></div><div class="ph-feat"><span class="ph-fi ph-c" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-brain"/></svg></span><h3>CBT exercises</h3><p>Guided steps for worry, low mood and unhelpful thoughts.</p></div><div class="ph-feat"><span class="ph-fi ph-a" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-chat-circle-dots"/></svg></span><h3>LENA AI</h3><p>Someone to talk things through with, any time. It listens, but it is not a therapist.</p></div><div class="ph-feat"><span class="ph-fi ph-r" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-lifebuoy"/></svg></span><h3>Help in a hurry</h3><p>Malaysian helplines and your own safety plan, one tap away.</p></div><div class="ph-feat"><span class="ph-fi ph-b" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-books"/></svg></span><h3>Learn</h3><p>Short reads on how stress, sleep and emotions work.</p></div><div class="ph-feat"><span class="ph-fi ph-c" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-music-notes"/></svg></span><h3>Soundscapes</h3><p>Calming sounds and guided breathing to settle your body.</p></div><div class="ph-feat"><span class="ph-fi ph-a" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-mosque"/></svg></span><h3>Kerohanian</h3><p>Optional Islamic reflections and dhikr, only if you choose them.</p></div><div class="ph-feat"><span class="ph-fi ph-b" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-game-controller"/></svg></span><h3>Pop &amp; think</h3><p>Pop-it, bubble wrap and quick games that train your thinking.</p></div></div>
+<div class="ph-feats"><div class="ph-feat ph-big"><div class="ph-ft"><span class="ph-fi ph-a" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-clipboard-text"/></svg></span><h3>Self-check</h3><p>PHQ-9 and DASS-21, two widely used questionnaires. Your past results stay in one place.</p></div><div class="ph-vis ph-vis-check" aria-hidden="true"><b></b><b class="s"></b><div><i></i><i class="on"></i><i></i><i></i></div></div></div><div class="ph-feat ph-big"><div class="ph-ft"><span class="ph-fi ph-b" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-chart-line-up"/></svg></span><h3>Mood and sleep</h3><p>A quick daily check-in and a sleep log show your patterns over the weeks.</p></div><div class="ph-vis ph-vis-mood" aria-hidden="true"><svg viewBox="0 0 200 70" preserveAspectRatio="none"><g class="bars"><rect x="6" y="40" width="16" height="30" rx="4"/><rect x="34" y="30" width="16" height="40" rx="4"/><rect x="62" y="44" width="16" height="26" rx="4"/><rect x="90" y="24" width="16" height="46" rx="4"/><rect x="118" y="34" width="16" height="36" rx="4"/><rect x="146" y="20" width="16" height="50" rx="4"/><rect x="174" y="26" width="16" height="44" rx="4"/></g><polyline points="14,30 42,22 70,34 98,14 126,20 154,8 182,12"/></svg></div></div><div class="ph-feat"><span class="ph-fi ph-c" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-brain"/></svg></span><h3>CBT exercises</h3><p>Guided steps for worry, low mood and unhelpful thoughts.</p></div><div class="ph-feat"><span class="ph-fi ph-r" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-lifebuoy"/></svg></span><h3>Help in a hurry</h3><p>Malaysian helplines and your own safety plan, one tap away.</p></div><div class="ph-feat"><span class="ph-fi ph-b" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-books"/></svg></span><h3>Learn</h3><p>Short reads on how stress, sleep and emotions work.</p></div><div class="ph-feat"><span class="ph-fi ph-c" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-music-notes"/></svg></span><h3>Soundscapes</h3><p>Calming sounds and guided breathing to settle your body.</p></div><div class="ph-feat ph-big"><div class="ph-ft"><span class="ph-fi ph-a" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-chat-circle-dots"/></svg></span><h3>LENA AI</h3><p>Someone to talk things through with, any time. It listens, but it is not a therapist.</p></div><div class="ph-vis ph-vis-chat" aria-hidden="true"><span class="l"></span><span class="r"></span><span class="l s"></span></div></div><div class="ph-feat"><span class="ph-fi ph-a" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-mosque"/></svg></span><h3>Kerohanian</h3><p>Optional Islamic reflections and dhikr, only if you choose them.</p></div><div class="ph-feat"><span class="ph-fi ph-b" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-game-controller"/></svg></span><h3>Pop &amp; think</h3><p>Pop-it, bubble wrap and quick games that train your thinking.</p></div></div>
 </section>
 <section class="ph-sec" aria-labelledby="ph-is-h">
 <h2 id="ph-is-h">What LENA is, and what it is not</h2>
@@ -1489,7 +1577,7 @@ button .emo:not(.emo-face):not(.emo-heart):not(.emo-warm):not(.emo-warn){color:i
 <div style="text-align:center;margin-top:18px;font-size:11px;color:var(--muted)">Protected by PDPA 2010 · <span id="auth-foot-t">As a guest, your entries stay in this browser only. With Google, they are kept in your LENA account and leave this device when you sign out.</span> Chat messages are sent to an AI service. <a href="/privacy.html" target="_blank" rel="noopener" style="color:var(--primary-t);font-weight:600">Privacy policy</a></div>
 </div>
 </main>
-<main class="pre-page" id="pre-team" aria-label="Our team" hidden><div class="team-screen"><div class="team-intro"><h2>🌿 LENA's Team</h2><p style="color:var(--muted)">LENA Platform Research Team<br/>International Islamic University Malaysia • KICT Faculty</p></div><div class="team-grid2"><div class="team-card2"><img src="assets/team/ahmad-anwar.webp" alt="Ts. Dr. Ahmad Anwar Bin Zainuddin" width="330" height="409" loading="lazy" decoding="async"/><h3 data-i18n-skip>Ts. Dr. Ahmad Anwar Bin Zainuddin</h3><p>Computer Science Department<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/amir-aatieff.webp" alt="Asst. Prof. Dr. Amir 'Aatieff Bin Amir Hussin" width="330" height="409" loading="lazy" decoding="async"/><h3 data-i18n-skip>Asst. Prof. Dr. Amir 'Aatieff Bin Amir Hussin</h3><p>Computer Science Department<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/dini-oktarina-dwi-handayani.webp" alt="Ts. Dr. Dini Oktarina Dwi Handayani" width="330" height="409" loading="lazy" decoding="async"/><h3 data-i18n-skip>Ts. Dr. Dini Oktarina Dwi Handayani</h3><p>Computer Science Department<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/asmarani.webp" alt="Asmarani Binti Ahmad Puzi" width="330" height="440" loading="lazy" decoding="async"/><h3 data-i18n-skip>Asmarani Binti Ahmad Puzi</h3><p>Co-Investigator · Computer Science<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/noor-hayani.webp" alt="Ts. Dr. Noor Hayani Binti Abd Rahim" width="330" height="409" loading="lazy" decoding="async"/><h3 data-i18n-skip>Ts. Dr. Noor Hayani Binti Abd Rahim</h3><p>Co-Investigator · Information Technology<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/zahidah.webp" alt="Ts. Dr. Zahidah Binti Zulkifli" width="330" height="409" loading="lazy" decoding="async"/><h3 data-i18n-skip>Ts. Dr. Zahidah Binti Zulkifli</h3><p>Co-Investigator · Information Technology<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/muhammad-ilham.webp" alt="Muhammad Ilham bin Mohd Hisham" width="330" height="471" loading="lazy" decoding="async"/><h3 data-i18n-skip>Muhammad Ilham bin Mohd Hisham</h3><p>3rd Year CS Student<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/muhammad-ikhwan.webp" alt="Muhammad Ikhwan bin Mat Suhairi" width="330" height="455" loading="lazy" decoding="async"/><h3 data-i18n-skip>Muhammad Ikhwan bin Mat Suhairi</h3><p>3rd Year CS Student<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/nor-hamidah.webp" alt="Dr. Nor Hamidah Binti Mohd Salleh" width="467" height="330" loading="lazy" decoding="async"/><h3 data-i18n-skip>Dr. Nor Hamidah Binti Mohd Salleh</h3><p>Consultant Psychiatrist<br/>NH Edu-Health Centre</p></div></div></div></main>
+<main class="pre-page" id="pre-team" aria-label="Our team" hidden><div class="team-screen"><div class="team-intro"><h2 class="team-h"><img class="team-logo" src="assets/LENA-logo.webp" alt="" width="44" height="44"/><span>LENA's Team</span></h2><p style="color:var(--muted)">LENA Platform Research Team<br/>International Islamic University Malaysia • KICT Faculty</p></div><div class="team-grid2"><div class="team-card2"><img src="assets/team/ahmad-anwar.webp" alt="Ts. Dr. Ahmad Anwar Bin Zainuddin" width="330" height="409" loading="lazy" decoding="async"/><h3 data-i18n-skip>Ts. Dr. Ahmad Anwar Bin Zainuddin</h3><p>Computer Science Department<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/amir-aatieff.webp" alt="Asst. Prof. Dr. Amir 'Aatieff Bin Amir Hussin" width="330" height="409" loading="lazy" decoding="async"/><h3 data-i18n-skip>Asst. Prof. Dr. Amir 'Aatieff Bin Amir Hussin</h3><p>Computer Science Department<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/dini-oktarina-dwi-handayani.webp" alt="Ts. Dr. Dini Oktarina Dwi Handayani" width="330" height="409" loading="lazy" decoding="async"/><h3 data-i18n-skip>Ts. Dr. Dini Oktarina Dwi Handayani</h3><p>Computer Science Department<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/asmarani.webp" alt="Asmarani Binti Ahmad Puzi" width="330" height="440" loading="lazy" decoding="async"/><h3 data-i18n-skip>Asmarani Binti Ahmad Puzi</h3><p>Co-Investigator · Computer Science<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/noor-hayani.webp" alt="Ts. Dr. Noor Hayani Binti Abd Rahim" width="330" height="409" loading="lazy" decoding="async"/><h3 data-i18n-skip>Ts. Dr. Noor Hayani Binti Abd Rahim</h3><p>Co-Investigator · Information Technology<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/zahidah.webp" alt="Ts. Dr. Zahidah Binti Zulkifli" width="330" height="409" loading="lazy" decoding="async"/><h3 data-i18n-skip>Ts. Dr. Zahidah Binti Zulkifli</h3><p>Co-Investigator · Information Technology<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/muhammad-ilham.webp" alt="Muhammad Ilham bin Mohd Hisham" width="330" height="471" loading="lazy" decoding="async"/><h3 data-i18n-skip>Muhammad Ilham bin Mohd Hisham</h3><p>3rd Year CS Student<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/muhammad-ikhwan.webp" alt="Muhammad Ikhwan bin Mat Suhairi" width="330" height="455" loading="lazy" decoding="async"/><h3 data-i18n-skip>Muhammad Ikhwan bin Mat Suhairi</h3><p>3rd Year CS Student<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/nor-hamidah.webp" alt="Dr. Nor Hamidah Binti Mohd Salleh" width="467" height="330" loading="lazy" decoding="async"/><h3 data-i18n-skip>Dr. Nor Hamidah Binti Mohd Salleh</h3><p>Consultant Psychiatrist<br/>NH Edu-Health Centre</p></div></div></div></main>
 <footer class="pre-foot"><span>Protected by PDPA 2010</span><span aria-hidden="true">·</span><a href="/privacy.html" target="_blank" rel="noopener">Privacy policy</a><span aria-hidden="true">·</span><span>LENA · IIUM KICT</span></footer>
 </div>
 <script>
@@ -1514,6 +1602,22 @@ function prePage(name,focus){
   var seen=null;
   try{seen=localStorage.getItem('lena_seen_home')||localStorage.getItem('lena_signed_out');}catch(e){}
   prePage(seen?'login':'home');
+})();
+(function(){
+  var calm=false;try{calm=matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){}
+  if(calm||!('IntersectionObserver' in window))return;
+  var els=document.querySelectorAll('#pre-home .ph-sec>h2,#pre-home .ph-sub,#pre-home .ph-feat,#pre-home .ph-box,#pre-home .ph-steps li,#pre-home .ph-team,#pre-home .ph-end');
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -6% 0px'});
+  els.forEach(function(el){
+    var sib=el.parentElement?[].indexOf.call(el.parentElement.children,el):0;
+    el.style.transitionDelay=(Math.min(sib,5)*60)+'ms';
+    el.classList.add('ph-rev');io.observe(el);
+  });
+  var fine=false;try{fine=matchMedia('(hover:hover) and (pointer:fine)').matches;}catch(e){}
+  if(fine)document.addEventListener('pointermove',function(e){
+    var c=e.target&&e.target.closest&&e.target.closest('.ph-feat,.ph-box');if(!c)return;
+    var r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px');
+  },{passive:true});
 })();
 </script>
 <script>
@@ -2463,7 +2567,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <p style="font-size:12px;color:var(--muted)">The sunset loading scene uses photos by Pietro De Grandi and Margo Evardson on Unsplash.</p>
 <div class="about-acts"><button class="btn-g" onclick="go('team')" style="padding:10px 18px;font-size:13px">Meet the team</button></div>
 </div>
-<div class="about-ver">LENA v1.0 · build 44 · IIUM KICT</div>
+<div class="about-ver">LENA v1.0 · build 45 · IIUM KICT</div>
 </div>
 <div class="sp"></div>
 </div>
@@ -2779,7 +2883,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 </div>
 <div class="sp"></div>
 </div><!-- end profile -->
-<div class="screen" id="sc-team"><div class="team-screen"><div class="team-intro"><h2>🌿 LENA's Team</h2><p style="color:var(--muted)">LENA Platform Research Team<br/>International Islamic University Malaysia • KICT Faculty</p></div><div class="team-grid2"><div class="team-card2"><img src="assets/team/ahmad-anwar.webp" alt="Ts. Dr. Ahmad Anwar Bin Zainuddin" width="330" height="409" loading="lazy" decoding="async"/><h3>Ts. Dr. Ahmad Anwar Bin Zainuddin</h3><p>Computer Science Department<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/amir-aatieff.webp" alt="Asst. Prof. Dr. Amir 'Aatieff Bin Amir Hussin" width="330" height="409" loading="lazy" decoding="async"/><h3>Asst. Prof. Dr. Amir 'Aatieff Bin Amir Hussin</h3><p>Computer Science Department<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/dini-oktarina-dwi-handayani.webp" alt="Ts. Dr. Dini Oktarina Dwi Handayani" width="330" height="409" loading="lazy" decoding="async"/><h3>Ts. Dr. Dini Oktarina Dwi Handayani</h3><p>Computer Science Department<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/asmarani.webp" alt="Asmarani Binti Ahmad Puzi" width="330" height="440" loading="lazy" decoding="async"/><h3>Asmarani Binti Ahmad Puzi</h3><p>Co-Investigator · Computer Science<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/noor-hayani.webp" alt="Ts. Dr. Noor Hayani Binti Abd Rahim" width="330" height="409" loading="lazy" decoding="async"/><h3>Ts. Dr. Noor Hayani Binti Abd Rahim</h3><p>Co-Investigator · Information Technology<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/zahidah.webp" alt="Ts. Dr. Zahidah Binti Zulkifli" width="330" height="409" loading="lazy" decoding="async"/><h3>Ts. Dr. Zahidah Binti Zulkifli</h3><p>Co-Investigator · Information Technology<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/muhammad-ilham.webp" alt="Muhammad Ilham bin Mohd Hisham" width="330" height="471" loading="lazy" decoding="async"/><h3>Muhammad Ilham bin Mohd Hisham</h3><p>3rd Year CS Student<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/muhammad-ikhwan.webp" alt="Muhammad Ikhwan bin Mat Suhairi" width="330" height="455" loading="lazy" decoding="async"/><h3>Muhammad Ikhwan bin Mat Suhairi</h3><p>3rd Year CS Student<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/nor-hamidah.webp" alt="Dr. Nor Hamidah Binti Mohd Salleh" width="467" height="330" loading="lazy" decoding="async"/><h3>Dr. Nor Hamidah Binti Mohd Salleh</h3><p>Consultant Psychiatrist<br/>NH Edu-Health Centre</p></div></div></div></div><!-- TOAST -->
+<div class="screen" id="sc-team"><div class="team-screen"><div class="team-intro"><h2 class="team-h"><img class="team-logo" src="assets/LENA-logo.webp" alt="" width="44" height="44"/><span>LENA's Team</span></h2><p style="color:var(--muted)">LENA Platform Research Team<br/>International Islamic University Malaysia • KICT Faculty</p></div><div class="team-grid2"><div class="team-card2"><img src="assets/team/ahmad-anwar.webp" alt="Ts. Dr. Ahmad Anwar Bin Zainuddin" width="330" height="409" loading="lazy" decoding="async"/><h3>Ts. Dr. Ahmad Anwar Bin Zainuddin</h3><p>Computer Science Department<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/amir-aatieff.webp" alt="Asst. Prof. Dr. Amir 'Aatieff Bin Amir Hussin" width="330" height="409" loading="lazy" decoding="async"/><h3>Asst. Prof. Dr. Amir 'Aatieff Bin Amir Hussin</h3><p>Computer Science Department<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/dini-oktarina-dwi-handayani.webp" alt="Ts. Dr. Dini Oktarina Dwi Handayani" width="330" height="409" loading="lazy" decoding="async"/><h3>Ts. Dr. Dini Oktarina Dwi Handayani</h3><p>Computer Science Department<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/asmarani.webp" alt="Asmarani Binti Ahmad Puzi" width="330" height="440" loading="lazy" decoding="async"/><h3>Asmarani Binti Ahmad Puzi</h3><p>Co-Investigator · Computer Science<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/noor-hayani.webp" alt="Ts. Dr. Noor Hayani Binti Abd Rahim" width="330" height="409" loading="lazy" decoding="async"/><h3>Ts. Dr. Noor Hayani Binti Abd Rahim</h3><p>Co-Investigator · Information Technology<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/zahidah.webp" alt="Ts. Dr. Zahidah Binti Zulkifli" width="330" height="409" loading="lazy" decoding="async"/><h3>Ts. Dr. Zahidah Binti Zulkifli</h3><p>Co-Investigator · Information Technology<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/muhammad-ilham.webp" alt="Muhammad Ilham bin Mohd Hisham" width="330" height="471" loading="lazy" decoding="async"/><h3>Muhammad Ilham bin Mohd Hisham</h3><p>3rd Year CS Student<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/muhammad-ikhwan.webp" alt="Muhammad Ikhwan bin Mat Suhairi" width="330" height="455" loading="lazy" decoding="async"/><h3>Muhammad Ikhwan bin Mat Suhairi</h3><p>3rd Year CS Student<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/nor-hamidah.webp" alt="Dr. Nor Hamidah Binti Mohd Salleh" width="467" height="330" loading="lazy" decoding="async"/><h3>Dr. Nor Hamidah Binti Mohd Salleh</h3><p>Consultant Psychiatrist<br/>NH Edu-Health Centre</p></div></div></div></div><!-- TOAST -->
 </div><!-- end content-area -->
 <!-- CHAT SCREEN (full height, outside content-area) -->
 </div><!-- end main -->
