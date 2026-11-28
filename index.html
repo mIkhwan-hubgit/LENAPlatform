@@ -8,7 +8,17 @@
 // separate file, fetched only when Malay is on.
 window.LENA_LANG=(function(){try{return localStorage.getItem('lena_lang')==='ms'?'ms':'en';}catch(e){return 'en';}})();
 if(window.LENA_LANG==='ms'){document.documentElement.lang='ms';var _l=document.createElement('script');_l.src='assets/i18n-ms.js';document.head.appendChild(_l);}
+// v48: a session to resume means the sign-in page must never be drawn,
+// not even for a moment. The loading pictures start downloading now.
+(function(){try{
+  var u=JSON.parse(localStorage.getItem('lena_user')||'null');
+  if(u&&u.email&&localStorage.getItem('lena_signed_out')!=='1')document.documentElement.classList.add('lena-resume');
+  var p=JSON.parse(localStorage.getItem('lena_prefs')||'{}');
+  if(p&&p.loadbg==='sunset'){var w=innerWidth/innerHeight*1000>1150;
+    ['assets/loading/'+(w?'mountain-wide':'mountain')+'.webp','assets/loading/grass.webp'].forEach(function(s){var l=document.createElement('link');l.rel='preload';l.as='image';l.href=s;document.head.appendChild(l);});}
+}catch(e){}})();
 </script>
+<style>html.lena-resume #auth-screen{visibility:hidden!important}</style>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <title>LENA: Live Emotional Needs Assistant</title>
 <meta name="description" content="LENA is a mental wellbeing companion for Malaysian youth. Mood and sleep tracking, guided exercises, screening tools, Islamic reflections and Malaysian crisis helplines."/>
@@ -608,7 +618,9 @@ button:active:not(:disabled),[role="button"]:active,[role="switch"]:active,.scp:
 #loading-screen.ls-sunset{background:#28225F!important;justify-content:center;overflow:hidden;
   padding-top:calc(env(safe-area-inset-top,0px) + 14px);padding-bottom:7vh}
 @media (max-height:620px){#loading-screen.ls-sunset{justify-content:flex-start;padding-bottom:0}}
-.ls-sunset .ls-scene{display:block;position:absolute;inset:0;width:100%;height:100%}
+.ls-sunset .ls-scene{display:block;position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .6s ease}
+.ls-sunset .ls-scene.ready{opacity:1}
+#loading-screen.ls-sunset{background:linear-gradient(180deg,#1B1744 0%,#2C2266 45%,#5A3470 72%,#2A2A3A 100%)!important}
 .ls-sunset .ls-panel{position:relative;z-index:1;box-sizing:border-box;width:auto;max-width:min(500px,calc(100vw - 32px))!important;
   padding:24px 26px 22px!important;border-radius:30px;background:rgba(14,12,34,.6);border:1px solid rgba(246,223,174,.28);
   -webkit-backdrop-filter:blur(14px) saturate(1.15);backdrop-filter:blur(14px) saturate(1.15);box-shadow:0 18px 50px rgba(6,4,24,.45)}
@@ -1858,10 +1870,19 @@ function build(){
   el('rect',{width:W,height:H,fill:lgrad(defs,[[0,'#020A10',.34],[.18,'#020A10',0],[.82,'#020A10',0],[1,'#020A10',.34]],0,0,W,0)},svg);
 }
 function onResize(){if(Math.abs(innerWidth-lastW)<2&&innerWidth<700)return;lastW=innerWidth;clearTimeout(to);to=setTimeout(build,250);}
+function loadImg(u){return new Promise(function(ok){var im=new Image();im.onload=function(){(im.decode?im.decode():Promise.resolve()).then(ok,ok);};im.onerror=ok;im.src=u;});}
+var gen=0;
 function marks(root){(root||document).querySelectorAll('.ls-mark img[data-src]').forEach(function(im){if(!im.getAttribute('src'))im.setAttribute('src',im.getAttribute('data-src'));});}
 return {
-  start:function(ls){host=ls; svg=document.getElementById('ls-scene'); marks(ls); lastW=innerWidth; build(); window.addEventListener('resize',onResize);},
-  stop:function(){window.removeEventListener('resize',onResize); clearTimeout(to); clear();},
+  start:function(ls){host=ls; svg=document.getElementById('ls-scene'); marks(ls); lastW=innerWidth;
+    svg.classList.remove('ready'); var my=++gen;
+    var r=ls.getBoundingClientRect(), land=r.height&&(1000*r.width/r.height)>1150;
+    Promise.all([land?P2:P1,G2].map(loadImg)).then(function(){
+      if(my!==gen)return; build();
+      requestAnimationFrame(function(){requestAnimationFrame(function(){if(my===gen&&svg)svg.classList.add('ready');});});
+    });
+    window.addEventListener('resize',onResize);},
+  stop:function(){gen++; window.removeEventListener('resize',onResize); clearTimeout(to); if(svg)svg.classList.remove('ready'); clear();},
   // load the four pictures into the cache ahead of time
   warm:function(){if(warmed)return;warmed=true;[P1,P2,G2,'assets/loading/mark-dim.webp','assets/loading/mark-lit.webp'].forEach(function(u){var im=new Image();im.src=u;});}
 };
@@ -2720,7 +2741,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <p style="font-size:12px;color:var(--muted)">The sunset loading scene uses photos by Pietro De Grandi and Margo Evardson on Unsplash.</p>
 <div class="about-acts"><button class="btn-g" onclick="go('team')" style="padding:10px 18px;font-size:13px">Meet the team</button></div>
 </div>
-<div class="about-ver">LENA v1.0 · build 47 · IIUM KICT</div>
+<div class="about-ver">LENA v1.0 · build 48 · IIUM KICT</div>
 </div>
 <div class="sp"></div>
 </div>
@@ -3389,6 +3410,8 @@ function proceedAfterAuth(email){
    device and it is cleared with the browser's site data. Sign Out sets
    lena_signed_out, which suppresses the resume until the next sign-in. */
 function resumeSession(){
+  // whatever happens below, the head-script cover has done its job
+  setTimeout(()=>document.documentElement.classList.remove('lena-resume'),0);
   let u=null,out=null;
   try{
     u=JSON.parse(localStorage.getItem('lena_user')||'null');
@@ -3427,6 +3450,16 @@ function previewLoadingScreen(){showLoadingScreen(true);}
 function showLoadingScreen(preview){
   const ls=document.getElementById('loading-screen');
   if(preview&&!ls.classList.contains('fc-hidden'))return;
+  if(!preview){
+    let seen=false;
+    try{seen=sessionStorage.getItem('lena_welcomed')==='1';sessionStorage.setItem('lena_welcomed','1');}catch(e){}
+    if(seen){
+      try{renderPrefs();}catch(e){}
+      showDailyCheckin();
+      try{lenaNotes.make();renderPlanCard();}catch(e){}
+      return;
+    }
+  }
   const sunset=loadPrefs().loadbg==='sunset';
   ls.classList.toggle('ls-sunset',sunset);
   ls.classList.toggle('ls-has-quote',!!loadPrefs().quotes);
@@ -5218,6 +5251,7 @@ function signOut(){
   // The saved profile is kept, so mood, journal and screening history
   // survive, but the resume is suppressed until the next sign-in.
   try{localStorage.setItem('lena_signed_out','1');}catch(e){}
+  try{sessionStorage.removeItem('lena_welcomed');}catch(e){}
   const t0=Date.now();
   let cleared=false;
   // Long enough to read, short enough not to feel slow.
