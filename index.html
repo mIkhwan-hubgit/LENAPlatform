@@ -1160,6 +1160,47 @@ button .emo:not(.emo-face):not(.emo-heart):not(.emo-warm):not(.emo-warn){color:i
 .so-title{font-family:var(--ff-d);font-size:22px;color:var(--text);margin-bottom:8px}
 .so-body{font-size:13.5px;color:var(--text2);line-height:1.65;margin:0 0 22px}
 .so-btns{display:flex;gap:10px;justify-content:center}
+/* ── v47: team affiliation colours ───────────────────────────────── */
+.team-card2{--org:#1F7A5C}.team-card2.t-nh{--org:#B0306A}
+[data-theme=dark] .team-card2{--org:#62D2AE}[data-theme=dark] .team-card2.t-nh{--org:#F590BC}
+.team-card2{border-top:3px solid var(--org)!important}
+.team-card2 img{border-color:var(--org)!important}
+.t-org{display:inline-block;margin-top:7px;padding:3px 11px;border-radius:999px;font-size:11.5px;font-weight:700;color:var(--org);
+  background:color-mix(in srgb,var(--org) 13%,transparent);border:1px solid color-mix(in srgb,var(--org) 32%,transparent)}
+/* ── v47: screening band colours ─────────────────────────────────── */
+:root{--sev0:#1D7A45;--sev1:#5A7410;--sev2:#946000;--sev3:#B1460B;--sev4:#B42318}
+[data-theme=dark]{--sev0:#6EE7A0;--sev1:#C8E06C;--sev2:#F6C453;--sev3:#FDA45C;--sev4:#FF8F86}
+.sev{font-weight:800}.sev0{color:var(--sev0)}.sev1{color:var(--sev1)}.sev2{color:var(--sev2)}.sev3{color:var(--sev3)}.sev4{color:var(--sev4)}
+.sev-row{display:flex;align-items:center;flex-wrap:wrap;gap:6px 8px;margin-top:5px;font-size:11.5px;color:var(--muted)}
+.sev-pill{display:inline-flex;align-items:center;gap:6px;padding:2px 10px 2px 8px;border-radius:999px;font-weight:700;font-size:11.5px;
+  background:color-mix(in srgb,currentColor 12%,transparent);border:1px solid color-mix(in srgb,currentColor 30%,transparent)}
+.sev-pill i{width:7px;height:7px;border-radius:50%;background:currentColor}
+.sev-sub{font-weight:700;color:var(--text2)}
+.sev-ago::before{content:"· ";}
+.sev-due{font-weight:700;color:var(--text2)}.sev-due::before{content:"· ";font-weight:400;color:var(--muted)}
+/* ── v47: recent mood entries ────────────────────────────────────── */
+.mle-day+.mle-day{margin-top:10px}
+.mle-dh{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:6px 10px;margin-bottom:4px;border-radius:10px;
+  font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--text2);background:var(--bg3)}
+.mle-dc{font-weight:600;letter-spacing:0;text-transform:none;color:var(--muted)}
+.mle{position:relative;display:flex;gap:12px;padding:8px 4px 10px}
+.mle-face{position:relative;z-index:1;flex:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-size:19px;
+  background:color-mix(in srgb,var(--mc) 20%,var(--card-b));border:1.5px solid color-mix(in srgb,var(--mc) 70%,transparent)}
+.mle-face .ic{width:21px;height:21px}
+.mle:not(:last-child)::before{content:"";position:absolute;left:21.5px;top:46px;bottom:-8px;width:2px;border-radius:2px;background:color-mix(in srgb,var(--mc) 40%,var(--border))}
+.mle-b{flex:1;min-width:0}
+.mle-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.mle-top strong{font-size:13.5px;color:var(--text)}
+.mle-top time{font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.mle-int{display:flex;align-items:center;gap:8px;margin-top:5px;font-size:11px;color:var(--muted)}
+.mle-int b{color:var(--text2);font-variant-numeric:tabular-nums}
+.mle-meter{display:inline-flex;gap:2px}
+.mle-meter i{width:7px;height:9px;border-radius:2px;background:color-mix(in srgb,var(--text) 14%,transparent)}
+.mle-meter i.on{background:var(--mc)}
+.mle-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}
+.mle-tag{padding:2px 9px;border-radius:999px;font-size:10.5px;font-weight:600;color:var(--text2);background:var(--bg3);border:1px solid var(--border)}
+.mle-note{margin-top:7px;padding:7px 10px;border-radius:10px;font-size:12px;line-height:1.5;color:var(--text2);background:var(--bg3);border-left:3px solid var(--mc)}
+
 /* ══ v46: one look across every page ═══════════════════════════════ */
 /* soft light at the top of every page, like the Home page aurora */
 .content-area{background-image:radial-gradient(900px 340px at 8% -60px,color-mix(in srgb,var(--primary) 12%,transparent),transparent 70%),
@@ -1687,7 +1728,7 @@ button .emo:not(.emo-face):not(.emo-heart):not(.emo-warm):not(.emo-warn){color:i
 <div style="text-align:center;margin-top:18px;font-size:11px;color:var(--muted)">Protected by PDPA 2010 · <span id="auth-foot-t">As a guest, your entries stay in this browser only. With Google, they are kept in your LENA account and leave this device when you sign out.</span> Chat messages are sent to an AI service.<br/><a href="/privacy.html" target="_blank" rel="noopener" style="color:var(--primary-t);font-weight:600;display:inline-block;margin-top:8px">Privacy policy</a></div>
 </div>
 </main>
-<main class="pre-page" id="pre-team" aria-label="Our team" hidden><div class="team-screen"><div class="team-intro"><h2 class="team-h"><img class="team-logo" src="assets/LENA-logo.webp" alt="" width="44" height="44"/><span>LENA's Team</span></h2><p style="color:var(--muted)">LENA Platform Research Team<br/>International Islamic University Malaysia • KICT Faculty</p></div><div class="team-grid2"><div class="team-card2"><img src="assets/team/ahmad-anwar.webp" alt="Ts. Dr. Ahmad Anwar Bin Zainuddin" width="330" height="409" loading="lazy" decoding="async"/><h3 data-i18n-skip>Ts. Dr. Ahmad Anwar Bin Zainuddin</h3><p>Computer Science Department<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/amir-aatieff.webp" alt="Asst. Prof. Dr. Amir 'Aatieff Bin Amir Hussin" width="330" height="409" loading="lazy" decoding="async"/><h3 data-i18n-skip>Asst. Prof. Dr. Amir 'Aatieff Bin Amir Hussin</h3><p>Computer Science Department<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/dini-oktarina-dwi-handayani.webp" alt="Ts. Dr. Dini Oktarina Dwi Handayani" width="330" height="409" loading="lazy" decoding="async"/><h3 data-i18n-skip>Ts. Dr. Dini Oktarina Dwi Handayani</h3><p>Computer Science Department<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/asmarani.webp" alt="Asmarani Binti Ahmad Puzi" width="330" height="440" loading="lazy" decoding="async"/><h3 data-i18n-skip>Asmarani Binti Ahmad Puzi</h3><p>Co-Investigator · Computer Science<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/noor-hayani.webp" alt="Ts. Dr. Noor Hayani Binti Abd Rahim" width="330" height="409" loading="lazy" decoding="async"/><h3 data-i18n-skip>Ts. Dr. Noor Hayani Binti Abd Rahim</h3><p>Co-Investigator · Information Technology<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/zahidah.webp" alt="Ts. Dr. Zahidah Binti Zulkifli" width="330" height="409" loading="lazy" decoding="async"/><h3 data-i18n-skip>Ts. Dr. Zahidah Binti Zulkifli</h3><p>Co-Investigator · Information Technology<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/muhammad-ilham.webp" alt="Muhammad Ilham bin Mohd Hisham" width="330" height="471" loading="lazy" decoding="async"/><h3 data-i18n-skip>Muhammad Ilham bin Mohd Hisham</h3><p>3rd Year CS Student<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/muhammad-ikhwan.webp" alt="Muhammad Ikhwan bin Mat Suhairi" width="330" height="455" loading="lazy" decoding="async"/><h3 data-i18n-skip>Muhammad Ikhwan bin Mat Suhairi</h3><p>3rd Year CS Student<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/nor-hamidah.webp" alt="Dr. Nor Hamidah Binti Mohd Salleh" width="467" height="330" loading="lazy" decoding="async"/><h3 data-i18n-skip>Dr. Nor Hamidah Binti Mohd Salleh</h3><p>Consultant Psychiatrist<br/>NH Edu-Health Centre</p></div></div></div></main>
+<main class="pre-page" id="pre-team" aria-label="Our team" hidden><div class="team-screen"><div class="team-intro"><h2 class="team-h"><img class="team-logo" src="assets/LENA-logo.webp" alt="" width="44" height="44"/><span>LENA's Team</span></h2><p style="color:var(--muted)">LENA Platform Research Team<br/>International Islamic University Malaysia • KICT Faculty</p></div><div class="team-grid2"><div class="team-card2 t-iium"><img src="assets/team/ahmad-anwar.webp" alt="Ts. Dr. Ahmad Anwar Bin Zainuddin" width="330" height="409" loading="lazy" decoding="async"/><h3 data-i18n-skip>Ts. Dr. Ahmad Anwar Bin Zainuddin</h3><p>Computer Science Department<br/><span class="t-org">IIUM</span></p></div><div class="team-card2 t-iium"><img src="assets/team/amir-aatieff.webp" alt="Asst. Prof. Dr. Amir 'Aatieff Bin Amir Hussin" width="330" height="409" loading="lazy" decoding="async"/><h3 data-i18n-skip>Asst. Prof. Dr. Amir 'Aatieff Bin Amir Hussin</h3><p>Computer Science Department<br/><span class="t-org">IIUM</span></p></div><div class="team-card2 t-iium"><img src="assets/team/dini-oktarina-dwi-handayani.webp" alt="Ts. Dr. Dini Oktarina Dwi Handayani" width="330" height="409" loading="lazy" decoding="async"/><h3 data-i18n-skip>Ts. Dr. Dini Oktarina Dwi Handayani</h3><p>Computer Science Department<br/><span class="t-org">IIUM</span></p></div><div class="team-card2 t-iium"><img src="assets/team/asmarani.webp" alt="Asmarani Binti Ahmad Puzi" width="330" height="440" loading="lazy" decoding="async"/><h3 data-i18n-skip>Asmarani Binti Ahmad Puzi</h3><p>Co-Investigator · Computer Science<br/><span class="t-org">IIUM</span></p></div><div class="team-card2 t-iium"><img src="assets/team/noor-hayani.webp" alt="Ts. Dr. Noor Hayani Binti Abd Rahim" width="330" height="409" loading="lazy" decoding="async"/><h3 data-i18n-skip>Ts. Dr. Noor Hayani Binti Abd Rahim</h3><p>Co-Investigator · Information Technology<br/><span class="t-org">IIUM</span></p></div><div class="team-card2 t-iium"><img src="assets/team/zahidah.webp" alt="Ts. Dr. Zahidah Binti Zulkifli" width="330" height="409" loading="lazy" decoding="async"/><h3 data-i18n-skip>Ts. Dr. Zahidah Binti Zulkifli</h3><p>Co-Investigator · Information Technology<br/><span class="t-org">IIUM</span></p></div><div class="team-card2 t-iium"><img src="assets/team/muhammad-ilham.webp" alt="Muhammad Ilham bin Mohd Hisham" width="330" height="471" loading="lazy" decoding="async"/><h3 data-i18n-skip>Muhammad Ilham bin Mohd Hisham</h3><p>3rd Year CS Student<br/><span class="t-org">IIUM</span></p></div><div class="team-card2 t-iium"><img src="assets/team/muhammad-ikhwan.webp" alt="Muhammad Ikhwan bin Mat Suhairi" width="330" height="455" loading="lazy" decoding="async"/><h3 data-i18n-skip>Muhammad Ikhwan bin Mat Suhairi</h3><p>3rd Year CS Student<br/><span class="t-org">IIUM</span></p></div><div class="team-card2 t-nh"><img src="assets/team/nor-hamidah.webp" alt="Dr. Nor Hamidah Binti Mohd Salleh" width="467" height="330" loading="lazy" decoding="async"/><h3 data-i18n-skip>Dr. Nor Hamidah Binti Mohd Salleh</h3><p>Consultant Psychiatrist<br/><span class="t-org">NH Edu-Health Centre</span></p></div></div></div></main>
 <footer class="pre-foot"><span>Protected by PDPA 2010</span><span aria-hidden="true">·</span><a href="/privacy.html" target="_blank" rel="noopener">Privacy policy</a><span aria-hidden="true">·</span><span>LENA · IIUM KICT</span></footer>
 </div>
 <script>
@@ -2120,7 +2161,7 @@ return {
 <div class="msheet" style="width:520px">
 <button class="mcls" aria-label="Close" onclick="closeFeedback()">✕</button>
 <div style="font-family:var(--ff-d);font-size:22px;color:var(--text);margin-bottom:4px">💬 Share Your Feedback</div>
-<div style="font-size:13px;color:var(--muted);margin-bottom:22px">Saved on your device, not sent anywhere yet. It is included if you export your data. 🌿</div>
+<div style="font-size:13px;color:var(--muted);margin-bottom:22px">Goes straight to the LENA team by email. Please do not include anything private you would not want the team to read.</div>
 <div style="margin-bottom:14px">
 <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px">Overall Experience</div>
 <div id="fb-stars" style="display:flex;gap:10px">
@@ -2147,7 +2188,9 @@ return {
 <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px">Your Message</div>
 <textarea aria-label="Your feedback" id="fb-text" onblur="this.style.borderColor='var(--border)'" onfocus="this.style.borderColor='var(--primary)'" placeholder="Tell us what you think, what's missing, or what could be better…" rows="4" style="width:100%;background:var(--bg3);border:1.5px solid var(--border);border-radius:14px;padding:13px 14px;font-family:var(--ff-b);font-size:13px;color:var(--text);outline:none;resize:none;line-height:1.7"></textarea>
 </div>
-<button class="btn-p" id="fb-send" onclick="submitFeedback()" style="width:100%;padding:14px">Save Feedback</button>
+<div style="margin-bottom:16px"><label class="inp-label" for="fb-reply">Your email, if you would like a reply (optional)</label><input class="inp-field" id="fb-reply" type="email" autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false" maxlength="254" placeholder="you@email.com"/></div>
+<div class="auth-perr" id="fb-err" role="alert" hidden></div>
+<button class="btn-p" id="fb-send" onclick="submitFeedback()" style="width:100%;padding:14px">Send Feedback</button>
 </div>
 </div>
 <div class="app" id="app-layout" style="display:none">
@@ -2384,7 +2427,7 @@ return {
 </div>
 <div class="card">
 <div class="shd" style="margin:0 0 14px"><h2>Recent Entries</h2></div>
-<div id="ml-entries" tabindex="0" role="region" aria-label="Recent mood entries" style="display:flex;flex-direction:column;gap:10px;max-height:330px;overflow-y:auto"></div>
+<div id="ml-entries" tabindex="0" role="region" aria-label="Recent mood entries" style="display:flex;flex-direction:column;gap:6px;max-height:360px;overflow-y:auto"></div>
 </div>
 </div>
 <div class="sp"></div>
@@ -2677,7 +2720,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <p style="font-size:12px;color:var(--muted)">The sunset loading scene uses photos by Pietro De Grandi and Margo Evardson on Unsplash.</p>
 <div class="about-acts"><button class="btn-g" onclick="go('team')" style="padding:10px 18px;font-size:13px">Meet the team</button></div>
 </div>
-<div class="about-ver">LENA v1.0 · build 46 · IIUM KICT</div>
+<div class="about-ver">LENA v1.0 · build 47 · IIUM KICT</div>
 </div>
 <div class="sp"></div>
 </div>
@@ -2993,7 +3036,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 </div>
 <div class="sp"></div>
 </div><!-- end profile -->
-<div class="screen" id="sc-team"><div class="team-screen"><div class="team-intro"><h2 class="team-h"><img class="team-logo" src="assets/LENA-logo.webp" alt="" width="44" height="44"/><span>LENA's Team</span></h2><p style="color:var(--muted)">LENA Platform Research Team<br/>International Islamic University Malaysia • KICT Faculty</p></div><div class="team-grid2"><div class="team-card2"><img src="assets/team/ahmad-anwar.webp" alt="Ts. Dr. Ahmad Anwar Bin Zainuddin" width="330" height="409" loading="lazy" decoding="async"/><h3>Ts. Dr. Ahmad Anwar Bin Zainuddin</h3><p>Computer Science Department<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/amir-aatieff.webp" alt="Asst. Prof. Dr. Amir 'Aatieff Bin Amir Hussin" width="330" height="409" loading="lazy" decoding="async"/><h3>Asst. Prof. Dr. Amir 'Aatieff Bin Amir Hussin</h3><p>Computer Science Department<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/dini-oktarina-dwi-handayani.webp" alt="Ts. Dr. Dini Oktarina Dwi Handayani" width="330" height="409" loading="lazy" decoding="async"/><h3>Ts. Dr. Dini Oktarina Dwi Handayani</h3><p>Computer Science Department<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/asmarani.webp" alt="Asmarani Binti Ahmad Puzi" width="330" height="440" loading="lazy" decoding="async"/><h3>Asmarani Binti Ahmad Puzi</h3><p>Co-Investigator · Computer Science<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/noor-hayani.webp" alt="Ts. Dr. Noor Hayani Binti Abd Rahim" width="330" height="409" loading="lazy" decoding="async"/><h3>Ts. Dr. Noor Hayani Binti Abd Rahim</h3><p>Co-Investigator · Information Technology<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/zahidah.webp" alt="Ts. Dr. Zahidah Binti Zulkifli" width="330" height="409" loading="lazy" decoding="async"/><h3>Ts. Dr. Zahidah Binti Zulkifli</h3><p>Co-Investigator · Information Technology<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/muhammad-ilham.webp" alt="Muhammad Ilham bin Mohd Hisham" width="330" height="471" loading="lazy" decoding="async"/><h3>Muhammad Ilham bin Mohd Hisham</h3><p>3rd Year CS Student<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/muhammad-ikhwan.webp" alt="Muhammad Ikhwan bin Mat Suhairi" width="330" height="455" loading="lazy" decoding="async"/><h3>Muhammad Ikhwan bin Mat Suhairi</h3><p>3rd Year CS Student<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/nor-hamidah.webp" alt="Dr. Nor Hamidah Binti Mohd Salleh" width="467" height="330" loading="lazy" decoding="async"/><h3>Dr. Nor Hamidah Binti Mohd Salleh</h3><p>Consultant Psychiatrist<br/>NH Edu-Health Centre</p></div></div></div></div><!-- TOAST -->
+<div class="screen" id="sc-team"><div class="team-screen"><div class="team-intro"><h2 class="team-h"><img class="team-logo" src="assets/LENA-logo.webp" alt="" width="44" height="44"/><span>LENA's Team</span></h2><p style="color:var(--muted)">LENA Platform Research Team<br/>International Islamic University Malaysia • KICT Faculty</p></div><div class="team-grid2"><div class="team-card2 t-iium"><img src="assets/team/ahmad-anwar.webp" alt="Ts. Dr. Ahmad Anwar Bin Zainuddin" width="330" height="409" loading="lazy" decoding="async"/><h3>Ts. Dr. Ahmad Anwar Bin Zainuddin</h3><p>Computer Science Department<br/><span class="t-org">IIUM</span></p></div><div class="team-card2 t-iium"><img src="assets/team/amir-aatieff.webp" alt="Asst. Prof. Dr. Amir 'Aatieff Bin Amir Hussin" width="330" height="409" loading="lazy" decoding="async"/><h3>Asst. Prof. Dr. Amir 'Aatieff Bin Amir Hussin</h3><p>Computer Science Department<br/><span class="t-org">IIUM</span></p></div><div class="team-card2 t-iium"><img src="assets/team/dini-oktarina-dwi-handayani.webp" alt="Ts. Dr. Dini Oktarina Dwi Handayani" width="330" height="409" loading="lazy" decoding="async"/><h3>Ts. Dr. Dini Oktarina Dwi Handayani</h3><p>Computer Science Department<br/><span class="t-org">IIUM</span></p></div><div class="team-card2 t-iium"><img src="assets/team/asmarani.webp" alt="Asmarani Binti Ahmad Puzi" width="330" height="440" loading="lazy" decoding="async"/><h3>Asmarani Binti Ahmad Puzi</h3><p>Co-Investigator · Computer Science<br/><span class="t-org">IIUM</span></p></div><div class="team-card2 t-iium"><img src="assets/team/noor-hayani.webp" alt="Ts. Dr. Noor Hayani Binti Abd Rahim" width="330" height="409" loading="lazy" decoding="async"/><h3>Ts. Dr. Noor Hayani Binti Abd Rahim</h3><p>Co-Investigator · Information Technology<br/><span class="t-org">IIUM</span></p></div><div class="team-card2 t-iium"><img src="assets/team/zahidah.webp" alt="Ts. Dr. Zahidah Binti Zulkifli" width="330" height="409" loading="lazy" decoding="async"/><h3>Ts. Dr. Zahidah Binti Zulkifli</h3><p>Co-Investigator · Information Technology<br/><span class="t-org">IIUM</span></p></div><div class="team-card2 t-iium"><img src="assets/team/muhammad-ilham.webp" alt="Muhammad Ilham bin Mohd Hisham" width="330" height="471" loading="lazy" decoding="async"/><h3>Muhammad Ilham bin Mohd Hisham</h3><p>3rd Year CS Student<br/><span class="t-org">IIUM</span></p></div><div class="team-card2 t-iium"><img src="assets/team/muhammad-ikhwan.webp" alt="Muhammad Ikhwan bin Mat Suhairi" width="330" height="455" loading="lazy" decoding="async"/><h3>Muhammad Ikhwan bin Mat Suhairi</h3><p>3rd Year CS Student<br/><span class="t-org">IIUM</span></p></div><div class="team-card2 t-nh"><img src="assets/team/nor-hamidah.webp" alt="Dr. Nor Hamidah Binti Mohd Salleh" width="467" height="330" loading="lazy" decoding="async"/><h3>Dr. Nor Hamidah Binti Mohd Salleh</h3><p>Consultant Psychiatrist<br/><span class="t-org">NH Edu-Health Centre</span></p></div></div></div></div><!-- TOAST -->
 </div><!-- end content-area -->
 <!-- CHAT SCREEN (full height, outside content-area) -->
 </div><!-- end main -->
@@ -5280,7 +5323,12 @@ function openEditCheckin(){
 // FEEDBACK
 // ════════════════════════════════════════════════════
 let fbStarVal=0;
-function openFeedback(){document.getElementById('feedback-modal').classList.add('open');}
+function openFeedback(){
+  document.getElementById('feedback-modal').classList.add('open');
+  const r=document.getElementById('fb-reply');
+  try{const u=window.LENA_BACKEND&&LENA_BACKEND.user;if(r&&!r.value&&u&&u.email)r.value=u.email;}catch(e){}
+  const er=document.getElementById('fb-err');if(er){er.hidden=true;er.textContent='';}
+}
 function closeFeedback(){document.getElementById('feedback-modal').classList.remove('open');}
 function renderFbStars(n, hovered){
   const stars=document.querySelectorAll('#fb-stars span[onclick]');
@@ -5300,28 +5348,46 @@ function setFbStar(n){
 function hoverFbStar(n){
   renderFbStars(fbStarVal,n);
 }
-// Feedback has nowhere to go. There is no server in this build, so it is
-// kept with the rest of the person's data and comes out in the export.
-// It used to say "Thank you for your feedback!" and discard the text,
-// which is a promise the app cannot keep.
 const FBKEY='lena_feedback';
 function fbCat(el){
   el.parentElement.querySelectorAll('.cbt-cat').forEach(c=>{c.classList.remove('act');c.setAttribute('aria-pressed','false');});
   el.classList.add('act');el.setAttribute('aria-pressed','true');
 }
-function submitFeedback(){
+// v47: feedback is emailed to the LENA team through /api/feedback. A
+// copy is kept with the person's data (it follows their account). If it
+// cannot be sent, it is kept and the person is told, never "sent".
+async function submitFeedback(){
   const txt=document.getElementById('fb-text').value.trim();
   if(!txt){toast('Please enter your feedback');return;}
+  const er=document.getElementById('fb-err'),btn=document.getElementById('fb-send');
+  const showErr=m=>{if(er){er.textContent=m;er.hidden=!m;}};
+  const reply=(document.getElementById('fb-reply').value||'').trim();
+  if(reply&&!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(reply)){showErr('That email does not look right. Leave it empty if you do not need a reply.');return;}
+  if(txt.length>2000){showErr('Please keep it under 2000 characters.');return;}
+  showErr('');
+  const catEl0=document.querySelector('#fb-cats .act');
+  btn.disabled=true;const was=btn.textContent;btn.textContent='Sending…';
+  let sent=false,why='';
+  try{
+    const ctl=new AbortController();const tm=setTimeout(()=>ctl.abort(),15000);
+    const r=await fetch('/api/feedback',{method:'POST',credentials:'same-origin',signal:ctl.signal,headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({text:txt,stars:fbStarVal||null,category:catEl0?catEl0.getAttribute('data-fb'):'General',lang:window.LENA_LANG==='ms'?'ms':'en',replyTo:reply})});
+    clearTimeout(tm);
+    sent=r.status===200;
+    why=r.status===429?'You have sent a lot of feedback in the last hour. Please try again a bit later.':
+        r.status===400?'Please check your message and email, then try again.':'';
+  }catch(e){}
+  btn.disabled=false;btn.textContent=was;
+  if(!sent){showErr(why||'Could not send it right now. Check your connection and try again. Your message is still here.');return;}
   let all=[];
   try{all=JSON.parse(localStorage.getItem(FBKEY)||'[]');}catch(e){}
   const catEl=document.querySelector('#fb-cats .act');
-  all.push({t:Date.now(),stars:fbStarVal||null,category:catEl?catEl.getAttribute('data-fb'):'General',text:txt});
+  all.push({t:Date.now(),stars:fbStarVal||null,category:catEl?catEl.getAttribute('data-fb'):'General',text:txt,sent:true});
   while(all.length>50)all.shift();
   let stored=true;
   try{localStorage.setItem(FBKEY,JSON.stringify(all));}catch(e){stored=false;}
   closeFeedback();
-  toast(stored?'Saved on this device. Export your data to send it on.'
-             :'This browser would not save it, sorry');
+  toast('Sent to the LENA team. Thank you.');
   document.getElementById('fb-text').value='';
   document.getElementById('fb-star-lbl').textContent='Tap to rate';
   fbStarVal=0;
@@ -5902,23 +5968,26 @@ function renderMoodScreenCard(){
   }
   const e=h[h.length-1], d=daysSince(e.t);
   const nm=e.k==='phq9'?'PHQ-9':'DASS-21';
-  let val, band;
-  if(e.k==='phq9'){ val=e.total+'/27'; band=e.band; }
+  // v47: one colour per band, five steps from green to red, the same
+  // everywhere. The band's name is always written too, so colour is
+  // never the only way to tell.
+  let val, band, lvl=0, sub='';
+  if(e.k==='phq9'){ val=e.total+'/27'; band=e.band; lvl=Math.max(0,BANDS.phq9.lab.indexOf(e.band)); }
   else{
     const L=['Normal','Mild','Moderate','Severe','Extremely Severe'];
     const rk=x=>L.indexOf(x);
     const worst=[['Stress',e.sB],['Anxiety',e.aB],['Depression',e.dB]]
       .reduce((a,b)=>rk(b[1])>rk(a[1])?b:a);
-    val='S'+e.stress+' A'+e.anxiety+' D'+e.depression; band=worst[0]+' '+worst[1];
+    val='S'+e.stress+' A'+e.anxiety+' D'+e.depression; band=worst[1]; sub=worst[0]; lvl=Math.max(0,rk(worst[1]));
   }
   const stale=d>=14;
   el.innerHTML='<div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r2);'+
     'padding:14px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">'+
     '<span style="font-size:18px">\uD83D\uDCCB</span>'+
     '<div style="flex:1;min-width:200px">'+
-      '<div style="font-size:13px;font-weight:700;color:var(--text)">Last screening \u00b7 '+nm+' '+val+'</div>'+
-      '<div style="font-size:11px;color:var(--muted);margin-top:2px">'+esc(band)+' \u00b7 '+agoTxt(d)+
-        (stale?', due for another':'')+'</div>'+
+      '<div style="font-size:13px;font-weight:700;color:var(--text)"><span>Last screening \u00b7 '+nm+'</span> <span class="sev sev'+lvl+'">'+val+'</span></div>'+
+      '<div class="sev-row">'+(sub?'<span class="sev-sub">'+sub+'</span>':'')+'<span class="sev-pill sev'+lvl+'"><i aria-hidden="true"></i>'+esc(band)+'</span>'+
+        '<span class="sev-ago">'+agoTxt(d)+'</span>'+(stale?'<span class="sev-due">Due for another check</span>':'')+'</div>'+
     '</div>'+
     '<button class="btn-g" onclick="go(\'assess\')" style="padding:8px 15px;font-size:12px">'+
       (stale?'Take again':'View history')+' \u2192</button></div>';
@@ -5989,17 +6058,25 @@ function renderMood(){
     list.innerHTML='<div style="color:var(--muted);font-size:13px;padding:16px 0;text-align:center">Nothing logged yet.</div>';
     return;
   }
-  list.innerHTML=show.map(m=>{
-    const tags=(m.tags||[]).map(t=>'<span style="background:var(--bg3);border-radius:999px;padding:2px 8px;font-size:10px;color:var(--text2)">'+esc(t)+'</span>').join(' ');
-    return '<div style="border-left:3px solid '+MOOD_COL[m.m]+';padding:9px 0 9px 11px">'
-      +'<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">'
-      +'<span style="font-size:16px">'+MOOD_FACE[m.m]+'</span>'
-      +'<strong style="font-size:12px;color:var(--text)">'+MOOD_LBL[m.m]+'</strong>'
-      +'<span style="font-size:11px;color:var(--muted)">'+(m.i?'intensity '+INT_LBL(m.i):(m.e?'energy '+m.e:''))+(m.i||m.e?' \u00b7 ':'')+mDay(m.t)+', '+mTime(m.t)+'</span></div>'
-      +(tags?'<div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:6px">'+tags+'</div>':'')
-      +(m.note?'<div data-noico style="font-size:12px;color:var(--text2);margin-top:6px;line-height:1.5">'+esc(m.note)+'</div>':'')
-      +'</div>';
-  }).join('');
+  // v47: grouped by day with a small timeline. Each entry keeps the
+  // same details (mood, time, intensity, tags, note); intensity is a
+  // ten-step meter with the number beside it.
+  const groups=[];
+  show.forEach(m=>{const k=new Date(m.t).toDateString();let g=groups[groups.length-1];if(!g||g.k!==k){g={k:k,t:m.t,items:[]};groups.push(g);}g.items.push(m);});
+  const tdy=new Date().toDateString(), ysd=new Date(Date.now()-864e5).toDateString();
+  const meter=v=>'<span class="mle-meter" aria-hidden="true">'+Array.from({length:10},(_,i)=>'<i'+(i<v?' class="on"':'')+'></i>').join('')+'</span>';
+  list.innerHTML=groups.map(g=>'<div class="mle-day"><div class="mle-dh"><span>'+(g.k===tdy?'Today':g.k===ysd?'Yesterday':mDay(g.t))+'</span>'+
+    '<span class="mle-dc">'+g.items.length+' '+(g.items.length===1?'entry':'entries')+'</span></div>'+
+    g.items.map(m=>{
+      const tags=(m.tags||[]).map(t=>'<span class="mle-tag">'+esc(t)+'</span>').join('');
+      const lvl=m.i?'<div class="mle-int">'+meter(m.i)+'<span class="mle-il">Intensity</span><b>'+m.i+'/10</b></div>'
+               :(m.e?'<div class="mle-int"><span class="mle-il">Energy</span><b>'+esc(m.e)+'</b></div>':'');
+      return '<div class="mle" style="--mc:'+MOOD_COL[m.m]+'"><span class="mle-face">'+MOOD_FACE[m.m]+'</span>'
+        +'<div class="mle-b"><div class="mle-top"><strong>'+MOOD_LBL[m.m]+'</strong><time>'+mTime(m.t)+'</time></div>'
+        +lvl+(tags?'<div class="mle-tags">'+tags+'</div>':'')
+        +(m.note?'<div data-noico class="mle-note">'+esc(m.note)+'</div>':'')
+        +'</div></div>';
+    }).join('')+'</div>').join('');
 }
 
 // v31: both charts are SVG. Points carry data-tip; one tooltip per chart
