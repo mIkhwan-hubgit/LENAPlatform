@@ -13,6 +13,7 @@ if(window.LENA_LANG==='ms'){document.documentElement.lang='ms';var _l=document.c
 (function(){try{
   var u=JSON.parse(localStorage.getItem('lena_user')||'null');
   if(u&&u.email&&localStorage.getItem('lena_signed_out')!=='1')document.documentElement.classList.add('lena-resume');
+  if(localStorage.getItem('lena_muslim')==='0')document.documentElement.classList.add('no-isl');
   var p=JSON.parse(localStorage.getItem('lena_prefs')||'{}');
   if(p&&p.loadbg==='sunset'){var w=innerWidth/innerHeight*1000>1150;
     ['assets/loading/'+(w?'mountain-wide':'mountain')+'.webp','assets/loading/grass.webp'].forEach(function(s){var l=document.createElement('link');l.rel='preload';l.as='image';l.href=s;document.head.appendChild(l);});}
@@ -1172,6 +1173,31 @@ button .emo:not(.emo-face):not(.emo-heart):not(.emo-warm):not(.emo-warn){color:i
 .so-title{font-family:var(--ff-d);font-size:22px;color:var(--text);margin-bottom:8px}
 .so-body{font-size:13.5px;color:var(--text2);line-height:1.65;margin:0 0 22px}
 .so-btns{display:flex;gap:10px;justify-content:center}
+/* v50: the logo sits in the middle of its name and tagline. The row is
+   64px tall in both states, so the logo and the open/close button keep
+   the same height when the menu folds. */
+.logo .logo-row{align-items:center;min-height:64px}
+.logo .logo-row>div{padding-top:0}
+.logo .sb-tog{margin-top:14px}
+@media (min-width:821px){
+  .sb-mini .logo .logo-row{min-height:64px;align-items:center}
+  .sb-mini .logo .sb-tog{top:10px;margin-top:0}
+}
+
+/* v50: screening page in two columns */
+.as-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:22px;align-items:start}
+.as-grid .card-hover{margin-bottom:12px!important}
+.as-about{margin-top:4px}
+.as-about-h{font-size:13px;font-weight:800;color:var(--text);margin-bottom:10px}
+.as-about ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.as-about li{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;line-height:1.55;color:var(--text2)}
+.as-about li .ic{flex:none;width:18px;height:18px;margin-top:1px;color:var(--primary-t)}
+@media(max-width:960px){.as-grid{grid-template-columns:1fr}}
+
+/* v50: one switch for Islamic content */
+html.no-isl .isl-only,html.no-isl #sc-cbt .cbt-cat[data-cat="islamic"],html.no-isl #sc-cbt .gt-card[data-cat="islamic"]{display:none!important}
+html:not(.no-isl) .non-isl{display:none!important}
+
 /* ── v49: team heading ───────────────────────────────────────────── */
 .team-lead{color:var(--text2);font-size:15px;margin:6px 0 12px}
 .team-orgs{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 10px}
@@ -2603,7 +2629,7 @@ return {
 <div class="pstep"><div class="pdot" style="background:rgba(244,164,56,.15)">☀️</div><div><div class="ptime" id="pt1">6:00 PM</div><div class="pdesc">Light dinner</div><div class="psub2">Avoid heavy meals within 3 hrs of sleep</div></div></div>
 <div class="pstep"><div class="pdot" style="background:rgba(43,184,154,.15)">🏃</div><div><div class="ptime" id="pt2">7:00 PM</div><div class="pdesc">Light exercise or walk</div><div class="psub2">Raises then lowers body temperature for sleep onset</div></div></div>
 <div class="pstep"><div class="pdot" style="background:rgba(139,157,195,.15)">📱</div><div><div class="ptime" id="pt3">9:30 PM</div><div class="pdesc">Screen-free time</div><div class="psub2">Blue light suppresses melatonin production</div></div></div>
-<div class="pstep"><div class="pdot" style="background:rgba(43,184,154,.15)">🕌</div><div><div class="ptime" id="pt4">10:00 PM</div><div class="pdesc">Evening Dhikr &amp; Reflection</div><div class="psub2">Spiritual wind-down reduces anxiety for sleep</div></div></div>
+<div class="pstep"><div class="pdot" style="background:rgba(43,184,154,.15)"><span class="isl-only">🕌</span><span class="non-isl">🕯️</span></div><div><div class="ptime" id="pt4">10:00 PM</div><div class="pdesc"><span class="isl-only">Evening Dhikr &amp; Reflection</span><span class="non-isl">Quiet reflection or journaling</span></div><div class="psub2"><span class="isl-only">Spiritual wind-down reduces anxiety for sleep</span><span class="non-isl">A calm wind-down reduces anxiety for sleep</span></div></div></div>
 <div class="pstep"><div class="pdot" style="background:rgba(139,157,195,.15)">🫁</div><div><div class="ptime" id="pt5">10:30 PM</div><div class="pdesc">LENA Breathing Exercise</div><div class="psub2">4-7-8 breathing for nervous system calm</div></div></div>
 <div class="pstep" style="padding-bottom:0"><div class="pdot" style="background:rgba(139,157,195,.2)">💤</div><div><div class="ptime" id="pt6">11:00 PM</div><div class="pdesc">Lights out: target bedtime</div><div class="psub2">Aim for 7 to 8 hours of quality sleep</div></div></div>
 <button class="btn-p" onclick="copyPlan()" style="margin-top:16px;width:100%;padding:12px">📋 Copy these times</button><div style="font-size:11px;color:var(--muted);margin-top:10px;line-height:1.6">LENA cannot send you reminders when it is closed, so it will not pretend to. Copy the times and set them as alarms in your phone's own clock app.</div>
@@ -2630,21 +2656,31 @@ return {
 <div class="screen" id="sc-assess">
 <div id="assess-sel">
 <div style="background:rgba(244,164,56,.07);border:1px solid rgba(244,164,56,.2);border-radius:var(--r);padding:14px 16px;margin-bottom:18px;font-size:13px;color:var(--muted);line-height:1.7">ℹ️ These are validated <strong style="color:var(--text)">screening instruments</strong>, not clinical diagnoses. Always consult a professional for a full evaluation.</div>
-<div style="max-width:640px;margin-bottom:6px">
+<div class="as-grid">
 <div>
 <div class="shd"><h2>Clinical Screening Tests</h2></div>
 <div class="card card-hover" onclick="startAssess('phq9')" style="display:flex;gap:13px;align-items:center;margin-bottom:10px"><div class="as-ico" aria-hidden="true">📋</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">PHQ-9: Depression</div><div style="font-size:11px;color:var(--muted)">Patient Health Questionnaire · 9 Qs · ~3 min</div></div><span style="color:var(--primary-t)">›</span></div>
 <div class="card card-hover" onclick="startAssess('dass21')" style="display:flex;gap:13px;align-items:center"><div class="as-ico" aria-hidden="true">🔬</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">DASS-21</div><div style="font-size:11px;color:var(--muted)">Depression · Anxiety · Stress · 21 Qs · ~7 min</div></div><span style="color:var(--primary-t)">›</span></div>
+<div class="card as-about">
+<div class="as-about-h">Before you start</div>
+<ul>
+<li><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-clock"/></svg><span>Answer about how you have felt over the last two weeks.</span></li>
+<li><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-lock-key"/></svg><span>Your answers stay with you: in this browser as a guest, or in your LENA account.</span></li>
+<li><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-stethoscope"/></svg><span>A result is a starting point for a talk with a doctor or counsellor, not a diagnosis.</span></li>
+<li><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-lifebuoy"/></svg><span>If you feel unsafe at any point, open Crisis Help. You do not need to finish first.</span></li>
+</ul>
 </div>
-<div style="height:16px"></div>
+</div>
+<div>
+<div class="shd"><h2>Past Results</h2></div>
 <div class="card">
-<div class="shd" style="margin:0 0 14px"><h2>Past Results</h2></div>
 <div id="trend-tabs" style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap"></div>
 <div id="trend-empty" style="padding:26px 14px;text-align:center;color:var(--muted);font-size:13px;line-height:1.6"></div>
 <div id="trend-wrap" style="display:none">
 <div id="trend-chart" class="ch-box"></div>
 <div id="trend-legend" style="margin-top:8px;font-size:11.5px;color:var(--muted);line-height:1.55"></div>
 <div id="trend-latest" style="margin-top:12px;font-size:12px;color:var(--text2);line-height:1.6"></div>
+</div>
 </div>
 </div>
 </div>
@@ -2819,7 +2855,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <p style="font-size:12px;color:var(--muted)">The sunset loading scene uses photos by Pietro De Grandi and Margo Evardson on Unsplash.</p>
 <div class="about-acts"><button class="btn-g" onclick="go('team')" style="padding:10px 18px;font-size:13px">Meet the team</button></div>
 </div>
-<div class="about-ver">LENA v1.0 · build 49 · IIUM KICT</div>
+<div class="about-ver">LENA v1.0 · build 50 · IIUM KICT</div>
 </div>
 <div class="sp"></div>
 </div>
@@ -2949,7 +2985,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <div class="cbt-cat" onclick="setCbtCat(this)">Depression</div>
 <div class="cbt-cat" onclick="setCbtCat(this)">Anxiety</div>
 <div class="cbt-cat" onclick="setCbtCat(this)">Sleep</div>
-<div class="cbt-cat" onclick="setCbtCat(this)">Islamic</div>
+<div class="cbt-cat isl-only" onclick="setCbtCat(this)">Islamic</div>
 <div class="cbt-cat" onclick="setCbtCat(this)">Relationships</div>
 </div>
 <div class="grid2">
@@ -2960,7 +2996,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <div class="res-card" onclick="openResModal('Sleep Hygiene Guide','Science-backed tips for better sleep quality','🌙','Sleep')" style="margin-bottom:12px"><div class="res-ico" style="background:rgba(244,164,56,.12)"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-moon-stars"/></svg></div><div><div class="res-title">Sleep Hygiene Guide</div><div class="res-sub">Science-backed tips for better sleep quality</div><div class="res-meta">📖 Read · 4 min</div></div></div>
 </div>
 <div>
-<div class="res-card" onclick="openResModal('Islam &amp; Mental Health','Mental illness is not a spiritual failing','🕌','Islamic')" style="margin-bottom:12px"><div class="res-ico" style="background:rgba(43,184,154,.12)"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-mosque"/></svg></div><div><div class="res-title">Islam &amp; Mental Health</div><div class="res-sub">Mental illness is not a spiritual failing</div><div class="res-meta">📖 Read · 7 min</div></div></div>
+<div class="res-card isl-only" onclick="openResModal('Islam &amp; Mental Health','Mental illness is not a spiritual failing','🕌','Islamic')" style="margin-bottom:12px"><div class="res-ico" style="background:rgba(43,184,154,.12)"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-mosque"/></svg></div><div><div class="res-title">Islam &amp; Mental Health</div><div class="res-sub">Mental illness is not a spiritual failing</div><div class="res-meta">📖 Read · 7 min</div></div></div>
 <div class="res-card" onclick="openResModal('Building Resilience','How to bounce back from adversity','💪','Resilience')" style="margin-bottom:12px"><div class="res-ico" style="background:rgba(224,92,110,.12)"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-mountains"/></svg></div><div><div class="res-title">Building Resilience</div><div class="res-sub">How to bounce back from adversity</div><div class="res-meta">📖 Read · 4 min</div></div></div>
 <div class="res-card" onclick="openResModal('Breathing Controls Emotions','How breath regulates your nervous system','🫁','Psychoeducation')"><div class="res-ico" style="background:rgba(43,184,154,.12)"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-wind"/></svg></div><div><div class="res-title">Breathing Controls Emotions</div><div class="res-sub">How breath regulates your nervous system</div><div class="res-meta">📖 Read · 4 min</div></div></div>
 </div>
@@ -3126,9 +3162,9 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 </div>
 </div>
 <div class="card">
-<div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px">🕌 Islamic Preferences</div>
-<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)"><span style="font-size:13px;color:var(--text)">Show a quote on the loading screen</span><div class="tsw" id="tsw-quotes" onclick="togglePref('quotes')"><div class="tk"></div></div></div>
-<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0"><span style="font-size:13px;color:var(--text)">Show Islamic sections (Kerohanian)</span><div class="tsw" id="tsw-islamic" onclick="togglePref('islamic')"><div class="tk"></div></div></div>
+<div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px">🕌 Islamic content</div>
+<div style="display:flex;justify-content:space-between;align-items:center;gap:14px;padding:10px 0"><span style="font-size:13px;color:var(--text)">Show Islamic content<span style="display:block;font-size:11.5px;color:var(--muted);margin-top:3px;line-height:1.5">One switch for all of it: Kerohanian, the Islamic guided tool and reading, Quran verses, dhikr in the evening routine, Islamic quotes and the Islamic greeting. Off shows LENA without religious content.</span></span><div class="tsw" id="tsw-islamic" onclick="togglePref('islamic')"><div class="tk"></div></div></div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-top:1px solid var(--border)"><span style="font-size:13px;color:var(--text)">Show a quote on the loading screen<span style="display:block;font-size:11.5px;color:var(--muted);margin-top:3px">A Quran verse when Islamic content is on, a general quote when it is off.</span></span><div class="tsw" id="tsw-quotes" onclick="togglePref('quotes')"><div class="tk"></div></div></div>
 <div style="font-size:11px;color:var(--muted);line-height:1.6;margin-top:10px">LENA cannot send notifications while it is closed, so there is no daily reminder setting here. Nothing is promised that the app cannot do.</div>
 </div>
 </div>
@@ -3518,6 +3554,7 @@ function resumeSession(){
 
 function setReligion(isMuslim){
   isMuslimUser=isMuslim;
+  try{document.documentElement.classList.toggle('no-isl',!isMuslim);}catch(e){}
   try{localStorage.setItem('lena_muslim',isMuslim?'1':'0');}catch(e){}
   try{chatHello();}catch(e){}
   const relScreen=document.getElementById('religion-screen');
@@ -4333,7 +4370,7 @@ function copyPlan(){
   const p=loadPlan();
   const [bh,bm]=p.bed.split(':').map(Number);
   const base=bh*60+bm;
-  const names=['Light dinner','Light exercise or walk','Screen-free time','Evening dhikr and reflection','LENA breathing exercise','Lights out'];
+  const names=['Light dinner','Light exercise or walk','Screen-free time',isMuslimUser?'Evening dhikr and reflection':'Quiet reflection or journaling','LENA breathing exercise','Lights out'];
   const lines=PLAN_STEPS.map(([id,off],i)=>fmtClock(base+off)+'  '+names[i]);
   lines.push(fmtClock(base+minsBetween(p.bed,p.wake))+'  Wake up');
   const text='LENA evening plan\n'+lines.join('\n');
@@ -4881,9 +4918,13 @@ function setLoadBg(k){
 // all. Now the answer decides whether the Islamic sections are offered,
 // and it can be changed later instead of only once at sign-up.
 function applyReligionPref(){
+  document.documentElement.classList.toggle('no-isl',!isMuslimUser);
   document.querySelectorAll('.isl-only').forEach(el=>{
     el.style.display=isMuslimUser?'':'none';
   });
+  // a hidden filter must not stay selected
+  const act=document.querySelector('#sc-cbt .cbt-cat.act');
+  if(!isMuslimUser&&act&&act.dataset.cat==='islamic'){const all=document.querySelector('#sc-cbt .cbt-cat[data-cat="all"]');if(all)setCbtCat(all);}
 }
 function togglePref(which){
   if(which==='islamic'){
@@ -4891,7 +4932,8 @@ function togglePref(which){
     try{localStorage.setItem('lena_muslim',isMuslimUser?'1':'0');}catch(e){}
     try{chatHello();}catch(e){}
     renderPrefs();
-    toast(isMuslimUser?'Islamic sections are on':'Islamic sections are hidden');
+    try{applyReligionPref();}catch(e){}
+    toast(isMuslimUser?'Islamic content is on':'Islamic content is hidden');
     return;
   }
   const p=loadPrefs();
@@ -8506,7 +8548,7 @@ function closeReflection(){document.getElementById('refl-modal').classList.remov
    The game lives in assets/games.js and is fetched the first time the
    Games screen opens, so it costs nothing for people who never play.
    The service worker keeps it after that, so it works offline. */
-const GAMES_SRC='/assets/games.js?v=41';
+const GAMES_SRC='/assets/games.js?v=50';
 let gamesLoad=null, gamesHandle=null, gamesWant=null;
 function loadGames(){
   if(window.LenaPop)return Promise.resolve();

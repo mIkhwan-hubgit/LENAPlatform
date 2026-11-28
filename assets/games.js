@@ -170,6 +170,7 @@ const CSS = `
   box-shadow:inset 0 0 0 1px rgba(255,255,255,.5)}
 @keyframes lpSwirl{to{transform:rotate(360deg)}}
 .lp-s:focus-visible{outline:3px solid #9FE3D6;outline-offset:3px}
+.lp-s,.lp-s:active{transition:none!important}
 @media (prefers-reduced-motion:reduce){
   .lp-board,.lp-b,.lp-w,.lp-tab{transition-duration:.01s!important}
   .lp-s::before,.lp-b.jig,.lp-b.down,.lp-w.pop,.lp-b.refill{animation:none!important}
