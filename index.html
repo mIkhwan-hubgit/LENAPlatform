@@ -702,6 +702,27 @@ button:active:not(:disabled),[role="button"]:active,[role="switch"]:active,.scp:
 .pl-ord .pl-t{font-size:14px;color:var(--text);font-weight:600}
 .pl-ord .pl-why{padding-left:0}
 .pl-mv{display:flex;gap:4px;flex:none}
+/* ── v44: plan for tomorrow with ideas ─────────────────────────────── */
+.pl-auto-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 16px;padding:14px;border-radius:var(--r);
+  background:color-mix(in srgb,var(--primary) 8%,transparent);border:1px solid color-mix(in srgb,var(--primary) 22%,transparent)}
+.pl-auto{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;font-size:14px;flex:none}
+.pl-auto .ic{width:18px;height:18px}
+.pl-auto-t{flex:1 1 200px;font-size:12.5px;color:var(--text2);line-height:1.5;min-width:0}
+.pl-ideas{margin-top:16px;padding-top:14px;border-top:1px solid var(--border)}
+.pl-ideas-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+.pl-ideas-h{font-size:13px;font-weight:800;color:var(--text)}
+.pl-more{font-size:12.5px}
+.pl-g{margin-top:10px}
+.pl-gh{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.pl-chips{display:flex;flex-wrap:wrap;gap:7px}
+.pl-chip{display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:7px 13px 7px 9px;border-radius:999px;cursor:pointer;text-align:left;
+  border:1px solid var(--border2);background:var(--card-b);color:var(--text2);font-family:var(--ff-b);font-size:12.5px;font-weight:600;line-height:1.35}
+.pl-chip-i{flex:none;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:800;
+  background:color-mix(in srgb,var(--primary) 14%,transparent);color:var(--primary-t)}
+.pl-chip:hover{border-color:var(--primary)}
+.pl-chip[aria-pressed="true"]{background:color-mix(in srgb,var(--primary) 14%,var(--card-b));border-color:var(--primary);color:var(--text)}
+.pl-chip[aria-pressed="true"] .pl-chip-i{background:var(--fill);color:var(--on-fill)}
+
 .pl-mv button{width:34px;height:34px;border-radius:10px;border:1px solid var(--border2);background:var(--card);color:var(--text);cursor:pointer;font-size:15px}
 .pl-mv button:disabled{opacity:.35;cursor:default}
 /* doctor summary */
@@ -1149,7 +1170,8 @@ button .emo:not(.emo-face):not(.emo-heart):not(.emo-warm):not(.emo-warn){color:i
 .pre-brand{display:flex;align-items:center;gap:9px;background:none;border:0;cursor:pointer;padding:4px 6px;border-radius:12px;
   font-family:var(--ff-d);font-size:22px;font-weight:700;color:var(--primary-t);letter-spacing:-.5px}
 .pre-brand img{width:34px;height:34px;border-radius:9px;object-fit:cover}
-.pre-tabs{display:flex;gap:4px;margin-left:auto}
+.pre-tabs{display:flex;gap:4px;margin-left:22px;padding-left:22px;border-left:1px solid var(--border2)}
+.pre-tab-cta{margin-left:auto}
 .pre-tab{min-height:40px;padding:8px 15px;border-radius:999px;border:1px solid transparent;background:transparent;color:var(--text2);
   font-family:var(--ff-b);font-size:13.5px;font-weight:600;cursor:pointer;transition:background .15s,color .15s}
 .pre-tab:hover{background:color-mix(in srgb,var(--primary) 9%,transparent)}
@@ -1161,6 +1183,16 @@ button .emo:not(.emo-face):not(.emo-heart):not(.emo-warm):not(.emo-warn){color:i
   border:1.5px solid color-mix(in srgb,var(--red-fill) 55%,transparent);background:color-mix(in srgb,var(--red-fill) 7%,var(--card-b));
   color:var(--red-t);font-family:var(--ff-b);font-size:12.5px;font-weight:700}
 .pre-sos .ic{width:16px;height:16px}
+.pre-sos-s{display:none}
+@media(max-width:640px){.pre-sos-s{display:inline}}
+@media(max-width:420px){.pre-brand span{display:none}}
+/* the language switch is a setting: neutral, not the tab colour */
+.pre-nav .auth-lang{border-color:var(--border2);background:var(--bg3)}
+.pre-nav .auth-lang button{color:var(--muted);font-weight:600}
+.pre-nav .auth-lang button[aria-pressed="true"]{background:var(--card-b);color:var(--text);font-weight:800;
+  box-shadow:inset 0 0 0 1.5px var(--text2);border-radius:999px}
+/* one help button: the menu bar has it, so the sign-in page does not repeat it */
+#pre-login .pre-help{display:none}
 .pre-nav .auth-lang{position:static;top:auto;right:auto}
 .pre-page{width:100%;padding:34px max(16px,env(safe-area-inset-right)) 40px max(16px,env(safe-area-inset-left))}
 #pre-login{display:flex;flex-direction:column;align-items:center;padding-top:40px;padding-bottom:56px}
@@ -1242,11 +1274,16 @@ button .emo:not(.emo-face):not(.emo-heart):not(.emo-warm):not(.emo-warn){color:i
 }
 @media(max-width:640px){
   .pre-nav{gap:8px 10px}
-  .pre-tabs{order:3;width:100%;margin-left:0;justify-content:space-between}
-  .pre-tab{flex:1;padding:8px 8px}
-  .pre-tools{margin-left:auto}
-  .pre-sos span{display:none}
-  .pre-sos{padding:6px 9px}
+  .pre-nav::before{content:"";order:3;flex-basis:100%;height:0}
+  .pre-brand{order:1}
+  .pre-tools{order:2;margin-left:auto}
+  .pre-tabs{order:4;margin-left:0;padding-left:0;border-left:0}
+  .pre-tab-cta{order:5;margin-left:auto}
+  .pre-tab{padding:8px 14px}
+  .pre-sos-l{display:none}
+  .pre-tab,.pre-nav .auth-lang button{white-space:nowrap}
+  .pre-nav .auth-lang button{padding:6px 10px;font-size:11.5px;min-height:34px}
+  .pre-sos{padding:6px 11px}
   .pre-nav .auth-lang button{padding:6px 9px;font-size:11.5px}
   .pre-page{padding-top:24px}
   .ph-art{display:none}
@@ -1313,10 +1350,10 @@ button .emo:not(.emo-face):not(.emo-heart):not(.emo-warm):not(.emo-warn){color:i
 <nav class="pre-tabs" aria-label="Before you start">
 <button type="button" class="pre-tab" data-pre="home" onclick="prePage('home',true)">Home</button>
 <button type="button" class="pre-tab" data-pre="team" onclick="prePage('team',true)">Our team</button>
-<button type="button" class="pre-tab pre-tab-cta" data-pre="login" onclick="prePage('login',true)">Sign in</button>
 </nav>
+<button type="button" class="pre-tab pre-tab-cta" data-pre="login" onclick="prePage('login',true)">Sign in</button>
 <div class="pre-tools">
-<button type="button" class="pre-sos" onclick="openSOS()" aria-label="Get help now"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-lifebuoy"/></svg><span>Get help now</span></button>
+<button type="button" class="pre-sos" onclick="openSOS()" aria-label="Get help now"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-lifebuoy"/></svg><span class="pre-sos-l">Get help now</span><span class="pre-sos-s" aria-hidden="true">Help</span></button>
 <div class="refl-lang app-lang auth-lang" role="group" aria-label="Language / Bahasa" data-i18n-skip><button type="button" data-lang-btn="en" aria-pressed="true" onclick="setAppLang('en')" lang="en">English</button><button type="button" data-lang-btn="ms" aria-pressed="false" onclick="setAppLang('ms')" lang="ms">Bahasa Melayu</button></div>
 </div>
 </header>
@@ -1361,7 +1398,7 @@ button .emo:not(.emo-face):not(.emo-heart):not(.emo-warm):not(.emo-warn){color:i
 <h2 id="ph-d-h">Your data, in plain words</h2>
 <div class="ph-two">
 <div class="ph-box"><h3>As a guest</h3><ul><li><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-device-mobile"/></svg><span>Everything you add stays in this browser, on this device only.</span></li><li><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-device-mobile"/></svg><span>Clearing your browser data erases it, and nobody can bring it back.</span></li><li><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-device-mobile"/></svg><span>Create an account later and it moves into your account.</span></li></ul></div>
-<div class="ph-box"><h3>With a LENA account</h3><ul><li><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-lock-key"/></svg><span>Your entries are kept in your account, on a server in Singapore.</span></li><li><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-lock-key"/></svg><span>Signing out removes them from this device. Sign in on any device to get them back.</span></li><li><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-lock-key"/></svg><span>Delete your account and every entry from Profile, whenever you like.</span></li></ul></div>
+<div class="ph-box"><h3>With a LENA account</h3><ul><li><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-lock-key"/></svg><span>Your entries are kept safely in your LENA account.</span></li><li><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-lock-key"/></svg><span>Signing out removes them from this device. Sign in on any device to get them back.</span></li><li><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-lock-key"/></svg><span>Delete your account and every entry from Profile, whenever you like.</span></li></ul></div>
 </div>
 <p class="ph-note">Chat messages are sent to an AI service so it can reply. LENA has no ads and never sells your data. <a href="/privacy.html" target="_blank" rel="noopener">Read the privacy policy</a></p>
 </section>
@@ -1771,7 +1808,7 @@ return {
 <div class="msheet" style="width:500px" role="dialog" aria-modal="true" aria-labelledby="plan-h">
 <button class="mcls" aria-label="Close" onclick="closePlan()">✕</button>
 <div id="plan-h" style="font-family:var(--ff-d);font-size:22px;color:var(--text);margin-bottom:4px;padding-right:44px">🗓️ Plan for tomorrow</div>
-<div style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.55">Write 3 to 6 things you want to get done. Keep each one short.</div>
+<div style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.55">Pick 3 to 6 small things. Let LENA make a plan, tap an idea, or type your own.</div>
 <div id="plan-body"></div>
 </div>
 </div>
@@ -2426,7 +2463,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <p style="font-size:12px;color:var(--muted)">The sunset loading scene uses photos by Pietro De Grandi and Margo Evardson on Unsplash.</p>
 <div class="about-acts"><button class="btn-g" onclick="go('team')" style="padding:10px 18px;font-size:13px">Meet the team</button></div>
 </div>
-<div class="about-ver">LENA v1.0 · build 43 · IIUM KICT</div>
+<div class="about-ver">LENA v1.0 · build 44 · IIUM KICT</div>
 </div>
 <div class="sp"></div>
 </div>
@@ -8431,12 +8468,119 @@ function renderPlanCard(){
       '<button type="button" class="btn-g pl-btn" onclick="openPlan()">Edit</button></div>';
     return;
   }
-  el.innerHTML='<div class="pl-top"><div><div class="pl-k">🗓️ Plan for tomorrow</div><div class="pl-sub">Write 3 to 6 things you want to get done. LENA can suggest an order.</div></div>'+
+  el.innerHTML='<div class="pl-top"><div><div class="pl-k">🗓️ Plan for tomorrow</div><div class="pl-sub">Takes a minute. LENA can make one for you to change as you like.</div></div>'+
     '<button type="button" class="btn-p pl-btn" onclick="openPlan()">Make a plan</button></div>';
 }
 window.renderPlanCard=renderPlanCard;
 
-let draft=[];          // [{t, why}]
+let draft=[];          // [{t, why, auto}]
+// v44: ideas, in both languages, so a tapped idea is saved in the
+// language the person is using.
+const IDEAS={
+  'do':[
+    ['Study for 25 minutes, then take a break','Belajar 25 minit, kemudian berehat'],
+    ['Finish one small task I have been putting off','Siapkan satu tugas kecil yang saya tangguhkan'],
+    ['Tidy my desk or room for 10 minutes','Kemas meja atau bilik selama 10 minit'],
+    ['Reply to one message I have been avoiding','Balas satu mesej yang saya elakkan'],
+    ['Read one chapter or one set of notes','Baca satu bab atau satu set nota'],
+    ['Do one chore at home','Buat satu kerja rumah'],
+    ['Pack my bag for the next day','Kemas beg untuk hari seterusnya']],
+  body:[
+    ['Do my daily check-in on LENA','Buat daftar masuk harian di LENA'],
+    ['Breathe slowly for 2 minutes','Bernafas perlahan selama 2 minit'],
+    ['Take a 10-minute walk','Berjalan selama 10 minit'],
+    ['Drink a glass of water with each meal','Minum segelas air setiap kali makan'],
+    ['Eat a proper lunch','Makan tengah hari dengan betul'],
+    ['Write three lines in my journal','Tulis tiga baris dalam jurnal'],
+    ['BED','BED']],
+  enjoy:[
+    ['Message or call someone I like','Mesej atau telefon seseorang yang saya suka'],
+    ['Listen to a song I love','Dengar lagu yang saya suka'],
+    ['Spend 10 minutes outside','Luangkan 10 minit di luar'],
+    ['Do something creative for 15 minutes','Buat sesuatu yang kreatif selama 15 minit'],
+    ['Have a meal with family or friends','Makan bersama keluarga atau kawan'],
+    ['Play one round of Pop & think','Main satu pusingan Pop & fikir'],
+    ['ISL1','ISL1'],['ISL2','ISL2']]
+};
+const IDEA_GROUPS=[['do','Get something done'],['body','Look after yourself'],['enjoy','Something you enjoy']];
+let ideaOff=0;
+function ideaText(pair){
+  const ms=window.LENA_LANG==='ms';
+  if(pair[0]==='BED'){
+    let p=null;try{p=JSON.parse(localStorage.getItem('lena_sleep_plan')||'null');}catch(e){}
+    if(p&&p.bed){const [hh,mm]=p.bed.split(':').map(Number);return ms?'Masuk tidur sebelum '+p.bed:'Be in bed by '+fmtClock(hh*60+mm);}
+    return ms?'Simpan telefon 30 minit sebelum tidur':'Put my phone away 30 minutes before bed';
+  }
+  if(pair[0]==='ISL1')return ms?'Baca satu muka surat al-Quran':'Read one page of the Quran';
+  if(pair[0]==='ISL2')return ms?'Berzikir sebentar selepas solat':'Make dhikr for a moment after a prayer';
+  return ms?pair[1]:pair[0];
+}
+function ideasFor(g){
+  let isl=true;try{isl=(typeof isMuslimUser==='undefined')||isMuslimUser;}catch(e){}
+  return IDEAS[g].filter(p=>isl||!/^ISL/.test(p[0])).map(ideaText);
+}
+function leftFromToday(){
+  const tp=planFor(dayKey());
+  return tp?tp.items.filter(x=>!x.done).map(x=>x.t).slice(0,3):[];
+}
+function inDraft(t){return draft.some(d=>(d.t||'').trim()===t);}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));const x=a[i];a[i]=a[j];a[j]=x;}return a;}
+function chipHTML(t){
+  const on=inDraft(t);
+  return '<button type="button" class="pl-chip" aria-pressed="'+on+'" data-i18n-skip onclick="planIdea(this)" data-t="'+h(t)+'">'+
+    '<span class="pl-chip-i" aria-hidden="true">'+(on?'✓':'+')+'</span>'+h(t)+'</button>';
+}
+function ideasHTML(){
+  const left=leftFromToday();
+  let out='<div class="pl-ideas"><div class="pl-ideas-top"><span class="pl-ideas-h">Or tap an idea</span>'+
+    '<button type="button" class="linkish pl-more" onclick="planMoreIdeas()">More ideas</button></div>';
+  if(left.length)out+='<div class="pl-g"><div class="pl-gh">Still to do from today</div><div class="pl-chips">'+left.map(chipHTML).join('')+'</div></div>';
+  IDEA_GROUPS.forEach(([g,label])=>{
+    const all=ideasFor(g),n=all.length,pick=[];
+    for(let i=0;i<2&&i<n;i++)pick.push(all[(ideaOff*2+i)%n]);
+    out+='<div class="pl-g"><div class="pl-gh">'+label+'</div><div class="pl-chips">'+pick.map(chipHTML).join('')+'</div></div>';
+  });
+  return out+'</div>';
+}
+function hasAuto(){return draft.some(d=>d.auto);}
+function autoBar(){
+  return '<div class="pl-auto-row"><button type="button" class="btn-p pl-auto" id="plan-auto" onclick="planAuto()">'+
+    '<svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-sparkle"/></svg><span>'+(hasAuto()?'Try another set':'Make one for me')+'</span></button>'+
+    '<span class="pl-auto-t">One thing to get done, one for your body, one you enjoy. Change anything you like.</span></div>';
+}
+window.planAuto=function(){
+  // keep what the person wrote, replace only what LENA filled in before
+  const mine=draft.filter(d=>(d.t||'').trim()&&!d.auto).map(d=>({t:d.t,why:''}));
+  const taken=t=>mine.some(d=>d.t.trim()===t);
+  const prev=draft.filter(d=>d.auto).map(d=>d.t);
+  const pickFrom=list=>{const fresh=shuffle(list).filter(t=>!taken(t)&&prev.indexOf(t)<0);return fresh[0]||shuffle(list).find(t=>!taken(t));};
+  const want=[];
+  const left=leftFromToday().filter(t=>!taken(t));
+  want.push(left.length&&prev.indexOf(left[0])<0?left[0]:pickFrom(ideasFor('do')));
+  want.push(pickFrom(ideasFor('body')));
+  want.push(pickFrom(ideasFor('enjoy')));
+  const room=Math.max(0,Math.max(PMIN-mine.length,Math.min(3,PMAX-mine.length)));
+  const add=want.filter(Boolean).slice(0,room).map(t=>({t:t,why:'',auto:true}));
+  draft=mine.concat(add);
+  while(draft.length<PMIN)draft.push({t:''});
+  renderPlanModal();
+  const b=document.getElementById('plan-auto');if(b)b.focus();
+};
+window.planMoreIdeas=function(){ideaOff++;const box=document.querySelector('#plan-body .pl-ideas');if(box)box.outerHTML=ideasHTML();
+  const m=document.querySelector('#plan-body .pl-more');if(m)m.focus();};
+window.planIdea=function(btn){
+  const t=btn.getAttribute('data-t');
+  const i=draft.findIndex(d=>(d.t||'').trim()===t);
+  if(i>=0){ if(draft.length>PMIN)draft.splice(i,1); else draft[i]={t:''}; }
+  else{
+    const e=draft.findIndex(d=>!(d.t||'').trim());
+    if(e>=0)draft[e]={t:t,why:''};
+    else if(draft.length<PMAX)draft.push({t:t,why:''});
+    else{toast('That is the most for one day. Fewer is fine.');return;}
+  }
+  renderPlanModal();
+  const again=[...document.querySelectorAll('#plan-body .pl-chip')].find(c=>c.getAttribute('data-t')===t);if(again)again.focus();
+};
 let ordered=false;
 function inputsHTML(){
   return draft.map((d,i)=>'<div class="pl-row"><span class="pl-n" aria-hidden="true">'+(i+1)+'</span>'+
@@ -8452,10 +8596,11 @@ function orderHTML(){
 function renderPlanModal(){
   const box=document.getElementById('plan-body');if(!box)return;
   if(!ordered){
-    box.innerHTML='<div id="plan-inputs">'+inputsHTML()+'</div>'+
+    box.innerHTML=autoBar()+'<div id="plan-inputs">'+inputsHTML()+'</div>'+
       (draft.length<PMAX?'<button type="button" class="pl-add" onclick="planAdd()">+ Add another</button>':'<div class="pl-note">That is the most for one day. Fewer is fine.</div>')+
-      '<div class="pl-acts"><button type="button" class="btn-p" id="plan-ai" onclick="planAI()">✨ Help me order</button>'+
-      '<button type="button" class="btn-g" onclick="planSave(\'you\')">Save in this order</button></div>'+
+      ideasHTML()+
+      '<div class="pl-acts"><button type="button" class="btn-g" id="plan-ai" onclick="planAI()">✨ Help me order</button>'+
+      '<button type="button" class="btn-p" onclick="planSave(\'you\')">Save in this order</button></div>'+
       '<div class="pl-note">Help me order sends just these items to an AI service. LENA only suggests an order, never times.</div>';
   }else{
     box.innerHTML='<div class="pl-note" style="margin-top:0">Here is a suggested order. Move anything with the arrows if it does not suit you.</div>'+orderHTML()+
@@ -8475,7 +8620,8 @@ window.closePlan=function(){document.getElementById('plan-modal').classList.remo
 let planSO=false;
 window.planTomorrow=function(){return planFor(dayKey(addDays(1)));};
 window.planFromSignOut=function(){closeSignOut();openPlan();planSO=true;};
-window.planEdit=function(i,v){if(draft[i])draft[i].t=v;};
+window.planEdit=function(i,v){if(draft[i]){draft[i].t=v;draft[i].auto=false;}
+  document.querySelectorAll('#plan-body .pl-chip').forEach(c=>{const on=inDraft(c.getAttribute('data-t'));c.setAttribute('aria-pressed',on);c.firstChild.textContent=on?'✓':'+';});};
 window.planAdd=function(){if(draft.length<PMAX){draft.push({t:''});renderPlanModal();const f=document.querySelectorAll('.pl-inp');if(f.length)f[f.length-1].focus();}};
 window.planRemove=function(i){if(draft.length>PMIN){draft.splice(i,1);renderPlanModal();}};
 window.planMove=function(i,d){const j=i+d;if(j<0||j>=draft.length)return;const t=draft[i];draft[i]=draft[j];draft[j]=t;renderPlanModal();
