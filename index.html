@@ -642,7 +642,7 @@ button:active:not(:disabled),[role="button"]:active,[role="switch"]:active,.scp:
 .lbg-row .lbg-lab{flex:1 1 100%;font-size:13px;color:var(--text);font-weight:600}
 .lbg-seg{display:inline-flex;border:1px solid var(--border2);border-radius:999px;overflow:hidden}
 .lbg-seg button{border:0;background:transparent;color:var(--text2);font:inherit;font-size:13px;font-weight:600;padding:9px 16px;min-height:40px;cursor:pointer}
-.lbg-seg button[aria-pressed="true"]{background:var(--primary);color:#fff}
+.lbg-seg button[aria-pressed="true"]{background:var(--fill);color:var(--on-fill)}
 .lbg-seg button:focus-visible,.lbg-prev:focus-visible{outline:3px solid var(--primary);outline-offset:2px}
 .lbg-prev{border:1px solid var(--border2);background:var(--bg3);color:var(--text);border-radius:999px;font:inherit;font-size:13px;font-weight:600;padding:9px 16px;min-height:40px;cursor:pointer}
 .lbg-note{flex:1 1 100%;font-size:11px;color:var(--muted);line-height:1.6}
@@ -1160,6 +1160,116 @@ button .emo:not(.emo-face):not(.emo-heart):not(.emo-warm):not(.emo-warn){color:i
 .so-title{font-family:var(--ff-d);font-size:22px;color:var(--text);margin-bottom:8px}
 .so-body{font-size:13.5px;color:var(--text2);line-height:1.65;margin:0 0 22px}
 .so-btns{display:flex;gap:10px;justify-content:center}
+/* ══ v46: one look across every page ═══════════════════════════════ */
+/* soft light at the top of every page, like the Home page aurora */
+.content-area{background-image:radial-gradient(900px 340px at 8% -60px,color-mix(in srgb,var(--primary) 12%,transparent),transparent 70%),
+  radial-gradient(700px 300px at 100% -80px,color-mix(in srgb,var(--accent) 9%,transparent),transparent 70%);background-attachment:local;background-repeat:no-repeat}
+/* section titles get a small accent bar */
+.shd h2{display:flex;align-items:center;gap:10px}
+.shd h2::before{content:"";flex:none;width:4px;height:1.05em;border-radius:4px;background:linear-gradient(180deg,var(--primary),var(--accent))}
+/* cards: a hairline of light on top, and a glow that follows the pointer */
+.card,.res-card,.feat-card,.hlcard,.pi,.team-card2{box-shadow:0 3px 16px var(--shadow),inset 0 1px 0 rgba(255,255,255,.05)}
+.res-card,.feat-card,.hlcard,.pi,.gt-card,.card-hover,.team-card2,.snd-card,.about-card{position:relative}
+.res-card::before,.feat-card::before,.hlcard::before,.pi::before,.gt-card::before,.card-hover::before,.team-card2::before,.snd-card::before,.scard::before,.about-card::before{
+  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;z-index:0;
+  background:radial-gradient(240px circle at var(--mx,50%) var(--my,0%),color-mix(in srgb,var(--primary) 13%,transparent),transparent 65%)}
+.res-card:hover::before,.feat-card:hover::before,.hlcard:hover::before,.pi:hover::before,.gt-card:hover::before,.card-hover:hover::before,.team-card2:hover::before,.snd-card:hover::before,.scard:hover::before,.about-card:hover::before{opacity:1}
+/* primary buttons: a soft shine passes on hover */
+.btn-p{background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.22) 50%,transparent 65%) 130% 0/250% 100% no-repeat,linear-gradient(135deg,var(--fill),var(--fill2));
+  box-shadow:0 6px 18px color-mix(in srgb,var(--primary) 22%,transparent),inset 0 1px 0 rgba(255,255,255,.16)}
+.btn-p:hover{background-position:-30% 0,0 0}
+.inp-field:focus{box-shadow:0 0 0 4px color-mix(in srgb,var(--primary) 16%,transparent)}
+/* round play button: no nudge needed with the new triangle */
+.res-go .ic{display:block}
+
+/* Home: Your Tools icons sit in tinted tiles, each tool keeps its colour in dark themes too */
+.feat-card{--tone:var(--primary-t);display:flex;flex-direction:column;align-items:flex-start}
+.fc-teal{--tone:#16756B}.fc-lav{--tone:#6A4A9E}.fc-blue{--tone:#2D5C99}.fc-gold{--tone:#99600F}.fc-grn{--tone:#24734A}.fc-red{--tone:#A93545}
+[data-theme=dark] .fc-teal{--tone:#62D3C1}[data-theme=dark] .fc-lav{--tone:#B9A3F0}[data-theme=dark] .fc-blue{--tone:#86BDF6}
+[data-theme=dark] .fc-gold{--tone:#F0C36A}[data-theme=dark] .fc-grn{--tone:#86DBA6}[data-theme=dark] .fc-red{--tone:#F5A0AC}
+.fc-emoji{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;margin-bottom:14px;font-size:22px;
+  color:var(--tone);background:color-mix(in srgb,var(--tone) 15%,transparent);border:1px solid color-mix(in srgb,var(--tone) 26%,transparent)}
+.fc-emoji .ic,[data-theme=dark] .fc-emoji .ic{width:24px;height:24px;color:var(--tone)!important}
+[data-theme=dark] .fc-teal,[data-theme=dark] .fc-gold,[data-theme=dark] .fc-blue,[data-theme=dark] .fc-red,[data-theme=dark] .fc-grn,[data-theme=dark] .fc-lav{
+  background:linear-gradient(160deg,color-mix(in srgb,var(--tone) 12%,var(--bg3)),var(--bg3) 70%)}
+.feat-card>*{position:relative}
+
+/* Mood: numbered steps become gradient badges; feeling tags lift */
+.ml-num{width:24px;height:24px;font-size:12px;background:linear-gradient(135deg,var(--fill),var(--accent));box-shadow:0 0 0 4px color-mix(in srgb,var(--primary) 14%,transparent)}
+.ml-tag{transition:transform .18s,border-color .18s,background .18s}
+.ml-tag:hover{transform:translateY(-2px)}
+
+/* Sleep: the three numbers become glass tiles with gradient figures */
+.sl-stat{background:color-mix(in srgb,var(--card-b) 60%,transparent);border:1px solid var(--border2);border-radius:14px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.sl-sn{background:linear-gradient(100deg,var(--text),var(--primary-t));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sl-ti{background:color-mix(in srgb,var(--primary) 14%,transparent);color:var(--primary-t)}
+
+/* Screening: test cards with an icon tile */
+.as-ico{flex:none;width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-size:22px;color:var(--primary-t);
+  background:color-mix(in srgb,var(--primary) 14%,transparent);border:1px solid color-mix(in srgb,var(--primary) 24%,transparent)}
+.as-ico .ic{width:24px;height:24px}
+
+/* Guided tools: cards lift a little more and keep their glow */
+.gt-card:hover{transform:translateY(-2px);border-color:var(--border2);box-shadow:0 10px 28px var(--shadow)}
+
+/* Breathe: the orb gets a soft halo */
+.borb{box-shadow:0 0 60px color-mix(in srgb,var(--primary) 32%,transparent),0 0 140px color-mix(in srgb,var(--primary) 16%,transparent)}
+.brng{box-shadow:0 0 0 10px color-mix(in srgb,var(--primary) 5%,transparent)}
+
+/* Soundscapes: chips are glass; mixes are cards with a play button and a gentle zoom */
+.scp{background:color-mix(in srgb,var(--card-b) 70%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.scp:hover{border-color:var(--primary)}
+.snd-card{border-radius:var(--r2);overflow:hidden;cursor:pointer;box-shadow:0 4px 16px var(--shadow);border:1px solid var(--border);transition:transform .25s,box-shadow .25s}
+.snd-card>div:first-of-type{transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.snd-card:hover{transform:translateY(-3px);box-shadow:0 12px 30px var(--shadow)}
+.snd-card:hover>div:first-of-type{transform:scale(1.05)}
+.snd-go{position:absolute;right:12px;top:98px;z-index:2;width:42px;height:42px}
+.snd-card>div{position:relative}
+
+/* Kerohanian: the verse card glows softly */
+.icard{position:relative;overflow:hidden;background:radial-gradient(120% 90% at 50% 0%,color-mix(in srgb,var(--primary) 16%,transparent),transparent 65%),linear-gradient(135deg,rgba(43,184,154,.08),rgba(244,164,56,.06));border-color:var(--border2)}
+
+/* Resources: article icons in tinted tiles */
+.res-ico{border:1px solid color-mix(in srgb,var(--primary) 20%,transparent)}
+.res-card>*{position:relative}
+.res-card:hover{transform:translateY(-2px);border-color:var(--border2)}
+
+/* Crisis: a calm, warm card; helpline icons in tiles; nothing moves */
+.cr-hero{background:radial-gradient(110% 120% at 50% 0%,color-mix(in srgb,var(--red-fill) 16%,transparent),transparent 70%),color-mix(in srgb,var(--card) 80%,transparent);
+  border:1.5px solid color-mix(in srgb,var(--red-fill) 32%,transparent)}
+.cr-heart{width:62px;height:62px;margin:0 auto 12px;border-radius:50%;display:grid;place-items:center;font-size:30px;color:var(--red-t);
+  background:color-mix(in srgb,var(--red-fill) 13%,transparent);box-shadow:0 0 0 8px color-mix(in srgb,var(--red-fill) 6%,transparent)}
+.cr-heart .ic{width:30px;height:30px}
+.hl-ico{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:22px;color:var(--primary-t);background:color-mix(in srgb,var(--primary) 13%,transparent)}
+.hl-ico .ic{width:24px;height:24px}
+.hlcard>*{position:relative}
+
+/* Chat: frosted header, gradient bubbles for your messages, a focus ring on the box */
+.chat-head{background:color-mix(in srgb,var(--card-b) 70%,transparent)!important;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+#chatarea .chat-bubble-wrap[style*="flex-end"]>div{background:linear-gradient(135deg,var(--fill),var(--fill2))!important;box-shadow:0 6px 18px color-mix(in srgb,var(--primary) 22%,transparent)}
+#chatinp:focus{box-shadow:0 0 0 4px color-mix(in srgb,var(--primary) 16%,transparent)}
+
+/* Journal: the prompt card has a gradient edge */
+#j-prompt{background:linear-gradient(100deg,var(--text),var(--primary-t));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+
+/* Profile: avatar with a gradient ring; setting icons in tiles */
+#pf-avatar{box-shadow:0 0 0 4px var(--bg),0 0 0 7px color-mix(in srgb,var(--primary) 55%,transparent),0 10px 30px var(--shadow)!important}
+.pi-ico{width:36px;height:36px;border-radius:11px;align-items:center;justify-content:center;background:color-mix(in srgb,var(--primary) 12%,transparent)}
+.pi-ico .ic{width:20px;height:20px}
+.pi>*{position:relative}
+.pi.pi-danger .pi-ico{background:color-mix(in srgb,var(--red-fill) 12%,transparent)}
+
+/* Team and About: photo ring and lift; About heading card glows */
+.team-card2{transition:transform .25s,box-shadow .25s,border-color .25s}
+.team-card2:hover{transform:translateY(-3px);box-shadow:0 14px 34px var(--shadow);border-color:var(--border2)}
+.team-card2>*{position:relative}
+.about-hero{background:radial-gradient(110% 120% at 0% 0%,color-mix(in srgb,var(--primary) 16%,transparent),transparent 65%),var(--card)}
+
+@media (prefers-reduced-motion:reduce){
+  .snd-card,.snd-card>div:first-of-type,.team-card2,.res-card,.gt-card,.ml-tag{transition:none!important}
+  .snd-card:hover,.snd-card:hover>div:first-of-type,.team-card2:hover,.res-card:hover,.gt-card:hover,.ml-tag:hover{transform:none!important}
+}
+
 /* ── v43: before LENA (Home, Our team, Sign in) ───────────────────── */
 #auth-screen{padding:0!important;align-items:stretch!important;gap:0}
 #auth-screen>.pre-page{flex:1 0 auto}
@@ -1401,7 +1511,7 @@ button .emo:not(.emo-face):not(.emo-heart):not(.emo-warm):not(.emo-warn){color:i
 .res-go{margin-left:auto;flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;
   background:var(--fill);color:var(--on-fill);box-shadow:0 4px 14px var(--shadow);transition:transform .18s ease,box-shadow .18s ease}
 .res-go .ic{width:20px;height:20px}
-.res-go.play .ic{transform:translateX(1.5px)}
+.res-go.play .ic{width:22px;height:22px}
 .res-card:hover .res-go,.res-card:focus-visible .res-go{transform:scale(1.08);box-shadow:0 6px 18px var(--shadow)}
 .res-card:active .res-go{transform:scale(.95)}
 @media (prefers-reduced-motion:reduce){.res-go{transition:none}.res-card:hover .res-go{transform:none}}
@@ -1574,7 +1684,7 @@ button .emo:not(.emo-face):not(.emo-heart):not(.emo-warm):not(.emo-warn){color:i
 <button class="btn-p btn-wide" id="reset-btn" onclick="LENA_BACKEND.doReset()">Change password</button>
 <div class="ap-links"><button type="button" class="linkish" id="reset-resend" onclick="LENA_BACKEND.resendReset()">Send a new code</button><button type="button" class="linkish" onclick="authPanel('main')">Back to sign in</button></div>
 </div>
-<div style="text-align:center;margin-top:18px;font-size:11px;color:var(--muted)">Protected by PDPA 2010 · <span id="auth-foot-t">As a guest, your entries stay in this browser only. With Google, they are kept in your LENA account and leave this device when you sign out.</span> Chat messages are sent to an AI service. <a href="/privacy.html" target="_blank" rel="noopener" style="color:var(--primary-t);font-weight:600">Privacy policy</a></div>
+<div style="text-align:center;margin-top:18px;font-size:11px;color:var(--muted)">Protected by PDPA 2010 · <span id="auth-foot-t">As a guest, your entries stay in this browser only. With Google, they are kept in your LENA account and leave this device when you sign out.</span> Chat messages are sent to an AI service.<br/><a href="/privacy.html" target="_blank" rel="noopener" style="color:var(--primary-t);font-weight:600;display:inline-block;margin-top:8px">Privacy policy</a></div>
 </div>
 </main>
 <main class="pre-page" id="pre-team" aria-label="Our team" hidden><div class="team-screen"><div class="team-intro"><h2 class="team-h"><img class="team-logo" src="assets/LENA-logo.webp" alt="" width="44" height="44"/><span>LENA's Team</span></h2><p style="color:var(--muted)">LENA Platform Research Team<br/>International Islamic University Malaysia • KICT Faculty</p></div><div class="team-grid2"><div class="team-card2"><img src="assets/team/ahmad-anwar.webp" alt="Ts. Dr. Ahmad Anwar Bin Zainuddin" width="330" height="409" loading="lazy" decoding="async"/><h3 data-i18n-skip>Ts. Dr. Ahmad Anwar Bin Zainuddin</h3><p>Computer Science Department<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/amir-aatieff.webp" alt="Asst. Prof. Dr. Amir 'Aatieff Bin Amir Hussin" width="330" height="409" loading="lazy" decoding="async"/><h3 data-i18n-skip>Asst. Prof. Dr. Amir 'Aatieff Bin Amir Hussin</h3><p>Computer Science Department<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/dini-oktarina-dwi-handayani.webp" alt="Ts. Dr. Dini Oktarina Dwi Handayani" width="330" height="409" loading="lazy" decoding="async"/><h3 data-i18n-skip>Ts. Dr. Dini Oktarina Dwi Handayani</h3><p>Computer Science Department<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/asmarani.webp" alt="Asmarani Binti Ahmad Puzi" width="330" height="440" loading="lazy" decoding="async"/><h3 data-i18n-skip>Asmarani Binti Ahmad Puzi</h3><p>Co-Investigator · Computer Science<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/noor-hayani.webp" alt="Ts. Dr. Noor Hayani Binti Abd Rahim" width="330" height="409" loading="lazy" decoding="async"/><h3 data-i18n-skip>Ts. Dr. Noor Hayani Binti Abd Rahim</h3><p>Co-Investigator · Information Technology<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/zahidah.webp" alt="Ts. Dr. Zahidah Binti Zulkifli" width="330" height="409" loading="lazy" decoding="async"/><h3 data-i18n-skip>Ts. Dr. Zahidah Binti Zulkifli</h3><p>Co-Investigator · Information Technology<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/muhammad-ilham.webp" alt="Muhammad Ilham bin Mohd Hisham" width="330" height="471" loading="lazy" decoding="async"/><h3 data-i18n-skip>Muhammad Ilham bin Mohd Hisham</h3><p>3rd Year CS Student<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/muhammad-ikhwan.webp" alt="Muhammad Ikhwan bin Mat Suhairi" width="330" height="455" loading="lazy" decoding="async"/><h3 data-i18n-skip>Muhammad Ikhwan bin Mat Suhairi</h3><p>3rd Year CS Student<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/nor-hamidah.webp" alt="Dr. Nor Hamidah Binti Mohd Salleh" width="467" height="330" loading="lazy" decoding="async"/><h3 data-i18n-skip>Dr. Nor Hamidah Binti Mohd Salleh</h3><p>Consultant Psychiatrist<br/>NH Edu-Health Centre</p></div></div></div></main>
@@ -2183,7 +2293,7 @@ return {
 <div class="res-card games-home fu fu3" onclick="go('games')" style="margin-bottom:22px">
 <div class="res-ico" style="background:rgba(155,133,214,.18)"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-game-controller"/></svg></div>
 <div style="flex:1;min-width:0"><div class="res-title">Pop &amp; think</div><div class="res-sub">Pop-it and bubble wrap to unwind, plus quick games that train your thinking</div></div>
-<span class="res-go play" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-play"/></svg></span>
+<span class="res-go play" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" focusable="false" fill="currentColor"><path d="M8.6 5.4c0-.8.9-1.3 1.6-.9l9.3 5.9c.7.4.7 1.4 0 1.8l-9.3 5.9c-.7.4-1.6-.1-1.6-.9z"/></svg></span>
 </div>
 <!-- Islamic + Daily Discovery -->
 <div class="grid2 fu fu4">
@@ -2381,8 +2491,8 @@ return {
 <div style="max-width:640px;margin-bottom:6px">
 <div>
 <div class="shd"><h2>Clinical Screening Tests</h2></div>
-<div class="card card-hover" onclick="startAssess('phq9')" style="display:flex;gap:13px;align-items:center;margin-bottom:10px"><div style="font-size:26px">📋</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">PHQ-9: Depression</div><div style="font-size:11px;color:var(--muted)">Patient Health Questionnaire · 9 Qs · ~3 min</div></div><span style="color:var(--primary-t)">›</span></div>
-<div class="card card-hover" onclick="startAssess('dass21')" style="display:flex;gap:13px;align-items:center"><div style="font-size:26px">🔬</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">DASS-21</div><div style="font-size:11px;color:var(--muted)">Depression · Anxiety · Stress · 21 Qs · ~7 min</div></div><span style="color:var(--primary-t)">›</span></div>
+<div class="card card-hover" onclick="startAssess('phq9')" style="display:flex;gap:13px;align-items:center;margin-bottom:10px"><div class="as-ico" aria-hidden="true">📋</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">PHQ-9: Depression</div><div style="font-size:11px;color:var(--muted)">Patient Health Questionnaire · 9 Qs · ~3 min</div></div><span style="color:var(--primary-t)">›</span></div>
+<div class="card card-hover" onclick="startAssess('dass21')" style="display:flex;gap:13px;align-items:center"><div class="as-ico" aria-hidden="true">🔬</div><div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text)">DASS-21</div><div style="font-size:11px;color:var(--muted)">Depression · Anxiety · Stress · 21 Qs · ~7 min</div></div><span style="color:var(--primary-t)">›</span></div>
 </div>
 <div style="height:16px"></div>
 <div class="card">
@@ -2567,7 +2677,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <p style="font-size:12px;color:var(--muted)">The sunset loading scene uses photos by Pietro De Grandi and Margo Evardson on Unsplash.</p>
 <div class="about-acts"><button class="btn-g" onclick="go('team')" style="padding:10px 18px;font-size:13px">Meet the team</button></div>
 </div>
-<div class="about-ver">LENA v1.0 · build 45 · IIUM KICT</div>
+<div class="about-ver">LENA v1.0 · build 46 · IIUM KICT</div>
 </div>
 <div class="sp"></div>
 </div>
@@ -2639,10 +2749,10 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <div class="shd"><h2>Sleep Soundscapes</h2></div>
 <div style="font-size:12px;color:var(--muted);margin:-6px 0 12px">Real recordings. Each one loads the first time you play it, then works offline too.</div>
 <div class="grid4" style="margin-bottom:22px">
-<div onclick="playMix('Beach','ocean:1,wind:.45')" onmouseenter="this.style.transform='translateY(-3px)'" onmouseleave="this.style.transform=''" style="border-radius:var(--r2);overflow:hidden;cursor:pointer;box-shadow:0 4px 16px var(--shadow);transition:transform .22s"><div style="height:120px;background:linear-gradient(145deg,#C8E8F5,#A0D0F0);display:flex;align-items:center;justify-content:center;font-size:44px">🌊</div><div style="padding:10px;background:var(--card)"><div style="font-size:13px;font-weight:700;color:var(--text)">Beach</div><div style="font-size:11px;color:var(--muted)">Plays until you stop it</div></div></div>
-<div onclick="playMix('Campfire','fire:1,cricket:.4')" onmouseenter="this.style.transform='translateY(-3px)'" onmouseleave="this.style.transform=''" style="border-radius:var(--r2);overflow:hidden;cursor:pointer;box-shadow:0 4px 16px var(--shadow);transition:transform .22s"><div style="height:120px;background:linear-gradient(145deg,#E0D0F5,#C8B0F0);display:flex;align-items:center;justify-content:center;font-size:44px">🔥</div><div style="padding:10px;background:var(--card)"><div style="font-size:13px;font-weight:700;color:var(--text)">Campfire</div><div style="font-size:11px;color:var(--muted)">Plays until you stop it</div></div></div>
-<div onclick="playMix('Forest Stream','forest:.8,stream:.65,birds:.5')" onmouseenter="this.style.transform='translateY(-3px)'" onmouseleave="this.style.transform=''" style="border-radius:var(--r2);overflow:hidden;cursor:pointer;box-shadow:0 4px 16px var(--shadow);transition:transform .22s"><div style="height:120px;background:linear-gradient(145deg,#C5E8D0,#A0D4B8);display:flex;align-items:center;justify-content:center;font-size:44px">🌿</div><div style="padding:10px;background:var(--card)"><div style="font-size:13px;font-weight:700;color:var(--text)">Forest Stream</div><div style="font-size:11px;color:var(--muted)">Plays until you stop it</div></div></div>
-<div onclick="playMix('Rainy Night','rain:1,cricket:.4')" onmouseenter="this.style.transform='translateY(-3px)'" onmouseleave="this.style.transform=''" style="border-radius:var(--r2);overflow:hidden;cursor:pointer;box-shadow:0 4px 16px var(--shadow);transition:transform .22s"><div style="height:120px;background:linear-gradient(145deg,#F5E5C0,#F0D090);display:flex;align-items:center;justify-content:center;font-size:44px">🌧</div><div style="padding:10px;background:var(--card)"><div style="font-size:13px;font-weight:700;color:var(--text)">Rainy Night</div><div style="font-size:11px;color:var(--muted)">Plays until you stop it</div></div></div>
+<div onclick="playMix('Beach','ocean:1,wind:.45')" class="snd-card"><span class="res-go play snd-go" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" focusable="false" fill="currentColor"><path d="M8.6 5.4c0-.8.9-1.3 1.6-.9l9.3 5.9c.7.4.7 1.4 0 1.8l-9.3 5.9c-.7.4-1.6-.1-1.6-.9z"/></svg></span><div style="height:120px;background:linear-gradient(145deg,#C8E8F5,#A0D0F0);display:flex;align-items:center;justify-content:center;font-size:44px">🌊</div><div style="padding:10px;background:var(--card)"><div style="font-size:13px;font-weight:700;color:var(--text)">Beach</div><div style="font-size:11px;color:var(--muted)">Plays until you stop it</div></div></div>
+<div onclick="playMix('Campfire','fire:1,cricket:.4')" class="snd-card"><span class="res-go play snd-go" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" focusable="false" fill="currentColor"><path d="M8.6 5.4c0-.8.9-1.3 1.6-.9l9.3 5.9c.7.4.7 1.4 0 1.8l-9.3 5.9c-.7.4-1.6-.1-1.6-.9z"/></svg></span><div style="height:120px;background:linear-gradient(145deg,#E0D0F5,#C8B0F0);display:flex;align-items:center;justify-content:center;font-size:44px">🔥</div><div style="padding:10px;background:var(--card)"><div style="font-size:13px;font-weight:700;color:var(--text)">Campfire</div><div style="font-size:11px;color:var(--muted)">Plays until you stop it</div></div></div>
+<div onclick="playMix('Forest Stream','forest:.8,stream:.65,birds:.5')" class="snd-card"><span class="res-go play snd-go" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" focusable="false" fill="currentColor"><path d="M8.6 5.4c0-.8.9-1.3 1.6-.9l9.3 5.9c.7.4.7 1.4 0 1.8l-9.3 5.9c-.7.4-1.6-.1-1.6-.9z"/></svg></span><div style="height:120px;background:linear-gradient(145deg,#C5E8D0,#A0D4B8);display:flex;align-items:center;justify-content:center;font-size:44px">🌿</div><div style="padding:10px;background:var(--card)"><div style="font-size:13px;font-weight:700;color:var(--text)">Forest Stream</div><div style="font-size:11px;color:var(--muted)">Plays until you stop it</div></div></div>
+<div onclick="playMix('Rainy Night','rain:1,cricket:.4')" class="snd-card"><span class="res-go play snd-go" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" focusable="false" fill="currentColor"><path d="M8.6 5.4c0-.8.9-1.3 1.6-.9l9.3 5.9c.7.4.7 1.4 0 1.8l-9.3 5.9c-.7.4-1.6-.1-1.6-.9z"/></svg></span><div style="height:120px;background:linear-gradient(145deg,#F5E5C0,#F0D090);display:flex;align-items:center;justify-content:center;font-size:44px">🌧</div><div style="padding:10px;background:var(--card)"><div style="font-size:13px;font-weight:700;color:var(--text)">Rainy Night</div><div style="font-size:11px;color:var(--muted)">Plays until you stop it</div></div></div>
 </div>
 <div class="sp"></div>
 </div><!-- end discover -->
@@ -2719,8 +2829,8 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <div class="screen" id="sc-crisis">
 <div class="grid2">
 <div>
-<div style="background:linear-gradient(135deg,rgba(224,92,110,.12),rgba(224,92,110,.05));border:1.5px solid rgba(224,92,110,.3);border-radius:var(--r2);padding:22px;margin-bottom:18px;text-align:center">
-<div style="font-size:42px;margin-bottom:10px">💚</div>
+<div class="cr-hero" style="border-radius:var(--r2);padding:24px 22px;margin-bottom:18px;text-align:center">
+<div class="cr-heart" aria-hidden="true">💚</div>
 <div style="font-family:var(--ff-d);font-size:20px;color:var(--text);margin-bottom:8px">You are not alone</div>
 <div style="font-size:13px;color:var(--muted);line-height:1.6">Help is available 24/7. The helplines below are completely confidential.</div>
 </div>
@@ -9141,6 +9251,17 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   document.querySelectorAll('[data-lang-btn]').forEach(b=>b.setAttribute('aria-pressed',b.getAttribute('data-lang-btn')===window.LENA_LANG?'true':'false'));
   mo.observe(document.body,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:ATTRS});
   apply();
+})();
+</script>
+<script>
+(function(){
+  var ok=false;try{ok=matchMedia('(hover:hover) and (pointer:fine)').matches&&!matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){}
+  if(!ok)return;
+  var SEL='.res-card,.feat-card,.hlcard,.pi,.gt-card,.card-hover,.team-card2,.snd-card,.scard,.about-card';
+  document.addEventListener('pointermove',function(e){
+    var c=e.target&&e.target.closest&&e.target.closest(SEL);if(!c)return;
+    var r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px');
+  },{passive:true});
 })();
 </script>
 </body>
