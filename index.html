@@ -1139,6 +1139,155 @@ button .emo:not(.emo-face):not(.emo-heart):not(.emo-warm):not(.emo-warn){color:i
 .so-title{font-family:var(--ff-d);font-size:22px;color:var(--text);margin-bottom:8px}
 .so-body{font-size:13.5px;color:var(--text2);line-height:1.65;margin:0 0 22px}
 .so-btns{display:flex;gap:10px;justify-content:center}
+/* ── v43: before LENA (Home, Our team, Sign in) ───────────────────── */
+#auth-screen{padding:0!important;align-items:stretch!important;gap:0}
+#auth-screen>.pre-page{flex:1 0 auto}
+.pre-page[hidden]{display:none!important}
+.pre-nav{position:sticky;top:0;z-index:6;display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  padding:10px max(16px,env(safe-area-inset-right)) 10px max(16px,env(safe-area-inset-left));padding-top:max(10px,env(safe-area-inset-top));
+  background:var(--nav);border-bottom:1px solid var(--border);backdrop-filter:blur(14px)}
+.pre-brand{display:flex;align-items:center;gap:9px;background:none;border:0;cursor:pointer;padding:4px 6px;border-radius:12px;
+  font-family:var(--ff-d);font-size:22px;font-weight:700;color:var(--primary-t);letter-spacing:-.5px}
+.pre-brand img{width:34px;height:34px;border-radius:9px;object-fit:cover}
+.pre-tabs{display:flex;gap:4px;margin-left:auto}
+.pre-tab{min-height:40px;padding:8px 15px;border-radius:999px;border:1px solid transparent;background:transparent;color:var(--text2);
+  font-family:var(--ff-b);font-size:13.5px;font-weight:600;cursor:pointer;transition:background .15s,color .15s}
+.pre-tab:hover{background:color-mix(in srgb,var(--primary) 9%,transparent)}
+.pre-tab[aria-current=page]{background:color-mix(in srgb,var(--primary) 15%,transparent);color:var(--primary-t);border-color:color-mix(in srgb,var(--primary) 30%,transparent)}
+.pre-tab.pre-tab-cta{background:var(--fill);color:var(--on-fill)}
+.pre-tab.pre-tab-cta[aria-current=page]{box-shadow:0 0 0 3px color-mix(in srgb,var(--primary) 28%,transparent)}
+.pre-tools{display:flex;align-items:center;gap:8px}
+.pre-sos{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:6px 13px;border-radius:999px;cursor:pointer;
+  border:1.5px solid color-mix(in srgb,var(--red-fill) 55%,transparent);background:color-mix(in srgb,var(--red-fill) 7%,var(--card-b));
+  color:var(--red-t);font-family:var(--ff-b);font-size:12.5px;font-weight:700}
+.pre-sos .ic{width:16px;height:16px}
+.pre-nav .auth-lang{position:static;top:auto;right:auto}
+.pre-page{width:100%;padding:34px max(16px,env(safe-area-inset-right)) 40px max(16px,env(safe-area-inset-left))}
+#pre-login{display:flex;flex-direction:column;align-items:center;padding-top:40px;padding-bottom:56px}
+#pre-login>div{max-width:100%}
+#pre-team .team-screen{padding-top:6px}
+.pre-foot{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:18px 16px max(22px,env(safe-area-inset-bottom));
+  font-size:11.5px;color:var(--muted);border-top:1px solid var(--border)}
+.pre-foot a{color:var(--primary-t);font-weight:600}
+#auth-screen[data-page=login] .pre-foot{display:none}
+.ph-wrap{max-width:1080px;margin:0 auto}
+.ph-hero{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;padding:18px 0 30px}
+.ph-copy{min-width:0}
+.ph-kick{font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--primary-t);margin:0 0 12px}
+.ph-hero h1{font-family:var(--ff-d);font-size:clamp(32px,5vw,50px);line-height:1.08;color:var(--text);letter-spacing:-.8px;margin:0 0 16px;text-wrap:balance}
+.ph-lead{font-size:16px;line-height:1.7;color:var(--text2);max-width:34em;margin:0 0 24px}
+.ph-ctas{display:flex;flex-wrap:wrap;gap:10px}
+.ph-cta{padding:14px 22px;font-size:14.5px;min-height:48px}
+.ph-micro{font-size:12.5px;color:var(--muted);margin:14px 0 0}
+.ph-art{position:relative;display:flex;justify-content:center}
+.ph-mock{position:relative;width:min(340px,100%);background:var(--card-b);border:1px solid var(--border2);border-radius:24px;padding:22px 22px 18px;
+  box-shadow:0 24px 60px var(--shadow),0 4px 14px var(--shadow2);transform:rotate(-1.5deg)}
+.ph-mock-k{font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--primary-t)}
+.ph-mock-q{font-family:var(--ff-d);font-size:19px;color:var(--text);margin:6px 0 14px}
+.ph-mock-faces{display:flex;justify-content:space-between;gap:6px;font-size:26px}
+.ph-mock-faces span{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:var(--bg3);opacity:.75}
+.ph-mock-faces span.on{opacity:1;background:color-mix(in srgb,var(--primary) 18%,var(--card-b));box-shadow:0 0 0 2px var(--primary)}
+.ph-mock-line{display:block;width:100%;height:64px;margin:16px 0 6px}
+.ph-mock-line polyline{fill:none;stroke:var(--primary);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.ph-mock-line circle{fill:var(--primary)}
+.ph-mock-chip{position:absolute;right:-12px;bottom:-14px;padding:8px 14px;border-radius:999px;background:var(--fill);color:var(--on-fill);
+  font-size:12px;font-weight:700;box-shadow:0 8px 22px var(--shadow)}
+.ph-crisis{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:18px 20px;border-radius:var(--r2);margin:6px 0 10px;
+  background:color-mix(in srgb,var(--red-fill) 7%,var(--card-b));border:1.5px solid color-mix(in srgb,var(--red-fill) 35%,transparent)}
+.ph-cr-ico{flex:none;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--red-fill) 15%,transparent);color:var(--red-t)}
+.ph-cr-ico .ic{width:24px;height:24px}
+.ph-cr-txt{flex:1 1 300px;min-width:0}
+.ph-cr-txt h2{font-size:15.5px;font-weight:800;color:var(--text);margin:0 0 3px;font-family:var(--ff-b)}
+.ph-cr-txt p{font-size:13.5px;color:var(--text2);line-height:1.55;margin:0}
+.ph-cr-btn{padding:12px 18px;min-height:44px}
+.ph-sec{padding:38px 0 4px}
+.ph-sec>h2,.ph-end h2,.ph-team h2{font-family:var(--ff-d);font-size:clamp(24px,3.2vw,30px);color:var(--text);margin:0 0 8px;text-wrap:balance}
+.ph-sub{font-size:14.5px;color:var(--muted);margin:0 0 20px}
+.ph-feats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.ph-feat{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:18px;box-shadow:0 3px 14px var(--shadow)}
+.ph-feat h3{font-size:15px;font-weight:800;color:var(--text);margin:12px 0 4px}
+.ph-feat p{font-size:13px;line-height:1.6;color:var(--text2);margin:0}
+.ph-fi{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;flex:none}
+.ph-fi .ic{width:22px;height:22px}
+.ph-a{background:color-mix(in srgb,var(--primary) 15%,transparent);color:var(--primary-t)}
+.ph-b{background:color-mix(in srgb,var(--lav) 22%,transparent);color:var(--lav-t)}
+.ph-c{background:color-mix(in srgb,var(--amber) 20%,transparent);color:var(--amber-t)}
+.ph-r{background:color-mix(in srgb,var(--red-fill) 14%,transparent);color:var(--red-t)}
+.ph-two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+.ph-box{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:20px 22px}
+.ph-box h3{font-size:15px;font-weight:800;color:var(--text);margin:0 0 10px}
+.ph-box ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.ph-box li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;line-height:1.55;color:var(--text2)}
+.ph-box li .ic{flex:none;width:18px;height:18px;margin-top:2px;color:var(--primary-t)}
+.ph-isnt li .ic{color:var(--red-t)}
+.ph-note{font-size:13px;color:var(--muted);line-height:1.6;margin:14px 0 0}
+.ph-note a{color:var(--primary-t);font-weight:700}
+.ph-steps{list-style:none;margin:16px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.ph-steps li{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:18px}
+.ph-sn{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--fill);color:var(--on-fill);font-weight:800;font-size:14px}
+.ph-steps h3{font-size:15px;font-weight:800;color:var(--text);margin:12px 0 4px}
+.ph-steps p{font-size:13px;line-height:1.6;color:var(--text2);margin:0}
+.ph-team{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:40px;padding:22px;border-radius:var(--r2);background:var(--bg3);border:1px solid var(--border)}
+.ph-team>div{flex:1 1 320px;min-width:0}
+.ph-team h2{font-size:21px!important;margin-bottom:4px!important}
+.ph-team p{font-size:13.5px;line-height:1.6;color:var(--text2);margin:0}
+.ph-end{text-align:center;padding:46px 0 10px}
+.ph-end p{font-size:14.5px;color:var(--muted);margin:0 0 18px}
+.ph-end .ph-ctas{justify-content:center}
+@media(max-width:860px){
+  .ph-hero{grid-template-columns:1fr;gap:34px}
+  .ph-art{padding:0 14px 10px}
+  .ph-feats{grid-template-columns:1fr 1fr}
+  .ph-steps{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  .pre-nav{gap:8px 10px}
+  .pre-tabs{order:3;width:100%;margin-left:0;justify-content:space-between}
+  .pre-tab{flex:1;padding:8px 8px}
+  .pre-tools{margin-left:auto}
+  .pre-sos span{display:none}
+  .pre-sos{padding:6px 9px}
+  .pre-nav .auth-lang button{padding:6px 9px;font-size:11.5px}
+  .pre-page{padding-top:24px}
+  .ph-art{display:none}
+  .ph-hero{padding-bottom:18px}
+  .ph-feats,.ph-two{grid-template-columns:1fr}
+  .ph-cta{flex:1 1 100%}
+  .auth-card{padding:28px 22px!important}
+}
+/* ── v43: home tiles still to do today ─────────────────────────────── */
+:root{--todo:#A84A08;--todo-bg:#FFF1E2;--todo-bd:rgba(205,104,20,.55)}
+[data-theme=ocean]{--todo:#A3480A;--todo-bg:#FFF0E0;--todo-bd:rgba(200,98,16,.55)}
+[data-theme=lavender]{--todo:#A3480A;--todo-bg:#FFF0E0;--todo-bd:rgba(200,98,16,.55)}
+[data-theme=sunrise]{--todo:#A8124A;--todo-bg:#FDEAF1;--todo-bd:rgba(190,30,90,.5)}
+[data-theme=forest]{--todo:#A8410A;--todo-bg:#FFEDE0;--todo-bd:rgba(198,84,20,.55)}
+[data-theme=dark]{--todo:#FFB067;--todo-bg:rgba(255,160,70,.13);--todo-bd:rgba(255,160,70,.5)}
+[data-theme=dark][data-tint=nightsky]{--todo:#FFA08C;--todo-bg:rgba(255,140,120,.13);--todo-bd:rgba(255,140,120,.5)}
+[data-theme=dark][data-tint=deepwater]{--todo:#FFB26A;--todo-bg:rgba(255,165,80,.13);--todo-bd:rgba(255,165,80,.5)}
+.scard{position:relative}
+.scard.todo{background:var(--todo-bg);border:1.5px solid var(--todo-bd);box-shadow:none}
+.scard.todo .scnum,.scard.todo .sclbl,.scard.todo #st-journal,.scard.todo #st-journal-sub,.scard.todo span{color:var(--todo)!important}
+.scard.todo::after{content:"";position:absolute;top:10px;right:10px;width:8px;height:8px;border-radius:50%;background:var(--todo);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--todo) 22%,transparent)}
+#mood-disp.todo-chip{color:var(--todo)!important;background:var(--todo-bg);border:1px solid var(--todo-bd);border-radius:999px;padding:4px 10px;font-weight:700}
+.scnum.st-dass{display:flex;justify-content:center;gap:9px;font-size:19px}
+.scnum.st-dass span{display:flex;align-items:baseline;gap:2px}
+.scnum.st-dass i{font-style:normal;font-family:var(--ff-b);font-size:10px;font-weight:800;opacity:.75}
+/* ── v43: a real button on the right of Home cards ─────────────────── */
+.res-go{margin-left:auto;flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;
+  background:var(--fill);color:var(--on-fill);box-shadow:0 4px 14px var(--shadow);transition:transform .18s ease,box-shadow .18s ease}
+.res-go .ic{width:20px;height:20px}
+.res-go.play .ic{transform:translateX(1.5px)}
+.res-card:hover .res-go,.res-card:focus-visible .res-go{transform:scale(1.08);box-shadow:0 6px 18px var(--shadow)}
+.res-card:active .res-go{transform:scale(.95)}
+@media (prefers-reduced-motion:reduce){.res-go{transition:none}.res-card:hover .res-go{transform:none}}
+/* ── v43: sign out offers tomorrow's plan ──────────────────────────── */
+.so-plan{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin:-8px 0 14px;padding:12px 14px;min-height:46px;
+  border-radius:var(--r);border:1.5px dashed color-mix(in srgb,var(--primary) 55%,transparent);background:color-mix(in srgb,var(--primary) 7%,transparent);
+  color:var(--primary-t);font-family:var(--ff-b);font-size:13.5px;font-weight:700;cursor:pointer}
+.so-plan .ic{width:18px;height:18px}
+.so-plan:hover{background:color-mix(in srgb,var(--primary) 12%,transparent)}
+
 .so-btns button{flex:1;padding:12px 16px;justify-content:center;text-align:center}
 .btn-danger{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:none;border-radius:var(--r);background:var(--red-fill);color:#fff;font-family:var(--ff-b);font-size:14px;font-weight:700;cursor:pointer;transition:filter .15s,transform .1s}
 .btn-danger:hover{filter:brightness(1.08)}.btn-danger:active{transform:scale(.97)}
@@ -1159,7 +1308,84 @@ button .emo:not(.emo-face):not(.emo-heart):not(.emo-warm):not(.emo-warn){color:i
 <canvas id="nature-canvas"></canvas>
 <!-- ══ AUTH SCREEN ═════════════════════════════════════════════════ -->
 <div class="full-cover" id="auth-screen" style="background:var(--bg)">
+<header class="pre-nav">
+<button type="button" class="pre-brand" onclick="prePage('home',true)" aria-label="LENA home"><img src="assets/LENA-logo.webp" alt="" width="34" height="34"/><span>LENA</span></button>
+<nav class="pre-tabs" aria-label="Before you start">
+<button type="button" class="pre-tab" data-pre="home" onclick="prePage('home',true)">Home</button>
+<button type="button" class="pre-tab" data-pre="team" onclick="prePage('team',true)">Our team</button>
+<button type="button" class="pre-tab pre-tab-cta" data-pre="login" onclick="prePage('login',true)">Sign in</button>
+</nav>
+<div class="pre-tools">
+<button type="button" class="pre-sos" onclick="openSOS()" aria-label="Get help now"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-lifebuoy"/></svg><span>Get help now</span></button>
 <div class="refl-lang app-lang auth-lang" role="group" aria-label="Language / Bahasa" data-i18n-skip><button type="button" data-lang-btn="en" aria-pressed="true" onclick="setAppLang('en')" lang="en">English</button><button type="button" data-lang-btn="ms" aria-pressed="false" onclick="setAppLang('ms')" lang="ms">Bahasa Melayu</button></div>
+</div>
+</header>
+<main class="pre-page" id="pre-home" aria-labelledby="ph-h" hidden>
+<div class="ph-wrap">
+<section class="ph-hero">
+<div class="ph-copy">
+<p class="ph-kick">Free · English and Bahasa Melayu</p>
+<h1 id="ph-h">A calm place to check in with yourself</h1>
+<p class="ph-lead">LENA helps young people in Malaysia notice how they feel, practise skills from cognitive behavioural therapy, and reach real support when it matters.</p>
+<div class="ph-ctas"><button type="button" class="btn-p ph-cta" onclick="continueAsGuest()">Try LENA now, no account needed</button><button type="button" class="btn-g ph-cta" onclick="prePage('login',true)">Sign in or create an account</button></div>
+<p class="ph-micro">No ads. Your entries are never sold. Delete everything whenever you like.</p>
+</div>
+<div class="ph-art" aria-hidden="true">
+<div class="ph-mock">
+<div class="ph-mock-k">Daily check-in</div>
+<div class="ph-mock-q">How are you feeling today?</div>
+<div class="ph-mock-faces" data-noico><span>😞</span><span>😔</span><span>😐</span><span class="on">🙂</span><span>😊</span></div>
+<svg class="ph-mock-line" viewBox="0 0 240 64" preserveAspectRatio="none"><polyline points="4,46 40,40 76,50 112,30 148,36 184,20 236,24"/><circle cx="236" cy="24" r="5"/></svg>
+<div class="ph-mock-chip">Logged today</div>
+</div>
+</div>
+</section>
+<section class="ph-crisis" aria-labelledby="ph-cr-h">
+<span class="ph-cr-ico" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-lifebuoy"/></svg></span>
+<div class="ph-cr-txt"><h2 id="ph-cr-h">In danger or thinking about suicide?</h2><p>You do not need an account. Call 999 in an emergency, or Befrienders on 03-7627 2929, any time.</p></div>
+<button type="button" class="btn-danger ph-cr-btn" onclick="openSOS()">See all helplines</button>
+</section>
+<section class="ph-sec" aria-labelledby="ph-f-h">
+<h2 id="ph-f-h">What you can do in LENA</h2>
+<p class="ph-sub">Nine tools in one place. Use the ones that help and skip the rest.</p>
+<div class="ph-feats"><div class="ph-feat"><span class="ph-fi ph-a" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-clipboard-text"/></svg></span><h3>Self-check</h3><p>PHQ-9 and DASS-21, two widely used questionnaires. Your past results stay in one place.</p></div><div class="ph-feat"><span class="ph-fi ph-b" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-chart-line-up"/></svg></span><h3>Mood and sleep</h3><p>A quick daily check-in and a sleep log show your patterns over the weeks.</p></div><div class="ph-feat"><span class="ph-fi ph-c" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-brain"/></svg></span><h3>CBT exercises</h3><p>Guided steps for worry, low mood and unhelpful thoughts.</p></div><div class="ph-feat"><span class="ph-fi ph-a" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-chat-circle-dots"/></svg></span><h3>LENA AI</h3><p>Someone to talk things through with, any time. It listens, but it is not a therapist.</p></div><div class="ph-feat"><span class="ph-fi ph-r" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-lifebuoy"/></svg></span><h3>Help in a hurry</h3><p>Malaysian helplines and your own safety plan, one tap away.</p></div><div class="ph-feat"><span class="ph-fi ph-b" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-books"/></svg></span><h3>Learn</h3><p>Short reads on how stress, sleep and emotions work.</p></div><div class="ph-feat"><span class="ph-fi ph-c" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-music-notes"/></svg></span><h3>Soundscapes</h3><p>Calming sounds and guided breathing to settle your body.</p></div><div class="ph-feat"><span class="ph-fi ph-a" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-mosque"/></svg></span><h3>Kerohanian</h3><p>Optional Islamic reflections and dhikr, only if you choose them.</p></div><div class="ph-feat"><span class="ph-fi ph-b" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-game-controller"/></svg></span><h3>Pop &amp; think</h3><p>Pop-it, bubble wrap and quick games that train your thinking.</p></div></div>
+</section>
+<section class="ph-sec" aria-labelledby="ph-is-h">
+<h2 id="ph-is-h">What LENA is, and what it is not</h2>
+<div class="ph-two">
+<div class="ph-box ph-is"><h3>LENA is</h3><ul><li><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-check"/></svg><span>A self-help companion for everyday wellbeing</span></li><li><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-check"/></svg><span>Built on validated questionnaires and CBT techniques</span></li><li><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-check"/></svg><span>Developed at IIUM with a consultant psychiatrist</span></li><li><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-check"/></svg><span>Available in English and Bahasa Melayu</span></li></ul></div>
+<div class="ph-box ph-isnt"><h3>LENA is not</h3><ul><li><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-x"/></svg><span>A diagnosis. Your scores are a starting point for a talk with a professional.</span></li><li><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-x"/></svg><span>An emergency service. If you are in danger, call 999.</span></li><li><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-x"/></svg><span>A source of medication advice or religious rulings</span></li><li><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-x"/></svg><span>A replacement for a counsellor, doctor or psychologist</span></li></ul></div>
+</div>
+</section>
+<section class="ph-sec" aria-labelledby="ph-d-h">
+<h2 id="ph-d-h">Your data, in plain words</h2>
+<div class="ph-two">
+<div class="ph-box"><h3>As a guest</h3><ul><li><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-device-mobile"/></svg><span>Everything you add stays in this browser, on this device only.</span></li><li><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-device-mobile"/></svg><span>Clearing your browser data erases it, and nobody can bring it back.</span></li><li><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-device-mobile"/></svg><span>Create an account later and it moves into your account.</span></li></ul></div>
+<div class="ph-box"><h3>With a LENA account</h3><ul><li><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-lock-key"/></svg><span>Your entries are kept in your account, on a server in Singapore.</span></li><li><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-lock-key"/></svg><span>Signing out removes them from this device. Sign in on any device to get them back.</span></li><li><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-lock-key"/></svg><span>Delete your account and every entry from Profile, whenever you like.</span></li></ul></div>
+</div>
+<p class="ph-note">Chat messages are sent to an AI service so it can reply. LENA has no ads and never sells your data. <a href="/privacy.html" target="_blank" rel="noopener">Read the privacy policy</a></p>
+</section>
+<section class="ph-sec" aria-labelledby="ph-h-h">
+<h2 id="ph-h-h">How it works</h2>
+<ol class="ph-steps">
+<li><span class="ph-sn" aria-hidden="true">1</span><h3>Check in</h3><p>Pick a face for your mood. Add a note if you want to.</p></li>
+<li><span class="ph-sn" aria-hidden="true">2</span><h3>Notice patterns</h3><p>See how your mood, sleep and results change week by week.</p></li>
+<li><span class="ph-sn" aria-hidden="true">3</span><h3>Try what helps</h3><p>A breathing exercise, a CBT tool, a calm sound or a helpline.</p></li>
+</ol>
+</section>
+<section class="ph-team" aria-labelledby="ph-t-h">
+<span class="ph-fi ph-a" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-users-three"/></svg></span>
+<div><h2 id="ph-t-h">Built by a university team</h2><p>LENA is a research project at the Kulliyyah of Information and Communication Technology, International Islamic University Malaysia, developed with a consultant psychiatrist.</p></div>
+<button type="button" class="btn-g" onclick="prePage('team',true)">Meet the team</button>
+</section>
+<section class="ph-end" aria-labelledby="ph-e-h">
+<h2 id="ph-e-h">Ready when you are</h2>
+<p>Start as a guest in seconds. You can make an account later.</p>
+<div class="ph-ctas"><button type="button" class="btn-p ph-cta" onclick="continueAsGuest()">Try LENA now</button><button type="button" class="btn-g ph-cta" onclick="prePage('login',true)">Sign in</button></div>
+</section>
+</div>
+</main>
+<main class="pre-page" id="pre-login" aria-label="Sign in" hidden>
 <div style="text-align:center;padding:0 0 28px">
 <div style="display:flex;justify-content:center;margin-bottom:10px">
 <img alt="LENA" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" src="assets/LENA-logo.webp" style="width:86px;height:86px;border-radius:18px;object-fit:cover;box-shadow:0 6px 24px var(--shadow)"/>
@@ -1169,7 +1395,7 @@ button .emo:not(.emo-face):not(.emo-heart):not(.emo-warm):not(.emo-warn){color:i
 <div style="font-size:13px;color:var(--muted);font-weight:500">Live Emotional Needs Assistant</div>
 <button class="pre-help" onclick="openSOS()">🆘 Need help right now? Helplines, no account needed</button>
 </div>
-<div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r3);padding:36px 40px;width:420px;box-shadow:0 16px 50px var(--shadow2);backdrop-filter:blur(12px)">
+<div class="auth-card" style="background:var(--card);border:1px solid var(--border);border-radius:var(--r3);padding:36px 40px;width:420px;box-shadow:0 16px 50px var(--shadow2);backdrop-filter:blur(12px)">
 <h2 id="auth-h" style="font-family:var(--ff-d);font-size:24px;color:var(--text);margin-bottom:4px">Welcome back</h2>
 <p id="auth-sub" style="font-size:13px;color:var(--muted);margin-bottom:24px">Your safe space for mental wellbeing</p>
 <div class="g-wrap" id="g-wrap" hidden>
@@ -1223,9 +1449,36 @@ button .emo:not(.emo-face):not(.emo-heart):not(.emo-warm):not(.emo-warn){color:i
 <button class="btn-p btn-wide" id="reset-btn" onclick="LENA_BACKEND.doReset()">Change password</button>
 <div class="ap-links"><button type="button" class="linkish" id="reset-resend" onclick="LENA_BACKEND.resendReset()">Send a new code</button><button type="button" class="linkish" onclick="authPanel('main')">Back to sign in</button></div>
 </div>
-<div style="text-align:center;margin-top:18px;font-size:11px;color:var(--muted)">Protected by PDPA 2010 · <span id="auth-foot-t">As a guest, your entries stay on this device. With Google, they are backed up to your LENA account.</span> Chat messages are sent to an AI service. <a href="/privacy.html" target="_blank" rel="noopener" style="color:var(--primary-t);font-weight:600">Privacy policy</a></div>
+<div style="text-align:center;margin-top:18px;font-size:11px;color:var(--muted)">Protected by PDPA 2010 · <span id="auth-foot-t">As a guest, your entries stay in this browser only. With Google, they are kept in your LENA account and leave this device when you sign out.</span> Chat messages are sent to an AI service. <a href="/privacy.html" target="_blank" rel="noopener" style="color:var(--primary-t);font-weight:600">Privacy policy</a></div>
 </div>
+</main>
+<main class="pre-page" id="pre-team" aria-label="Our team" hidden><div class="team-screen"><div class="team-intro"><h2>🌿 LENA's Team</h2><p style="color:var(--muted)">LENA Platform Research Team<br/>International Islamic University Malaysia • KICT Faculty</p></div><div class="team-grid2"><div class="team-card2"><img src="assets/team/ahmad-anwar.webp" alt="Ts. Dr. Ahmad Anwar Bin Zainuddin" width="330" height="409" loading="lazy" decoding="async"/><h3 data-i18n-skip>Ts. Dr. Ahmad Anwar Bin Zainuddin</h3><p>Computer Science Department<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/amir-aatieff.webp" alt="Asst. Prof. Dr. Amir 'Aatieff Bin Amir Hussin" width="330" height="409" loading="lazy" decoding="async"/><h3 data-i18n-skip>Asst. Prof. Dr. Amir 'Aatieff Bin Amir Hussin</h3><p>Computer Science Department<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/dini-oktarina-dwi-handayani.webp" alt="Ts. Dr. Dini Oktarina Dwi Handayani" width="330" height="409" loading="lazy" decoding="async"/><h3 data-i18n-skip>Ts. Dr. Dini Oktarina Dwi Handayani</h3><p>Computer Science Department<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/asmarani.webp" alt="Asmarani Binti Ahmad Puzi" width="330" height="440" loading="lazy" decoding="async"/><h3 data-i18n-skip>Asmarani Binti Ahmad Puzi</h3><p>Co-Investigator · Computer Science<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/noor-hayani.webp" alt="Ts. Dr. Noor Hayani Binti Abd Rahim" width="330" height="409" loading="lazy" decoding="async"/><h3 data-i18n-skip>Ts. Dr. Noor Hayani Binti Abd Rahim</h3><p>Co-Investigator · Information Technology<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/zahidah.webp" alt="Ts. Dr. Zahidah Binti Zulkifli" width="330" height="409" loading="lazy" decoding="async"/><h3 data-i18n-skip>Ts. Dr. Zahidah Binti Zulkifli</h3><p>Co-Investigator · Information Technology<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/muhammad-ilham.webp" alt="Muhammad Ilham bin Mohd Hisham" width="330" height="471" loading="lazy" decoding="async"/><h3 data-i18n-skip>Muhammad Ilham bin Mohd Hisham</h3><p>3rd Year CS Student<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/muhammad-ikhwan.webp" alt="Muhammad Ikhwan bin Mat Suhairi" width="330" height="455" loading="lazy" decoding="async"/><h3 data-i18n-skip>Muhammad Ikhwan bin Mat Suhairi</h3><p>3rd Year CS Student<br/>IIUM</p></div><div class="team-card2"><img src="assets/team/nor-hamidah.webp" alt="Dr. Nor Hamidah Binti Mohd Salleh" width="467" height="330" loading="lazy" decoding="async"/><h3 data-i18n-skip>Dr. Nor Hamidah Binti Mohd Salleh</h3><p>Consultant Psychiatrist<br/>NH Edu-Health Centre</p></div></div></div></main>
+<footer class="pre-foot"><span>Protected by PDPA 2010</span><span aria-hidden="true">·</span><a href="/privacy.html" target="_blank" rel="noopener">Privacy policy</a><span aria-hidden="true">·</span><span>LENA · IIUM KICT</span></footer>
 </div>
+<script>
+/* v43: three pages before LENA. Home on a first visit, Sign in after
+   that, since a returning person usually wants the form. */
+function prePage(name,focus){
+  if(['home','login','team'].indexOf(name)<0)name='home';
+  ['home','login','team'].forEach(function(k){var el=document.getElementById('pre-'+k);if(el)el.hidden=(k!==name);});
+  document.querySelectorAll('[data-pre]').forEach(function(b){
+    if(b.getAttribute('data-pre')===name)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');
+  });
+  var s=document.getElementById('auth-screen');
+  if(s){s.setAttribute('data-page',name);s.scrollTop=0;}
+  if(name!=='home'){try{localStorage.setItem('lena_seen_home','1');}catch(e){}}
+  if(name==='login'){try{if(window.LENA_BACKEND&&LENA_BACKEND.renderGoogle)LENA_BACKEND.renderGoogle();}catch(e){}}
+  if(focus){
+    var h=name==='login'?document.getElementById('auth-h'):document.querySelector('#pre-'+name+' h1,#pre-'+name+' h2');
+    if(h){h.setAttribute('tabindex','-1');try{h.focus({preventScroll:true});}catch(e){}}
+  }
+}
+(function(){
+  var seen=null;
+  try{seen=localStorage.getItem('lena_seen_home')||localStorage.getItem('lena_signed_out');}catch(e){}
+  prePage(seen?'login':'home');
+})();
+</script>
 <script>
 /* Sunset loading scene. Built only when the screen is shown with the
    Sunset choice, and torn down when it hides, so it costs nothing the
@@ -1607,7 +1860,8 @@ return {
 <button class="mcls" aria-label="Close" onclick="closeSignOut()">✕</button>
 <div class="so-ico" aria-hidden="true"><svg class="ic"><use href="#ph-sign-out"/></svg></div>
 <div class="so-title" id="so-title">Sign out of LENA?</div>
-<p class="so-body">Your mood, journal, sleep and screening history stay on this device. Sign in again with the same email to see them.</p>
+<p class="so-body" id="so-body">Your mood, journal, sleep and screening history stay on this device. Sign in again with the same email to see them.</p>
+<button type="button" class="so-plan" id="so-plan" onclick="planFromSignOut()"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-calendar-check"/></svg><span id="so-plan-t">Plan tomorrow before you go</span></button>
 <div class="so-btns"><button type="button" class="btn-g" onclick="closeSignOut()">Cancel</button><button type="button" class="btn-danger" id="so-yes" onclick="closeSignOut();signOut()">Sign Out</button></div>
 </div>
 </div>
@@ -1751,7 +2005,7 @@ return {
 </div>
 <!-- Quick stats -->
 <div class="grid3 fu fu1" style="align-content:start">
-<div class="scard" onclick="go('mood')"><div class="scnum" id="st-streak">0</div><div class="sclbl">Day streak 🔥</div></div>
+<div class="scard" onclick="go('mood')"><div class="scnum" id="st-streak">0</div><div class="sclbl" id="st-streak-lbl">Day streak 🔥</div></div>
 <div class="scard" onclick="go('assess')"><div class="scnum" id="st-phq" style="color:var(--amber-t)">n/a</div><div class="sclbl" id="st-phq-lbl">PHQ-9 score</div></div>
 <div class="scard" onclick="go('sleep')"><div class="scnum" id="st-sleep" style="color:var(--lav-t)">n/a</div><div class="sclbl" id="st-sleep-l">Avg sleep</div></div>
 <div class="scard" onclick="go('journal')" style="grid-column:1 / -1"><div style="display:flex;align-items:center;gap:12px"><div style="font-size:22px">📓</div><div><div id="st-journal" style="font-size:13px;font-weight:700;color:var(--text)">Journal</div><div id="st-journal-sub" style="font-size:11px;color:var(--muted)">Write today's entry</div></div><span style="margin-left:auto;color:var(--primary-t)">›</span></div></div>
@@ -1787,7 +2041,8 @@ return {
 </div>
 <div class="res-card games-home fu fu3" onclick="go('games')" style="margin-bottom:22px">
 <div class="res-ico" style="background:rgba(155,133,214,.18)"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-game-controller"/></svg></div>
-<div style="flex:1"><div class="res-title">Pop &amp; think</div><div class="res-sub">Pop-it and bubble wrap to unwind, plus quick games that train your thinking</div><div class="res-meta">Play ›</div></div>
+<div style="flex:1;min-width:0"><div class="res-title">Pop &amp; think</div><div class="res-sub">Pop-it and bubble wrap to unwind, plus quick games that train your thinking</div></div>
+<span class="res-go play" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-play"/></svg></span>
 </div>
 <!-- Islamic + Daily Discovery -->
 <div class="grid2 fu fu4">
@@ -1804,11 +2059,13 @@ return {
 <div class="shd" style="margin-top:0"><h2>Daily Discovery</h2></div>
 <div class="res-card" onclick="openResModal('Breathing Controls Emotions','How breath regulates your nervous system · 4 min','🫁','Psychoeducation')" style="margin-bottom:12px">
 <div class="res-ico" style="background:rgba(43,184,154,.12)"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-wind"/></svg></div>
-<div><div class="res-title">Breathing controls your emotions</div><div class="res-sub">Evidence-based · Today</div><div class="res-meta">📖 Read · 4 min</div></div>
+<div style="flex:1;min-width:0"><div class="res-title">Breathing controls your emotions</div><div class="res-sub">Evidence-based · 4 min read</div></div>
+<span class="res-go" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-book-open-text"/></svg></span>
 </div>
 <div class="res-card" onclick="go('chat')">
 <div class="res-ico" style="background:rgba(244,164,56,.12)"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ph-chat-circle-dots"/></svg></div>
-<div><div class="res-title">Talk to LENA AI</div><div class="res-sub">Supportive listening · 24/7</div><div class="res-meta">Start a conversation ›</div></div>
+<div style="flex:1;min-width:0"><div class="res-title">Talk to LENA AI</div><div class="res-sub">Supportive listening · 24/7</div></div>
+<span class="res-go" aria-hidden="true"><svg class="ic" focusable="false"><use href="#ph-chat-circle-dots"/></svg></span>
 </div>
 </div>
 </div>
@@ -2169,7 +2426,7 @@ This is a screening result, not a diagnosis. Please discuss it with a qualified 
 <p style="font-size:12px;color:var(--muted)">The sunset loading scene uses photos by Pietro De Grandi and Margo Evardson on Unsplash.</p>
 <div class="about-acts"><button class="btn-g" onclick="go('team')" style="padding:10px 18px;font-size:13px">Meet the team</button></div>
 </div>
-<div class="about-ver">LENA v1.0 · build 42 · IIUM KICT</div>
+<div class="about-ver">LENA v1.0 · build 43 · IIUM KICT</div>
 </div>
 <div class="sp"></div>
 </div>
@@ -2683,8 +2940,8 @@ let emailMode=false;
 function authEmailMode(on){
   emailMode=!!on;
   const f=document.getElementById('auth-foot-t');
-  if(f)f.textContent=on?'As a guest, your entries stay on this device. With a LENA account (Google or email), they are backed up to it.'
-                       :'As a guest, your entries stay on this device. With Google, they are backed up to your LENA account.';
+  if(f)f.textContent=on?'As a guest, your entries stay in this browser only. With a LENA account (Google or email), they are kept in your account and leave this device when you sign out.'
+                       :'As a guest, your entries stay in this browser only. With Google, they are kept in your LENA account and leave this device when you sign out.';
   if(authPanelNow==='main')switchAuthTab(currentAuthTab);
 }
 function togglePw(btn){
@@ -2718,6 +2975,7 @@ function openForgot(){
 }
 function continueAsGuest(){
   currentAuthTab='si';authError('');authNote('');
+  try{localStorage.setItem('lena_seen_home','1');}catch(e){}
   try{localStorage.removeItem('lena_signed_out');}catch(e){}
   proceedAfterAuth('guest@lena.app');
 }
@@ -2732,7 +2990,7 @@ function switchAuthTab(t){
   document.getElementById('tab-re').style.color=t==='re'?'var(--on-fill)':'var(--muted)';
   document.getElementById('reg-fields').style.display=t==='re'?'block':'none';
   document.getElementById('auth-btn').textContent=t==='re'?'Create Account →':'Sign In →';
-  const wt=document.querySelector('#auth-screen h2');
+  const wt=document.getElementById('auth-h');
   if(wt)wt.textContent=t==='re'?'Create your account':'Welcome back';
   authError('');
 }
@@ -3045,18 +3303,18 @@ function renderPresets(){
       '</div>';
   }).join('');
 }
-function applyPreset(id,quiet){
+function applyPreset(id,quiet,nosave){
   const p=PRESETS.find(x=>x.id===id)||PRESETS[0];
   applyThemeName(p.theme,p.tint);
   bgMode=p.bg;
   try{initParticles();}catch(e){}
-  try{localStorage.setItem(THEMEKEY,p.id);}catch(e){}
+  if(!nosave)try{localStorage.setItem(THEMEKEY,p.id);}catch(e){}
   renderPresets();
   if(!quiet)toast(p.name);
 }
 // Called once at startup so a saved choice is in place before the
 // person sees the app, rather than after they open settings.
-function restoreAppearance(){applyPreset(currentPresetId(),true);}
+function restoreAppearance(){applyPreset(currentPresetId(),true,true);}
 
 // ════════════════════════════════════════════════════
 // SOS
@@ -3221,7 +3479,8 @@ function quickMood(e,el,emoji,v){
   document.querySelectorAll('#sc-home .mf').forEach(f=>f.classList.remove('sel'));
   el.classList.add('sel');
   if(v){addMood(v,'');qmOpen(v,emoji);}
-  document.getElementById('mood-disp').textContent='Feeling '+emoji+' today ✓';
+  const md=document.getElementById('mood-disp');md.textContent='Feeling '+emoji+' today ✓';md.classList.remove('todo-chip');
+  try{renderHomeStats();}catch(e){}
 }
 // The tap has already saved the mood. This window only adds to that entry.
 let qmT=null, qmTags=[];
@@ -4500,17 +4759,38 @@ function dismissCare(){
 }
 function renderHomeStats(){
   try{renderCare();}catch(e){}
+  // v43: a tile for something not done yet today wears the "to do"
+  // colours, and its label says what is missing, so colour is never the
+  // only cue.
+  const todo=(id,on)=>{const el=document.getElementById(id),c=el&&el.closest('.scard');if(c)c.classList.toggle('todo',!!on);};
+  let moodToday=true;try{moodToday=todayCount()>0;}catch(e){}
   const st=document.getElementById('st-streak');
   if(st)st.textContent=moodStreak();
+  const stl=document.getElementById('st-streak-lbl');
+  if(stl)stl.textContent=moodToday?'Day streak 🔥':'Check in today';
+  todo('st-streak',!moodToday);
 
-  // Latest PHQ-9, or nothing at all if they have never taken one.
+  // The latest screening of either kind. PHQ-9 shows its total, DASS-21
+  // its three scores. Two weeks on, the tile suggests another check,
+  // because both questionnaires ask about a recent stretch of time.
   const phq=document.getElementById('st-phq');
   const phqL=document.getElementById('st-phq-lbl');
   if(phq){
     let h=[];try{h=loadHistory();}catch(e){}
-    const last=h.filter(e=>e.k==='phq9').pop();
-    if(last){phq.textContent=last.total;if(phqL)phqL.textContent='PHQ-9 score';}
-    else{phq.textContent='n/a';if(phqL)phqL.textContent='PHQ-9 not taken';}
+    const last=h.filter(e=>e.k==='phq9'||e.k==='dass21').pop();
+    const old=!!last&&(Date.now()-last.t>14*86400000);
+    phq.classList.toggle('st-dass',!!last&&last.k==='dass21');
+    phq.removeAttribute('title');
+    if(!last){phq.textContent='n/a';if(phqL)phqL.textContent='No screening yet';}
+    else if(last.k==='phq9'){phq.textContent=last.total;if(phqL)phqL.textContent=old?'PHQ-9 · check again':'PHQ-9 score';}
+    else{
+      const ms=window.LENA_LANG==='ms';
+      const L=ms?['K','B','T']:['D','A','S'];
+      phq.innerHTML=[last.depression,last.anxiety,last.stress].map((v,i)=>'<span><b>'+(+v||0)+'</b><i data-i18n-skip>'+L[i]+'</i></span>').join('');
+      phq.title=ms?'Kemurungan, kebimbangan, tekanan':'Depression, anxiety, stress';
+      if(phqL)phqL.textContent=old?'DASS-21 · check again':'DASS-21 latest';
+    }
+    todo('st-phq',!last||old);
   }
 
   const sl=document.getElementById('st-sleep');
@@ -4522,10 +4802,9 @@ function renderHomeStats(){
       ? (recent.reduce((a,b)=>a+b.mins,0)/recent.length/60).toFixed(1)+'h'
       : 'n/a';
     const sll=document.getElementById('st-sleep-l');
-    if(sll){
-      const k=new Date().toDateString(),done=log.some(e=>e.d===k);
-      sll.textContent=(!done&&new Date().getHours()<12)?'Log last night ›':'Avg sleep';
-    }
+    const k=new Date().toDateString(),done=log.some(e=>e.d===k);
+    if(sll)sll.textContent=done?'Avg sleep':'Log last night ›';
+    todo('st-sleep',!done);
   }
 
   const jt=document.getElementById('st-journal');
@@ -4535,18 +4814,21 @@ function renderHomeStats(){
     if(!j.length){
       jt.textContent='Journal';
       if(js2)js2.textContent='Nothing written yet';
+      todo('st-journal',true);
     }else{
       const n=dayStreak(j.map(e=>e.t));
       jt.textContent=n>1?('Journal streak: '+n+' days'):(j.length+(j.length===1?' entry':' entries'));
       const today=new Date();today.setHours(0,0,0,0);
       const wroteToday=j.some(e=>{const d=new Date(e.t);d.setHours(0,0,0,0);return d.getTime()===today.getTime();});
       if(js2)js2.textContent=wroteToday?'Written today':'Write today\'s entry';
+      todo('st-journal',!wroteToday);
     }
   }
 
   // The mood line next to the faces claimed "Feeling great" before
   // anything had been logged.
   const md=document.getElementById('mood-disp');
+  if(md)md.classList.toggle('todo-chip',!moodToday);
   if(md&&!md.textContent){
     let log=[];try{log=loadMoods();}catch(e){}
     const today=new Date();today.setHours(0,0,0,0);
@@ -4624,6 +4906,13 @@ function confirmSetPw(){
 }
 // v34: a confirmation first, so a stray tap does not sign anyone out.
 function askSignOut(){
+  const acct=!!(window.LENA_BACKEND&&LENA_BACKEND.available&&LENA_BACKEND.user);
+  const b=document.getElementById('so-body');
+  if(b)b.textContent=acct?'Everything you added is backed up to your LENA account first, then removed from this device. Sign in again, on any device, to see it.'
+                         :'You are using LENA as a guest, so your entries stay in this browser only. Create an account if you want them kept safe.';
+  const pt=document.getElementById('so-plan-t');
+  let has=false;try{has=!!(window.planTomorrow&&planTomorrow());}catch(e){}
+  if(pt)pt.textContent=has?'Check tomorrow\'s plan before you go':'Plan tomorrow before you go';
   const m=document.getElementById('signout-modal');m.classList.add('open');
   setTimeout(()=>{try{document.querySelector('#signout-modal .btn-g').focus();}catch(e){}},60);
 }
@@ -4636,16 +4925,17 @@ function signOut(){
   // survive, but the resume is suppressed until the next sign-in.
   try{localStorage.setItem('lena_signed_out','1');}catch(e){}
   const t0=Date.now();
+  let cleared=false;
   // Long enough to read, short enough not to feel slow.
   const finish=(msg)=>setTimeout(()=>{
     showBusy('Signed out',msg,true);
-    setTimeout(()=>location.reload(),1400);
+    setTimeout(()=>{if(cleared){try{LENA_BACKEND.clearSynced();}catch(e){}}location.reload();},1400);
   },Math.max(0,900-(Date.now()-t0)));
   if(window.LENA_BACKEND && LENA_BACKEND.available && LENA_BACKEND.user){
     // v36: an account backs up, then its entries leave this device.
     showBusy('Signing you out…','Backing up your entries first.');
     LENA_BACKEND.signOutAccount().then(clear=>{
-      finish(clear?'Your entries are safe in your LENA account.':'You are offline, so your latest entries stay on this device for now.');
+      cleared=!!clear;finish(clear?'Your entries are safe in your LENA account.':'You are offline, so your latest entries stay on this device for now.');
     });
     return;
   }
@@ -6416,9 +6706,23 @@ window.LENA_BACKEND = (function(){
     return {
       prefs:      readJSON('lena_prefs',null),
       muslim:     (function(){ try{ return localStorage.getItem('lena_muslim'); }catch(e){ return null; } })(),
-      appearance: readJSON('lena_appearance',null),
+      appearance: (function(){ try{ return localStorage.getItem('lena_appearance'); }catch(e){ return null; } })(),
       sleep_plan: readJSON('lena_sleep_plan',null)
     };
+  }
+
+  var EXTRA={
+    plan:     ['lena_plan'],
+    activity: ['lena_thinkcheck','lena_care_dismissed','lena_notes','lena_notes_day'],
+    feedback: ['lena_feedback'],
+    games:    ['lena_pop_best','lena_pop_best_round','lena_pop_best_round_medium','lena_hunt_best','lena_court_case',
+               'lena_reframe_n','lena_pop_mode','lena_pop_wrapsnd','lena_pop_muted'],
+    device:   ['lena_lang','lena_assess_lang','lena_refl_lang','lena_breath_chime','lena_sound_volume']
+  };
+  function extraPayload(g){
+    var v={};
+    EXTRA[g].forEach(function(k){ var s=null; try{ s=localStorage.getItem(k); }catch(e){} if(s!==null) v[k]=s; });
+    return {extra:g, v:v};
   }
 
   function rec(kind,key,payload,t){
@@ -6454,6 +6758,11 @@ window.LENA_BACKEND = (function(){
 
     var pb=prefsBundle();
     out.push(rec('prefs','one',pb,stampFor('prefs',pb)));
+    Object.keys(EXTRA).forEach(function(g){
+      var p=extraPayload(g);
+      if(JSON.stringify(p).length>60000) return;   // the server takes 64 KB a record
+      out.push(rec('prefs','x:'+g,p,stampFor('prefs:'+g,p)));
+    });
     return out;
   }
 
@@ -6461,6 +6770,10 @@ window.LENA_BACKEND = (function(){
      here are append-mostly, so a union by natural key is enough and
      avoids clobbering a local edit the server has not seen. */
   function applyRemote(records){
+    applying++;
+    try{ applyRemoteInner(records); } finally { applying--; }
+  }
+  function applyRemoteInner(records){
     var byKind={};
     records.forEach(function(r){ (byKind[r.kind]=byKind[r.kind]||[]).push(r); });
 
@@ -6497,16 +6810,40 @@ window.LENA_BACKEND = (function(){
       }
     });
 
+    var themeWas=null, langWas=null;
+    try{ themeWas=localStorage.getItem('lena_appearance'); langWas=localStorage.getItem('lena_lang'); }catch(e){}
     (byKind.prefs||[]).forEach(function(r){
       if(r.deleted) return;
+      var p=r.payload||{};
+      if(p.extra){ applyExtra(r,p); return; }
       var local=stamps().prefs;
       if(local && Date.parse(r.updated_at) <= local.t) return;
-      var p=r.payload||{};
       try{
         if(p.prefs)      localStorage.setItem('lena_prefs',JSON.stringify(p.prefs));
-        if(p.appearance) localStorage.setItem('lena_appearance',JSON.stringify(p.appearance));
+        if(typeof p.appearance==='string'&&p.appearance) localStorage.setItem('lena_appearance',p.appearance);
         if(p.sleep_plan) localStorage.setItem('lena_sleep_plan',JSON.stringify(p.sleep_plan));
         if(p.muslim!==null&&p.muslim!==undefined) localStorage.setItem('lena_muslim',p.muslim);
+      }catch(e){}
+    });
+    var themeNow=null, langNow=null;
+    try{ themeNow=localStorage.getItem('lena_appearance'); langNow=localStorage.getItem('lena_lang'); }catch(e){}
+    if(themeNow&&themeNow!==themeWas) setTimeout(function(){ try{ restoreAppearance(); }catch(e){} },0);
+    if(langNow&&langNow!==langWas) setTimeout(function(){ try{ window.setAppLang&&setAppLang(langNow); }catch(e){} },0);
+  }
+  /* A group from the account. Newer than this device: it replaces the
+     group here. This device has never synced the group (a guest signing
+     in for the first time): only what is missing here is filled in, so
+     nothing made as a guest is lost. */
+  function applyExtra(r,p){
+    var keys=EXTRA[p.extra];
+    if(!keys||!p.v||typeof p.v!=='object') return;
+    var local=stamps()['prefs:'+p.extra];
+    if(local && Date.parse(r.updated_at) <= local.t) return;
+    keys.forEach(function(k){
+      try{
+        var has=Object.prototype.hasOwnProperty.call(p.v,k)&&typeof p.v[k]==='string';
+        if(!local){ if(has&&localStorage.getItem(k)===null) localStorage.setItem(k,p.v[k]); return; }
+        if(has) localStorage.setItem(k,p.v[k]); else localStorage.removeItem(k);
       }catch(e){}
     });
   }
@@ -6529,7 +6866,44 @@ window.LENA_BACKEND = (function(){
   var settledP=Promise.resolve();
   function track(p){ settledP=Promise.all([settledP,p]).then(function(){},function(){}); return p; }
   function settled(ms){ return Promise.race([settledP,new Promise(function(r){ setTimeout(r,ms||0); })]); }
-  function syncNow(){ return track(syncOnce()); }
+  var running=null, queued=null;
+  function syncNow(){
+    if(running){
+      if(!queued) queued=running.then(function(){ queued=null; return syncNow(); });
+      return queued;
+    }
+    running=track(syncOnce()).then(function(v){ running=null; return v; },function(){ running=null; return false; });
+    return running;
+  }
+  /* v43: back up a few seconds after anything personal changes, not only
+     when the tab is hidden. Writes made while applying the account's own
+     copy, or while clearing the device, do not count. */
+  var applying=0, pokeT=null;
+  function watched(k){
+    return typeof k==='string' && k.indexOf('lena_')===0 &&
+      !/^lena_(sync_|auth$|signed_out$|api_absent$|sb_mini$|seen_home$|checkin_day$|user$|name_pending$|chat_)/.test(k);
+  }
+  function poke(k){
+    if(applying||!available||!me||!watched(k)) return;
+    clearTimeout(pokeT);
+    pokeT=setTimeout(function(){ pokeT=null; syncNow(); },2500);
+  }
+  try{
+    var SP=Storage.prototype, oGet=SP.getItem, oSet=SP.setItem, oRem=SP.removeItem;
+    var isLocal=function(s){ try{ return s===window.localStorage; }catch(e){ return false; } };
+    SP.setItem=function(k,v){
+      var loc=isLocal(this), before=null;
+      if(loc){ try{ before=oGet.call(this,k); }catch(e){} }
+      oSet.call(this,k,v);
+      if(loc && before!==String(v)) poke(k);
+    };
+    SP.removeItem=function(k){
+      var loc=isLocal(this), before=null;
+      if(loc){ try{ before=oGet.call(this,k); }catch(e){} }
+      oRem.call(this,k);
+      if(loc && before!==null) poke(k);
+    };
+  }catch(e){}
   function syncOnce(){
     if(!available||!me) return Promise.resolve(false);
     var since=null;
@@ -6567,7 +6941,7 @@ window.LENA_BACKEND = (function(){
         applyRemote(r.body.records||[]);
         try{ localStorage.setItem('lena_sync_since',r.body.now); }catch(e){}
         setKnown(localRecords());
-        ['renderMood','renderJournal','renderSleep','renderTrend','renderHomeStats','renderPrefs']
+        ['renderMood','renderJournal','renderSleep','renderTrend','renderHomeStats','renderPrefs','renderPlanCard']
           .forEach(function(fn){ try{ window[fn] && window[fn](); }catch(e){} });
         return true;
       })
@@ -6848,7 +7222,14 @@ window.LENA_BACKEND = (function(){
       })
       .catch(function(){ hideBusy(); authError('Could not reach LENA. Check your connection and try again.'); });
   }
-  function clearSynced(){ SYNC_KEYS.forEach(function(k){ try{ localStorage.removeItem(k); }catch(e){} }); }
+  var PERSONAL=['lena_prefs','lena_appearance','lena_sleep_plan','lena_muslim','lena_user','lena_name_pending'];
+  function clearSynced(){
+    var all=SYNC_KEYS.concat(PERSONAL);
+    Object.keys(EXTRA).forEach(function(g){ EXTRA[g].forEach(function(k){ if(k!=='lena_lang') all.push(k); }); });
+    applying++;
+    try{ all.forEach(function(k){ try{ localStorage.removeItem(k); }catch(e){} }); }
+    finally{ applying--; }
+  }
   /* Sign out of an account: back up first, then take the backed-up
      entries off this device. If the backup fails (offline), they stay
      here, so nothing is lost. Resolves true when this device is clear. */
@@ -6940,8 +7321,10 @@ window.LENA_BACKEND = (function(){
     }
   }
   window.addEventListener('online',push);
+  var lastPull=Date.now();
   document.addEventListener('visibilitychange',function(){
     if(document.visibilityState==='hidden') push();
+    else if(Date.now()-lastPull>60000){ lastPull=Date.now(); push(); }
   });
 })();
 
@@ -8087,7 +8470,11 @@ window.openPlan=function(){
   ordered=false;renderPlanModal();
   document.getElementById('plan-modal').classList.add('open');
 };
-window.closePlan=function(){document.getElementById('plan-modal').classList.remove('open');};
+window.closePlan=function(){document.getElementById('plan-modal').classList.remove('open');planSO=false;};
+// v43: from the sign-out question. Saving brings the question back.
+let planSO=false;
+window.planTomorrow=function(){return planFor(dayKey(addDays(1)));};
+window.planFromSignOut=function(){closeSignOut();openPlan();planSO=true;};
 window.planEdit=function(i,v){if(draft[i])draft[i].t=v;};
 window.planAdd=function(){if(draft.length<PMAX){draft.push({t:''});renderPlanModal();const f=document.querySelectorAll('.pl-inp');if(f.length)f[f.length-1].focus();}};
 window.planRemove=function(i){if(draft.length>PMIN){draft.splice(i,1);renderPlanModal();}};
@@ -8117,8 +8504,10 @@ window.planSave=function(by){
   const items=filled();
   if(items.length<PMIN){toast('Write at least 3 things first');return;}
   savePlanFor(dayKey(addDays(1)),{items:items.map(x=>({t:x.t.slice(0,100),why:(by==='ai'?x.why:'').slice(0,140),done:false})),by:by,made:Date.now()});
+  const back=planSO;
   closePlan();renderPlanCard();
-  toast('Saved. It will be waiting for you tomorrow.');
+  toast(back?'Plan saved. Sign out whenever you are ready.':'Saved. It will be waiting for you tomorrow.');
+  if(back)setTimeout(()=>{try{askSignOut();}catch(e){}},350);
 };
 
 // ── Summary for your doctor ──────────────────────────────────────────
@@ -8497,6 +8886,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     document.querySelectorAll('[data-lang-btn]').forEach(b=>b.setAttribute('aria-pressed',b.getAttribute('data-lang-btn')===l?'true':'false'));
     if(l==='ms')window.i18nLoad(apply); else apply();
     try{if(window.LENA_BACKEND&&LENA_BACKEND.renderGoogle)LENA_BACKEND.renderGoogle();}catch(e){}
+    try{renderHomeStats();}catch(e){}
   };
   document.querySelectorAll('[data-lang-btn]').forEach(b=>b.setAttribute('aria-pressed',b.getAttribute('data-lang-btn')===window.LENA_LANG?'true':'false'));
   mo.observe(document.body,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:ATTRS});
